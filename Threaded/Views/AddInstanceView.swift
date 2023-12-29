@@ -81,6 +81,8 @@ struct AddInstanceView: View {
                 }
             }
         }
+        .scrollContentBackground(.hidden)
+        .background(Color.appBackground)
         .onChange(of: instanceUrl) { _, newValue in
             guard !self.verifying else { return }
             verified = false
