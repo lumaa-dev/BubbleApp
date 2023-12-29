@@ -50,7 +50,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Log in your Mastodon account using its instance URL"
+            "value" : "Log in your Mastodon account using its instance URL. You cannot create an account using Threaded."
           }
         }
       }
@@ -208,6 +208,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ reposted"
+          }
+        }
+      }
+    },
+    "timeline.empty" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No posts"
+          }
+        }
+      }
+    },
+    "timeline.empty.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You don't have posts in your home timeline. Follow users or change timelines to see posts!"
           }
         }
       }
