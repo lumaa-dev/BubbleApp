@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @Environment(Client.self) private var client: Client
+//    @Environment(Client.self) private var client: Client
     
     @Namespace var accountAnims
     @Namespace var animPicture
@@ -13,12 +13,16 @@ struct ProfileView: View {
     @State private var location: CGPoint = .zero
     
     @State var account: Account
+    @State private var serverAccount: String = ""
     private let isCurrent: Bool = true
     private let animPicCurve = Animation.smooth(duration: 0.25, extraBounce: 0.0)
     
     var body: some View {
         NavigationStack(path: $navigator.path) {
             ZStack (alignment: .center) {
+                Color.appBackground
+                    .ignoresSafeArea()
+                
                 if account != Account.placeholder() {
                     if biggerPicture {
                         big
@@ -31,26 +35,30 @@ struct ProfileView: View {
             }
         }
         .refreshable {
-            if isCurrent {
-                do {
-                    if let saved: AppAccount = try AppAccount.loadAsCurrent() {
-                        let cli: Client = Client(server:  saved.server, oauthToken: saved.oauthToken)
-                        let acc: Account? = try await client.get(endpoint: Accounts.verifyCredentials)
-                        account = acc ?? Account.placeholder()
-                    }
-                } catch {
-                    print(error)
-                }
-            } else {
-                if let ref: Account = try? await client.get(endpoint: Accounts.accounts(id: account.id)) {
-                    account = ref
-                }
-            }
+            await reloadProfile()
+        }
+        .task {
+            await reloadProfile()
         }
         .environment(navigator)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(Color(uiColor: UIColor.systemBackground), for: .navigationBar)
+        .toolbarBackground(Color.appBackground, for: .navigationBar)
         .toolbarBackground(.automatic, for: .navigationBar)
+    }
+    
+    func reloadProfile() async {
+        if isCurrent {
+            do {
+                if let saved: AppAccount = try AppAccount.loadAsCurrent() {
+                    serverAccount = saved.server
+                    let cli: Client = Client(server:  saved.server, oauthToken: saved.oauthToken)
+                    let acc: Account? = try await cli.get(endpoint: Accounts.verifyCredentials)
+                    account = acc ?? Account.placeholder()
+                }
+            } catch {
+                print(error)
+            }
+        }
     }
     
     // MARK: - Headers
@@ -90,7 +98,7 @@ struct ProfileView: View {
                     }
                 }
                 .safeAreaPadding()
-                .background(Color(uiColor: UIColor.systemBackground))
+                .background(Color.appBackground)
             }
         }
         .withAppRouter()
@@ -135,7 +143,7 @@ struct ProfileView: View {
                     .disabled(true)
                 }
                 .safeAreaPadding()
-                .background(Color(uiColor: UIColor.systemBackground))
+                .background(Color.appBackground)
             }
         }
         .withAppRouter()
@@ -150,42 +158,16 @@ struct ProfileView: View {
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
                     
-                    let server = account.acct.split(separator: "@").last
-                    
                     HStack(alignment: .center) {
-                        if server != nil {
-                            if server! != account.username {
-                                Text("\(account.username)")
-                                    .font(.body)
-                                    .multilineTextAlignment(.leading)
-                                
-                                Text("\(server!.description)")
-                                    .font(.caption)
-                                    .foregroundStyle(Color.gray)
-                                    .multilineTextAlignment(.leading)
-                                    .pill()
-                            } else {
-                                Text("\(account.username)")
-                                    .font(.body)
-                                    .multilineTextAlignment(.leading)
-                                
-                                Text("\(client.server)")
-                                    .font(.caption)
-                                    .foregroundStyle(Color.gray)
-                                    .multilineTextAlignment(.leading)
-                                    .pill()
-                            }
-                        } else {
-                            Text("\(account.username)")
-                                .font(.body)
-                                .multilineTextAlignment(.leading)
-                            
-                            Text("\(client.server)")
-                                .font(.caption)
-                                .foregroundStyle(Color.gray)
-                                .multilineTextAlignment(.leading)
-                                .pill()
-                        }
+                        Text("\(account.username)")
+                            .font(.body)
+                            .multilineTextAlignment(.leading)
+                        
+                        Text("\(serverAccount)")
+                            .font(.caption)
+                            .foregroundStyle(Color.gray)
+                            .multilineTextAlignment(.leading)
+                            .pill()
                     }
                 }
             } else {
