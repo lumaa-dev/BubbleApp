@@ -21,6 +21,7 @@ struct SettingsView: View {
                 sheet = .welcome
             } label: {
                 Text("logout")
+                    .foregroundStyle(.red)
             }
             .tint(Color.red)
             .listRowSeparator(.hidden)
