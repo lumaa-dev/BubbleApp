@@ -141,11 +141,11 @@
 		B9FB944E2B2DEECE00D81C07 = {
 			isa = PBXGroup;
 			children = (
-				B97BCE292B3ED2C80044756D /* LICENSE */,
-				B97BCE272B3ED2A80044756D /* .gitignore */,
 				B9FB94592B2DEECE00D81C07 /* Threaded */,
 				B9FB94AB2B2F009F00D81C07 /* AuthService */,
 				B9FB94A82B2F009F00D81C07 /* Frameworks */,
+				B97BCE292B3ED2C80044756D /* LICENSE */,
+				B97BCE272B3ED2A80044756D /* .gitignore */,
 				B9FB94582B2DEECE00D81C07 /* Products */,
 			);
 			sourceTree = "<group>";
