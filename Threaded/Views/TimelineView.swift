@@ -13,22 +13,48 @@ struct TimelineView: View {
     var body: some View {
         NavigationStack(path: $navigator.path) {
             if statuses != nil {
-                ScrollView(showsIndicators: false) {
-                    Image("HeroIcon")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30)
-                        .padding(.bottom)
-                    
-                    ForEach(statuses!, id: \.id) { status in
-                        VStack(spacing: 2) {
-                            CompactPostView(status: status, navigator: navigator)
+                if !statuses!.isEmpty {
+                    ScrollView(showsIndicators: false) {
+                        Image("HeroIcon")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30)
+                            .padding(.bottom)
+                        
+                        ForEach(statuses!, id: \.id) { status in
+                            VStack(spacing: 2) {
+                                CompactPostView(status: status, navigator: navigator)
+                            }
                         }
                     }
+                    .padding(.top)
+                    .background(Color.appBackground)
+                    .withAppRouter()
+                } else {
+                    ZStack {
+                        Color.appBackground
+                            .ignoresSafeArea()
+                        
+                        VStack {
+                            Image("HeroIcon")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 50)
+                                .padding(.bottom)
+                            
+                            ContentUnavailableView {
+                                Text("timeline.empty")
+                                    .bold()
+                            } description: {
+                                Text("timeline.empty.description")
+                            }
+                            .scrollDisabled(true)
+                        }
+                        .scrollDisabled(true)
+                        .background(Color.appBackground)
+                        .frame(height: 150)
+                    }
                 }
-                .padding(.top)
-                .background(Color.appBackground)
-                .withAppRouter()
             } else {
                 ZStack {
                     Color.appBackground
