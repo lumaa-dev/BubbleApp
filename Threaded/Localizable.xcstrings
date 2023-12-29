@@ -1,0 +1,232 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "#%@" : {
+
+    },
+    "%@" : {
+
+    },
+    "•" : {
+
+    },
+    "accessibility.media.supported-type.audio.label" : {
+      "comment" : "A localized description of SupportedType.audio"
+    },
+    "accessibility.media.supported-type.gifv.label" : {
+      "comment" : "A localized description of SupportedType.gifv"
+    },
+    "accessibility.media.supported-type.image.label" : {
+      "comment" : "A localized description of SupportedType.image"
+    },
+    "accessibility.media.supported-type.video.label" : {
+      "comment" : "A localized description of SupportedType.video"
+    },
+    "Hello world" : {
+
+    },
+    "instance.rules" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rules"
+          }
+        }
+      }
+    },
+    "login.mastodon" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log in using Mastodon"
+          }
+        }
+      }
+    },
+    "login.mastodon.footer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log in your Mastodon account using its instance URL"
+          }
+        }
+      }
+    },
+    "login.mastodon.instance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the instance's URL"
+          }
+        }
+      }
+    },
+    "login.mastodon.login" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log in"
+          }
+        }
+      }
+    },
+    "login.mastodon.verify" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verify"
+          }
+        }
+      }
+    },
+    "login.mastodon.verify-error" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This might not be a Mastodon instance."
+          }
+        }
+      }
+    },
+    "login.no-account" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stay anonymous"
+          }
+        }
+      }
+    },
+    "login.no-account.footer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without an account, you cannot interact with posts, users and instances. You can only read posts and users' public data."
+          }
+        }
+      }
+    },
+    "login.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Threaded!"
+          }
+        }
+      }
+    },
+    "logout" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log out"
+          }
+        }
+      }
+    },
+    "Posting view" : {
+
+    },
+    "setting.privacy" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy"
+          }
+        }
+      }
+    },
+    "settings" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "status.favourites-%lld" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld like"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld likes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "status.replies-%lld" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld reply"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld replies"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "status.reposted-by.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ reposted"
+          }
+        }
+      }
+    },
+    "timeline.federated" : {
+
+    },
+    "timeline.home" : {
+
+    },
+    "timeline.latest" : {
+
+    },
+    "timeline.local" : {
+
+    },
+    "timeline.trending" : {
+
+    }
+  },
+  "version" : "1.0"
+}
