@@ -97,6 +97,7 @@ struct ProfileView: View {
                             .font(.title2)
                     }
                 }
+                .tint(Color(uiColor: UIColor.label))
                 .safeAreaPadding()
                 .background(Color.appBackground)
             }
