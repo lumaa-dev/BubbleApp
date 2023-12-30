@@ -10,6 +10,46 @@
     "•" : {
 
     },
+    "about" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
+          }
+        }
+      }
+    },
+    "about.app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About Threaded"
+          }
+        }
+      }
+    },
+    "about.app.details" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded is a very simple Mastodon client, that is meant to look like the newest social media Threads made by Meta Platforms. It integrates perfectly with your Mastodon account, and matches the Threads vibe, while having Mastodon-only features.\n\nThreaded is a 100% free, made in SwiftUI, [open-source](https://github.com/lumaa-dev/ThreadedApp), and doesn't violate [your privacy](https://apps.lumaa.fr/legal/privacy). [Learn more](https://apps.lumaa.fr/app/threaded)"
+          }
+        }
+      }
+    },
+    "about.app.third-party" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded uses third-party libraries and code:\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)"
+          }
+        }
+      }
+    },
     "accessibility.media.supported-type.audio.label" : {
       "comment" : "A localized description of SupportedType.audio"
     },
