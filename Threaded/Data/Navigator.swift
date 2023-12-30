@@ -68,6 +68,7 @@ public enum RouterDestination: Hashable {
     case settings
     case privacy
     case account(acc: Account)
+    case about
 }
 
 extension View {
@@ -80,6 +81,8 @@ extension View {
                     PrivacyView()
                 case .account(let acc):
                     AccountView(account: acc)
+                case .about:
+                    AboutView()
             }
         }
     }

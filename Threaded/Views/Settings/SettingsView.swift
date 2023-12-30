@@ -9,12 +9,18 @@ struct SettingsView: View {
     var body: some View {
         List {
             Button {
+                navigator.navigate(to: .about)
+            } label: {
+                Label("about", systemImage: "info.circle")
+            }
+            .listRowSeparator(.hidden)
+            
+            Button {
                 navigator.navigate(to: .privacy)
             } label: {
                 Label("setting.privacy", systemImage: "lock")
             }
-//            .listRowSeparator(.hidden)
-            .listRowSeparator(.visible)
+            .listRowSeparator(.hidden)
             
             Button {
                 UserDefaults.standard.removeObject(forKey: AppAccount.saveKey)
@@ -24,7 +30,7 @@ struct SettingsView: View {
                     .foregroundStyle(.red)
             }
             .tint(Color.red)
-            .listRowSeparator(.hidden)
+            .listRowSeparator(.visible, edges: .bottom)
         }
         .withCovers(sheetDestination: $sheet)
         .listStyle(.inset)
