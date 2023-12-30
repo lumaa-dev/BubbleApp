@@ -3,6 +3,7 @@
 import Foundation
 import SwiftUI
 
+// Doesn't seem to work?
 struct AsyncImageTransferable: Codable, Transferable {
     let url: URL
     
@@ -14,6 +15,7 @@ struct AsyncImageTransferable: Codable, Transferable {
         return Image(uiImage: uiimage)
     }
     
+    // MARK: A synchronous exporter should be used
     static var transferRepresentation: some TransferRepresentation {
         ProxyRepresentation { media in
             await media.fetchAsImage()
