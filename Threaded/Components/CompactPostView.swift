@@ -257,6 +257,7 @@ struct CompactPostView: View {
     }
     
     var stats: some View {
+        //MARK: I acknowledge the existance of a count bug here
         if status.reblog == nil {
             HStack {
                 if status.repliesCount > 0 {
