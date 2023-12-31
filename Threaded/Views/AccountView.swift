@@ -13,6 +13,8 @@ struct AccountView: View {
     @State private var location: CGPoint = .zero
     
     @State var account: Account
+    @State var statuses: [Status]?
+    @State var statusesPinned: [Status]?
     private let animPicCurve = Animation.smooth(duration: 0.25, extraBounce: 0.0)
     
     var body: some View {
@@ -30,6 +32,9 @@ struct AccountView: View {
         .refreshable {
             if let ref: Account = try? await client.get(endpoint: Accounts.accounts(id: account.id)) {
                 account = ref
+                
+                statuses = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
+                statusesPinned = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
             }
         }
         .background(Color.appBackground)
@@ -52,11 +57,46 @@ struct AccountView: View {
                     
                     Spacer()
                 }
+                
+                Rectangle()
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(width: .infinity, height: 1)
+                    .padding(.bottom, 3)
+                
+                statusesList
             }
             .safeAreaPadding(.vertical)
             .padding(.horizontal)
         }
         .withAppRouter()
+    }
+    
+    var statusesList: some View {
+        VStack {
+            if statuses != nil {
+                if !(statusesPinned?.isEmpty ?? true) {
+                    ForEach(statusesPinned!, id: \.id) { status in
+                        CompactPostView(status: status, navigator: navigator, pinned: true)
+                    }
+                }
+                if !statuses!.isEmpty {
+                    ForEach(statuses!, id: \.id) { status in
+                        CompactPostView(status: status, navigator: navigator)
+                    }
+                }
+            } else {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            }
+        }
+        .onAppear {
+            if statuses == nil {
+                Task {
+                    statuses = try await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
+                    statusesPinned = try await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
+                }
+            }
+        }
     }
     
     var loading: some View {
