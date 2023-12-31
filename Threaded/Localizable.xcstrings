@@ -220,6 +220,16 @@
         }
       }
     },
+    "status.pinned" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pinned"
+          }
+        }
+      }
+    },
     "status.replies-%lld" : {
       "localizations" : {
         "en" : {
