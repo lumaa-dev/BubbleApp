@@ -6,23 +6,30 @@ struct CompactPostView: View {
     @Environment(Client.self) private var client: Client
     var status: Status
     var navigator: Navigator
+    var pinned: Bool = false
     
+    @State private var initialLike: Bool = false
     @State private var isLiked: Bool = false
     @State private var isReposted: Bool = false
-    
-    @State private var incrLike: Bool = false
     
     var body: some View {
         VStack {
             if status.reblog != nil {
                 VStack(alignment: .leading) {
                     repostNotice
-                        .padding(.leading, 40)
+                        .padding(.leading, 30)
                     
                     statusRepost
                 }
             } else {
-                statusPost
+                VStack(alignment: .leading) {
+                    if pinned {
+                        pinnedNotice
+                            .padding(.leading, 15)
+                    }
+                    
+                    statusPost
+                }
             }
             
             Rectangle()
@@ -32,6 +39,7 @@ struct CompactPostView: View {
         }
         .onAppear {
             isLiked = status.reblog != nil ? status.reblog!.favourited ?? false : status.favourited ?? false
+            initialLike = isLiked
             isReposted = status.reblog != nil ? status.reblog!.reblogged ?? false : status.reblogged ?? false
         }
     }
@@ -63,32 +71,32 @@ struct CompactPostView: View {
     var statusPost: some View {
         HStack(alignment: .top, spacing: 0) {
             // MARK: Profile picture
-            if status.repliesCount > 0 {
-                VStack {
-                    profilePicture
-                        .onTapGesture {
-                            navigator.navigate(to: .account(acc: status.account))
-                        }
-                    
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.3))
-                        .frame(width: 2.5)
-                        .clipShape(.capsule)
-                        .padding([.vertical], 5)
-                    
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                        .symbolRenderingMode(.monochrome)
-                        .foregroundStyle(Color.gray.opacity(0.3))
-                        .padding(.bottom, 2.5)
-                }
-            } else {
+//            if status.repliesCount > 0 {
+//                VStack {
+//                    profilePicture
+//                        .onTapGesture {
+//                            navigator.navigate(to: .account(acc: status.account))
+//                        }
+//                    
+//                    Rectangle()
+//                        .fill(Color.gray.opacity(0.3))
+//                        .frame(width: 2.5)
+//                        .clipShape(.capsule)
+//                        .padding([.vertical], 5)
+//                    
+//                    Image(systemName: "person.crop.circle")
+//                        .resizable()
+//                        .frame(width: 15, height: 15)
+//                        .symbolRenderingMode(.monochrome)
+//                        .foregroundStyle(Color.gray.opacity(0.3))
+//                        .padding(.bottom, 2.5)
+//                }
+//            } else {
                 profilePicture
                     .onTapGesture {
                         navigator.navigate(to: .account(acc: status.account))
                     }
-            }
+//            }
             
             VStack(alignment: .leading) {
                 // MARK: Status main content
@@ -110,8 +118,8 @@ struct CompactPostView: View {
                 HStack(spacing: 13) {
                     asyncActionButton(isLiked ? "heart.fill" : "heart") {
                         do {
-                            HapticManager.playHaptics(haptics: Haptic.tap)
                             try await likePost()
+                            HapticManager.playHaptics(haptics: Haptic.tap)
                         } catch {
                             HapticManager.playHaptics(haptics: Haptic.error)
                             print("Error: \(error.localizedDescription)")
@@ -123,8 +131,8 @@ struct CompactPostView: View {
                     }
                     asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
                         do {
-                            HapticManager.playHaptics(haptics: Haptic.tap)
                             try await repostPost()
+                            HapticManager.playHaptics(haptics: Haptic.tap)
                         } catch {
                             HapticManager.playHaptics(haptics: Haptic.error)
                             print("Error: \(error.localizedDescription)")
@@ -147,32 +155,32 @@ struct CompactPostView: View {
     var statusRepost: some View {
         HStack(alignment: .top, spacing: 0) {
             // MARK: Profile picture
-            if status.reblog!.repliesCount > 0 {
-                VStack {
-                    profilePicture
-                        .onTapGesture {
-                            navigator.navigate(to: .account(acc: status.reblog!.account))
-                        }
-                    
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.3))
-                        .frame(width: 2.5)
-                        .clipShape(.capsule)
-                        .padding([.vertical], 5)
-                    
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                        .symbolRenderingMode(.monochrome)
-                        .foregroundStyle(Color.gray.opacity(0.3))
-                        .padding(.bottom, 2.5)
-                }
-            } else {
+//            if status.reblog!.repliesCount > 0 {
+//                VStack {
+//                    profilePicture
+//                        .onTapGesture {
+//                            navigator.navigate(to: .account(acc: status.reblog!.account))
+//                        }
+//                    
+//                    Rectangle()
+//                        .fill(Color.gray.opacity(0.3))
+//                        .frame(width: 2.5)
+//                        .clipShape(.capsule)
+//                        .padding([.vertical], 5)
+//                    
+//                    Image(systemName: "person.crop.circle")
+//                        .resizable()
+//                        .frame(width: 15, height: 15)
+//                        .symbolRenderingMode(.monochrome)
+//                        .foregroundStyle(Color.gray.opacity(0.3))
+//                        .padding(.bottom, 2.5)
+//                }
+//            } else {
                 profilePicture
                     .onTapGesture {
                         navigator.navigate(to: .account(acc: status.reblog!.account))
                     }
-            }
+//            }
             
             VStack(alignment: .leading) {
                 // MARK: Status main content
@@ -194,9 +202,8 @@ struct CompactPostView: View {
                 HStack(spacing: 13) {
                     asyncActionButton(isLiked ? "heart.fill" : "heart") {
                         do {
-                            HapticManager.playHaptics(haptics: Haptic.tap)
                             try await likePost()
-                            incrLike = isLiked
+                            HapticManager.playHaptics(haptics: Haptic.tap)
                         } catch {
                             HapticManager.playHaptics(haptics: Haptic.error)
                             print("Error: \(error.localizedDescription)")
@@ -208,8 +215,8 @@ struct CompactPostView: View {
                     }
                     asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
                         do {
-                            HapticManager.playHaptics(haptics: Haptic.tap)
                             try await repostPost()
+                            HapticManager.playHaptics(haptics: Haptic.tap)
                         } catch {
                             HapticManager.playHaptics(haptics: Haptic.error)
                             print("Error: \(error.localizedDescription)")
@@ -229,13 +236,26 @@ struct CompactPostView: View {
         }
     }
     
+    var pinnedNotice: some View {
+        HStack (alignment:.center, spacing: 5) {
+            Image(systemName: "pin.fill")
+            
+            Text("status.pinned")
+        }
+        .padding(.leading, 20)
+        .multilineTextAlignment(.leading)
+        .lineLimit(1)
+        .font(.caption)
+        .foregroundStyle(Color(uiColor: UIColor.label).opacity(0.3))
+    }
+    
     var repostNotice: some View {
         HStack (alignment:.center, spacing: 5) {
             Image(systemName: "bolt.horizontal")
             
             Text("status.reposted-by.\(status.account.username)")
         }
-        .padding(.leading, 25)
+        .padding(.leading, 20)
         .multilineTextAlignment(.leading)
         .lineLimit(1)
         .font(.caption)
@@ -272,8 +292,8 @@ struct CompactPostView: View {
                 }
                 
                 if status.favouritesCount > 0 || isLiked {
-                    let addedLike: Int = incrLike ? 1 : 0
-                    Text("status.favourites-\(status.favouritesCount + addedLike)")
+                    let addedLike: Int = isLiked ? 1 : 0
+                    Text("status.favourites-\(initialLike ? (status.favouritesCount - addedLike) : (status.favouritesCount + addedLike))")
                         .monospacedDigit()
                         .foregroundStyle(.gray)
                         .contentTransition(.numericText(value: Double(status.favouritesCount + addedLike)))
@@ -296,8 +316,8 @@ struct CompactPostView: View {
                 }
                 
                 if status.reblog!.favouritesCount > 0 || isLiked {
-                    let addedLike: Int = incrLike ? 1 : 0
-                    Text("status.favourites-\(status.reblog!.favouritesCount + addedLike)")
+                    let addedLike: Int = isLiked ? 1 : 0
+                    Text("status.favourites-\(initialLike ? (status.favouritesCount - addedLike) : (status.favouritesCount + addedLike))")
                         .monospacedDigit()
                         .foregroundStyle(.gray)
                         .contentTransition(.numericText(value: Double(status.reblog!.favouritesCount + addedLike)))
