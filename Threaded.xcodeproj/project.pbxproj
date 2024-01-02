@@ -207,6 +207,7 @@
 			children = (
 				B9FB94BD2B2F038D00D81C07 /* Accounts */,
 				B9FB946F2B2DF3CD00D81C07 /* Navigator.swift */,
+				B9FB94A12B2EF24A00D81C07 /* AppInfo.swift */,
 				B9FB94BB2B2F035500D81C07 /* Tag.swift */,
 				B9FB94802B2E1FEF00D81C07 /* HTMLString.swift */,
 				B9FB94872B2E223E00D81C07 /* Emoji.swift */,
@@ -214,7 +215,6 @@
 				B9FB949A2B2EF09A00D81C07 /* Client.swift */,
 				B9FB949C2B2EF0D600D81C07 /* Instance.swift */,
 				B9FB949E2B2EF0F200D81C07 /* MastodonRequest.swift */,
-				B9FB94A12B2EF24A00D81C07 /* AppInfo.swift */,
 				B9842C0F2B2F228C00D9F3C1 /* Status.swift */,
 				B9842C132B2F310C00D9F3C1 /* FetchTimeline.swift */,
 				B9842C172B2F36F500D9F3C1 /* AccountsList.swift */,
