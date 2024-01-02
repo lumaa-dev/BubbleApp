@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B93B676D2B42C94F000892E9 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B93B676C2B42C94F000892E9 /* Nuke */; };
+		B93B676F2B42C94F000892E9 /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = B93B676E2B42C94F000892E9 /* NukeExtensions */; };
+		B93B67712B42C94F000892E9 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = B93B67702B42C94F000892E9 /* NukeUI */; };
+		B93B67732B42C94F000892E9 /* NukeVideo in Frameworks */ = {isa = PBXBuildFile; productRef = B93B67722B42C94F000892E9 /* NukeVideo */; };
+		B93B67762B42E8AB000892E9 /* EmojiText in Frameworks */ = {isa = PBXBuildFile; productRef = B93B67752B42E8AB000892E9 /* EmojiText */; };
+		B93B67782B42E8F0000892E9 /* TextEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B67772B42E8F0000892E9 /* TextEmoji.swift */; };
+		B93B677A2B42EC51000892E9 /* MetaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B67792B42EC51000892E9 /* MetaPicker.swift */; };
+		B93B677C2B433A6E000892E9 /* PostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B677B2B433A6E000892E9 /* PostingView.swift */; };
 		B97BCE242B3DD8400044756D /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BCE232B3DD8400044756D /* HapticManager.swift */; };
 		B97BCE262B3DE5A10044756D /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BCE252B3DE5A10044756D /* AccountView.swift */; };
 		B97BCE282B3ED2A80044756D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B97BCE272B3ED2A80044756D /* .gitignore */; };
@@ -17,6 +25,7 @@
 		B9842C142B2F310C00D9F3C1 /* FetchTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9842C132B2F310C00D9F3C1 /* FetchTimeline.swift */; };
 		B9842C162B2F363600D9F3C1 /* TimelineFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9842C152B2F363600D9F3C1 /* TimelineFilter.swift */; };
 		B9842C182B2F36F500D9F3C1 /* AccountsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9842C172B2F36F500D9F3C1 /* AccountsList.swift */; };
+		B9B63B212B442D1500BBC82D /* DynamicTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B63B202B442D1500BBC82D /* DynamicTextEditor.swift */; };
 		B9CC45B82B40A2D6001E4FA5 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CC45B72B40A2D6001E4FA5 /* AboutView.swift */; };
 		B9FB945B2B2DEECE00D81C07 /* ThreadedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB945A2B2DEECE00D81C07 /* ThreadedApp.swift */; };
 		B9FB945D2B2DEECE00D81C07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB945C2B2DEECE00D81C07 /* ContentView.swift */; };
@@ -32,7 +41,6 @@
 		B9FB94842B2E20AF00D81C07 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = B9FB94832B2E20AF00D81C07 /* SwiftSoup */; };
 		B9FB94862B2E211200D81C07 /* Account+Elms.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB94852B2E211200D81C07 /* Account+Elms.swift */; };
 		B9FB94882B2E223E00D81C07 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB94872B2E223E00D81C07 /* Emoji.swift */; };
-		B9FB948A2B2E227000D81C07 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB94892B2E227000D81C07 /* ProfileView.swift */; };
 		B9FB948C2B2E232300D81C07 /* OnlineImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB948B2B2E232300D81C07 /* OnlineImage.swift */; };
 		B9FB948E2B2E28E800D81C07 /* ShareableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB948D2B2E28E800D81C07 /* ShareableImage.swift */; };
 		B9FB94902B2E2B0E00D81C07 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B9FB948F2B2E2B0E00D81C07 /* Localizable.xcstrings */; };
@@ -75,6 +83,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B93B67772B42E8F0000892E9 /* TextEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEmoji.swift; sourceTree = "<group>"; };
+		B93B67792B42EC51000892E9 /* MetaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaPicker.swift; sourceTree = "<group>"; };
+		B93B677B2B433A6E000892E9 /* PostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
 		B97BCE232B3DD8400044756D /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		B97BCE252B3DE5A10044756D /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		B97BCE272B3ED2A80044756D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -85,6 +96,7 @@
 		B9842C132B2F310C00D9F3C1 /* FetchTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTimeline.swift; sourceTree = "<group>"; };
 		B9842C152B2F363600D9F3C1 /* TimelineFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineFilter.swift; sourceTree = "<group>"; };
 		B9842C172B2F36F500D9F3C1 /* AccountsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsList.swift; sourceTree = "<group>"; };
+		B9B63B202B442D1500BBC82D /* DynamicTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextEditor.swift; sourceTree = "<group>"; };
 		B9CC45B72B40A2D6001E4FA5 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		B9CC45B92B40AA1E001E4FA5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B9FB94572B2DEECE00D81C07 /* Threaded.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Threaded.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,7 +113,6 @@
 		B9FB94802B2E1FEF00D81C07 /* HTMLString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLString.swift; sourceTree = "<group>"; };
 		B9FB94852B2E211200D81C07 /* Account+Elms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Account+Elms.swift"; sourceTree = "<group>"; };
 		B9FB94872B2E223E00D81C07 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
-		B9FB94892B2E227000D81C07 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B9FB948B2B2E232300D81C07 /* OnlineImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineImage.swift; sourceTree = "<group>"; };
 		B9FB948D2B2E28E800D81C07 /* ShareableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareableImage.swift; sourceTree = "<group>"; };
 		B9FB948F2B2E2B0E00D81C07 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -126,7 +137,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B93B67762B42E8AB000892E9 /* EmojiText in Frameworks */,
 				B9FB94842B2E20AF00D81C07 /* SwiftSoup in Frameworks */,
+				B93B676D2B42C94F000892E9 /* Nuke in Frameworks */,
+				B93B67732B42C94F000892E9 /* NukeVideo in Frameworks */,
+				B93B676F2B42C94F000892E9 /* NukeExtensions in Frameworks */,
+				B93B67712B42C94F000892E9 /* NukeUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,11 +228,11 @@
 			children = (
 				B9FB94952B2EDAB600D81C07 /* Settings */,
 				B9FB94712B2DF49700D81C07 /* ConnectView.swift */,
-				B9FB94892B2E227000D81C07 /* ProfileView.swift */,
 				B9FB94982B2EEB9400D81C07 /* AddInstanceView.swift */,
 				B9FB945C2B2DEECE00D81C07 /* ContentView.swift */,
 				B9842C112B2F2A5800D9F3C1 /* TimelineView.swift */,
 				B97BCE252B3DE5A10044756D /* AccountView.swift */,
+				B93B677B2B433A6E000892E9 /* PostingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -226,8 +242,11 @@
 			children = (
 				B9FB94752B2E023D00D81C07 /* TabsView.swift */,
 				B9FB94732B2DF6A100D81C07 /* ButtonStyles.swift */,
+				B93B67792B42EC51000892E9 /* MetaPicker.swift */,
 				B9FB948B2B2E232300D81C07 /* OnlineImage.swift */,
 				B9842C0D2B2F21B700D9F3C1 /* CompactPostView.swift */,
+				B93B67772B42E8F0000892E9 /* TextEmoji.swift */,
+				B9B63B202B442D1500BBC82D /* DynamicTextEditor.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -291,6 +310,11 @@
 			name = Threaded;
 			packageProductDependencies = (
 				B9FB94832B2E20AF00D81C07 /* SwiftSoup */,
+				B93B676C2B42C94F000892E9 /* Nuke */,
+				B93B676E2B42C94F000892E9 /* NukeExtensions */,
+				B93B67702B42C94F000892E9 /* NukeUI */,
+				B93B67722B42C94F000892E9 /* NukeVideo */,
+				B93B67752B42E8AB000892E9 /* EmojiText */,
 			);
 			productName = Threaded;
 			productReference = B9FB94572B2DEECE00D81C07 /* Threaded.app */;
@@ -342,6 +366,8 @@
 			mainGroup = B9FB944E2B2DEECE00D81C07;
 			packageReferences = (
 				B9FB94822B2E20AF00D81C07 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				B93B676B2B42C94F000892E9 /* XCRemoteSwiftPackageReference "Nuke" */,
+				B93B67742B42E8AB000892E9 /* XCRemoteSwiftPackageReference "EmojiText" */,
 			);
 			productRefGroup = B9FB94582B2DEECE00D81C07 /* Products */;
 			projectDirPath = "";
@@ -384,18 +410,19 @@
 				B9FB94922B2E35D000D81C07 /* SettingsView.swift in Sources */,
 				B9CC45B82B40A2D6001E4FA5 /* AboutView.swift in Sources */,
 				B9FB94882B2E223E00D81C07 /* Emoji.swift in Sources */,
+				B93B67782B42E8F0000892E9 /* TextEmoji.swift in Sources */,
 				B9FB94762B2E023D00D81C07 /* TabsView.swift in Sources */,
 				B9FB947D2B2E19E300D81C07 /* AccountManager.swift in Sources */,
 				B9FB945D2B2DEECE00D81C07 /* ContentView.swift in Sources */,
 				B9842C0E2B2F21B700D9F3C1 /* CompactPostView.swift in Sources */,
 				B9FB94992B2EEB9400D81C07 /* AddInstanceView.swift in Sources */,
 				B9FB94972B2EDABF00D81C07 /* PrivacyView.swift in Sources */,
-				B9FB948A2B2E227000D81C07 /* ProfileView.swift in Sources */,
 				B9842C142B2F310C00D9F3C1 /* FetchTimeline.swift in Sources */,
 				B9842C162B2F363600D9F3C1 /* TimelineFilter.swift in Sources */,
 				B9FB949B2B2EF09A00D81C07 /* Client.swift in Sources */,
 				B9FB949D2B2EF0D600D81C07 /* Instance.swift in Sources */,
 				B9842C102B2F228C00D9F3C1 /* Status.swift in Sources */,
+				B93B677A2B42EC51000892E9 /* MetaPicker.swift in Sources */,
 				B9FB94722B2DF49700D81C07 /* ConnectView.swift in Sources */,
 				B9FB945B2B2DEECE00D81C07 /* ThreadedApp.swift in Sources */,
 				B9FB94862B2E211200D81C07 /* Account+Elms.swift in Sources */,
@@ -406,8 +433,10 @@
 				B9FB948C2B2E232300D81C07 /* OnlineImage.swift in Sources */,
 				B9FB94742B2DF6A100D81C07 /* ButtonStyles.swift in Sources */,
 				B9FB94702B2DF3CD00D81C07 /* Navigator.swift in Sources */,
+				B93B677C2B433A6E000892E9 /* PostingView.swift in Sources */,
 				B97BCE262B3DE5A10044756D /* AccountView.swift in Sources */,
 				B97BCE242B3DD8400044756D /* HapticManager.swift in Sources */,
+				B9B63B212B442D1500BBC82D /* DynamicTextEditor.swift in Sources */,
 				B9FB949F2B2EF0F200D81C07 /* MastodonRequest.swift in Sources */,
 				B9842C182B2F36F500D9F3C1 /* AccountsList.swift in Sources */,
 				B9FB948E2B2E28E800D81C07 /* ShareableImage.swift in Sources */,
@@ -721,6 +750,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B93B676B2B42C94F000892E9 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.2.0;
+			};
+		};
+		B93B67742B42E8AB000892E9 /* XCRemoteSwiftPackageReference "EmojiText" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/divadretlaw/EmojiText";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 3.3.0;
+			};
+		};
 		B9FB94822B2E20AF00D81C07 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup";
@@ -732,6 +777,31 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B93B676C2B42C94F000892E9 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B93B676B2B42C94F000892E9 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		B93B676E2B42C94F000892E9 /* NukeExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B93B676B2B42C94F000892E9 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeExtensions;
+		};
+		B93B67702B42C94F000892E9 /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B93B676B2B42C94F000892E9 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
+		};
+		B93B67722B42C94F000892E9 /* NukeVideo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B93B676B2B42C94F000892E9 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeVideo;
+		};
+		B93B67752B42E8AB000892E9 /* EmojiText */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B93B67742B42E8AB000892E9 /* XCRemoteSwiftPackageReference "EmojiText" */;
+			productName = EmojiText;
+		};
 		B9FB94832B2E20AF00D81C07 /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B9FB94822B2E20AF00D81C07 /* XCRemoteSwiftPackageReference "SwiftSoup" */;

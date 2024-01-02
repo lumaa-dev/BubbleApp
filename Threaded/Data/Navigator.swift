@@ -4,13 +4,14 @@ import Foundation
 import SwiftUI
 
 @Observable
-public class Navigator {
+public class Navigator: ObservableObject {    
     public var path: [RouterDestination] = []
     public var presentedSheet: SheetDestination?
     public var selectedTab: TabDestination = .timeline
     
     public func navigate(to: RouterDestination) {
         path.append(to)
+        print("appended view")
     }
 }
 
@@ -37,7 +38,7 @@ public enum TabDestination: Identifiable {
 public enum SheetDestination: Identifiable {
     case welcome
     case mastodonLogin(logged: Binding<Bool>)
-    case post
+    case post(content: String = "")
     
     public var id: String {
         switch self {
@@ -72,15 +73,15 @@ public enum RouterDestination: Hashable {
 }
 
 extension View {
-    func withAppRouter() -> some View {
+    func withAppRouter(_ navigator: Navigator) -> some View {
         navigationDestination(for: RouterDestination.self) { destination in
             switch destination {
                 case .settings:
-                    SettingsView()
+                    SettingsView(navigator: navigator)
                 case .privacy:
                     PrivacyView()
                 case .account(let acc):
-                    AccountView(account: acc)
+                    AccountView(account: acc, navigator: navigator)
                 case .about:
                     AboutView()
             }
@@ -110,8 +111,11 @@ extension View {
                 }
             } else {
                 switch destination {
-                    case .post:
-                        Text("Posting view")
+                    case .post(let content):
+                        NavigationStack {
+                            PostingView(initialString: content)
+                                .tint(Color(uiColor: UIColor.label))
+                        }
                     case let .mastodonLogin(logged):
                         AddInstanceView(logged: logged)
                             .tint(Color.accentColor)

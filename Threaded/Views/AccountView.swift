@@ -3,38 +3,91 @@
 import SwiftUI
 
 struct AccountView: View {
-    @Environment(Client.self) private var client: Client
+    @Environment(AccountManager.self) private var accountManager: AccountManager
     
     @Namespace var accountAnims
     @Namespace var animPicture
-    
-    @State private var navigator: Navigator = Navigator()
     @State private var biggerPicture: Bool = false
-    @State private var location: CGPoint = .zero
     
+    @State var isCurrent: Bool = false
     @State var account: Account
-    @State var statuses: [Status]?
-    @State var statusesPinned: [Status]?
+    @State var navigator: Navigator = Navigator()
+    
+    @State private var canFollow: Bool? = nil
+    @State private var initialFollowing: Bool = false
+    @State private var isFollowing: Bool = false
+    @State private var accountFollows: Bool = false
+    
+    @State private var statuses: [Status]?
+    @State private var statusesPinned: [Status]?
+    
     private let animPicCurve = Animation.smooth(duration: 0.25, extraBounce: 0.0)
     
     var body: some View {
+        if isCurrent {
+            NavigationStack(path: $navigator.path) {
+                accountView
+                    .onAppear {
+                        account = accountManager.forceAccount()
+                    }
+            }
+        } else {
+            accountView
+        }
+    }
+    
+    var accountView: some View {
         ZStack (alignment: .center) {
             if account != Account.placeholder() {
                 if biggerPicture {
                     big
+                        .navigationBarBackButtonHidden()
+                        .toolbar(.hidden, for: .navigationBar)
                 } else {
                     wholeSmall
+                        .offset(y: isCurrent ? 50 : 0)
+                        .overlay(alignment: .top) {
+                            if isCurrent {
+                                HStack {
+                                    Button {
+                                        navigator.navigate(to: .privacy)
+                                    } label: {
+                                        Image(systemName: "globe")
+                                            .font(.title2)
+                                    }
+                                    
+                                    Spacer() // middle seperation
+                                    
+                                    Button {
+                                        navigator.navigate(to: .settings)
+                                    } label: {
+                                        Image(systemName: "text.alignright")
+                                            .font(.title2)
+                                    }
+                                }
+                                .tint(Color(uiColor: UIColor.label))
+                                .safeAreaPadding()
+                                .background(Color.appBackground)
+                            }
+                        }
                 }
             } else {
                 loading
             }
         }
+        .task {
+            await updateRelationship()
+            initialFollowing = isFollowing
+        }
         .refreshable {
-            if let ref: Account = try? await client.get(endpoint: Accounts.accounts(id: account.id)) {
-                account = ref
-                
-                statuses = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
-                statusesPinned = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
+            if let client = accountManager.getClient() {
+                if let ref: Account = try? await client.get(endpoint: Accounts.accounts(id: account.id)) {
+                    account = ref
+                    
+                    await updateRelationship()
+                    statuses = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
+                    statusesPinned = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
+                }
             }
         }
         .background(Color.appBackground)
@@ -48,27 +101,72 @@ struct AccountView: View {
     var wholeSmall: some View {
         ScrollView {
             VStack {
-                unbig
-                
-                HStack {
-                    Text(account.note.asRawText)
-                        .font(.body)
-                        .multilineTextAlignment(.leading)
+                VStack (alignment: .leading) {
+                    unbig
                     
-                    Spacer()
+                    Text(account.note.asRawText)
+                        .font(.callout)
+                        .multilineTextAlignment(.leading)
+                        .padding(.vertical, 5)
+                    
+                    let followCount = (account.followersCount ?? 0 - (initialFollowing ? 1 : 0)) + (isFollowing ? 1 : 0)
+                    Text("account.followers-\(followCount)")
+                        .foregroundStyle(Color.gray)
+                        .multilineTextAlignment(.leading)
+                        .font(.callout)
+                    
+                    if canFollow != nil && (canFollow ?? true) == true {
+                        HStack (spacing: 5) {
+                            Button {
+                                Task {
+                                    await followAccount()
+                                }
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text(isFollowing ? "account.unfollow" : accountFollows ? "account.follow-back" : "account.follow")
+                                        .font(.callout)
+                                    Spacer()
+                                }
+                            }
+                            .buttonStyle(LargeButton(filled: true, height: 10))
+                            
+                            Button {
+                                if let server = account.acct.split(separator: "@").last {
+                                    navigator.presentedSheet = .post(content: "@\(account.username)@\(server)")
+                                } else {
+                                    let client = accountManager.getClient()
+                                    navigator.presentedSheet = .post(content: "@\(account.username)@\(client?.server ?? "???")")
+                                }
+                                
+                                
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text("account.mention")
+                                        .font(.callout)
+                                    Spacer()
+                                }
+                            }
+                            .buttonStyle(LargeButton(filled: false, height: 10))
+                        }
+                    }
                 }
+                .padding(.horizontal)
                 
-                Rectangle()
-                    .fill(Color.gray.opacity(0.2))
-                    .frame(width: .infinity, height: 1)
-                    .padding(.bottom, 3)
-                
-                statusesList
+                VStack {
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: .infinity, height: 1)
+                        .padding(.bottom, 3)
+                    
+                    statusesList
+                }
             }
             .safeAreaPadding(.vertical)
             .padding(.horizontal)
         }
-        .withAppRouter()
+        .withAppRouter(navigator)
     }
     
     var statusesList: some View {
@@ -91,10 +189,38 @@ struct AccountView: View {
         }
         .onAppear {
             if statuses == nil {
-                Task {
-                    statuses = try await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
-                    statusesPinned = try await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
+                if let client = accountManager.getClient() {
+                    Task {
+                        statuses = try await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
+                        statusesPinned = try await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
+                    }
                 }
+            }
+        }
+    }
+    
+    func followAccount() async {
+        if let client = accountManager.getClient() {
+            Task {
+                let endpoint: Endpoint = isFollowing ? Accounts.unfollow(id: account.id) : Accounts.follow(id: account.id, notify: false, reblogs: true)
+                HapticManager.playHaptics(haptics: Haptic.tap)
+                try await client.post(endpoint: endpoint) // Notify off until APNs? | Reblogs on by default (later changeable)
+                isFollowing = !isFollowing
+            }
+        }
+    }
+    
+    func updateRelationship() async {
+        if let client = accountManager.getClient() {
+            if let currentAccount: Account = try? await client.get(endpoint: Accounts.verifyCredentials) {
+                canFollow = currentAccount.id != account.id
+                guard canFollow == true else { return }
+                if let relationship: [Relationship] = try? await client.get(endpoint: Accounts.relationships(ids: [account.id])) {
+                    isFollowing = relationship.first!.following
+                    accountFollows = relationship.first!.followedBy
+                }
+            } else {
+                canFollow = false
             }
         }
     }
@@ -117,7 +243,6 @@ struct AccountView: View {
             .safeAreaPadding(.vertical)
             .padding(.horizontal)
         }
-        .withAppRouter()
     }
     
     var unbig: some View {
@@ -130,6 +255,7 @@ struct AccountView: View {
                         .lineLimit(1)
                     
                     let server = account.acct.split(separator: "@").last
+                    let client = accountManager.getClient()
                     
                     HStack(alignment: .center) {
                         if server != nil {
@@ -148,7 +274,7 @@ struct AccountView: View {
                                     .font(.body)
                                     .multilineTextAlignment(.leading)
                                 
-                                Text("\(client.server)")
+                                Text("\(client?.server ?? "???")")
                                     .font(.caption)
                                     .foregroundStyle(Color.gray)
                                     .multilineTextAlignment(.leading)
@@ -159,7 +285,7 @@ struct AccountView: View {
                                 .font(.body)
                                 .multilineTextAlignment(.leading)
                             
-                            Text("\(client.server)")
+                            Text("\(client?.server ?? "???")")
                                 .font(.caption)
                                 .foregroundStyle(Color.gray)
                                 .multilineTextAlignment(.leading)
@@ -197,7 +323,7 @@ struct AccountView: View {
     }
     
     var profilePicture: some View {
-        OnlineImage(url: account.avatar)
+        OnlineImage(url: account.avatar, size: biggerPicture ? 300 : 50, useNuke: true)
             .clipShape(.circle)
             .matchedGeometryEffect(id: animPicture, in: accountAnims)
             .onTapGesture {

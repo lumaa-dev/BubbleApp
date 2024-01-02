@@ -30,6 +30,10 @@ struct FetchTimeline {
         return []
     }
     
+    mutating func setTimelineFilter(_ filter: TimelineFilter) {
+        self.timeline = filter
+    }
+    
     func getStatuses() -> [Status] {
         return datasource
     }

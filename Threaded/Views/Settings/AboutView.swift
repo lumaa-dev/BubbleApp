@@ -15,6 +15,8 @@ struct AboutView: View {
             .listRowBackground(Color.appBackground)
         }
         .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .background(Color.appBackground)
         .navigationTitle("about")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -29,6 +31,8 @@ struct AboutView: View {
             }
             .padding(.horizontal)
         }
+        .scrollContentBackground(.hidden)
+        .background(Color.appBackground)
         .navigationTitle("about.app")
         .navigationBarTitleDisplayMode(.large)
     }

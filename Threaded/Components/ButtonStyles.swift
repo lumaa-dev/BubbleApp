@@ -4,10 +4,12 @@ import SwiftUI
 
 struct LargeButton: ButtonStyle {
     var filled: Bool = false
+    var height: CGFloat? = nil
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding()
+            .padding(.horizontal)
+            .padding(.vertical, height)
             .background {
                 if filled {
                     Color(uiColor: UIColor.label)

@@ -34,7 +34,7 @@ struct TabsView: View {
             Spacer()
             
             Button {
-                navigator.presentedSheet = .post
+                navigator.presentedSheet = .post()
             } label: {
                 Tabs.post.image
             }
@@ -66,7 +66,6 @@ struct TabsView: View {
             }
             .buttonStyle(NoTapAnimationStyle())
         }
-        .withSheets(sheetDestination: $navigator.presentedSheet)
         .padding(.horizontal, 30)
         .background(Color.appBackground)
     }
@@ -127,7 +126,7 @@ enum Tabs {
 extension Image {
     func tabBarify(_ neutral: Bool = true) -> some View {
         self
-            .font(.title2)
+            .font(.title)
             .opacity(neutral ? 0.3 : 1)
     }
 }

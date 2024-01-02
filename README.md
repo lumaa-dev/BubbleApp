@@ -11,3 +11,4 @@ Threaded is a 100% free, made in SwiftUI, [#OpenSource](https://github.com/luma
 - [Lumaa](https://lumaa.fr/)
 - [IceCubesApp](https://github.com/dimillian/IceCubesApp) by [@dimillian](https://github.com/dimillian)
 - [SwiftSoup](https://github.com/scinfu/SwiftSoup)
+- [Nuke](https://github.com/kean/Nuke)

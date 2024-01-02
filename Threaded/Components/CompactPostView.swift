@@ -3,9 +3,9 @@
 import SwiftUI
 
 struct CompactPostView: View {
-    @Environment(Client.self) private var client: Client
+    @Environment(AccountManager.self) private var accountManager: AccountManager
     var status: Status
-    var navigator: Navigator
+    @ObservedObject var navigator: Navigator
     var pinned: Bool = false
     
     @State private var initialLike: Bool = false
@@ -14,22 +14,18 @@ struct CompactPostView: View {
     
     var body: some View {
         VStack {
-            if status.reblog != nil {
-                VStack(alignment: .leading) {
+            VStack(alignment: .leading) {
+                if pinned {
+                    pinnedNotice
+                        .padding(.leading, 35)
+                }
+                
+                if status.reblog != nil {
                     repostNotice
                         .padding(.leading, 30)
-                    
-                    statusRepost
                 }
-            } else {
-                VStack(alignment: .leading) {
-                    if pinned {
-                        pinnedNotice
-                            .padding(.leading, 15)
-                    }
-                    
-                    statusPost
-                }
+                
+                statusPost(status.reblog ?? status)
             }
             
             Rectangle()
@@ -45,58 +41,67 @@ struct CompactPostView: View {
     }
     
     func likePost() async throws {
-        guard client.isAuth else { fatalError("Client is not authenticated") }
-        let statusId: String = status.reblog != nil ? status.reblog!.id : status.id
-        let endpoint = !isLiked ? Statuses.favorite(id: statusId) : Statuses.unfavorite(id: statusId)
-        
-        isLiked = !isLiked
-        let newStatus: Status = try await client.post(endpoint: endpoint)
-        if isLiked != newStatus.favourited {
-            isLiked = newStatus.favourited ?? !isLiked
+        if let client = accountManager.getClient() {
+            guard client.isAuth else { fatalError("Client is not authenticated") }
+            let statusId: String = status.reblog != nil ? status.reblog!.id : status.id
+            let endpoint = !isLiked ? Statuses.favorite(id: statusId) : Statuses.unfavorite(id: statusId)
+            
+            isLiked = !isLiked
+            let newStatus: Status = try await client.post(endpoint: endpoint)
+            if isLiked != newStatus.favourited {
+                isLiked = newStatus.favourited ?? !isLiked
+            }
         }
     }
     
     func repostPost() async throws {
-        guard client.isAuth else { fatalError("Client is not authenticated") }
-        let statusId: String = status.reblog != nil ? status.reblog!.id : status.id
-        let endpoint = !isReposted ? Statuses.reblog(id: statusId) : Statuses.unreblog(id: statusId)
-        
-        isReposted = !isReposted
-        let newStatus: Status = try await client.post(endpoint: endpoint)
-        if isReposted != newStatus.reblogged {
-            isReposted = newStatus.reblogged ?? !isReposted
+        if let client = accountManager.getClient() {
+            guard client.isAuth else { fatalError("Client is not authenticated") }
+            let statusId: String = status.reblog != nil ? status.reblog!.id : status.id
+            let endpoint = !isReposted ? Statuses.reblog(id: statusId) : Statuses.unreblog(id: statusId)
+            
+            isReposted = !isReposted
+            let newStatus: Status = try await client.post(endpoint: endpoint)
+            if isReposted != newStatus.reblogged {
+                isReposted = newStatus.reblogged ?? !isReposted
+            }
         }
     }
     
-    var statusPost: some View {
+    @ViewBuilder
+    func statusPost(_ status: AnyStatus) -> some View {
         HStack(alignment: .top, spacing: 0) {
             // MARK: Profile picture
-//            if status.repliesCount > 0 {
-//                VStack {
-//                    profilePicture
-//                        .onTapGesture {
-//                            navigator.navigate(to: .account(acc: status.account))
-//                        }
-//                    
-//                    Rectangle()
-//                        .fill(Color.gray.opacity(0.3))
-//                        .frame(width: 2.5)
-//                        .clipShape(.capsule)
-//                        .padding([.vertical], 5)
-//                    
-//                    Image(systemName: "person.crop.circle")
-//                        .resizable()
-//                        .frame(width: 15, height: 15)
-//                        .symbolRenderingMode(.monochrome)
-//                        .foregroundStyle(Color.gray.opacity(0.3))
-//                        .padding(.bottom, 2.5)
-//                }
-//            } else {
+            if status.repliesCount > 0 {
+                VStack {
+                    profilePicture
+                        .onTapGesture {
+                            navigator.navigate(to: .account(acc: status.account))
+                        }
+                    
+                    Spacer()
+
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(width: 2.5)
+                        .clipShape(.capsule)
+                        .padding([.vertical], 5)
+                    
+                    Spacer()
+
+                    Image(systemName: "person.crop.circle")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                        .symbolRenderingMode(.monochrome)
+                        .foregroundStyle(Color.gray.opacity(0.3))
+                        .padding(.bottom, 2.5)
+                }
+            } else {
                 profilePicture
                     .onTapGesture {
                         navigator.navigate(to: .account(acc: status.account))
                     }
-//            }
+            }
             
             VStack(alignment: .leading) {
                 // MARK: Status main content
@@ -108,10 +113,11 @@ struct CompactPostView: View {
                             navigator.navigate(to: .account(acc: status.account))
                         }
                     
-                    Text(status.content.asRawText)
-                        .multilineTextAlignment(.leading)
-                        .frame(width: 300, alignment: .topLeading)
-                        .fixedSize(horizontal: false, vertical: true)
+                    TextEmoji(status.content, emojis: status.emojis, language: status.language)
+                    .multilineTextAlignment(.leading)
+                    .frame(width: 300, alignment: .topLeading)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .font(.callout)
                 }
                 
                 //MARK: Action buttons
@@ -127,7 +133,7 @@ struct CompactPostView: View {
                     }
                     actionButton("bubble.right") {
                         print("reply")
-                        navigator.presentedSheet = .post
+                        navigator.presentedSheet = .post()
                     }
                     asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
                         do {
@@ -139,90 +145,6 @@ struct CompactPostView: View {
                         }
                     }
                     ShareLink(item: URL(string: status.url ?? "https://joinmastodon.org/")!) {
-                        Image(systemName: "square.and.arrow.up")
-                            .font(.title2)
-                    }
-                    .tint(Color(uiColor: UIColor.label))
-                }
-                .padding(.top)
-                
-                // MARK: Status stats
-                stats.padding(.top, 5)
-            }
-        }
-    }
-    
-    var statusRepost: some View {
-        HStack(alignment: .top, spacing: 0) {
-            // MARK: Profile picture
-//            if status.reblog!.repliesCount > 0 {
-//                VStack {
-//                    profilePicture
-//                        .onTapGesture {
-//                            navigator.navigate(to: .account(acc: status.reblog!.account))
-//                        }
-//                    
-//                    Rectangle()
-//                        .fill(Color.gray.opacity(0.3))
-//                        .frame(width: 2.5)
-//                        .clipShape(.capsule)
-//                        .padding([.vertical], 5)
-//                    
-//                    Image(systemName: "person.crop.circle")
-//                        .resizable()
-//                        .frame(width: 15, height: 15)
-//                        .symbolRenderingMode(.monochrome)
-//                        .foregroundStyle(Color.gray.opacity(0.3))
-//                        .padding(.bottom, 2.5)
-//                }
-//            } else {
-                profilePicture
-                    .onTapGesture {
-                        navigator.navigate(to: .account(acc: status.reblog!.account))
-                    }
-//            }
-            
-            VStack(alignment: .leading) {
-                // MARK: Status main content
-                VStack(alignment: .leading, spacing: 10) {
-                    Text(status.reblog!.account.username)
-                        .multilineTextAlignment(.leading)
-                        .bold()
-                        .onTapGesture {
-                            navigator.navigate(to: .account(acc: status.reblog!.account))
-                        }
-                    
-                    Text(status.reblog!.content.asRawText)
-                        .multilineTextAlignment(.leading)
-                        .frame(width: 300, alignment: .topLeading)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                
-                //MARK: Action buttons
-                HStack(spacing: 13) {
-                    asyncActionButton(isLiked ? "heart.fill" : "heart") {
-                        do {
-                            try await likePost()
-                            HapticManager.playHaptics(haptics: Haptic.tap)
-                        } catch {
-                            HapticManager.playHaptics(haptics: Haptic.error)
-                            print("Error: \(error.localizedDescription)")
-                        }
-                    }
-                    actionButton("bubble.right") {
-                        print("reply")
-                        navigator.presentedSheet = .post
-                    }
-                    asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
-                        do {
-                            try await repostPost()
-                            HapticManager.playHaptics(haptics: Haptic.tap)
-                        } catch {
-                            HapticManager.playHaptics(haptics: Haptic.error)
-                            print("Error: \(error.localizedDescription)")
-                        }
-                    }
-                    ShareLink(item: URL(string: status.reblog!.url ?? "https://joinmastodon.org/")!) {
                         Image(systemName: "square.and.arrow.up")
                             .font(.title2)
                     }
@@ -264,12 +186,12 @@ struct CompactPostView: View {
     
     var profilePicture: some View {
         if status.reblog != nil {
-            OnlineImage(url: status.reblog!.account.avatar)
+            OnlineImage(url: status.reblog!.account.avatar, size: 50, useNuke: true)
                 .frame(width: 40, height: 40)
                 .padding(.horizontal)
                 .clipShape(.circle)
         } else {
-            OnlineImage(url: status.account.avatar)
+            OnlineImage(url: status.account.avatar, size: 50, useNuke: true)
                 .frame(width: 40, height: 40)
                 .padding(.horizontal)
                 .clipShape(.circle)
@@ -292,11 +214,12 @@ struct CompactPostView: View {
                 }
                 
                 if status.favouritesCount > 0 || isLiked {
-                    let addedLike: Int = isLiked ? 1 : 0
-                    Text("status.favourites-\(initialLike ? (status.favouritesCount - addedLike) : (status.favouritesCount + addedLike))")
+                    let i: Int = status.favouritesCount
+                    let favsCount: Int = i - (initialLike ? 1 : 0) + (isLiked ? 1 : 0)
+                    Text("status.favourites-\(favsCount)")
                         .monospacedDigit()
                         .foregroundStyle(.gray)
-                        .contentTransition(.numericText(value: Double(status.favouritesCount + addedLike)))
+                        .contentTransition(.numericText(value: Double(favsCount)))
                         .transaction { t in
                             t.animation = .default
                         }
@@ -316,11 +239,11 @@ struct CompactPostView: View {
                 }
                 
                 if status.reblog!.favouritesCount > 0 || isLiked {
-                    let addedLike: Int = isLiked ? 1 : 0
-                    Text("status.favourites-\(initialLike ? (status.favouritesCount - addedLike) : (status.favouritesCount + addedLike))")
+                    let favsCount: Int = (status.favouritesCount - (initialLike ? 1 : 0)) + (isLiked ? 1 : 0)
+                    Text("status.favourites-\(favsCount)")
                         .monospacedDigit()
                         .foregroundStyle(.gray)
-                        .contentTransition(.numericText(value: Double(status.reblog!.favouritesCount + addedLike)))
+                        .contentTransition(.numericText(value: Double(favsCount)))
                         .transaction { t in
                             t.animation = .default
                         }

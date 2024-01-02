@@ -5,14 +5,13 @@ import SwiftUI
 struct ContentView: View {
     @State private var navigator = Navigator()
     @State private var sheet: SheetDestination?
-    @State private var client: Client?
-    @State private var currentAccount: Account?
+    @State private var accountManager: AccountManager = AccountManager()
     
     var body: some View {
         TabView(selection: $navigator.selectedTab, content: {
             ZStack {
-                if client != nil {
-                    TimelineView(timelineModel: FetchTimeline(client: self.client!))
+                if accountManager.getClient() != nil {
+                    TimelineView(navigator: navigator, timelineModel: FetchTimeline(client: accountManager.forceClient()))
                         .background(Color.appBackground)
                         .safeAreaPadding()
                 } else {
@@ -33,9 +32,10 @@ struct ContentView: View {
                 .background(Color.appBackground)
                 .tag(TabDestination.activity)
             
-            ProfileView(account: currentAccount ?? .placeholder())
+            AccountView(isCurrent: true, account: accountManager.getAccount() ?? .placeholder())
                 .background(Color.appBackground)
                 .tag(TabDestination.profile)
+            
         })
         .overlay(alignment: .bottom) {
             TabsView(navigator: navigator)
@@ -43,17 +43,22 @@ struct ContentView: View {
                 .zIndex(10)
         }
         .withCovers(sheetDestination: $sheet)
+        .withSheets(sheetDestination: $navigator.presentedSheet)
+        .environment(accountManager)
         .environment(navigator)
-        .environment(client)
-        .onAppear {
-            let acc = try? AppAccount.loadAsCurrent()
-            if acc == nil {
-                sheet = .welcome
-            } else {
-                Task {
-                    client = .init(server: acc!.server, oauthToken: acc!.oauthToken)
-                    currentAccount = try? await client!.get(endpoint: Accounts.verifyCredentials)
-                }
+        .task {
+            await recognizeAccount()
+        }
+    }
+    
+    func recognizeAccount() async {
+        let acc = try? AppAccount.loadAsCurrent()
+        if acc == nil {
+            sheet = .welcome
+        } else {
+            Task {
+                accountManager.setClient(.init(server: acc!.server, oauthToken: acc!.oauthToken))
+                await accountManager.fetchAccount()
             }
         }
     }
@@ -68,6 +73,7 @@ struct ContentView: View {
         appearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color.accentColor)]
         
         UITabBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().tintColor = UIColor.label
     }
 }
 

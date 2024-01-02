@@ -10,6 +10,12 @@ struct ConnectView: View {
     
     var body: some View {
         VStack {
+            Image("HeroIcon")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 30)
+                .padding(.bottom)
+            
             Text("login.title")
                 .font(.title.bold())
                 .multilineTextAlignment(.center)
@@ -30,6 +36,7 @@ struct ConnectView: View {
                     noAccount
                 }
                 .buttonStyle(LargeButton())
+                .disabled(true)
             }
             .padding(.vertical, 100)
         }

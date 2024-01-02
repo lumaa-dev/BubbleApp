@@ -2,11 +2,61 @@
 
 import Foundation
 
+@Observable
+public class AccountManager {
+    private var client: Client?
+    private var account: Account?
+    
+    init(client: Client? = nil, account: Account? = nil) {
+        self.client = client
+        self.account = account
+    }
+    
+    public func clear() {
+        self.client = nil
+        self.account = nil
+    }
+    
+    public func setClient(_ client: Client) {
+        self.client = client
+    }
+    
+    public func getClient() -> Client? {
+        return client
+    }
+    
+    public func getAccount() -> Account? {
+        return account
+    }
+    
+    public func forceClient() -> Client {
+        if client != nil {
+            return client!
+        } else {
+            fatalError("Client is not existant in that context")
+        }
+    }
+    
+    public func forceAccount() -> Account {
+        if account != nil {
+            return account!
+        } else {
+            fatalError("Account is not existant in that context and couldn't be fetched from Client")
+        }
+    }
+    
+    public func fetchAccount() async -> Account? {
+        guard client != nil else { fatalError("Client is not existant in that context") }
+        account = try? await client!.get(endpoint: Accounts.verifyCredentials)
+        return account
+    }
+}
+
 public struct AppAccount: Codable, Identifiable, Hashable {
     public let server: String
     public var accountName: String?
     public let oauthToken: OauthToken?
-    public static let saveKey: String = "threaded-appaccount.current"
+    private static let saveKey: String = "threaded-appaccount.current"
     
     public var key: String {
         if let oauthToken {
@@ -42,6 +92,10 @@ public struct AppAccount: Codable, Identifiable, Hashable {
             return account
         }
         return nil
+    }
+    
+    static func clear() {
+        UserDefaults.standard.removeObject(forKey: AppAccount.saveKey)
     }
 }
 

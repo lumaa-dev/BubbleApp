@@ -45,7 +45,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Threaded uses third-party libraries and code:\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)"
+            "value" : "Threaded uses third-party open-source libraries and code:\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)\n- [Nuke](https://github.com/kean/Nuke)"
           }
         }
       }
@@ -61,6 +61,78 @@
     },
     "accessibility.media.supported-type.video.label" : {
       "comment" : "A localized description of SupportedType.video"
+    },
+    "account.follow" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow"
+          }
+        }
+      }
+    },
+    "account.follow-back" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow back"
+          }
+        }
+      }
+    },
+    "account.followers-%lld" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld follower"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld followers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "account.mention" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mention"
+          }
+        }
+      }
+    },
+    "account.unfollow" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unfollow"
+          }
+        }
+      }
+    },
+    "error.loading-image" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Image Error"
+          }
+        }
+      }
     },
     "Hello world" : {
 
@@ -175,9 +247,6 @@
         }
       }
     },
-    "Posting view" : {
-
-    },
     "setting.privacy" : {
       "localizations" : {
         "en" : {
@@ -226,6 +295,96 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pinned"
+          }
+        }
+      }
+    },
+    "status.posting" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New post"
+          }
+        }
+      }
+    },
+    "status.posting.cancel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "status.posting.placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What's new?"
+          }
+        }
+      }
+    },
+    "status.posting.post" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post"
+          }
+        }
+      }
+    },
+    "status.posting.visibility" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visibility"
+          }
+        }
+      }
+    },
+    "status.posting.visibility.direct" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Direct Message"
+          }
+        }
+      }
+    },
+    "status.posting.visibility.private" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Private"
+          }
+        }
+      }
+    },
+    "status.posting.visibility.public" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Public"
+          }
+        }
+      }
+    },
+    "status.posting.visibility.unlisted" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlisted"
           }
         }
       }
