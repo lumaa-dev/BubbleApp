@@ -37,6 +37,7 @@ struct OnlineImage: View {
                     .resizable()
                     .scaledToFit()
                     .aspectRatio(1.0, contentMode: .fit)
+                    .frame(width: size)
             } placeholder: {
                 Rectangle()
                     .fill(Color.gray)
@@ -46,6 +47,13 @@ struct OnlineImage: View {
                     }
             }
         }
+    }
+    
+    init(url: URL? = nil, useNuke: Bool) {
+        self.url = url
+        self.size = 500
+        self.priority = .normal
+        self.useNuke = useNuke
     }
     
     /// Creates a new OnlineImage using Nuke or not, default priority is .normal

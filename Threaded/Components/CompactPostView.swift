@@ -80,7 +80,7 @@ struct CompactPostView: View {
                         }
                     
                     Spacer()
-
+                    
                     Rectangle()
                         .fill(Color.gray.opacity(0.3))
                         .frame(width: 2.5)
@@ -88,7 +88,7 @@ struct CompactPostView: View {
                         .padding([.vertical], 5)
                     
                     Spacer()
-
+                    
                     Image(systemName: "person.crop.circle")
                         .resizable()
                         .frame(width: 15, height: 15)
@@ -113,11 +113,17 @@ struct CompactPostView: View {
                             navigator.navigate(to: .account(acc: status.account))
                         }
                     
-                    TextEmoji(status.content, emojis: status.emojis, language: status.language)
-                    .multilineTextAlignment(.leading)
-                    .frame(width: 300, alignment: .topLeading)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .font(.callout)
+                    if !status.content.asRawText.isEmpty {
+                        TextEmoji(status.content, emojis: status.emojis, language: status.language)
+                            .multilineTextAlignment(.leading)
+                            .frame(width: 300, alignment: .topLeading)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .font(.callout)
+                    }
+                    
+                    if status.card != nil {
+                        PostCardView(card: status.card!)
+                    }
                 }
                 
                 //MARK: Action buttons
