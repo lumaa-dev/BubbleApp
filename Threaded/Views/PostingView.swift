@@ -97,6 +97,7 @@ struct PostingView: View {
                         ProgressView()
                             .progressViewStyle(.circular)
                             .foregroundStyle(Color.appBackground)
+                            .tint(Color.appBackground)
                     } else {
                         Text("status.posting.post")
                     }
