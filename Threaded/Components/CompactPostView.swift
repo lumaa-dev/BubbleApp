@@ -11,6 +11,8 @@ struct CompactPostView: View {
     @State private var initialLike: Bool = false
     @State private var isLiked: Bool = false
     @State private var isReposted: Bool = false
+    @State private var hasQuote: Bool = false
+    @State private var quoteStatus: Status? = nil
     
     var body: some View {
         VStack {
@@ -37,6 +39,13 @@ struct CompactPostView: View {
             isLiked = status.reblog != nil ? status.reblog!.favourited ?? false : status.favourited ?? false
             initialLike = isLiked
             isReposted = status.reblog != nil ? status.reblog!.reblogged ?? false : status.reblogged ?? false
+            
+            let likeCount: Int = status.favouritesCount - (initialLike ? 1 : 0)
+            let incrLike: Int = isLiked ? 1 : 0
+            print("original: \(status.favouritesCount)\nmin1: \(likeCount)\nincr1: \(likeCount + incrLike)")
+        }
+        .task {
+            await loadEmbeddedStatus()
         }
     }
     
@@ -124,6 +133,16 @@ struct CompactPostView: View {
                     if status.card != nil {
                         PostCardView(card: status.card!)
                     }
+                    
+//                    if hasQuote {
+//                        if quoteStatus != nil {
+//                            //TODO: Fix profile picture and stats
+//                            QuotePostView(status: quoteStatus!)
+//                        } else {
+//                            ProgressView()
+//                                .progressViewStyle(.circular)
+//                        }
+//                    }
                 }
                 
                 //MARK: Action buttons
@@ -220,12 +239,12 @@ struct CompactPostView: View {
                 }
                 
                 if status.favouritesCount > 0 || isLiked {
-                    let i: Int = status.favouritesCount
-                    let favsCount: Int = i - (initialLike ? 1 : 0) + (isLiked ? 1 : 0)
-                    Text("status.favourites-\(favsCount)")
+                    let likeCount: Int = status.favouritesCount - (initialLike ? 1 : 0)
+                    let incrLike: Int = isLiked ? 1 : 0
+                    Text("status.favourites-\(likeCount + incrLike)")
                         .monospacedDigit()
                         .foregroundStyle(.gray)
-                        .contentTransition(.numericText(value: Double(favsCount)))
+                        .contentTransition(.numericText(value: Double(likeCount + incrLike)))
                         .transaction { t in
                             t.animation = .default
                         }
@@ -245,16 +264,44 @@ struct CompactPostView: View {
                 }
                 
                 if status.reblog!.favouritesCount > 0 || isLiked {
-                    let favsCount: Int = (status.favouritesCount - (initialLike ? 1 : 0)) + (isLiked ? 1 : 0)
-                    Text("status.favourites-\(favsCount)")
+                    let likeCount: Int = status.reblog!.favouritesCount - (initialLike ? 1 : 0)
+                    let incrLike: Int = isLiked ? 1 : 0
+                    Text("status.favourites-\(likeCount + incrLike)")
                         .monospacedDigit()
                         .foregroundStyle(.gray)
-                        .contentTransition(.numericText(value: Double(favsCount)))
+                        .contentTransition(.numericText(value: Double(likeCount + incrLike)))
                         .transaction { t in
                             t.animation = .default
                         }
                 }
             }
+        }
+    }
+    
+    private func embededStatusURL() -> URL? {
+        let content = status.content
+        if let client = accountManager.getClient() {
+            if !content.statusesURLs.isEmpty, let url = content.statusesURLs.first, client.hasConnection(with: url) {
+                return url
+            }
+        }
+        return nil
+    }
+    
+    func loadEmbeddedStatus() async {
+        guard let url = embededStatusURL(), let client = accountManager.getClient() else { hasQuote = false; return }
+        
+        do {
+            hasQuote = true
+            if url.absoluteString.contains(client.server), let id = Int(url.lastPathComponent) {
+                quoteStatus = try await client.get(endpoint: Statuses.status(id: String(id)))
+            } else {
+                let results: SearchResults = try await client.get(endpoint: Search.search(query: url.absoluteString, type: "statuses", offset: 0, following: nil), forceVersion: .v2)
+                quoteStatus = results.statuses.first
+            }
+        } catch {
+            hasQuote = false
+            quoteStatus = nil
         }
     }
     
