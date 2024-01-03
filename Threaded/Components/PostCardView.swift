@@ -4,12 +4,13 @@ import SwiftUI
 
 struct PostCardView: View {
     var card: Card
+    var inQuote: Bool = false
     
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
             if card.image != nil {
-                OnlineImage(url: card.image, size: 300, useNuke: false)
-                    .frame(width: 300)
+                OnlineImage(url: card.image, size: inQuote ? 260 : 300, useNuke: false)
+                    .frame(width: inQuote ? 250 : 300)
             }
                      
             VStack(alignment: .leading) {
@@ -36,7 +37,7 @@ struct PostCardView: View {
             }
             .padding([.horizontal, .bottom], 10)
         }
-        .frame(width: 250)
+        .frame(width: inQuote ? 200 : 250)
         .padding(.horizontal, 10)
         .clipShape(.rect(cornerRadius: 15))
         .fixedSize(horizontal: false, vertical: true)
