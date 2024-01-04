@@ -12,3 +12,15 @@ Threaded is a 100% free, made in SwiftUI, [#OpenSource](https://github.com/luma
 - [IceCubesApp](https://github.com/dimillian/IceCubesApp) by [@dimillian](https://github.com/dimillian)
 - [SwiftSoup](https://github.com/scinfu/SwiftSoup)
 - [Nuke](https://github.com/kean/Nuke)
+
+## To-do list
+
+- [ ] Fix all bugs and implement features cited with `TODO`
+
+- [ ] Launch screen like Threads
+
+- [ ] Live Activity when posting (for large content/attachments)
+
+- [ ] Share posts as [images](https://developer.apple.com/documentation/swiftui/imagerenderer) and copy/share text to clipboard
+
+- [ ] Animate T while reloading timeline
