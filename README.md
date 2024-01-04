@@ -17,9 +17,13 @@ Threaded is a 100% free, made in SwiftUI, [#OpenSource](https://github.com/luma
 
 - [ ] Fix all bugs and implement features cited with `TODO`
 
+- [ ] Infinite scroll (toggleable)
+
+- [ ] Smart deep links
+
 - [ ] Launch screen like Threads
 
-- [ ] Live Activity when posting (for large content/attachments)
+- [ ] Live Activity when posting (for large content/attachments, like Instagram already does)
 
 - [ ] Share posts as [images](https://developer.apple.com/documentation/swiftui/imagerenderer) and copy/share text to clipboard
 
