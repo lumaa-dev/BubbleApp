@@ -137,7 +137,7 @@ struct CompactPostView: View {
                             .font(.callout)
                     }
                     
-                    if status.card != nil && status.mediaAttachments.isEmpty {
+                    if status.card != nil && status.mediaAttachments.isEmpty && !hasQuote {
                         PostCardView(card: status.card!)
                     }
                     
@@ -146,7 +146,7 @@ struct CompactPostView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(alignment: .firstTextBaseline, spacing: 5) {
                                     ForEach(status.mediaAttachments) { attachment in
-                                        PostAttachment(attachment: attachment)
+                                        PostAttachment(attachment: attachment, isFeatured: false)
                                     }
                                 }
                             }
@@ -156,14 +156,14 @@ struct CompactPostView: View {
                         }
                     }
                     
-//                    if hasQuote {
-//                        if quoteStatus != nil {
-//                            QuotePostView(status: quoteStatus!)
-//                        } else {
-//                            ProgressView()
-//                                .progressViewStyle(.circular)
-//                        }
-//                    }
+                    if hasQuote {
+                        if quoteStatus != nil {
+                            QuotePostView(status: quoteStatus!)
+                        } else {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                        }
+                    }
                 }
                 
                 //MARK: Action buttons
