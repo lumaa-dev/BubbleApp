@@ -136,7 +136,6 @@ struct CompactPostView: View {
                     
 //                    if hasQuote {
 //                        if quoteStatus != nil {
-//                            //TODO: Fix profile picture and stats
 //                            QuotePostView(status: quoteStatus!)
 //                        } else {
 //                            ProgressView()

@@ -7,6 +7,8 @@ struct QuotePostView: View {
     var status: Status
     
     var body: some View {
+        //TODO: Fix profile picture and stats
+        
         statusPost(status)
             .frame(width: 250)
             .padding(.horizontal, 10)
