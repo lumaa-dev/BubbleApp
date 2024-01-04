@@ -7,6 +7,7 @@ import AVKit
 struct PostAttachment: View {
     @Environment(AppDelegate.self) private var appDelegate: AppDelegate
     var attachment: MediaAttachment
+    var isFeatured: Bool = true
     @State private var player: AVPlayer?
     
     var appLayoutWidth: CGFloat = 10
@@ -17,6 +18,7 @@ struct PostAttachment: View {
         appDelegate.windowHeight
     }
     private let imageMaxHeight: CGFloat = 300
+    
     
     var body: some View {
         let mediaSize: CGSize = size(for: attachment) ?? .init(width: imageMaxHeight, height: imageMaxHeight)
@@ -30,7 +32,7 @@ struct PostAttachment: View {
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: newSize.width, height: newSize.height)
+                            .frame(width: !isFeatured ? imageMaxHeight / 1.5 : newSize.width, height: !isFeatured ? imageMaxHeight: newSize.height)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 15)
                                     .stroke(.gray.opacity(0.3), lineWidth: 1)
@@ -101,7 +103,7 @@ struct PostAttachment: View {
                 }
             }
         }
-        .frame(width: newSize.width, height: newSize.height)
+        .frame(width: !isFeatured ? imageMaxHeight / 1.5 : newSize.width, height: !isFeatured ? imageMaxHeight: newSize.height)
         .clipped()
         .clipShape(.rect(cornerRadius: 15))
         .contentShape(Rectangle())
