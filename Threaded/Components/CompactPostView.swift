@@ -6,8 +6,10 @@ struct CompactPostView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
     var status: Status
     @ObservedObject var navigator: Navigator
+    
     var pinned: Bool = false
     
+    @State private var preferences: UserPreferences = .defaultPreferences
     @State private var initialLike: Bool = false
     @State private var isLiked: Bool = false
     @State private var isReposted: Bool = false
@@ -36,13 +38,18 @@ struct CompactPostView: View {
                 .padding(.bottom, 3)
         }
         .onAppear {
+            do {
+                preferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
+            } catch {
+                print(error)
+            }
             isLiked = status.reblog != nil ? status.reblog!.favourited ?? false : status.favourited ?? false
             initialLike = isLiked
             isReposted = status.reblog != nil ? status.reblog!.reblogged ?? false : status.reblogged ?? false
             
-            let likeCount: Int = status.favouritesCount - (initialLike ? 1 : 0)
-            let incrLike: Int = isLiked ? 1 : 0
-            print("original: \(status.favouritesCount)\nmin1: \(likeCount)\nincr1: \(likeCount + incrLike)")
+//            let likeCount: Int = status.favouritesCount - (initialLike ? 1 : 0)
+//            let incrLike: Int = isLiked ? 1 : 0
+//            print("original: \(status.favouritesCount)\nmin1: \(likeCount)\nincr1: \(likeCount + incrLike)")
         }
         .task {
             await loadEmbeddedStatus()
@@ -81,7 +88,7 @@ struct CompactPostView: View {
     func statusPost(_ status: AnyStatus) -> some View {
         HStack(alignment: .top, spacing: 0) {
             // MARK: Profile picture
-            if status.repliesCount > 0 {
+            if status.repliesCount > 0 && preferences.experimental.replySymbol {
                 VStack {
                     profilePicture
                         .onTapGesture {
@@ -130,8 +137,24 @@ struct CompactPostView: View {
                             .font(.callout)
                     }
                     
-                    if status.card != nil {
+                    if status.card != nil && status.mediaAttachments.isEmpty {
                         PostCardView(card: status.card!)
+                    }
+                    
+                    if !status.mediaAttachments.isEmpty {
+                        if status.mediaAttachments.count > 1 {
+                            ScrollView(.horizontal) {
+                                HStack(alignment: .firstTextBaseline, spacing: 5) {
+                                    ForEach(status.mediaAttachments) { attachment in
+                                        PostAttachment(attachment: attachment)
+                                    }
+                                }
+                            }
+                            .scrollIndicators(.hidden)
+                            .scrollClipDisabled()
+                        } else {
+                            PostAttachment(attachment: status.mediaAttachments.first!)
+                        }
                     }
                     
 //                    if hasQuote {
@@ -326,16 +349,5 @@ struct CompactPostView: View {
                 .font(.title2)
         }
         .tint(Color(uiColor: UIColor.label))
-    }
-}
-
-#Preview {
-    ScrollView {
-        VStack {
-            ForEach(Status.placeholders()) { status in
-                CompactPostView(status: status, navigator: Navigator())
-                    .environment(Client.init(server: AppInfo.defaultServer))
-            }
-        }
     }
 }

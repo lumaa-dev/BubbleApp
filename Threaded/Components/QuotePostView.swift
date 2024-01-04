@@ -13,7 +13,6 @@ struct QuotePostView: View {
             .frame(width: 250)
             .padding(.horizontal, 10)
             .clipShape(.rect(cornerRadius: 15))
-            .fixedSize(horizontal: false, vertical: true)
             .overlay(
                 RoundedRectangle(cornerRadius: 15)
                     .stroke(.gray.opacity(0.3), lineWidth: 1)

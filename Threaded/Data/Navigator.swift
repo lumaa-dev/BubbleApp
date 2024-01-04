@@ -68,6 +68,7 @@ public enum SheetDestination: Identifiable {
 public enum RouterDestination: Hashable {
     case settings
     case privacy
+    case appearence
     case account(acc: Account)
     case about
 }
@@ -80,6 +81,8 @@ extension View {
                     SettingsView(navigator: navigator)
                 case .privacy:
                     PrivacyView()
+                case .appearence:
+                    AppearenceView()
                 case .account(let acc):
                     AccountView(account: acc, navigator: navigator)
                 case .about:

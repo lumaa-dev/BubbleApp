@@ -3,6 +3,8 @@
 import SwiftUI
 
 struct AboutView: View {
+    @ObservedObject private var userPreferences: UserPreferences = .defaultPreferences
+    
     var body: some View {
         List {
             NavigationLink {
@@ -11,14 +13,33 @@ struct AboutView: View {
                 Text("about.app")
                     .tint(Color.blue)
             }
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.appBackground)
+            .listRowThreaded()
+            
+            Toggle("setting.experimental.activate", isOn: $userPreferences.showExperimental)
+                .listRowThreaded()
+                .onAppear {
+                    do {
+                        let oldPreferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
+                        
+                        userPreferences.showExperimental = oldPreferences.showExperimental
+                    } catch {
+                        print(error)
+                    }
+                }
         }
-        .listStyle(.plain)
-        .scrollContentBackground(.hidden)
-        .background(Color.appBackground)
+        .listThreaded()
         .navigationTitle("about")
         .navigationBarTitleDisplayMode(.inline)
+        .onDisappear {
+            do {
+                if !userPreferences.showExperimental {
+                    userPreferences.experimental = .init()
+                }
+                try userPreferences.saveAsCurrent()
+            } catch {
+                print(error)
+            }
+        }
     }
     
     var aboutApp: some View {
@@ -31,8 +52,7 @@ struct AboutView: View {
             }
             .padding(.horizontal)
         }
-        .scrollContentBackground(.hidden)
-        .background(Color.appBackground)
+        .listThreaded()
         .navigationTitle("about.app")
         .navigationBarTitleDisplayMode(.large)
     }

@@ -9,39 +9,42 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack(path: $navigator.path) {
             List {
-                Button {
-                    navigator.navigate(to: .about)
-                } label: {
-                    Label("about", systemImage: "info.circle")
+                Section {
+                    Button {
+                        navigator.navigate(to: .about)
+                    } label: {
+                        Label("about", systemImage: "info.circle")
+                    }
+                    .listRowThreaded()
+                    
+                    Button {
+                        navigator.navigate(to: .privacy)
+                    } label: {
+                        Label("setting.privacy", systemImage: "lock")
+                    }
+                    .listRowThreaded()
+                    
+                    Button {
+                        navigator.navigate(to: .appearence)
+                    } label: {
+                        Label("setting.appearence", systemImage: "rectangle.3.group")
+                    }
+                    .listRowThreaded()
+                    
+                    Button {
+                        AppAccount.clear()
+                        sheet = .welcome
+                    } label: {
+                        Text("logout")
+                            .foregroundStyle(.red)
+                    }
+                    .tint(Color.red)
+                    .listRowThreaded()
                 }
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.appBackground)
-                
-                Button {
-                    navigator.navigate(to: .privacy)
-                } label: {
-                    Label("setting.privacy", systemImage: "lock")
-                }
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.appBackground)
-                
-                Button {
-                    AppAccount.clear()
-                    sheet = .welcome
-                } label: {
-                    Text("logout")
-                        .foregroundStyle(.red)
-                }
-                .tint(Color.red)
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.appBackground)
             }
             .withAppRouter(navigator)
             .withCovers(sheetDestination: $sheet)
-            .scrollContentBackground(.hidden)
-            .tint(Color.white)
-            .background(Color.appBackground)
-            .listStyle(.inset)
+            .listThreaded()
             .navigationTitle("settings")
             .navigationBarTitleDisplayMode(.inline)
         }

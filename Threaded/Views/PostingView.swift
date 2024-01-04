@@ -7,6 +7,7 @@ import PhotosUI
 struct PostingView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(AccountManager.self) private var accountManager: AccountManager
+    @Environment(Navigator.self) private var navigator: Navigator
     
     var initialString: String = ""
     @State private var postText: NSMutableAttributedString = .init(string: "")
@@ -87,9 +88,10 @@ struct PostingView: View {
                     Task {
                         if let client = accountManager.getClient() {
                             postingStatus = true
-                            try await client.post(endpoint: Statuses.postStatus(json: .init(status: postText.string, visibility: visibility)))
+                            let postedStatus: Status = try await client.post(endpoint: Statuses.postStatus(json: .init(status: postText.string, visibility: visibility)))
                             postingStatus = false
                             dismiss()
+                            // navigate to post
                         }
                     }
                 } label: {

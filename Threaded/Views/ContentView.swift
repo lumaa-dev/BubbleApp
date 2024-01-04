@@ -3,6 +3,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+    
     @State private var navigator = Navigator()
     @State private var sheet: SheetDestination?
     @State private var accountManager: AccountManager = AccountManager()
@@ -46,6 +48,7 @@ struct ContentView: View {
         .withSheets(sheetDestination: $navigator.presentedSheet)
         .environment(accountManager)
         .environment(navigator)
+        .environment(appDelegate)
         .task {
             await recognizeAccount()
         }

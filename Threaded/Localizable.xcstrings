@@ -35,7 +35,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Threaded is a very simple Mastodon client, that is meant to look like the newest social media Threads made by Meta Platforms. It integrates perfectly with your Mastodon account, and matches the Threads vibe, while having Mastodon-only features.\n\nThreaded is a 100% free, made in France using SwiftUI, [open-source](https://github.com/lumaa-dev/ThreadedApp), and doesn't violate [your privacy](https://apps.lumaa.fr/legal/privacy). [Learn more](https://apps.lumaa.fr/app/threaded)"
+            "value" : "Threaded is a very simple Mastodon client, that is meant to look like the newest social media Threads made by Meta Platforms. It integrates perfectly with your Mastodon account, and matches the Threads vibe, while having Mastodon-only features.\n\nThreaded is a 100% free, made in France using SwiftUI, [open-source](https://github.com/lumaa-dev/ThreadedApp), and doesn't violate [your privacy](https://apps.lumaa.fr/legal/privacy).\n\nThreaded is not related or affiliated to Meta Platforms."
           }
         }
       }
@@ -130,6 +130,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Image Error"
+          }
+        }
+      }
+    },
+    "experimental" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Experimental"
           }
         }
       }
@@ -247,6 +257,99 @@
         }
       }
     },
+    "setting.appearence" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearence"
+          }
+        }
+      }
+    },
+    "setting.appearence.displayed-name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Displayed Name"
+          }
+        }
+      }
+    },
+    "setting.appearence.displayed-name.both" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Both"
+          }
+        }
+      }
+    },
+    "setting.appearence.displayed-name.display-name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Display Name"
+          }
+        }
+      }
+    },
+    "setting.appearence.displayed-name.username" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username"
+          }
+        }
+      }
+    },
+    "setting.appearence.pfp-shape" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shape of Profile Pictures"
+          }
+        }
+      }
+    },
+    "setting.appearence.pfp-shape.circle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Circle"
+          }
+        }
+      }
+    },
+    "setting.appearence.pfp-shape.rounded" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rounded Rectangle"
+          }
+        }
+      }
+    },
+    "setting.appearence.reply-symbols" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Reply Symbols"
+          }
+        }
+      }
+    },
+    "setting.experimental.activate" : {
+
+    },
     "setting.privacy" : {
       "localizations" : {
         "en" : {
@@ -263,6 +366,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Settings"
+          }
+        }
+      }
+    },
+    "settings.cancel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "settings.done" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         }
       }
