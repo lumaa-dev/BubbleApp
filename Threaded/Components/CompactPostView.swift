@@ -143,14 +143,13 @@ struct CompactPostView: View {
                     
                     if !status.mediaAttachments.isEmpty {
                         if status.mediaAttachments.count > 1 {
-                            ScrollView(.horizontal) {
+                            ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(alignment: .firstTextBaseline, spacing: 5) {
                                     ForEach(status.mediaAttachments) { attachment in
                                         PostAttachment(attachment: attachment)
                                     }
                                 }
                             }
-                            .scrollIndicators(.hidden)
                             .scrollClipDisabled()
                         } else {
                             PostAttachment(attachment: status.mediaAttachments.first!)
