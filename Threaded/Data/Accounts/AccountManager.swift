@@ -30,19 +30,13 @@ public class AccountManager {
     }
     
     public func forceClient() -> Client {
-        if client != nil {
-            return client!
-        } else {
-            fatalError("Client is not existant in that context")
-        }
+        guard client != nil else { fatalError("Client is not existant in that context") }
+        return client!
     }
     
     public func forceAccount() -> Account {
-        if account != nil {
-            return account!
-        } else {
-            fatalError("Account is not existant in that context and couldn't be fetched from Client")
-        }
+        guard account != nil else { fatalError("Account is not existant in that context") }
+        return account!
     }
     
     public func fetchAccount() async -> Account? {
