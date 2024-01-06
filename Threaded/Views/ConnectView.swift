@@ -8,6 +8,8 @@ struct ConnectView: View {
     @State private var sheet: SheetDestination?
     @State private var logged: Bool = false
     
+    init() {}
+    
     var body: some View {
         VStack {
             Image("HeroIcon")
@@ -30,13 +32,13 @@ struct ConnectView: View {
                 }
                 .buttonStyle(LargeButton())
                 
-                Button {
-                    print("go directly")
-                } label: {
-                    noAccount
-                }
-                .buttonStyle(LargeButton())
-                .disabled(true)
+//                Button {
+//                    print("go directly")
+//                } label: {
+//                    noAccount
+//                }
+//                .buttonStyle(LargeButton())
+//                .disabled(true)
             }
             .padding(.vertical, 100)
         }
