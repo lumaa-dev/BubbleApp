@@ -39,7 +39,7 @@ struct NoTapAnimationStyle: PrimitiveButtonStyle {
 
 #Preview {
     Button {} label: {
-        Text("Hello world")
+        Text(String("Hello world"))
     }
     .buttonStyle(NoTapAnimationStyle())
 }
