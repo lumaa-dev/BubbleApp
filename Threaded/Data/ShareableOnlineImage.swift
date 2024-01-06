@@ -3,22 +3,22 @@
 import Foundation
 import SwiftUI
 
-// Doesn't seem to work?
-struct AsyncImageTransferable: Codable, Transferable {
+// Dimillian fixed it - https://mastodon.social/@dimillian/111708477095374920
+
+struct ShareableOnlineImage: Codable, Transferable {
     let url: URL
     
-    func fetchAsImage() async -> Image {
-        let data = try? await URLSession.shared.data(from: url).0
+    func fetchAsImage() -> Image {
+        let data = try? Data(contentsOf: url)
         guard let data, let uiimage = UIImage(data: data) else {
             return Image(systemName: "photo")
         }
         return Image(uiImage: uiimage)
     }
     
-    // MARK: A synchronous exporter should be used
     static var transferRepresentation: some TransferRepresentation {
         ProxyRepresentation { media in
-            await media.fetchAsImage()
+            media.fetchAsImage()
         }
     }
 }
