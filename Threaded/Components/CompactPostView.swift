@@ -4,10 +4,12 @@ import SwiftUI
 
 struct CompactPostView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    var status: Status
+    @State var status: Status
     @ObservedObject var navigator: Navigator
     
     var pinned: Bool = false
+    var detailed: Bool = false
+    var quoted: Bool = false
     
     @State private var preferences: UserPreferences = .defaultPreferences
     @State private var initialLike: Bool = false
@@ -29,13 +31,19 @@ struct CompactPostView: View {
                         .padding(.leading, 30)
                 }
                 
-                statusPost(status.reblog ?? status)
+                if detailed {
+                    detailedStatusPost(status.reblog ?? status)
+                } else {
+                    statusPost(status.reblog ?? status)
+                }
             }
             
-            Rectangle()
-                .fill(Color.gray.opacity(0.2))
-                .frame(width: .infinity, height: 1)
-                .padding(.bottom, 3)
+            if !quoted {
+                Rectangle()
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(width: .infinity, height: 1)
+                    .padding(.bottom, 3)
+            }
         }
         .onAppear {
             do {
@@ -43,16 +51,19 @@ struct CompactPostView: View {
             } catch {
                 print(error)
             }
+            
             isLiked = status.reblog != nil ? status.reblog!.favourited ?? false : status.favourited ?? false
             initialLike = isLiked
             isReposted = status.reblog != nil ? status.reblog!.reblogged ?? false : status.reblogged ?? false
-            
-//            let likeCount: Int = status.favouritesCount - (initialLike ? 1 : 0)
-//            let incrLike: Int = isLiked ? 1 : 0
-//            print("original: \(status.favouritesCount)\nmin1: \(likeCount)\nincr1: \(likeCount + incrLike)")
         }
         .task {
-            await loadEmbeddedStatus()
+            await loadEmbeddedStatus(status: status)
+            
+            if let client = accountManager.getClient() {
+                if let newStatus: Status = try? await client.get(endpoint: Statuses.status(id: status.id)) {
+                    status = newStatus
+                }
+            }
         }
     }
     
@@ -123,6 +134,7 @@ struct CompactPostView: View {
                 // MARK: Status main content
                 VStack(alignment: .leading, spacing: 10) {
                     Text(status.account.username)
+                        .font(quoted ? .callout : .body)
                         .multilineTextAlignment(.leading)
                         .bold()
                         .onTapGesture {
@@ -132,9 +144,10 @@ struct CompactPostView: View {
                     if !status.content.asRawText.isEmpty {
                         TextEmoji(status.content, emojis: status.emojis, language: status.language)
                             .multilineTextAlignment(.leading)
-                            .frame(width: 300, alignment: .topLeading)
+                            .frame(width: quoted ? 250 : 300, alignment: .topLeading)
+                            .lineLimit(quoted ? 3 : nil)
                             .fixedSize(horizontal: false, vertical: true)
-                            .font(.callout)
+                            .font(quoted ? .caption : .callout)
                     }
                     
                     if status.card != nil && status.mediaAttachments.isEmpty && !hasQuote {
@@ -153,6 +166,92 @@ struct CompactPostView: View {
                             .scrollClipDisabled()
                         } else {
                             PostAttachment(attachment: status.mediaAttachments.first!)
+                        }
+                    }
+                    
+                    if hasQuote {
+                        if quoteStatus != nil {
+                            QuotePostView(status: quoteStatus!)
+                        } else {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                        }
+                    }
+                }
+                
+                //MARK: Action buttons
+                if !quoted {
+                    HStack(spacing: 13) {
+                        asyncActionButton(isLiked ? "heart.fill" : "heart") {
+                            do {
+                                try await likePost()
+                                HapticManager.playHaptics(haptics: Haptic.tap)
+                            } catch {
+                                HapticManager.playHaptics(haptics: Haptic.error)
+                                print("Error: \(error.localizedDescription)")
+                            }
+                        }
+                        actionButton("bubble.right") {
+                            print("reply")
+                            navigator.presentedSheet = .post()
+                        }
+                        asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
+                            do {
+                                try await repostPost()
+                                HapticManager.playHaptics(haptics: Haptic.tap)
+                            } catch {
+                                HapticManager.playHaptics(haptics: Haptic.error)
+                                print("Error: \(error.localizedDescription)")
+                            }
+                        }
+                        ShareLink(item: URL(string: status.url ?? "https://joinmastodon.org/")!) {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.title2)
+                        }
+                        .tint(Color(uiColor: UIColor.label))
+                    }
+                    .padding(.top)
+                }
+                
+                // MARK: Status stats
+                stats.padding(.top, 5)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func detailedStatusPost(_ status: AnyStatus) -> some View {
+        VStack {
+            HStack {
+                profilePicture
+                
+                Text(status.account.username)
+                    .multilineTextAlignment(.leading)
+                    .bold()
+            }
+            .onTapGesture {
+                navigator.navigate(to: .account(acc: status.account))
+            }
+            .contentShape(Rectangle())
+            
+            VStack(alignment: .leading) {
+                // MARK: Status main content
+                VStack(alignment: .leading, spacing: 10) {
+                    if !status.content.asRawText.isEmpty {
+                        TextEmoji(status.content, emojis: status.emojis, language: status.language)
+                            .multilineTextAlignment(.leading)
+                            .frame(width: 300, alignment: .topLeading)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .font(.callout)
+                    }
+                    
+                    if status.card != nil && status.mediaAttachments.isEmpty {
+                        PostCardView(card: status.card!)
+                    }
+                    
+                    if !status.mediaAttachments.isEmpty {
+                        ForEach(status.mediaAttachments) { attachment in
+                            PostAttachment(attachment: attachment)
                         }
                     }
                     
@@ -252,6 +351,7 @@ struct CompactPostView: View {
                     Text("status.replies-\(status.repliesCount)")
                         .monospacedDigit()
                         .foregroundStyle(.gray)
+                        .font(quoted ? .caption : .callout)
                 }
                 
                 if status.repliesCount > 0 && (status.favouritesCount > 0 || isLiked) {
@@ -266,6 +366,7 @@ struct CompactPostView: View {
                         .monospacedDigit()
                         .foregroundStyle(.gray)
                         .contentTransition(.numericText(value: Double(likeCount + incrLike)))
+                        .font(quoted ? .caption : .callout)
                         .transaction { t in
                             t.animation = .default
                         }
@@ -277,11 +378,13 @@ struct CompactPostView: View {
                     Text("status.replies-\(status.reblog!.repliesCount)")
                         .monospacedDigit()
                         .foregroundStyle(.gray)
+                        .font(quoted ? .caption : .callout)
                 }
                 
                 if status.reblog!.repliesCount > 0 && (status.reblog!.favouritesCount > 0 || isLiked) {
                     Text("•")
                         .foregroundStyle(.gray)
+                        .font(quoted ? .caption : .callout)
                 }
                 
                 if status.reblog!.favouritesCount > 0 || isLiked {
@@ -291,6 +394,7 @@ struct CompactPostView: View {
                         .monospacedDigit()
                         .foregroundStyle(.gray)
                         .contentTransition(.numericText(value: Double(likeCount + incrLike)))
+                        .font(quoted ? .caption : .callout)
                         .transaction { t in
                             t.animation = .default
                         }
@@ -299,7 +403,7 @@ struct CompactPostView: View {
         }
     }
     
-    private func embededStatusURL() -> URL? {
+    private func embededStatusURL(_ status: Status) -> URL? {
         let content = status.content
         if let client = accountManager.getClient() {
             if !content.statusesURLs.isEmpty, let url = content.statusesURLs.first, client.hasConnection(with: url) {
@@ -309,8 +413,8 @@ struct CompactPostView: View {
         return nil
     }
     
-    func loadEmbeddedStatus() async {
-        guard let url = embededStatusURL(), let client = accountManager.getClient() else { hasQuote = false; return }
+    func loadEmbeddedStatus(status: Status) async {
+        guard let url = embededStatusURL(status), let client = accountManager.getClient() else { hasQuote = false; return }
         
         do {
             hasQuote = true
