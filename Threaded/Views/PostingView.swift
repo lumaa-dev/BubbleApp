@@ -9,8 +9,10 @@ struct PostingView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
     @Environment(Navigator.self) private var navigator: Navigator
     
-    var initialString: String = ""
-    @State private var postText: NSMutableAttributedString = .init(string: "")
+    public var initialString: String = ""
+    
+    @State private var viewModel: PostingView.ViewModel = PostingView.ViewModel()
+    
     @State private var visibility: Visibility = .pub
     @State private var selectedPhotos: PhotosPickerItem?
     
@@ -37,8 +39,11 @@ struct PostingView: View {
                             .multilineTextAlignment(.leading)
                             .bold()
                         
-                        DynamicTextEditor($postText)
+                        DynamicTextEditor($viewModel.postText, getTextView: { textView in
+                            viewModel.textView = textView
+                        })
                             .placeholder(String(localized: "status.posting.placeholder"))
+                            .keyboardType(.twitter)
                             .multilineTextAlignment(.leading)
                             .font(.callout)
                             .foregroundStyle(Color(uiColor: UIColor.label))
@@ -48,8 +53,6 @@ struct PostingView: View {
                     }
                     
                     Spacer()
-                    
-                    
                 }
             }
             
@@ -88,10 +91,12 @@ struct PostingView: View {
                     Task {
                         if let client = accountManager.getClient() {
                             postingStatus = true
-                            let postedStatus: Status = try await client.post(endpoint: Statuses.postStatus(json: .init(status: postText.string, visibility: visibility)))
+                            let postedStatus: Status = try await client.post(endpoint: Statuses.postStatus(json: .init(status: viewModel.postText.string, visibility: visibility)))
                             postingStatus = false
                             dismiss()
-                            // navigate to post
+                            
+                            // navigate to account until PostDetailsView is fully finished
+                            navigator.navigate(to: .account(acc: accountManager.forceAccount()))
                         }
                     }
                 } label: {
@@ -104,7 +109,7 @@ struct PostingView: View {
                         Text("status.posting.post")
                     }
                 }
-                .disabled(postingStatus)
+                .disabled(postingStatus || viewModel.postText.length <= 0)
                 .buttonStyle(LargeButton(filled: true, height: 7.5))
             }
             .padding()
@@ -122,9 +127,9 @@ struct PostingView: View {
             }
         }
         .onAppear {
-            DispatchQueue.main.async {
-                postText.append(NSAttributedString(string: initialString))
-            }
+            let newTxt = NSMutableAttributedString(string: "abc")
+            viewModel.postText.append(newTxt)
+            
         }
     }
     
@@ -145,7 +150,7 @@ struct PostingView: View {
             
             actionButton("number") {
                 DispatchQueue.main.async {
-                    postText.append(NSAttributedString(string: "#"))
+                    viewModel.postText.append(NSMutableAttributedString(string: "#"))
                 }
             }
         }
@@ -181,8 +186,22 @@ struct PostingView: View {
             .padding(.horizontal)
             .clipShape(.circle)
     }
-}
-
-#Preview {
-    PostingView()
+    
+    public class ViewModel: NSObject, UITextPasteDelegate {
+        init(postText: NSMutableAttributedString = .init(string: ""), textView: UITextView? = nil) {
+            self.postText = postText
+            self.textView = textView
+        }
+        
+        @State var postText: NSMutableAttributedString {
+            didSet {
+                textView?.attributedText = postText
+            }
+        }
+        var textView: UITextView? {
+            didSet {
+                textView?.pasteDelegate = self
+            }
+        }
+    }
 }
