@@ -3,10 +3,10 @@
 import SwiftUI
 
 extension View {
-    func listThreaded() -> some View {
+    func listThreaded(tint: Color = Color(uiColor: UIColor.label)) -> some View {
         self
             .scrollContentBackground(.hidden)
-            .tint(Color.white)
+            .tint(tint)
             .background(Color.appBackground)
             .listStyle(.inset)
     }

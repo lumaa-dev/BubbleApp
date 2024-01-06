@@ -17,6 +17,7 @@ struct AboutView: View {
             
             Toggle("setting.experimental.activate", isOn: $userPreferences.showExperimental)
                 .listRowThreaded()
+                .tint(Color(uiColor: UIColor.label))
                 .onAppear {
                     do {
                         let oldPreferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
@@ -27,7 +28,7 @@ struct AboutView: View {
                     }
                 }
         }
-        .listThreaded()
+        .listThreaded(tint: Color.blue)
         .navigationTitle("about")
         .navigationBarTitleDisplayMode(.inline)
         .onDisappear {
