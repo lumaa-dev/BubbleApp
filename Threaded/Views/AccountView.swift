@@ -18,18 +18,30 @@ struct AccountView: View {
     @State private var isFollowing: Bool = false
     @State private var accountFollows: Bool = false
     
+    @State private var loadingStatuses: Bool = false
     @State private var statuses: [Status]?
     @State private var statusesPinned: [Status]?
+    @State private var lastSeen: Int?
     
     private let animPicCurve = Animation.smooth(duration: 0.25, extraBounce: 0.0)
     
     var body: some View {
         if isCurrent {
-            NavigationStack(path: $navigator.path) {
-                accountView
-                    .onAppear {
-                        account = accountManager.forceAccount()
-                    }
+            if accountManager.getClient() != nil {
+                NavigationStack(path: $navigator.path) {
+                    accountView
+                        .withSheets(sheetDestination: $navigator.presentedSheet)
+                        .onAppear {
+                            account = accountManager.forceAccount()
+                        }
+                }
+            } else {
+                ZStack {
+                    Color.appBackground
+                    
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                }
             }
         } else {
             accountView
@@ -85,8 +97,10 @@ struct AccountView: View {
                     account = ref
                     
                     await updateRelationship()
+                    loadingStatuses = true
                     statuses = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
                     statusesPinned = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
+                    loadingStatuses = false
                 }
             }
         }
@@ -138,8 +152,6 @@ struct AccountView: View {
                                     let client = accountManager.getClient()
                                     navigator.presentedSheet = .post(content: "@\(account.username)@\(client?.server ?? "???")")
                                 }
-                                
-                                
                             } label: {
                                 HStack {
                                     Spacer()
@@ -170,7 +182,7 @@ struct AccountView: View {
     }
     
     var statusesList: some View {
-        VStack {
+        LazyVStack {
             if statuses != nil {
                 if !(statusesPinned?.isEmpty ?? true) {
                     ForEach(statusesPinned!, id: \.id) { status in
@@ -180,6 +192,9 @@ struct AccountView: View {
                 if !statuses!.isEmpty {
                     ForEach(statuses!, id: \.id) { status in
                         CompactPostView(status: status, navigator: navigator)
+                            .onDisappear() {
+                                lastSeen = statuses!.firstIndex(where: { $0.id == status.id })
+                            }
                     }
                 }
             } else {
@@ -191,9 +206,23 @@ struct AccountView: View {
             if statuses == nil {
                 if let client = accountManager.getClient() {
                     Task {
+                        loadingStatuses = true
                         statuses = try await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
                         statusesPinned = try await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
+                        loadingStatuses = false
                     }
+                }
+            }
+        }
+        .onChange(of: lastSeen ?? 0) { _, new in
+            guard statuses != nil && new >= statuses!.count - 6 && !loadingStatuses else { return }
+            if let client = accountManager.getClient(), let lastStatus = statuses!.last {
+                Task {
+                    loadingStatuses = true
+                    if let newStatuses: [Status] = try await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: lastStatus.id, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil)) {
+                        statuses?.append(contentsOf: newStatuses)
+                    }
+                    loadingStatuses = false
                 }
             }
         }

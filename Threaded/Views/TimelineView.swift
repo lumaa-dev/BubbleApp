@@ -11,7 +11,9 @@ struct TimelineView: View {
     @State private var timeline: TimelineFilter = .home
     @State private var timelines: [TimelineFilter] = [.trending, .home]
     
+    @State private var loadingStatuses: Bool = false
     @State private var statuses: [Status]?
+    @State private var lastSeen: Int?
     
     @State var timelineModel: FetchTimeline // home timeline by default
     
@@ -54,16 +56,30 @@ struct TimelineView: View {
 //                        }
                         
                         ForEach(statuses!, id: \.id) { status in
-                            VStack(spacing: 2) {
+                            LazyVStack(alignment: .leading, spacing: 2) {
                                 CompactPostView(status: status, navigator: navigator)
+                                    .onDisappear {
+                                        guard statuses != nil else { return }
+                                        lastSeen = statuses!.firstIndex(where: { $0.id == status.id })
+                                    }
                             }
                         }
                     }
                     .refreshable {
                         if let client = accountManager.getClient() {
                             Task {
-                                statuses = try? await client.get(endpoint: Timelines.home(sinceId: nil, maxId: nil, minId: nil))
+                                loadingStatuses = true
+                                statuses = await timelineModel.fetch(client: client)
+                                loadingStatuses = false
                             }
+                        }
+                    }
+                    .onChange(of: lastSeen ?? 0) { _, new in
+                        guard !loadingStatuses else { return }
+                        Task {
+                            loadingStatuses = true
+                            statuses = await timelineModel.addStatuses(lastStatusIndex: new)
+                            loadingStatuses = false
                         }
                     }
                     .padding(.top)
@@ -91,7 +107,7 @@ struct TimelineView: View {
                         }
                         .scrollDisabled(true)
                         .background(Color.appBackground)
-                        .frame(height: 150)
+                        .frame(height: 200)
                     }
                 }
             } else {
@@ -101,7 +117,7 @@ struct TimelineView: View {
                         .onAppear {
                             if let client = accountManager.getClient() {
                                 Task {
-                                    statuses = try? await client.get(endpoint: Timelines.home(sinceId: nil, maxId: nil, minId: nil))
+                                    statuses = await timelineModel.fetch(client: client)
                                 }
                             }
                         }
