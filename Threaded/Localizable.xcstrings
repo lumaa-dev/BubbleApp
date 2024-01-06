@@ -50,6 +50,16 @@
         }
       }
     },
+    "about.version-%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ThreadedApp v%@"
+          }
+        }
+      }
+    },
     "accessibility.media.supported-type.audio.label" : {
       "comment" : "A localized description of SupportedType.audio"
     },
