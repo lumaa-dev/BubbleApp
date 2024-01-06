@@ -77,6 +77,10 @@ struct PostAttachment: View {
                         }
                     }
                 }
+                .onDisappear() {
+                    guard player != nil else { return }
+                    player?.pause()
+                }
                 
             } else if attachment.supportedType == .video {
                 ZStack {
@@ -100,6 +104,10 @@ struct PostAttachment: View {
                         player?.isMuted = false
                         player?.play()
                     }
+                }
+                .onDisappear() {
+                    guard player != nil else { return }
+                    player?.pause()
                 }
             }
         }
@@ -144,7 +152,6 @@ class NoControlsAVPlayerViewController: AVPlayerViewController {
     }
 }
 
-// Create a UIViewRepresentable for the customized AVPlayerViewController
 struct NoControlsPlayerViewController: UIViewControllerRepresentable {
     let player: AVPlayer
     
