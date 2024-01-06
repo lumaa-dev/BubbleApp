@@ -7,26 +7,28 @@ struct AboutView: View {
     
     var body: some View {
         List {
-            NavigationLink {
-                aboutApp
-            } label: {
-                Text("about.app")
-                    .tint(Color.blue)
-            }
-            .listRowThreaded()
-            
-            Toggle("setting.experimental.activate", isOn: $userPreferences.showExperimental)
-                .listRowThreaded()
-                .tint(Color(uiColor: UIColor.label))
-                .onAppear {
-                    do {
-                        let oldPreferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
-                        
-                        userPreferences.showExperimental = oldPreferences.showExperimental
-                    } catch {
-                        print(error)
-                    }
+            Section(footer: Text("about.version-\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Inconnue")")) {
+                NavigationLink {
+                    aboutApp
+                } label: {
+                    Text("about.app")
+                        .tint(Color.blue)
                 }
+                .listRowThreaded()
+                
+                Toggle("setting.experimental.activate", isOn: $userPreferences.showExperimental)
+                    .listRowThreaded()
+                    .tint(Color(uiColor: UIColor.label))
+                    .onAppear {
+                        do {
+                            let oldPreferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
+                            
+                            userPreferences.showExperimental = oldPreferences.showExperimental
+                        } catch {
+                            print(error)
+                        }
+                    }
+            }
         }
         .listThreaded(tint: Color.blue)
         .navigationTitle("about")
