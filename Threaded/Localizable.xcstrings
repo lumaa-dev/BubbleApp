@@ -154,9 +154,6 @@
         }
       }
     },
-    "Hello world" : {
-
-    },
     "instance.rules" : {
       "localizations" : {
         "en" : {
