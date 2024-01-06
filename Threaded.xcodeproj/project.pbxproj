@@ -253,8 +253,8 @@
 				B9FB945C2B2DEECE00D81C07 /* ContentView.swift */,
 				B9842C112B2F2A5800D9F3C1 /* TimelineView.swift */,
 				B97BCE252B3DE5A10044756D /* AccountView.swift */,
-				B93B677B2B433A6E000892E9 /* PostingView.swift */,
 				B98BC7462B46CE6300595441 /* PostDetailsView.swift */,
+				B93B677B2B433A6E000892E9 /* PostingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
