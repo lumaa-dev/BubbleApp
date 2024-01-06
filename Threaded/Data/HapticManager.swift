@@ -9,6 +9,10 @@ struct Haptic: Hashable {
     var interval: CGFloat
     
     static let tap: [Haptic] = [Haptic(intensity: 0.5, sharpness: 0.8, interval: 0.0)]
+    static let success: [Haptic] = [
+        Haptic(intensity: 0.5, sharpness: 1.0, interval: 0.0),
+        Haptic(intensity: 0.9, sharpness: 0.5, interval: 0.2)
+    ]
     static let error: [Haptic] = [
         Haptic(intensity: 1.0, sharpness: 0.7, interval: 0.0),
         Haptic(intensity: 1.0, sharpness: 0.3, interval: 0.2)
