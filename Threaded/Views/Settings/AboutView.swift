@@ -12,7 +12,6 @@ struct AboutView: View {
                     aboutApp
                 } label: {
                     Text("about.app")
-                        .tint(Color.blue)
                 }
                 .listRowThreaded()
                 
@@ -30,7 +29,7 @@ struct AboutView: View {
                     }
             }
         }
-        .listThreaded(tint: Color.blue)
+        .listThreaded()
         .navigationTitle("about")
         .navigationBarTitleDisplayMode(.inline)
         .onDisappear {
@@ -55,7 +54,7 @@ struct AboutView: View {
             }
             .padding(.horizontal)
         }
-        .listThreaded()
+        .listThreaded(tint: Color.blue)
         .navigationTitle("about.app")
         .navigationBarTitleDisplayMode(.large)
     }
