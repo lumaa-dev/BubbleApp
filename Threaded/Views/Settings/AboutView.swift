@@ -45,6 +45,7 @@ struct AboutView: View {
     }
     
     var aboutApp: some View {
+        // TODO: Change this entire ugly thing
         ScrollView {
             VStack (spacing: 15) {
                 Text("about.app.details")
