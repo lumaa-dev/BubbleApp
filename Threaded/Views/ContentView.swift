@@ -49,6 +49,14 @@ struct ContentView: View {
         .environment(accountManager)
         .environment(navigator)
         .environment(appDelegate)
+        .onAppear {
+            print("APPEAR") // test thing
+            if accountManager.getClient() == nil {
+                Task {
+                    await recognizeAccount()
+                }
+            }
+        }
         .task {
             await recognizeAccount()
         }
@@ -61,7 +69,14 @@ struct ContentView: View {
         } else {
             Task {
                 accountManager.setClient(.init(server: acc!.server, oauthToken: acc!.oauthToken))
-                await accountManager.fetchAccount()
+                
+                // check if token is still working
+                let fetched: Account? = await accountManager.fetchAccount()
+                if fetched == nil {
+                    accountManager.clear()
+                    AppAccount.clear()
+                    sheet = .welcome
+                }
             }
         }
     }
