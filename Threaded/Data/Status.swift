@@ -240,6 +240,17 @@ public protocol AnyStatus {
     var language: String? { get }
 }
 
+public struct StatusContext: Decodable {
+    public let ancestors: [Status]
+    public let descendants: [Status]
+    
+    public static func empty() -> StatusContext {
+        .init(ancestors: [], descendants: [])
+    }
+}
+
+extension StatusContext: Sendable {}
+
 public struct MediaAttachment: Codable, Identifiable, Hashable, Equatable {
     public struct MetaContainer: Codable, Equatable {
         public struct Meta: Codable, Equatable {
