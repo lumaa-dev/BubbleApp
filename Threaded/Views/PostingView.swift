@@ -10,6 +10,7 @@ struct PostingView: View {
     @Environment(Navigator.self) private var navigator: Navigator
     
     public var initialString: String = ""
+    public var replyId: String? = nil
     
     @State private var viewModel: PostingView.ViewModel = PostingView.ViewModel()
     
@@ -43,7 +44,7 @@ struct PostingView: View {
                             viewModel.textView = textView
                         })
                             .placeholder(String(localized: "status.posting.placeholder"))
-                            .keyboardType(.twitter)
+                            .setKeyboardType(.twitter)
                             .multilineTextAlignment(.leading)
                             .font(.callout)
                             .foregroundStyle(Color(uiColor: UIColor.label))
@@ -91,12 +92,11 @@ struct PostingView: View {
                     Task {
                         if let client = accountManager.getClient() {
                             postingStatus = true
-                            let postedStatus: Status = try await client.post(endpoint: Statuses.postStatus(json: .init(status: viewModel.postText.string, visibility: visibility)))
+                            let newStatus: Status = try await client.post(endpoint: Statuses.postStatus(json: .init(status: viewModel.postText.string, visibility: visibility, inReplyToId: replyId)))
                             postingStatus = false
+                            HapticManager.playHaptics(haptics: Haptic.success)
                             dismiss()
-                            
-                            // navigate to account until PostDetailsView is fully finished
-                            navigator.navigate(to: .account(acc: accountManager.forceAccount()))
+                            navigator.navigate(to: .post(status: newStatus))
                         }
                     }
                 } label: {
@@ -127,9 +127,7 @@ struct PostingView: View {
             }
         }
         .onAppear {
-            let newTxt = NSMutableAttributedString(string: "abc")
-            viewModel.postText.append(newTxt)
-            
+            viewModel.append(text: initialString)
         }
     }
     
@@ -150,7 +148,7 @@ struct PostingView: View {
             
             actionButton("number") {
                 DispatchQueue.main.async {
-                    viewModel.postText.append(NSMutableAttributedString(string: "#"))
+                    viewModel.append(text: "#")
                 }
             }
         }
@@ -187,21 +185,42 @@ struct PostingView: View {
             .clipShape(.circle)
     }
     
-    public class ViewModel: NSObject, UITextPasteDelegate {
-        init(postText: NSMutableAttributedString = .init(string: ""), textView: UITextView? = nil) {
-            self.postText = postText
-            self.textView = textView
+    @Observable public class ViewModel: NSObject {
+        init(text: String = "") {
+            self.postText = NSMutableAttributedString(string: text)
         }
         
-        @State var postText: NSMutableAttributedString {
-            didSet {
-                textView?.attributedText = postText
+        var selectedRange: NSRange {
+            get {
+                guard let textView else {
+                    return .init(location: 0, length: 0)
+                }
+                return textView.selectedRange
+            }
+            set {
+                textView?.selectedRange = newValue
             }
         }
-        var textView: UITextView? {
+        
+        var postText: NSMutableAttributedString {
             didSet {
-                textView?.pasteDelegate = self
+                let range = selectedRange
+                formatText()
+                textView?.attributedText = postText
+                selectedRange = range
             }
+        }
+        var textView: UITextView?
+        
+        func append(text: String) {
+            let string = postText
+            string.mutableString.insert(text, at: selectedRange.location)
+            postText = string
+            selectedRange = NSRange(location: selectedRange.location + text.utf16.count, length: 0)
+        }
+        
+        func formatText() {
+            postText.addAttributes([.foregroundColor : UIColor.label, .font: UIFont.preferredFont(forTextStyle: .callout), .backgroundColor: UIColor.clear, .underlineColor: UIColor.clear], range: NSMakeRange(0, postText.string.utf16.count))
         }
     }
 }

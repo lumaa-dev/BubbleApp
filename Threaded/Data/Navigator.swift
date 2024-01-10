@@ -38,7 +38,7 @@ public enum TabDestination: Identifiable {
 public enum SheetDestination: Identifiable {
     case welcome
     case mastodonLogin(logged: Binding<Bool>)
-    case post(content: String = "")
+    case post(content: String = "", replyId: String? = nil)
     
     public var id: String {
         switch self {
@@ -70,6 +70,7 @@ public enum RouterDestination: Hashable {
     case privacy
     case appearence
     case account(acc: Account)
+    case post(status: Status)
     case about
 }
 
@@ -85,6 +86,8 @@ extension View {
                     AppearenceView()
                 case .account(let acc):
                     AccountView(account: acc, navigator: navigator)
+                case .post(let status):
+                    PostDetailsView(status: status)
                 case .about:
                     AboutView()
             }
@@ -114,9 +117,9 @@ extension View {
                 }
             } else {
                 switch destination {
-                    case .post(let content):
+                    case .post(let content, let replyId):
                         NavigationStack {
-                            PostingView(initialString: content)
+                            PostingView(initialString: content, replyId: replyId)
                                 .tint(Color(uiColor: UIColor.label))
                         }
                     case let .mastodonLogin(logged):

@@ -20,23 +20,11 @@ struct CompactPostView: View {
     
     var body: some View {
         VStack {
-            VStack(alignment: .leading) {
-                if pinned {
-                    pinnedNotice
-                        .padding(.leading, 35)
+            statusPost(status)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    navigator.navigate(to: .post(status: status))
                 }
-                
-                if status.reblog != nil {
-                    repostNotice
-                        .padding(.leading, 30)
-                }
-                
-                if detailed {
-                    detailedStatusPost(status.reblog ?? status)
-                } else {
-                    statusPost(status.reblog ?? status)
-                }
-            }
             
             if !quoted {
                 Rectangle()
@@ -133,13 +121,25 @@ struct CompactPostView: View {
             VStack(alignment: .leading) {
                 // MARK: Status main content
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(status.account.username)
-                        .font(quoted ? .callout : .body)
-                        .multilineTextAlignment(.leading)
-                        .bold()
-                        .onTapGesture {
-                            navigator.navigate(to: .account(acc: status.account))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(status.account.username)
+                            .font(quoted ? .callout : .body)
+                            .multilineTextAlignment(.leading)
+                            .bold()
+                            .onTapGesture {
+                                navigator.navigate(to: .account(acc: status.account))
+                            }
+                        
+                        if status.inReplyToAccountId != nil {
+                            if let user = status.mentions.first(where: { $0.id == status.inReplyToAccountId }) {
+                                Text("status.replied-to.\(user.username)")
+                                    .multilineTextAlignment(.leading)
+                                    .lineLimit(1)
+                                    .font(.caption)
+                                    .foregroundStyle(Color(uiColor: UIColor.label).opacity(0.3))
+                            }
                         }
+                    }
                     
                     if !status.content.asRawText.isEmpty {
                         TextEmoji(status.content, emojis: status.emojis, language: status.language)
@@ -184,21 +184,20 @@ struct CompactPostView: View {
                     HStack(spacing: 13) {
                         asyncActionButton(isLiked ? "heart.fill" : "heart") {
                             do {
-                                try await likePost()
                                 HapticManager.playHaptics(haptics: Haptic.tap)
+                                try await likePost()
                             } catch {
                                 HapticManager.playHaptics(haptics: Haptic.error)
                                 print("Error: \(error.localizedDescription)")
                             }
                         }
                         actionButton("bubble.right") {
-                            print("reply")
-                            navigator.presentedSheet = .post()
+                            navigator.presentedSheet = .post(content: "@\(status.account.acct)", replyId: status.id)
                         }
                         asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
                             do {
-                                try await repostPost()
                                 HapticManager.playHaptics(haptics: Haptic.tap)
+                                try await repostPost()
                             } catch {
                                 HapticManager.playHaptics(haptics: Haptic.error)
                                 print("Error: \(error.localizedDescription)")
@@ -219,114 +218,36 @@ struct CompactPostView: View {
         }
     }
     
-    @ViewBuilder
-    func detailedStatusPost(_ status: AnyStatus) -> some View {
-        VStack {
-            HStack {
-                profilePicture
-                
-                Text(status.account.username)
-                    .multilineTextAlignment(.leading)
-                    .bold()
-            }
-            .onTapGesture {
-                navigator.navigate(to: .account(acc: status.account))
-            }
-            .contentShape(Rectangle())
-            
-            VStack(alignment: .leading) {
-                // MARK: Status main content
-                VStack(alignment: .leading, spacing: 10) {
-                    if !status.content.asRawText.isEmpty {
-                        TextEmoji(status.content, emojis: status.emojis, language: status.language)
-                            .multilineTextAlignment(.leading)
-                            .frame(width: 300, alignment: .topLeading)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .font(.callout)
-                    }
+    var notices: some View {
+        ZStack {
+            if pinned {
+                HStack (alignment:.center, spacing: 5) {
+                    Image(systemName: "pin.fill")
                     
-                    if status.card != nil && status.mediaAttachments.isEmpty {
-                        PostCardView(card: status.card!)
-                    }
-                    
-                    if !status.mediaAttachments.isEmpty {
-                        ForEach(status.mediaAttachments) { attachment in
-                            PostAttachment(attachment: attachment)
-                        }
-                    }
-                    
-                    if hasQuote {
-                        if quoteStatus != nil {
-                            QuotePostView(status: quoteStatus!)
-                        } else {
-                            ProgressView()
-                                .progressViewStyle(.circular)
-                        }
-                    }
+                    Text("status.pinned")
                 }
-                
-                //MARK: Action buttons
-                HStack(spacing: 13) {
-                    asyncActionButton(isLiked ? "heart.fill" : "heart") {
-                        do {
-                            try await likePost()
-                            HapticManager.playHaptics(haptics: Haptic.tap)
-                        } catch {
-                            HapticManager.playHaptics(haptics: Haptic.error)
-                            print("Error: \(error.localizedDescription)")
-                        }
-                    }
-                    actionButton("bubble.right") {
-                        print("reply")
-                        navigator.presentedSheet = .post()
-                    }
-                    asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
-                        do {
-                            try await repostPost()
-                            HapticManager.playHaptics(haptics: Haptic.tap)
-                        } catch {
-                            HapticManager.playHaptics(haptics: Haptic.error)
-                            print("Error: \(error.localizedDescription)")
-                        }
-                    }
-                    ShareLink(item: URL(string: status.url ?? "https://joinmastodon.org/")!) {
-                        Image(systemName: "square.and.arrow.up")
-                            .font(.title2)
-                    }
-                    .tint(Color(uiColor: UIColor.label))
+                .padding(.leading, 20)
+                .multilineTextAlignment(.leading)
+                .lineLimit(1)
+                .font(.caption)
+                .foregroundStyle(Color(uiColor: UIColor.label).opacity(0.3))
+                .padding(.leading, 35)
+            }
+            
+            if status.reblog != nil {
+                HStack (alignment:.center, spacing: 5) {
+                    Image(systemName: "bolt.horizontal")
+                    
+                    Text("status.reposted-by.\(status.account.username)")
                 }
-                .padding(.top)
-                
-                // MARK: Status stats
-                stats.padding(.top, 5)
+                .padding(.leading, 20)
+                .multilineTextAlignment(.leading)
+                .lineLimit(1)
+                .font(.caption)
+                .foregroundStyle(Color(uiColor: UIColor.label).opacity(0.3))
+                .padding(.leading, 30)
             }
         }
-    }
-    
-    var pinnedNotice: some View {
-        HStack (alignment:.center, spacing: 5) {
-            Image(systemName: "pin.fill")
-            
-            Text("status.pinned")
-        }
-        .padding(.leading, 20)
-        .multilineTextAlignment(.leading)
-        .lineLimit(1)
-        .font(.caption)
-        .foregroundStyle(Color(uiColor: UIColor.label).opacity(0.3))
-    }
-    
-    var repostNotice: some View {
-        HStack (alignment:.center, spacing: 5) {
-            Image(systemName: "bolt.horizontal")
-            
-            Text("status.reposted-by.\(status.account.username)")
-        }
-        .padding(.leading, 20)
-        .multilineTextAlignment(.leading)
-        .lineLimit(1)
-        .font(.caption)
-        .foregroundStyle(Color(uiColor: UIColor.label).opacity(0.3))
     }
     
     var profilePicture: some View {

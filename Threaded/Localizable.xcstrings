@@ -355,7 +355,14 @@
       }
     },
     "setting.experimental.activate" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show experimental features"
+          }
+        }
+      }
     },
     "setting.privacy" : {
       "localizations" : {
@@ -515,6 +522,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unlisted"
+          }
+        }
+      }
+    },
+    "status.replied-to.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replied to @%@"
           }
         }
       }
