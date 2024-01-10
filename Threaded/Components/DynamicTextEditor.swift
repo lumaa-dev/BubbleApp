@@ -26,7 +26,7 @@ public struct DynamicTextEditor: View {
     {
         _text = text
         _isEmpty = Binding(
-            get: { text.wrappedValue.string.isEmpty },
+            get: { text.wrappedValue.length <= 0 || text.wrappedValue.string.isEmpty },
             set: { _ in }
         )
         
