@@ -92,17 +92,14 @@ struct AccountView: View {
             initialFollowing = isFollowing
         }
         .refreshable {
-            if let client = accountManager.getClient() {
-                if let ref: Account = try? await client.get(endpoint: Accounts.accounts(id: account.id)) {
-                    account = ref
-                    
-                    await updateRelationship()
-                    loadingStatuses = true
-                    statuses = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
-                    statusesPinned = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
-                    loadingStatuses = false
+            if isCurrent {
+                guard let client = accountManager.getClient() else { return }
+                if let acc: Account = try? await client.get(endpoint: Accounts.verifyCredentials) {
+                    account = acc
                 }
             }
+            
+            await reloadUser()
         }
         .background(Color.appBackground)
         .navigationBarTitleDisplayMode(.inline)
@@ -235,6 +232,21 @@ struct AccountView: View {
                 HapticManager.playHaptics(haptics: Haptic.tap)
                 try await client.post(endpoint: endpoint) // Notify off until APNs? | Reblogs on by default (later changeable)
                 isFollowing = !isFollowing
+            }
+        }
+    }
+    
+    func reloadUser() async {
+        if let client = accountManager.getClient() {
+            let userAcc = accountManager.getAccount()
+            if let ref: Account = try? await client.get(endpoint: Accounts.accounts(id: isCurrent && userAcc != nil ? userAcc!.id : account.id)) {
+                account = ref
+                
+                await updateRelationship()
+                loadingStatuses = true
+                statuses = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
+                statusesPinned = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
+                loadingStatuses = false
             }
         }
     }
