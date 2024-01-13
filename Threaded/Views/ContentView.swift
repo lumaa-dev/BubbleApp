@@ -34,9 +34,19 @@ struct ContentView: View {
                 .background(Color.appBackground)
                 .tag(TabDestination.activity)
             
-            AccountView(isCurrent: true, account: accountManager.getAccount() ?? .placeholder())
-                .background(Color.appBackground)
-                .tag(TabDestination.profile)
+            ZStack {
+                if accountManager.getAccount() != nil {
+                    AccountView(isCurrent: true, account: accountManager.forceAccount())
+                        .background(Color.appBackground)
+                } else {
+                    ZStack {
+                        Color.appBackground
+                            .ignoresSafeArea()
+                    }
+                }
+            }
+            .background(Color.appBackground)
+            .tag(TabDestination.profile)
             
         })
         .overlay(alignment: .bottom) {
@@ -50,7 +60,6 @@ struct ContentView: View {
         .environment(navigator)
         .environment(appDelegate)
         .onAppear {
-            print("APPEAR") // test thing
             if accountManager.getClient() == nil {
                 Task {
                     await recognizeAccount()
