@@ -11,8 +11,11 @@ struct PostDetailsView: View {
     @State private var statuses: [Status] = []
     @State private var scrollId: String? = nil
     @State private var initialLike: Bool = false
+    
     @State private var isLiked: Bool = false
     @State private var isReposted: Bool = false
+    @State private var isBookmarked: Bool = false
+    
     @State private var hasQuote: Bool = false
     @State private var quoteStatus: Status? = nil
     
@@ -27,7 +30,7 @@ struct PostDetailsView: View {
                     if statuses.isEmpty {
                         statusPost(detailedStatus)
                         
-                        Spacer()
+//                        Spacer()
                     } else {
                         ForEach(statuses) { status in
                             if status.id == detailedStatus.id {
@@ -104,36 +107,7 @@ struct PostDetailsView: View {
                 }
                 
                 //MARK: Action buttons
-                HStack(spacing: 13) {
-                    asyncActionButton(isLiked ? "heart.fill" : "heart") {
-                        do {
-                            HapticManager.playHaptics(haptics: Haptic.tap)
-                            try await likePost()
-                        } catch {
-                            HapticManager.playHaptics(haptics: Haptic.error)
-                            print("Error: \(error.localizedDescription)")
-                        }
-                    }
-                    actionButton("bubble.right") {
-                        print("reply")
-                        navigator.presentedSheet = .post()
-                    }
-                    asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
-                        do {
-                            HapticManager.playHaptics(haptics: Haptic.tap)
-                            try await repostPost()
-                        } catch {
-                            HapticManager.playHaptics(haptics: Haptic.error)
-                            print("Error: \(error.localizedDescription)")
-                        }
-                    }
-                    ShareLink(item: URL(string: status.url ?? "https://joinmastodon.org/")!) {
-                        Image(systemName: "square.and.arrow.up")
-                            .font(.title2)
-                    }
-                    .tint(Color(uiColor: UIColor.label))
-                }
-                .padding(.top)
+                PostInteractor(status: status as! Status, isLiked: $isLiked, isReposted: $isReposted, isBookmarked: $isBookmarked)
                 
                 // MARK: Status stats
                 stats.padding(.top, 5)
@@ -167,34 +141,6 @@ struct PostDetailsView: View {
     struct ContextData {
         let status: Status
         let context: StatusContext
-    }
-    
-    func likePost() async throws {
-        if let client = accountManager.getClient() {
-            guard client.isAuth else { fatalError("Client is not authenticated") }
-            let statusId: String = detailedStatus.reblog != nil ? detailedStatus.reblog!.id : detailedStatus.id
-            let endpoint = !isLiked ? Statuses.favorite(id: statusId) : Statuses.unfavorite(id: statusId)
-            
-            isLiked = !isLiked
-            let newStatus: Status = try await client.post(endpoint: endpoint)
-            if isLiked != newStatus.favourited {
-                isLiked = newStatus.favourited ?? !isLiked
-            }
-        }
-    }
-    
-    func repostPost() async throws {
-        if let client = accountManager.getClient() {
-            guard client.isAuth else { fatalError("Client is not authenticated") }
-            let statusId: String = detailedStatus.reblog != nil ? detailedStatus.reblog!.id : detailedStatus.id
-            let endpoint = !isReposted ? Statuses.reblog(id: statusId) : Statuses.unreblog(id: statusId)
-            
-            isReposted = !isReposted
-            let newStatus: Status = try await client.post(endpoint: endpoint)
-            if isReposted != newStatus.reblogged {
-                isReposted = newStatus.reblogged ?? !isReposted
-            }
-        }
     }
     
     var profilePicture: some View {
@@ -291,29 +237,5 @@ struct PostDetailsView: View {
             hasQuote = false
             quoteStatus = nil
         }
-    }
-    
-    @ViewBuilder
-    func actionButton(_ image: String, action: @escaping () -> Void) -> some View {
-        Button {
-            action()
-        } label: {
-            Image(systemName: image)
-                .font(.title2)
-        }
-        .tint(Color(uiColor: UIColor.label))
-    }
-    
-    @ViewBuilder
-    func asyncActionButton(_ image: String, action: @escaping () async -> Void) -> some View {
-        Button {
-            Task {
-                await action()
-            }
-        } label: {
-            Image(systemName: image)
-                .font(.title2)
-        }
-        .tint(Color(uiColor: UIColor.label))
     }
 }
