@@ -11,8 +11,8 @@ struct AccountView: View {
     
     @State var isCurrent: Bool = false
     @State var account: Account
-    @State var navigator: Navigator = Navigator()
     
+    @State private var navigator: Navigator = Navigator()
     @State private var canFollow: Bool? = nil
     @State private var initialFollowing: Bool = false
     @State private var isFollowing: Bool = false
