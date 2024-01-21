@@ -39,6 +39,7 @@ public enum SheetDestination: Identifiable {
     case welcome
     case mastodonLogin(logged: Binding<Bool>)
     case post(content: String = "", replyId: String? = nil)
+    case safari(url: URL)
     
     public var id: String {
         switch self {
@@ -48,6 +49,8 @@ public enum SheetDestination: Identifiable {
                 return "login"
             case .post:
                 return "post"
+            case .safari:
+                return "safari"
         }
     }
     
@@ -60,6 +63,9 @@ public enum SheetDestination: Identifiable {
                 return false
                 
             case .post:
+                return false
+                
+            case .safari:
                 return false
         }
     }
@@ -85,7 +91,7 @@ extension View {
                 case .appearence:
                     AppearenceView()
                 case .account(let acc):
-                    AccountView(account: acc, navigator: navigator)
+                    AccountView(account: acc)
                 case .post(let status):
                     PostDetailsView(status: status)
                 case .about:
@@ -125,6 +131,8 @@ extension View {
                     case let .mastodonLogin(logged):
                         AddInstanceView(logged: logged)
                             .tint(Color.accentColor)
+                    case let .safari(url):
+                        SfSafariView(url: url)
                     default:
                         EmptyView()
                 }
