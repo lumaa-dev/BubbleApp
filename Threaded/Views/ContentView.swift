@@ -5,6 +5,7 @@ import SwiftUI
 struct ContentView: View {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
+    @State private var preferences: UserPreferences = .defaultPreferences
     @State private var navigator = Navigator()
     @State private var sheet: SheetDestination?
     @State private var accountManager: AccountManager = AccountManager()
@@ -61,6 +62,12 @@ struct ContentView: View {
         .environment(navigator)
         .environment(appDelegate)
         .onAppear {
+            do {
+                preferences = try UserPreferences.loadAsCurrent() ?? .defaultPreferences
+            } catch {
+                print(error)
+            }
+            
             if accountManager.getClient() == nil {
                 Task {
                     await recognizeAccount()
@@ -72,10 +79,12 @@ struct ContentView: View {
         }
         .environment(\.openURL, OpenURLAction { url in
             // Open internal URL.
+            guard preferences.browserType == .inApp else { return .systemAction }
             navigator.presentedSheet = .safari(url: url)
             return OpenURLAction.Result.handled
         })
         .onOpenURL(perform: { url in
+            guard preferences.browserType == .inApp else { return }
             navigator.presentedSheet = .safari(url: url)
         })
     }
