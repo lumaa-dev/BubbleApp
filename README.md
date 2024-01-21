@@ -1,5 +1,6 @@
 # Threaded
 
+> [!IMPORTANT]
 > Currently, the app is still in a very early stage with a lot of bugs, missmatches, networking issues, and a lot more. You can contribute to Threaded for free by making a pull request, don't forget to keep the Threads vibe!
 
 [Threaded](https://apps.lumaa.fr/app/threaded) is a very simple [#Mastodon](https://joinmastodon.org) client, that is meant to look like the newest social media [#Threads](https://threads.net/) made by Meta Platforms. It integrates perfectly with your Mastodon account, and matches the Threads vibe, while having Mastodon-only features.
