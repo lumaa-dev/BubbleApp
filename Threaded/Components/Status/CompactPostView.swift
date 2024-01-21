@@ -5,11 +5,13 @@ import SwiftUI
 struct CompactPostView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
     @State var status: Status
+    @State var reblogStatus: Status?
     @ObservedObject var navigator: Navigator
     
     var pinned: Bool = false
     var detailed: Bool = false
     var quoted: Bool = false
+    var imaging: Bool = false
     
     @State private var preferences: UserPreferences = .defaultPreferences
     @State private var initialLike: Bool = false
@@ -23,13 +25,9 @@ struct CompactPostView: View {
     
     var body: some View {
         VStack {
-            statusPost(status.reblog ?? status)
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    navigator.navigate(to: .post(status: status))
-                }
+            statusPost(reblogStatus ?? status)
             
-            if !quoted {
+            if !quoted && !imaging {
                 Rectangle()
                     .fill(Color.gray.opacity(0.2))
                     .frame(width: .infinity, height: 1)
@@ -49,7 +47,7 @@ struct CompactPostView: View {
             await loadEmbeddedStatus(status: status)
             
             if let client = accountManager.getClient() {
-                if let newStatus: Status = try? await client.get(endpoint: Statuses.status(id: status.id)) {
+                if let newStatus: Status = try? await client.get(endpoint: Statuses.status(id: status.reblog?.id ?? status.id)) {
                     status = newStatus
                 }
             }
@@ -57,7 +55,7 @@ struct CompactPostView: View {
     }
     
     @ViewBuilder
-    func statusPost(_ status: AnyStatus) -> some View {
+    func statusPost(_ status: Status) -> some View {
         HStack(alignment: .top, spacing: 0) {
             // MARK: Profile picture
             if status.repliesCount > 0 && preferences.experimental.replySymbol {
@@ -121,6 +119,10 @@ struct CompactPostView: View {
                             .lineLimit(quoted ? 3 : nil)
                             .fixedSize(horizontal: false, vertical: true)
                             .font(quoted ? .caption : .callout)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                navigator.navigate(to: .post(status: status))
+                            }
                     }
                     
                     if status.card != nil && status.mediaAttachments.isEmpty && !hasQuote {
@@ -153,12 +155,18 @@ struct CompactPostView: View {
                 }
                 
                 //MARK: Action buttons
-                if !quoted {
-                    
+                if !quoted && !imaging {
+                    PostInteractor(status: reblogStatus ?? status, isLiked: $isLiked, isReposted: $isReposted, isBookmarked: $isBookmarked)
                 }
                 
                 // MARK: Status stats
                 stats.padding(.top, 5)
+            }
+            
+            if !imaging {
+                PostMenu(status: status)
+                    .offset(x: -10, y: 10)
+                    .contentShape(Rectangle())
             }
         }
     }

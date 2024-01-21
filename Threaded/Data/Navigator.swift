@@ -40,6 +40,7 @@ public enum SheetDestination: Identifiable {
     case mastodonLogin(logged: Binding<Bool>)
     case post(content: String = "", replyId: String? = nil)
     case safari(url: URL)
+    case shareImage(image: UIImage)
     
     public var id: String {
         switch self {
@@ -51,6 +52,8 @@ public enum SheetDestination: Identifiable {
                 return "post"
             case .safari:
                 return "safari"
+            case .shareImage:
+                return "shareImage"
         }
     }
     
@@ -66,6 +69,9 @@ public enum SheetDestination: Identifiable {
                 return false
                 
             case .safari:
+                return false
+                
+            case .shareImage:
                 return false
         }
     }
@@ -133,6 +139,8 @@ extension View {
                             .tint(Color.accentColor)
                     case let .safari(url):
                         SfSafariView(url: url)
+                    case let .shareImage(image):
+                        ShareSheet(image: image)
                     default:
                         EmptyView()
                 }
