@@ -34,6 +34,8 @@
 		B9B63B252B44997400BBC82D /* QuotePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B63B242B44997400BBC82D /* QuotePostView.swift */; };
 		B9B63B272B449CDC00BBC82D /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B63B262B449CDC00BBC82D /* SearchResults.swift */; };
 		B9BED5162B5D5E6500C9B715 /* PostInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BED5152B5D5E6500C9B715 /* PostInteractor.swift */; };
+		B9BED5182B5D649C00C9B715 /* PostMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BED5172B5D649C00C9B715 /* PostMenu.swift */; };
+		B9BED51A2B5D662D00C9B715 /* ShareSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BED5192B5D662D00C9B715 /* ShareSheetController.swift */; };
 		B9CC45B82B40A2D6001E4FA5 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CC45B72B40A2D6001E4FA5 /* AboutView.swift */; };
 		B9CFC43B2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9CFC43A2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard */; };
 		B9EBE8562B47256900FB594D /* PostAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBE8552B47256900FB594D /* PostAttachment.swift */; };
@@ -117,6 +119,8 @@
 		B9B63B242B44997400BBC82D /* QuotePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotePostView.swift; sourceTree = "<group>"; };
 		B9B63B262B449CDC00BBC82D /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
 		B9BED5152B5D5E6500C9B715 /* PostInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInteractor.swift; sourceTree = "<group>"; };
+		B9BED5172B5D649C00C9B715 /* PostMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMenu.swift; sourceTree = "<group>"; };
+		B9BED5192B5D662D00C9B715 /* ShareSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetController.swift; sourceTree = "<group>"; };
 		B9CC45B72B40A2D6001E4FA5 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		B9CC45B92B40AA1E001E4FA5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B9CFC43A2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchStoryboard.storyboard; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 				B9EBE8552B47256900FB594D /* PostAttachment.swift */,
 				B9B63B242B44997400BBC82D /* QuotePostView.swift */,
 				B9BED5152B5D5E6500C9B715 /* PostInteractor.swift */,
+				B9BED5172B5D649C00C9B715 /* PostMenu.swift */,
 			);
 			path = Status;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 				B93B67772B42E8F0000892E9 /* TextEmoji.swift */,
 				B9B63B202B442D1500BBC82D /* DynamicTextEditor.swift */,
 				B98BC74A2B46CF0400595441 /* ListStyle.swift */,
+				B9BED5192B5D662D00C9B715 /* ShareSheetController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -476,12 +482,14 @@
 				B9FB945B2B2DEECE00D81C07 /* ThreadedApp.swift in Sources */,
 				B9FB94862B2E211200D81C07 /* Account+Elms.swift in Sources */,
 				B9FB94BC2B2F035500D81C07 /* Tag.swift in Sources */,
+				B9BED51A2B5D662D00C9B715 /* ShareSheetController.swift in Sources */,
 				B9BED5162B5D5E6500C9B715 /* PostInteractor.swift in Sources */,
 				B98BC74B2B46CF0400595441 /* ListStyle.swift in Sources */,
 				B9FB94812B2E1FEF00D81C07 /* HTMLString.swift in Sources */,
 				B9FB947F2B2E1D5F00D81C07 /* Account.swift in Sources */,
 				B9842C122B2F2A5800D9F3C1 /* TimelineView.swift in Sources */,
 				B9FB948C2B2E232300D81C07 /* OnlineImage.swift in Sources */,
+				B9BED5182B5D649C00C9B715 /* PostMenu.swift in Sources */,
 				B9FB94742B2DF6A100D81C07 /* ButtonStyles.swift in Sources */,
 				B9FB94702B2DF3CD00D81C07 /* Navigator.swift in Sources */,
 				B9EBE8562B47256900FB594D /* PostAttachment.swift in Sources */,
