@@ -7,7 +7,7 @@ struct AboutView: View {
     
     var body: some View {
         List {
-            Section(footer: Text("about.version-\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Inconnue")")) {
+            Section(footer: Text("about.version-\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown")")) {
                 NavigationLink {
                     aboutApp
                 } label: {
