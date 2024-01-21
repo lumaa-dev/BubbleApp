@@ -21,9 +21,11 @@ Threaded is a 100% free, made in SwiftUI, [#OpenSource](https://github.com/luma
 
 - [ ] Smart deep links
 
-- [ ] Animate T while reloading timeline
+- [ ] Animate T while reloading timeline (branding)
 
 - [x] Launch screen like Threads
+
+- [ ] Translating posts in other languages (suggested by [@Damon](https://mozilla.social/@Damon))
 
 - [ ] [Live Activity](https://github.com/lumaa-dev/Too-Much-Code/blob/main/TMC-Widget/TMC_LAProgress.swift) when posting (for large content/attachments, like Instagram already does)
 
