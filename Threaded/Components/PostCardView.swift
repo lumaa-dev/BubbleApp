@@ -3,6 +3,8 @@
 import SwiftUI
 
 struct PostCardView: View {
+    @Environment(\.openURL) private var openURL
+    
     var card: Card
     var inQuote: Bool = false
     
@@ -47,7 +49,7 @@ struct PostCardView: View {
         )
         .onTapGesture {
             if UIApplication.shared.canOpenURL(URL(string: card.url)!) {
-                UIApplication.shared.open(URL(string: card.url)!)
+                openURL(URL(string: card.url)!)
             }
         }
     }

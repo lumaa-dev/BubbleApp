@@ -37,6 +37,7 @@ struct ContentView: View {
             ZStack {
                 if accountManager.getAccount() != nil {
                     AccountView(isCurrent: true, account: accountManager.forceAccount())
+                        .environment(navigator)
                         .background(Color.appBackground)
                 } else {
                     ZStack {
@@ -69,6 +70,14 @@ struct ContentView: View {
         .task {
             await recognizeAccount()
         }
+        .environment(\.openURL, OpenURLAction { url in
+            // Open internal URL.
+            navigator.presentedSheet = .safari(url: url)
+            return OpenURLAction.Result.handled
+        })
+        .onOpenURL(perform: { url in
+            navigator.presentedSheet = .safari(url: url)
+        })
     }
     
     func recognizeAccount() async {
