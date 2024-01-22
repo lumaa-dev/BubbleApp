@@ -5,7 +5,6 @@ import SwiftUI
 struct CompactPostView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
     @State var status: Status
-    @State var reblogStatus: Status?
     @ObservedObject var navigator: Navigator
     
     var pinned: Bool = false
@@ -25,7 +24,7 @@ struct CompactPostView: View {
     
     var body: some View {
         VStack {
-            statusPost(reblogStatus ?? status)
+            statusPost(status.reblogAsAsStatus ?? status)
             
             if !quoted && !imaging {
                 Rectangle()
