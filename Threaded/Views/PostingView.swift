@@ -99,7 +99,6 @@ struct PostingView: View {
                             let endp: Endpoint = isEdit ? Statuses.editStatus(id: editId!, json: json) : Statuses.postStatus(json: json)
                             
                             let newStatus: Status = try await client.post(endpoint: endp)
-                            // TODO: Live Activity if content too large
                             postingStatus = false
                             HapticManager.playHaptics(haptics: Haptic.success)
                             dismiss()
