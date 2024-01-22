@@ -131,7 +131,7 @@ extension View {
                 switch destination {
                     case .post(let content, let replyId):
                         NavigationStack {
-                            PostingView(initialString: content + " ", replyId: replyId)
+                            PostingView(initialString: content, replyId: replyId)
                                 .tint(Color(uiColor: UIColor.label))
                         }
                     case let .mastodonLogin(logged):
