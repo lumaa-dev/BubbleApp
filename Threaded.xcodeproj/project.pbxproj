@@ -185,7 +185,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B9BED5142B5D5CCD00C9B715 /* Status */ = {
+		B93BCC3F2B5E38E5008EEA19 /* Status */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Status;
+			sourceTree = "<group>";
+		};
+		B9BED5142B5D5CCD00C9B715 /* Post */ = {
 			isa = PBXGroup;
 			children = (
 				B9842C0D2B2F21B700D9F3C1 /* CompactPostView.swift */,
@@ -195,7 +202,7 @@
 				B9BED5152B5D5E6500C9B715 /* PostInteractor.swift */,
 				B9BED5172B5D649C00C9B715 /* PostMenu.swift */,
 			);
-			path = Status;
+			path = Post;
 			sourceTree = "<group>";
 		};
 		B9FB944E2B2DEECE00D81C07 = {
@@ -248,6 +255,7 @@
 		B9FB946C2B2DF3A600D81C07 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				B93BCC3F2B5E38E5008EEA19 /* Status */,
 				B9FB94BD2B2F038D00D81C07 /* Accounts */,
 				B9FB946F2B2DF3CD00D81C07 /* Navigator.swift */,
 				B9FB94A12B2EF24A00D81C07 /* AppInfo.swift */,
@@ -287,7 +295,7 @@
 		B9FB946E2B2DF3BB00D81C07 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				B9BED5142B5D5CCD00C9B715 /* Status */,
+				B9BED5142B5D5CCD00C9B715 /* Post */,
 				B9FB94752B2E023D00D81C07 /* TabsView.swift */,
 				B9FB94732B2DF6A100D81C07 /* ButtonStyles.swift */,
 				B93B67792B42EC51000892E9 /* MetaPicker.swift */,
