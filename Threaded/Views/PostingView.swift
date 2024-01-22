@@ -11,6 +11,7 @@ struct PostingView: View {
     
     public var initialString: String = ""
     public var replyId: String? = nil
+    public var editId: String? = nil
     
     @State private var viewModel: PostingView.ViewModel = PostingView.ViewModel()
     
@@ -92,7 +93,13 @@ struct PostingView: View {
                     Task {
                         if let client = accountManager.getClient() {
                             postingStatus = true
-                            let newStatus: Status = try await client.post(endpoint: Statuses.postStatus(json: .init(status: viewModel.postText.string, visibility: visibility, inReplyToId: replyId)))
+                            let json: StatusData = .init(status: viewModel.postText.string, visibility: visibility, inReplyToId: replyId)
+                            
+                            let isEdit: Bool = editId != nil
+                            let endp: Endpoint = isEdit ? Statuses.editStatus(id: editId!, json: json) : Statuses.postStatus(json: json)
+                            
+                            let newStatus: Status = try await client.post(endpoint: endp)
+                            // TODO: Live Activity if content too large
                             postingStatus = false
                             HapticManager.playHaptics(haptics: Haptic.success)
                             dismiss()
@@ -127,7 +134,11 @@ struct PostingView: View {
             }
         }
         .onAppear {
-            viewModel.append(text: initialString)
+            if !initialString.isEmpty && editId == nil {
+                viewModel.append(text: initialString + " ") // add space for quick typing
+            } else {
+                viewModel.append(text: initialString) // editing doesn't need quick typing
+            }
         }
     }
     
