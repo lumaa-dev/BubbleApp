@@ -193,8 +193,8 @@
 				B9FB94BB2B2F035500D81C07 /* Tag.swift */,
 				B9FB94802B2E1FEF00D81C07 /* HTMLString.swift */,
 				B9FB948D2B2E28E800D81C07 /* ShareableOnlineImage.swift */,
-				B9842C172B2F36F500D9F3C1 /* AccountsList.swift */,
 				B9842C132B2F310C00D9F3C1 /* FetchTimeline.swift */,
+				B9842C152B2F363600D9F3C1 /* TimelineFilter.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -343,7 +343,7 @@
 				B9FB947C2B2E19E300D81C07 /* AccountManager.swift */,
 				B9FB947E2B2E1D5F00D81C07 /* Account.swift */,
 				B9FB94852B2E211200D81C07 /* Account+Elms.swift */,
-				B9842C152B2F363600D9F3C1 /* TimelineFilter.swift */,
+				B9842C172B2F36F500D9F3C1 /* AccountsList.swift */,
 			);
 			path = Accounts;
 			sourceTree = "<group>";
