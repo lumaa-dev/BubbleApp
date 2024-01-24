@@ -5,6 +5,15 @@ import SwiftUI
 struct LargeButton: ButtonStyle {
     var filled: Bool = false
     var height: CGFloat? = nil
+    var disabled: Bool = false
+    
+    private var fillColor: Color {
+        if disabled {
+            Color.gray
+        } else {
+            Color(uiColor: UIColor.label)
+        }
+    }
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -12,7 +21,7 @@ struct LargeButton: ButtonStyle {
             .padding(.vertical, height)
             .background {
                 if filled {
-                    Color(uiColor: UIColor.label)
+                    fillColor
                 }
             }
             .foregroundStyle(filled ? Color(uiColor: UIColor.systemBackground) : Color(uiColor: UIColor.label))

@@ -37,7 +37,7 @@ struct PostingView: View {
                 VStack(alignment: .leading) {
                     // MARK: Status main content
                     VStack(alignment: .leading, spacing: 10) {
-                        Text(accountManager.forceAccount().username)
+                        Text("@\(accountManager.forceAccount().username)")
                             .multilineTextAlignment(.leading)
                             .bold()
                         
@@ -116,7 +116,7 @@ struct PostingView: View {
                     }
                 }
                 .disabled(postingStatus || viewModel.postText.length <= 0)
-                .buttonStyle(LargeButton(filled: true, height: 7.5))
+                .buttonStyle(LargeButton(filled: true, height: 7.5, disabled: postingStatus || viewModel.postText.length <= 0))
             }
             .padding()
         }
