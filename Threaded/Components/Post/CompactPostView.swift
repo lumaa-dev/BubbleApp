@@ -155,7 +155,7 @@ struct CompactPostView: View {
                 
                 //MARK: Action buttons
                 if !quoted && !imaging {
-                    PostInteractor(status: reblogStatus ?? status, isLiked: $isLiked, isReposted: $isReposted, isBookmarked: $isBookmarked)
+                    PostInteractor(status: status.reblogAsAsStatus ?? status, isLiked: $isLiked, isReposted: $isReposted, isBookmarked: $isBookmarked)
                 }
                 
                 // MARK: Status stats
