@@ -230,11 +230,13 @@ struct AccountView: View {
             Task {
                 let endpoint: Endpoint = isFollowing ? Accounts.unfollow(id: account.id) : Accounts.follow(id: account.id, notify: false, reblogs: true)
                 HapticManager.playHaptics(haptics: Haptic.tap)
-                try await client.post(endpoint: endpoint) // Notify off until APNs? | Reblogs on by default (later changeable)
+                _ = try await client.post(endpoint: endpoint) // Notify off until APNs? | Reblogs on by default (later changeable)
                 isFollowing = !isFollowing
             }
         }
     }
+    
+    
     
     func reloadUser() async {
         if let client = accountManager.getClient() {
