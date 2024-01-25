@@ -139,6 +139,7 @@ extension View {
                             .tint(Color.accentColor)
                     case let .safari(url):
                         SfSafariView(url: url)
+                            .ignoresSafeArea(.all)
                     case let .shareImage(image):
                         ShareSheet(image: image)
                     default:
