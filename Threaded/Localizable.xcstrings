@@ -64,16 +64,48 @@
       }
     },
     "accessibility.media.supported-type.audio.label" : {
-      "comment" : "A localized description of SupportedType.audio"
+      "comment" : "A localized description of SupportedType.audio",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An audio file"
+          }
+        }
+      }
     },
     "accessibility.media.supported-type.gifv.label" : {
-      "comment" : "A localized description of SupportedType.gifv"
+      "comment" : "A localized description of SupportedType.gifv",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An animated GIF"
+          }
+        }
+      }
     },
     "accessibility.media.supported-type.image.label" : {
-      "comment" : "A localized description of SupportedType.image"
+      "comment" : "A localized description of SupportedType.image",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An image"
+          }
+        }
+      }
     },
     "accessibility.media.supported-type.video.label" : {
-      "comment" : "A localized description of SupportedType.video"
+      "comment" : "A localized description of SupportedType.video",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A video"
+          }
+        }
+      }
     },
     "account.follow" : {
       "localizations" : {
@@ -292,7 +324,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "in-app"
+            "value" : "In-app"
           }
         }
       }
@@ -302,7 +334,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "in a browser"
+            "value" : "In a browser"
           }
         }
       }
