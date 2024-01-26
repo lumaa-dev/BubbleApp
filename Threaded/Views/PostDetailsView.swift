@@ -20,7 +20,7 @@ struct PostDetailsView: View {
     @State private var quoteStatus: Status? = nil
     
     init(status: Status) {
-        self.detailedStatus = status
+        self.detailedStatus = status.reblogAsAsStatus ?? status
     }
     
     var body: some View {
@@ -72,6 +72,11 @@ struct PostDetailsView: View {
                     .onTapGesture {
                         navigator.navigate(to: .account(acc: status.account))
                     }
+                
+                Spacer()
+                
+                PostMenu(status: status)
+                    .padding([.trailing, .top])
             }
             
             VStack(alignment: .leading) {
@@ -107,7 +112,7 @@ struct PostDetailsView: View {
                 }
                 
                 //MARK: Action buttons
-                PostInteractor(status: status as! Status, isLiked: $isLiked, isReposted: $isReposted, isBookmarked: $isBookmarked)
+                PostInteractor(status: status, isLiked: $isLiked, isReposted: $isReposted, isBookmarked: $isBookmarked)
                 
                 // MARK: Status stats
                 stats.padding(.top, 5)
@@ -147,12 +152,10 @@ struct PostDetailsView: View {
         if detailedStatus.reblog != nil {
             OnlineImage(url: detailedStatus.reblog!.account.avatar, size: 50, useNuke: true)
                 .frame(width: 40, height: 40)
-                .padding(.trailing)
                 .clipShape(.circle)
         } else {
             OnlineImage(url: detailedStatus.account.avatar, size: 50, useNuke: true)
                 .frame(width: 40, height: 40)
-                .padding(.trailing)
                 .clipShape(.circle)
         }
     }
