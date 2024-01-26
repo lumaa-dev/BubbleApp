@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "@%@" : {
+
+    },
     "#%@" : {
 
     },
@@ -404,6 +407,16 @@
         }
       }
     },
+    "status.editing" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editing post"
+          }
+        }
+      }
+    },
     "status.favourites-%lld" : {
       "localizations" : {
         "en" : {
@@ -422,6 +435,16 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "status.menu.copy-text" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy text"
           }
         }
       }
