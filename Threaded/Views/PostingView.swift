@@ -17,12 +17,19 @@ struct PostingView: View {
     
     @State private var visibility: Visibility = .pub
     @State private var selectedPhotos: PhotosPickerItem?
+    @State private var selectingEmoji: Bool = false
     
     @State private var postingStatus: Bool = false
     
     var body: some View {
         if accountManager.getAccount() != nil {
             posting
+                .sheet(isPresented: $selectingEmoji) {
+                    Text(String("Custom Emoji selection"))
+                        .presentationDetents([.medium])
+                        .presentationDragIndicator(.visible)
+                        .presentationBackgroundInteraction(.enabled) // Allow users to move the cursor while adding emojis
+                }
         } else {
             loading
         }
@@ -160,6 +167,10 @@ struct PostingView: View {
                 DispatchQueue.main.async {
                     viewModel.append(text: "#")
                 }
+            }
+            
+            actionButton("face.smiling") {
+                selectingEmoji.toggle()
             }
         }
     }
