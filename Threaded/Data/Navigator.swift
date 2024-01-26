@@ -38,9 +38,9 @@ public enum TabDestination: Identifiable {
 public enum SheetDestination: Identifiable {
     case welcome
     case mastodonLogin(logged: Binding<Bool>)
-    case post(content: String = "", replyId: String? = nil)
+    case post(content: String = "", replyId: String? = nil, editId: String? = nil)
     case safari(url: URL)
-    case shareImage(image: UIImage)
+    case shareImage(image: UIImage, status: Status)
     
     public var id: String {
         switch self {
@@ -129,9 +129,9 @@ extension View {
                 }
             } else {
                 switch destination {
-                    case .post(let content, let replyId):
+                    case .post(let content, let replyId, let editId):
                         NavigationStack {
-                            PostingView(initialString: content, replyId: replyId)
+                            PostingView(initialString: content, replyId: replyId, editId: editId)
                                 .tint(Color(uiColor: UIColor.label))
                         }
                     case let .mastodonLogin(logged):
@@ -139,9 +139,9 @@ extension View {
                             .tint(Color.accentColor)
                     case let .safari(url):
                         SfSafariView(url: url)
-                            .ignoresSafeArea(.all)
-                    case let .shareImage(image):
-                        ShareSheet(image: image)
+                            .ignoresSafeArea()
+                    case let .shareImage(image, status):
+                        ShareSheet(image: image, status: status)
                     default:
                         EmptyView()
                 }

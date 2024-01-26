@@ -121,7 +121,7 @@ struct PostingView: View {
             .padding()
         }
         .navigationBarBackButtonHidden()
-        .navigationTitle(Text("status.posting"))
+        .navigationTitle(Text(editId == nil ? "status.posting" : "status.editing"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
