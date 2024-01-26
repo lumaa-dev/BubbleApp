@@ -18,6 +18,8 @@ Threaded is a 100% free, made in SwiftUI, [#OpenSource](https://github.com/luma
 
 - [ ] Fix all bugs and implement features cited with `TODO`
 
+- [ ] Accessibility features
+
 - [x] Infinite scroll
 
 - [ ] Smart deep links
