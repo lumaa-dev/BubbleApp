@@ -22,16 +22,19 @@ struct PostingView: View {
     @State private var postingStatus: Bool = false
     
     var body: some View {
+        
         if accountManager.getAccount() != nil {
             posting
+                .background(Color.appBackground)
                 .sheet(isPresented: $selectingEmoji) {
-                    Text(String("Custom Emoji selection"))
-                        .presentationDetents([.medium])
+                    EmojiSelector(viewModel: $viewModel)
+                        .presentationDetents([.height(200), .medium])
                         .presentationDragIndicator(.visible)
-                        .presentationBackgroundInteraction(.enabled) // Allow users to move the cursor while adding emojis
+                        .presentationBackgroundInteraction(.enabled(upThrough: .height(200))) // Allow users to move the cursor while adding emojis
                 }
         } else {
             loading
+                .background(Color.appBackground)
         }
     }
     
