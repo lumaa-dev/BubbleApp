@@ -277,6 +277,36 @@
         }
       }
     },
+    "setting.appearence.browser" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open links"
+          }
+        }
+      }
+    },
+    "setting.appearence.browser.in-app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in-app"
+          }
+        }
+      }
+    },
+    "setting.appearence.browser.out-app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in a browser"
+          }
+        }
+      }
+    },
     "setting.appearence.displayed-name" : {
       "localizations" : {
         "en" : {
