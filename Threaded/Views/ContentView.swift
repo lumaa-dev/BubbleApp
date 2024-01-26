@@ -31,6 +31,7 @@ struct ContentView: View {
                 .background(Color.appBackground)
                 .tag(TabDestination.search)
             
+            //TODO: Messaging UI in Activity tab
             Text(String("Activity"))
                 .background(Color.appBackground)
                 .tag(TabDestination.activity)
