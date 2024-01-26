@@ -14,5 +14,6 @@ extension View {
         self
             .listRowSeparator(.hidden)
             .listRowBackground(Color.appBackground)
+            .tint(Color.blue)
     }
 }
