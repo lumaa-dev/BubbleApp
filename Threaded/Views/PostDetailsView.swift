@@ -58,7 +58,7 @@ struct PostDetailsView: View {
     }
     
     @ViewBuilder
-    func statusPost(_ status: AnyStatus) -> some View {
+    func statusPost(_ status: Status) -> some View {
         VStack(alignment: .leading) {
             HStack {
                 profilePicture
