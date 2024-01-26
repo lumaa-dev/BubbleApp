@@ -24,6 +24,8 @@ struct CompactPostView: View {
     
     var body: some View {
         VStack {
+            notices
+            
             statusPost(status.reblogAsAsStatus ?? status)
             
             if !quoted && !imaging {
@@ -164,7 +166,7 @@ struct CompactPostView: View {
             
             if !imaging {
                 PostMenu(status: status)
-                    .offset(x: -10, y: 10)
+                    .padding([.trailing, .top])
                     .contentShape(Rectangle())
             }
         }
