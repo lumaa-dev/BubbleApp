@@ -31,3 +31,7 @@ Threaded is a 100% free, made in SwiftUI, [#OpenSource](https://github.com/luma
 - [ ] Mastodon doesn't provide progresses on posting ~~[Live Activity](https://github.com/lumaa-dev/Too-Much-Code/blob/main/TMC-Widget/TMC_LAProgress.swift) when posting (for large content/attachments, like Instagram already does)~~
 
 - [x] Share posts as [images](https://developer.apple.com/documentation/swiftui/imagerenderer) and copy/share text to clipboard
+
+- [ ] A proper messaging user interface
+
+- [ ] [In-app purchases](https://mastodon.online/@Threaded/111813166173390719) and/or subscriptions (name to decide)
