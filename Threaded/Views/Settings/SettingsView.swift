@@ -33,6 +33,8 @@ struct SettingsView: View {
                     
                     Button {
                         AppAccount.clear()
+                        navigator.path = []
+                        navigator.selectedTab = .timeline
                         sheet = .welcome
                     } label: {
                         Text("logout")
