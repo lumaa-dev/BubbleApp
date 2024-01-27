@@ -37,6 +37,8 @@ public enum TabDestination: Identifiable {
 
 public enum SheetDestination: Identifiable {
     case welcome
+    case shop
+    
     case mastodonLogin(logged: Binding<Bool>)
     case post(content: String = "", replyId: String? = nil, editId: String? = nil)
     case safari(url: URL)
@@ -46,6 +48,9 @@ public enum SheetDestination: Identifiable {
         switch self {
             case .welcome:
                 return "welcome"
+            case .shop:
+                return "shop"
+                
             case .mastodonLogin:
                 return "login"
             case .post:
@@ -61,16 +66,15 @@ public enum SheetDestination: Identifiable {
         switch self {
             case .welcome:
                 return true
+            case .shop:
+                return true
                 
             case .mastodonLogin:
                 return false
-                
             case .post:
                 return false
-                
             case .safari:
                 return false
-                
             case .shareImage:
                 return false
         }
@@ -124,8 +128,10 @@ extension View {
                 switch destination {
                     case .welcome:
                         ConnectView()
+                    case .shop:
+                        ShopView()
                     default:
-                        EmptyView()
+                        EmptySheetView(destId: destination.id)
                 }
             } else {
                 switch destination {
@@ -143,9 +149,22 @@ extension View {
                     case let .shareImage(image, status):
                         ShareSheet(image: image, status: status)
                     default:
-                        EmptyView()
+                        EmptySheetView(destId: destination.id)
                 }
             }
+        }
+    }
+}
+
+private struct EmptySheetView: View {
+    var destId: String = "???"
+    
+    var body: some View {
+        ZStack {
+            ContentUnavailableView(String("Missing view for \"\(destId.isEmpty ? "[EMPTY_DEST_ID]" : destId)\""), systemImage: "exclamationmark.triangle.fill", description: Text(String("Please notify Lumaa as soon as possible!\n\nThreadedApp v\(AppInfo.appVersion)")))
+                .ignoresSafeArea()
+                .background(Color.red.gradient)
+                .foregroundStyle(.white)
         }
     }
 }
