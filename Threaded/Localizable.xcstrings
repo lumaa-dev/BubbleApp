@@ -469,6 +469,26 @@
         }
       }
     },
+    "shop.cancel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "shop.threaded-plus.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded+ - Description"
+          }
+        }
+      }
+    },
     "status.editing" : {
       "localizations" : {
         "en" : {
