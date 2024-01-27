@@ -13,6 +13,8 @@ public struct DynamicTextEditor: View {
     @State private var calculatedHeight: CGFloat = 44
     
     private var getTextView: ((UITextView) -> Void)?
+    private var onFocusAction: (() -> Void) = {}
+    private var onDimissAction: (() -> Void) = {}
     
     var placeholderView: AnyView?
     var placeholderText: String?
@@ -38,7 +40,9 @@ public struct DynamicTextEditor: View {
             text: $text,
             calculatedHeight: $calculatedHeight,
             keyboard: keyboard,
-            getTextView: getTextView
+            getTextView: getTextView,
+            onFocus: onFocusAction,
+            onDismiss: onDimissAction
         )
         .frame(
             minHeight: calculatedHeight,
@@ -106,6 +110,18 @@ public extension DynamicTextEditor {
         view.keyboard = keyboardType
         return view
     }
+    
+    func onFocus(_ action: @escaping () -> Void) -> DynamicTextEditor {
+        var view = self
+        view.onFocusAction = action
+        return view
+    }
+    
+    func onDismiss(_ action: @escaping () -> Void) -> DynamicTextEditor {
+        var view = self
+        view.onDimissAction = action
+        return view
+    }
 }
 
 extension DynamicTextEditor {
@@ -116,6 +132,8 @@ extension DynamicTextEditor {
         
         let keyboard: UIKeyboardType
         var getTextView: ((UITextView) -> Void)?
+        var onFocus: (() -> Void)
+        var onDismiss: (() -> Void)
         
         func makeUIView(context: Context) -> UIKitTextView {
             context.coordinator.textView
@@ -134,7 +152,9 @@ extension DynamicTextEditor {
                 text: $text,
                 calculatedHeight: $calculatedHeight,
                 sizeCategory: sizeCategory,
-                getTextView: getTextView
+                getTextView: getTextView,
+                onFocus: onFocus,
+                onDismiss: onDismiss
             )
         }
     }
@@ -152,11 +172,15 @@ extension DynamicTextEditor.Representable {
         var didBecomeFirstResponder = false
         
         var getTextView: ((UITextView) -> Void)?
+        var onFocus: (() -> Void)
+        var onDismiss: (() -> Void)
         
         init(text: Binding<NSMutableAttributedString>,
              calculatedHeight: Binding<CGFloat>,
              sizeCategory: ContentSizeCategory,
-             getTextView: ((UITextView) -> Void)?)
+             getTextView: ((UITextView) -> Void)?,
+             onFocus: @escaping (() -> Void),
+             onDismiss: @escaping (() -> Void))
         {
             textView = UIKitTextView()
             textView.backgroundColor = .clear
@@ -169,6 +193,8 @@ extension DynamicTextEditor.Representable {
             self.calculatedHeight = calculatedHeight
             self.sizeCategory = sizeCategory
             self.getTextView = getTextView
+            self.onFocus = onFocus
+            self.onDismiss = onDismiss
             
             super.init()
             
@@ -184,6 +210,7 @@ extension DynamicTextEditor.Representable {
             textView.allowsEditingTextAttributes = false
             textView.returnKeyType = .default
             textView.allowsEditingTextAttributes = true
+
             
             self.getTextView?(textView)
         }
@@ -193,6 +220,11 @@ extension DynamicTextEditor.Representable {
             DispatchQueue.main.async {
                 self.recalculateHeight()
             }
+            _ = onFocus()
+        }
+        
+        func textViewDidEndEditing(_ textView: UITextView) {
+            _ = onDismiss()
         }
         
         func textViewDidChange(_ textView: UITextView) {

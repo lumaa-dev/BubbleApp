@@ -15,6 +15,7 @@ struct PostingView: View {
     
     @State private var viewModel: PostingView.ViewModel = PostingView.ViewModel()
     
+    @State private var hasKeyboard: Bool = true
     @State private var visibility: Visibility = .pub
     @State private var selectedPhotos: PhotosPickerItem?
     @State private var selectingEmoji: Bool = false
@@ -56,6 +57,9 @@ struct PostingView: View {
                         })
                             .placeholder(String(localized: "status.posting.placeholder"))
                             .setKeyboardType(.twitter)
+                            .onFocus {
+                                selectingEmoji = false
+                            }
                             .multilineTextAlignment(.leading)
                             .font(.callout)
                             .foregroundStyle(Color(uiColor: UIColor.label))
@@ -66,6 +70,10 @@ struct PostingView: View {
                     
                     Spacer()
                 }
+            }
+            .onChange(of: selectingEmoji) { _, new in
+                guard new == false else { return }
+                viewModel.textView?.becomeFirstResponder()
             }
             
             HStack {
@@ -173,6 +181,7 @@ struct PostingView: View {
             }
             
             actionButton("face.smiling") {
+                viewModel.textView?.resignFirstResponder()
                 selectingEmoji.toggle()
             }
         }
