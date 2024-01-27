@@ -14,3 +14,7 @@ struct ThreadedApp: App {
         }
     }
 }
+
+extension AppInfo {
+    static var appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+}
