@@ -40,10 +40,10 @@ extension PostingView {
         
         static var transferRepresentation: some TransferRepresentation {
             FileRepresentation(importedContentType: .movie) { receivedTransferrable in
-                return MovieFileTransferable(url: receivedTransferrable.file)
+                return MovieFileTransferable(url: receivedTransferrable.localURL)
             }
             FileRepresentation(importedContentType: .video) { receivedTransferrable in
-                return MovieFileTransferable(url: receivedTransferrable.file)
+                return MovieFileTransferable(url: receivedTransferrable.localURL)
             }
         }
     }
@@ -66,7 +66,7 @@ extension PostingView {
         
         static var transferRepresentation: some TransferRepresentation {
             FileRepresentation(importedContentType: .gif) { receivedTransferrable in
-                return GifFileTranseferable(url: receivedTransferrable.file)
+                return GifFileTranseferable(url: receivedTransferrable.localURL)
             }
         }
     }
@@ -87,8 +87,37 @@ extension PostingView {
         
         public static var transferRepresentation: some TransferRepresentation {
             FileRepresentation(importedContentType: .image) { receivedTransferrable in
-                return ImageFileTranseferable(url: receivedTransferrable.file)
+                return ImageFileTranseferable(url: receivedTransferrable.localURL)
             }
+        }
+    }
+}
+
+extension UIImage {
+    func resized(to size: CGSize) -> UIImage {
+        UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
+}
+
+public extension ReceivedTransferredFile {
+    var localURL: URL {
+        if self.isOriginalFile {
+            return file
+        }
+        let copy = URL.temporaryDirectory.appending(path: "\(UUID().uuidString).\(self.file.pathExtension)")
+        try? FileManager.default.copyItem(at: self.file, to: copy)
+        return copy
+    }
+    
+}
+public extension URL {
+    func mimeType() -> String {
+        if let mimeType = UTType(filenameExtension: pathExtension)?.preferredMIMEType {
+            mimeType
+        } else {
+            "application/octet-stream"
         }
     }
 }
