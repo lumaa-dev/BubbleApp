@@ -132,23 +132,7 @@ struct PostAttachment: View {
         GeometryReader { _ in
             // Audio later because it's a lil harder
             if let url = attachment.previewUrl {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: !isFeatured ? imageMaxHeight / 1.5 : newSize.width, height: !isFeatured ? imageMaxHeight: newSize.height)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .stroke(.gray.opacity(0.3), lineWidth: 1)
-                        )
-                } placeholder: {
-                    ZStack(alignment: .center) {
-                        Color.gray
-                        
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                    }
-                }
+                OnlineImage(url: url, size: !isFeatured ? imageMaxHeight / 1.5 : newSize.width, priority: .veryHigh)
             }
         }
         .frame(width: !isFeatured ? imageMaxHeight / 1.5 : newSize.width, height: !isFeatured ? imageMaxHeight: newSize.height)
