@@ -5,17 +5,19 @@ import SwiftUI
 struct EmojiSelector: View {
     @Environment(AccountManager.self) private var accountManager
     
+    @State private var loading: Bool = true
     @State private var emojiContainers: [CategorizedEmojiContainer] = []
+    
     @Binding var viewModel: PostingView.ViewModel
     
     var body: some View {
-        if emojiContainers.isEmpty {
+        if loading {
             ProgressView()
                 .ignoresSafeArea()
                 .task {
                     await fetchCustomEmojis()
                 }
-        } else {
+        } else if !loading && !emojiContainers.isEmpty {
             ScrollView(.vertical, showsIndicators: false) {
                 ForEach(emojiContainers) { container in
                     LazyVGrid(columns: [.init(.adaptive(minimum: 40, maximum: 40))]) {
@@ -34,6 +36,8 @@ struct EmojiSelector: View {
             }
             .padding()
             .padding(.vertical)
+        } else {
+            ContentUnavailableView("status.posting.no-emojis", systemImage: "network.slash")
         }
     }
     

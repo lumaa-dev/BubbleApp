@@ -611,6 +611,16 @@
         }
       }
     },
+    "status.posting.no-emojis" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No custom emojis"
+          }
+        }
+      }
+    },
     "status.posting.placeholder" : {
       "localizations" : {
         "en" : {
