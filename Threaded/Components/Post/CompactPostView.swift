@@ -135,13 +135,13 @@ struct CompactPostView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(alignment: .firstTextBaseline, spacing: 5) {
                                     ForEach(status.mediaAttachments) { attachment in
-                                        PostAttachment(attachment: attachment, isFeatured: false)
+                                        PostAttachment(attachment: attachment, isFeatured: false, isImaging: imaging)
                                     }
                                 }
                             }
                             .scrollClipDisabled()
                         } else {
-                            PostAttachment(attachment: status.mediaAttachments.first!)
+                            PostAttachment(attachment: status.mediaAttachments.first!, isImaging: imaging)
                         }
                     }
                     
@@ -164,11 +164,11 @@ struct CompactPostView: View {
                 stats.padding(.top, 5)
             }
             
-            if !imaging {
-                PostMenu(status: status)
-                    .padding([.trailing, .top])
-                    .contentShape(Rectangle())
-            }
+//            if !imaging {
+//                PostMenu(status: status)
+//                    .padding([.trailing, .top])
+//                    .contentShape(Rectangle())
+//            }
         }
     }
     

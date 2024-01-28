@@ -13,6 +13,10 @@ public class Navigator: ObservableObject {
         path.append(to)
         print("appended view")
     }
+    
+    public func removeSettingsOfPath() {
+        self.path = self.path.filter({ !RouterDestination.allSettings.contains($0) })
+    }
 }
 
 public enum TabDestination: Identifiable {
@@ -90,6 +94,10 @@ public enum RouterDestination: Hashable {
     case about
 }
 
+extension RouterDestination {
+    static let allSettings: [RouterDestination] = [.settings, .privacy, .about, .appearence]
+}
+
 extension View {
     func withAppRouter(_ navigator: Navigator) -> some View {
         navigationDestination(for: RouterDestination.self) { destination in
@@ -158,10 +166,11 @@ extension View {
 
 private struct EmptySheetView: View {
     var destId: String = "???"
+    let str: String = .init(localized: "about.version-\(AppInfo.appVersion)")
     
     var body: some View {
         ZStack {
-            ContentUnavailableView(String("Missing view for \"\(destId.isEmpty ? "[EMPTY_DEST_ID]" : destId)\""), systemImage: "exclamationmark.triangle.fill", description: Text(String("Please notify Lumaa as soon as possible!\n\nThreadedApp v\(AppInfo.appVersion)")))
+            ContentUnavailableView(String("Missing view for \"\(destId.isEmpty ? "[EMPTY_DEST_ID]" : destId)\""), systemImage: "exclamationmark.triangle.fill", description: Text(String("Please notify Lumaa as soon as possible!\n\n\(str)")))
                 .ignoresSafeArea()
                 .background(Color.red.gradient)
                 .foregroundStyle(.white)

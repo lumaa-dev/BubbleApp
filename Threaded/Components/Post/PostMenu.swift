@@ -6,6 +6,7 @@ import UniformTypeIdentifiers
 struct PostMenu: View {
     @Environment(Navigator.self) private var navigator
     @Environment(AccountManager.self) private var accountManager
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.displayScale) private var displayScale
     
@@ -92,6 +93,9 @@ struct PostMenu: View {
     private func deleteStatus() async {
         if let client = accountManager.getClient() {
             _ = try? await client.delete(endpoint: Statuses.status(id: status.id))
+            if navigator.path.last == .post(status: status) {
+                dismiss()
+            }
         }
     }
 }
