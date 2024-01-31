@@ -26,7 +26,7 @@ struct FetchTimeline {
     }
     
     public mutating func addStatuses(lastStatusIndex: Int) async -> [Status] {
-        print("i: \(lastStatusIndex)\ndatasource-6: \(self.datasource.count - 6)")
+//        print("i: \(lastStatusIndex)\ndatasource-6: \(self.datasource.count - 6)")
         guard client != nil && lastStatusIndex >= self.datasource.count - 6 else { return self.datasource }
         
         self.statusesState = .loading

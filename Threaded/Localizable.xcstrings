@@ -20,6 +20,12 @@
             "state" : "translated",
             "value" : "About"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À propos"
+          }
         }
       }
     },
@@ -29,6 +35,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "About Threaded"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À propos de Threaded"
           }
         }
       }
@@ -71,6 +83,12 @@
             "state" : "translated",
             "value" : "An audio file"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un fichier audio"
+          }
         }
       }
     },
@@ -81,6 +99,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "An animated GIF"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un GIF animé"
           }
         }
       }
@@ -93,6 +117,12 @@
             "state" : "translated",
             "value" : "An image"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une image"
+          }
         }
       }
     },
@@ -104,6 +134,12 @@
             "state" : "translated",
             "value" : "A video"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une vidéo"
+          }
         }
       }
     },
@@ -114,6 +150,12 @@
             "state" : "translated",
             "value" : "Follow"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suivre"
+          }
         }
       }
     },
@@ -123,6 +165,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Follow back"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suivre en retour"
           }
         }
       }
@@ -156,6 +204,12 @@
             "state" : "translated",
             "value" : "Mention"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mentionner"
+          }
         }
       }
     },
@@ -165,6 +219,118 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unfollow"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne plus suivre"
+          }
+        }
+      }
+    },
+    "activity.favorite.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ liked your post"
+          }
+        }
+      }
+    },
+    "activity.followed.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ followed you"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ vous a suivi(e)"
+          }
+        }
+      }
+    },
+    "activity.mentionned.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ mentionned you "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ vous a mentionné(e)"
+          }
+        }
+      }
+    },
+    "activity.no-notifications" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No notifications"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de notifications"
+          }
+        }
+      }
+    },
+    "activity.reblogged.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ reposted your post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ a republié votre publication"
+          }
+        }
+      }
+    },
+    "activity.status.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ posted"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ a publié une publication"
+          }
+        }
+      }
+    },
+    "activity.unknown" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown activity"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activité inconnue"
           }
         }
       }
@@ -176,6 +342,12 @@
             "state" : "translated",
             "value" : "Image Error"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur Image"
+          }
         }
       }
     },
@@ -185,6 +357,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Experimental"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expérimental"
           }
         }
       }
@@ -196,6 +374,12 @@
             "state" : "translated",
             "value" : "Rules"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Règles"
+          }
         }
       }
     },
@@ -205,6 +389,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Log in using Mastodon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion avec Mastodon"
           }
         }
       }
@@ -216,6 +406,12 @@
             "state" : "translated",
             "value" : "Log in your Mastodon account using its instance URL. You cannot create an account using Threaded."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connectez-vous à l'aide de votre compte Mastodon en utilisant l'URL de votre instance. Vous ne pouvez pas créer de compte via Threaded"
+          }
         }
       }
     },
@@ -225,6 +421,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter the instance's URL"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez l'URL de l'instance"
           }
         }
       }
@@ -236,6 +438,12 @@
             "state" : "translated",
             "value" : "Log in"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion"
+          }
         }
       }
     },
@@ -245,6 +453,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Verify"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérifier"
           }
         }
       }
@@ -256,6 +470,12 @@
             "state" : "translated",
             "value" : "This might not be a Mastodon instance."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce n'est sûrement pas une instance Mastodon"
+          }
         }
       }
     },
@@ -265,6 +485,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stay anonymous"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rester anonyme"
           }
         }
       }
@@ -276,6 +502,12 @@
             "state" : "translated",
             "value" : "Without an account, you cannot interact with posts, users and instances. You can only read posts and users' public data."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sans compte, vous ne pouvez pas interagir avec les publications, les utilisateurs et instances. Vous pouvez seulement lire données publiques des publications et des utilisateurs."
+          }
         }
       }
     },
@@ -285,6 +517,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Welcome to Threaded!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bienvenue sur Threaded !"
           }
         }
       }
@@ -296,6 +534,12 @@
             "state" : "translated",
             "value" : "Log out"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déconnexion"
+          }
         }
       }
     },
@@ -305,6 +549,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Appearence"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apparence"
           }
         }
       }
@@ -316,6 +566,12 @@
             "state" : "translated",
             "value" : "Open links"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir les liens"
+          }
         }
       }
     },
@@ -325,6 +581,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "In-app"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dans l'application"
           }
         }
       }
@@ -336,6 +598,12 @@
             "state" : "translated",
             "value" : "In a browser"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En dehors de l'application"
+          }
         }
       }
     },
@@ -345,6 +613,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Displayed Name"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom affiché"
           }
         }
       }
@@ -356,6 +630,12 @@
             "state" : "translated",
             "value" : "Both"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les deux"
+          }
         }
       }
     },
@@ -365,6 +645,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Display Name"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le nom d'affichage"
           }
         }
       }
@@ -376,6 +662,12 @@
             "state" : "translated",
             "value" : "Username"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le nom d'utilisateur"
+          }
         }
       }
     },
@@ -385,6 +677,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Shape of Profile Pictures"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forme de la photo de profil"
           }
         }
       }
@@ -396,6 +694,12 @@
             "state" : "translated",
             "value" : "Circle"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Circulaire"
+          }
         }
       }
     },
@@ -405,6 +709,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rounded Rectangle"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rectangulaire"
           }
         }
       }
@@ -416,6 +726,12 @@
             "state" : "translated",
             "value" : "Show Reply Symbols"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher les symboles de réponses"
+          }
         }
       }
     },
@@ -425,6 +741,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show experimental features"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher les fonctionnalités expérimentales"
           }
         }
       }
@@ -436,6 +758,12 @@
             "state" : "translated",
             "value" : "Privacy"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confidentialité"
+          }
         }
       }
     },
@@ -445,6 +773,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Settings"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paramètres"
           }
         }
       }
@@ -456,6 +790,12 @@
             "state" : "translated",
             "value" : "Cancel"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
+          }
         }
       }
     },
@@ -466,6 +806,12 @@
             "state" : "translated",
             "value" : "Done"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminé"
+          }
         }
       }
     },
@@ -475,6 +821,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
           }
         }
       }
@@ -495,6 +847,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Editing post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modification d'une publication"
           }
         }
       }
@@ -518,6 +876,24 @@
               }
             }
           }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld likes"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld likes"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -527,6 +903,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copy text"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copier le texte"
           }
         }
       }
@@ -538,6 +920,12 @@
             "state" : "translated",
             "value" : "Delete"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer"
+          }
         }
       }
     },
@@ -547,6 +935,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modifier"
           }
         }
       }
@@ -558,6 +952,12 @@
             "state" : "translated",
             "value" : "Share"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partager"
+          }
         }
       }
     },
@@ -567,6 +967,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Share as image"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partager en tant qu'image"
           }
         }
       }
@@ -578,6 +984,12 @@
             "state" : "translated",
             "value" : "Share as link"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partager le lien"
+          }
         }
       }
     },
@@ -587,6 +999,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pinned"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Épinglé"
           }
         }
       }
@@ -598,6 +1016,12 @@
             "state" : "translated",
             "value" : "New post"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouvelle publication "
+          }
         }
       }
     },
@@ -607,6 +1031,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
           }
         }
       }
@@ -618,6 +1048,12 @@
             "state" : "translated",
             "value" : "No custom emojis"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas d'emojis personnalisés"
+          }
         }
       }
     },
@@ -627,6 +1063,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "What's new?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quoi de neuf ?"
           }
         }
       }
@@ -638,6 +1080,12 @@
             "state" : "translated",
             "value" : "Post"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publier"
+          }
         }
       }
     },
@@ -647,6 +1095,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Visibility"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visibilité"
           }
         }
       }
@@ -658,6 +1112,12 @@
             "state" : "translated",
             "value" : "Direct Message"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Message privé"
+          }
         }
       }
     },
@@ -668,12 +1128,24 @@
             "state" : "translated",
             "value" : "Private"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privé"
+          }
         }
       }
     },
     "status.posting.visibility.public" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Public"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Public"
@@ -688,6 +1160,12 @@
             "state" : "translated",
             "value" : "Unlisted"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non répertorié"
+          }
         }
       }
     },
@@ -697,6 +1175,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Replied to @%@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A répondu à %@"
           }
         }
       }
@@ -720,6 +1204,24 @@
               }
             }
           }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld réponse"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld réponses"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -729,6 +1231,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ reposted"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ a republié"
           }
         }
       }
@@ -740,6 +1248,12 @@
             "state" : "translated",
             "value" : "No posts"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de publications"
+          }
         }
       }
     },
@@ -749,6 +1263,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You don't have posts in your home timeline. Follow users or change timelines to see posts!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous n'avez pas de publications dans votre chronologie. Suivez des utilisateurs ou changez de chronologie pour voir des publications !"
           }
         }
       }

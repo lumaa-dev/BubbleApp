@@ -2,6 +2,8 @@
 
 import Foundation
 
+//TODO: Change this to SwiftData
+
 @Observable
 public class AccountManager {
     private var client: Client?
@@ -46,7 +48,6 @@ public class AccountManager {
     }
 }
 
-//TODO: Change this to SwiftData
 public struct AppAccount: Codable, Identifiable, Hashable {
     public let server: String
     public var accountName: String?

@@ -32,7 +32,7 @@ struct ContentView: View {
                 .tag(TabDestination.search)
             
             //TODO: Messaging UI in Activity tab
-            Text(String("Activity"))
+            NotificationsView()
                 .background(Color.appBackground)
                 .tag(TabDestination.activity)
             
@@ -62,6 +62,7 @@ struct ContentView: View {
         .environment(accountManager)
         .environment(navigator)
         .environment(appDelegate)
+        .environment(preferences)
         .onAppear {
             do {
                 preferences = try UserPreferences.loadAsCurrent() ?? .defaultPreferences
