@@ -286,9 +286,9 @@
 		B9FB946C2B2DF3A600D81C07 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				B9D9C6BF2B6A56D500C26A41 /* Notifications */,
-				B93BCC3F2B5E38E5008EEA19 /* Content */,
 				B9FB94BD2B2F038D00D81C07 /* Accounts */,
+				B93BCC3F2B5E38E5008EEA19 /* Content */,
+				B9D9C6BF2B6A56D500C26A41 /* Notifications */,
 				B9FB946F2B2DF3CD00D81C07 /* Navigator.swift */,
 				B9FB94A12B2EF24A00D81C07 /* AppInfo.swift */,
 				B98BC74C2B46CFCE00595441 /* UserPreferences.swift */,
