@@ -19,7 +19,6 @@ struct NotificationsView: View {
                     LazyVStack(alignment: .leading, spacing: 15) {
                         ForEach(notifications) { notif in
                             NotificationRow(notif: notif)
-                                .environment(navigator)
                                 .onDisappear() {
                                     guard !notifications.isEmpty else { return }
                                     lastId = notifications.firstIndex(where: { $0.id == notif.id })
@@ -41,6 +40,7 @@ struct NotificationsView: View {
                         }
                     }
                 }
+                .environmentObject(navigator)
                 .withAppRouter(navigator)
                 .background(Color.appBackground)
                 .refreshable {

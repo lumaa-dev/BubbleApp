@@ -4,13 +4,16 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct PostMenu: View {
-    @Environment(Navigator.self) private var navigator
+    @EnvironmentObject private var navigator: Navigator
     @Environment(AccountManager.self) private var accountManager
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.displayScale) private var displayScale
     
     var status: Status
+    private var pref: UserPreferences {
+        try! UserPreferences.loadAsCurrent() ?? .defaultPreferences
+    }
     
     private var isOwner: Bool {
         if let acc = accountManager.getAccount() {
@@ -80,8 +83,9 @@ struct PostMenu: View {
         }
         .environment(\.colorScheme, colorScheme == .dark ? .dark : .light)
         .environment(AccountManager())
-        .environment(Navigator())
         .environment(AppDelegate())
+        .environment(pref)
+        .environmentObject(Navigator())
         
         let render = ImageRenderer(content: view)
         render.scale = displayScale

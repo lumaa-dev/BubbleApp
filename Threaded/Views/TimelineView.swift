@@ -4,7 +4,7 @@ import SwiftUI
 
 struct TimelineView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    @State var navigator: Navigator
+    @State var navigator: Navigator = Navigator()
     
     @State private var showPicker: Bool = false
     @State private var stringTimeline: String = "home"
@@ -84,7 +84,6 @@ struct TimelineView: View {
                     }
                     .padding(.top)
                     .background(Color.appBackground)
-                    .environment(navigator)
                     .withAppRouter(navigator)
                 } else {
                     ZStack {
@@ -128,6 +127,7 @@ struct TimelineView: View {
                 }
             }
         }
+        .environmentObject(navigator)
         .background(Color.appBackground)
         .toolbarBackground(Color.appBackground, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)

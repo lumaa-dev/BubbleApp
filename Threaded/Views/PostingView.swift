@@ -36,27 +36,14 @@ struct PostingView: View {
     
     var body: some View {
         if accountManager.getAccount() != nil {
-            ViewThatFits {
-                posting
-                    .background(Color.appBackground)
-                    .sheet(isPresented: $selectingEmoji) {
-                        EmojiSelector(viewModel: $viewModel)
-                            .presentationDetents([.height(200), .medium])
-                            .presentationDragIndicator(.visible)
-                            .presentationBackgroundInteraction(.enabled(upThrough: .height(200))) // Allow users to move the cursor while adding emojis
-                    }
-                
-                ScrollView(.vertical, showsIndicators: false) {
-                    posting
-                        .background(Color.appBackground)
-                        .sheet(isPresented: $selectingEmoji) {
-                            EmojiSelector(viewModel: $viewModel)
-                                .presentationDetents([.height(200), .medium])
-                                .presentationDragIndicator(.visible)
-                                .presentationBackgroundInteraction(.enabled(upThrough: .height(200))) // Allow users to move the cursor while adding emojis
-                        }
+            posting
+                .background(Color.appBackground)
+                .sheet(isPresented: $selectingEmoji) {
+                    EmojiSelector(viewModel: viewModel)
+                        .presentationDetents([.height(200), .medium])
+                        .presentationDragIndicator(.visible)
+                        .presentationBackgroundInteraction(.enabled(upThrough: .height(200))) // Allow users to move the cursor while adding emojis
                 }
-            }
         } else {
             loading
                 .background(Color.appBackground)
@@ -103,6 +90,8 @@ struct PostingView: View {
                 guard new == false else { return }
                 viewModel.textView?.becomeFirstResponder()
             }
+            
+            Spacer()
             
             HStack {
                 Picker("status.posting.visibility", selection: $visibility) {
@@ -178,9 +167,9 @@ struct PostingView: View {
             if let client = accountManager.getClient() {
                 postingStatus = true
                 
-                for container in mediaContainers {
-                    await upload(container: container)
-                }
+//                for container in mediaContainers {
+//                    await upload(container: container)
+//                }
                 
                 let json: StatusData = .init(status: viewModel.postText.string, visibility: visibility, inReplyToId: replyId, mediaIds: mediaContainers.compactMap { $0.mediaAttachment?.id }, mediaAttributes: mediaAttributes)
                 
@@ -212,85 +201,56 @@ struct PostingView: View {
     @ViewBuilder
     private func mediasView(containers: [MediaContainer]) -> some View {
         ViewThatFits {
-            HStack(alignment: .firstTextBaseline, spacing: 10) {
-                ForEach(containers) { container in
-                    ZStack(alignment: .topLeading) {
-                        if let img = container.image {
-                            Image(uiImage: img)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(minWidth: mediaContainers.count == 1 ? nil : containerWidth, maxWidth: 450)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(.gray.opacity(0.3), lineWidth: 1)
-                                )
-                                .clipShape(.rect(cornerRadius: 15))
-                                .contentShape(Rectangle())
-                        } else if let attachment = container.mediaAttachment {
-                            attchmntView(attachment: attachment)
-                        } else if let video = container.movieTransferable {
-                            vidView(url: video.url)
-                        } else if let gif = container.gifTransferable {
-                            vidView(url: gif.url)
-                        }
-                    }
-                    .overlay(alignment: .topTrailing) {
-                        Button {
-                            deleteAction(container: container)
-                        } label: {
-                            Image(systemName: "xmark")
-                                .font(.subheadline)
-                                .padding(10)
-                                .background(Material.ultraThick)
-                                .clipShape(Circle())
-                                .padding(5)
-                        }
-                    }
-                }
-            }
-            .frame(maxHeight: containerHeight)
+            hMedias(containers)
+                .frame(maxHeight: containerHeight)
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .firstTextBaseline, spacing: 10) {
-                    ForEach(containers) { container in
-                        ZStack(alignment: .topLeading) {
-                            if let img = container.image {
-                                Image(uiImage: img)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(minWidth: mediaContainers.count == 1 ? nil : containerWidth, maxWidth: 500)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 15)
-                                            .stroke(.gray.opacity(0.3), lineWidth: 1)
-                                    )
-                                    .clipShape(.rect(cornerRadius: 15))
-                                    .contentShape(Rectangle())
-                            } else if let attachment = container.mediaAttachment {
-                                attchmntView(attachment: attachment)
-                            } else if let video = container.movieTransferable {
-                                vidView(url: video.url)
-                            } else if let gif = container.gifTransferable {
-                                vidView(url: gif.url)
-                            }
-                        }
-                        .overlay(alignment: .topTrailing) {
-                            Button {
-                                deleteAction(container: container)
-                            } label: {
-                                Image(systemName: "xmark")
-                                    .font(.subheadline)
-                                    .padding(10)
-                                    .background(Material.ultraThick)
-                                    .clipShape(Circle())
-                                    .padding(5)
-                            }
-                        }
-                    }
-                }
+                hMedias(containers)
             }
             .frame(maxHeight: containerHeight)
             .scrollClipDisabled()
         }
+    }
+    
+    @ViewBuilder
+    private func hMedias(_ containers: [MediaContainer]) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 10) {
+            ForEach(containers) { container in
+                ZStack(alignment: .topLeading) {
+                    if let img = container.image {
+                        Image(uiImage: img)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(minWidth: mediaContainers.count == 1 ? nil : containerWidth, maxWidth: 450)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(.gray.opacity(0.3), lineWidth: 1)
+                            )
+                            .clipShape(.rect(cornerRadius: 15))
+                            .contentShape(Rectangle())
+                    } else if let attachment = container.mediaAttachment {
+                        attchmntView(attachment: attachment)
+                    } else if let video = container.movieTransferable {
+                        vidView(url: video.url)
+                    } else if let gif = container.gifTransferable {
+                        vidView(url: gif.url)
+                    }
+                }
+                .overlay(alignment: .topTrailing) {
+                    Button {
+                        deleteAction(container: container)
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.subheadline)
+                            .padding(10)
+                            .background(Material.ultraThick)
+                            .clipShape(Circle())
+                            .padding(5)
+                    }
+                }
+            }
+        }
+        .frame(maxHeight: containerHeight)
     }
     
     @ViewBuilder
@@ -303,7 +263,7 @@ struct PostingView: View {
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(minWidth: mediaContainers.count == 1 ? nil : containerWidth, maxWidth: 600)
+                            .frame(minWidth: mediaContainers.count == 1 ? nil : containerWidth, maxWidth: 450)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 15)
                                     .stroke(.gray.opacity(0.3), lineWidth: 1)
@@ -356,7 +316,7 @@ struct PostingView: View {
                 }
             }
         }
-        .frame(minWidth: mediaContainers.count == 1 ? nil : containerWidth, maxWidth: 600)
+        .frame(minWidth: mediaContainers.count == 1 ? nil : containerWidth, maxWidth: 450)
         .clipShape(.rect(cornerRadius: 15))
         .contentShape(Rectangle())
     }
@@ -641,7 +601,7 @@ struct PostingView: View {
         }
     }
     
-    @Observable public class ViewModel: NSObject {
+    @Observable public class ViewModel: NSObject, ObservableObject {
         init(text: String = "") {
             self.postText = NSMutableAttributedString(string: text)
         }

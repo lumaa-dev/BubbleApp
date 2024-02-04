@@ -8,36 +8,40 @@ struct EmojiSelector: View {
     @State private var loading: Bool = true
     @State private var emojiContainers: [CategorizedEmojiContainer] = []
     
-    @Binding var viewModel: PostingView.ViewModel
+    @State var viewModel: PostingView.ViewModel
     
     var body: some View {
-        if loading {
-            ProgressView()
-                .ignoresSafeArea()
-                .task {
-                    await fetchCustomEmojis()
-                }
-        } else if !loading && !emojiContainers.isEmpty {
-            ScrollView(.vertical, showsIndicators: false) {
-                ForEach(emojiContainers) { container in
-                    LazyVGrid(columns: [.init(.adaptive(minimum: 40, maximum: 40))]) {
-                        Section {
-                            ForEach(container.emojis) { emoji in
-                                Button {
-                                    viewModel.append(text: ":\(emoji.shortcode):")
-                                } label: {
-                                    OnlineImage(url: emoji.url, size: 40, priority: .low)
+        ZStack {
+            if loading {
+                ProgressView()
+                    .ignoresSafeArea()
+            } else if !loading && !emojiContainers.isEmpty {
+                ScrollView(.vertical, showsIndicators: false) {
+                    ForEach(emojiContainers) { container in
+                        LazyVGrid(columns: [.init(.adaptive(minimum: 40, maximum: 40))]) {
+                            Section {
+                                ForEach(container.emojis) { emoji in
+                                    Button {
+                                        viewModel.append(text: ":\(emoji.shortcode):")
+                                    } label: {
+                                        OnlineImage(url: emoji.url, size: 40, useNuke: true)
+                                    }
+                                    .buttonStyle(NoTapAnimationStyle())
                                 }
-                                .buttonStyle(NoTapAnimationStyle())
                             }
                         }
                     }
                 }
+                .padding()
+                .padding(.vertical)
+            } else {
+                ContentUnavailableView("status.posting.no-emojis", systemImage: "network.slash")
             }
-            .padding()
-            .padding(.vertical)
-        } else {
-            ContentUnavailableView("status.posting.no-emojis", systemImage: "network.slash")
+        }
+        .task {
+            loading = true
+            await fetchCustomEmojis()
+            loading = false
         }
     }
     

@@ -4,7 +4,7 @@ import SwiftUI
 
 struct CompactPostView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    @Environment(Navigator.self) private var navigator: Navigator
+    @EnvironmentObject private var navigator: Navigator
     @State var status: Status
     
     var pinned: Bool = false
@@ -35,7 +35,6 @@ struct CompactPostView: View {
                     .padding(.bottom, 3)
             }
         }
-        .environment(navigator)
         .onAppear {
             do {
                 preferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
@@ -165,11 +164,9 @@ struct CompactPostView: View {
                 stats.padding(.top, 5)
             }
             
-//            if !imaging {
-//                PostMenu(status: status)
-//                    .padding([.trailing, .top])
-//                    .contentShape(Rectangle())
-//            }
+            if !quoted && !imaging {
+                PostMenu(status: status.reblogAsAsStatus ?? status)
+            }
         }
     }
     

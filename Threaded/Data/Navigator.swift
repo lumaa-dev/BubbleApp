@@ -128,7 +128,7 @@ extension View {
                 case .appearence:
                     AppearenceView()
                 case .account(let acc):
-                    AccountView(account: acc)
+                    ProfileView(account: acc)
                 case .post(let status):
                     PostDetailsView(status: status)
                 case .about:

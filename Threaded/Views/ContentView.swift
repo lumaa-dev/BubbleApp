@@ -12,14 +12,14 @@ struct ContentView: View {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
     @State private var preferences: UserPreferences = .defaultPreferences
-    @StateObject private var navigator = UniversalNavigator() // "Universal Path" (POSS 1)
+    @StateObject private var uniNavigator = UniversalNavigator() // "Universal Path" (POSS 1)
     @State private var accountManager: AccountManager = AccountManager()
     
     var body: some View {
         ZStack {
-            TabView(selection: $navigator.selectedTab, content: {
+            TabView(selection: $uniNavigator.selectedTab, content: {
                 if accountManager.getAccount() != nil {
-                    TimelineView(navigator: navigator, timelineModel: FetchTimeline(client: accountManager.forceClient()))
+                    TimelineView(timelineModel: FetchTimeline(client: accountManager.forceClient()))
                         .background(Color.appBackground)
                         .tag(TabDestination.timeline)
                     
@@ -32,7 +32,7 @@ struct ContentView: View {
                         .background(Color.appBackground)
                         .tag(TabDestination.activity)
                     
-                    AccountView(isCurrent: true, account: accountManager.forceAccount())
+                    AccountView(account: accountManager.forceAccount())
                         .background(Color.appBackground)
                         .tag(TabDestination.profile)
                 } else {
@@ -44,18 +44,18 @@ struct ContentView: View {
             })
         }
         .overlay(alignment: .bottom) {
-            if navigator.showTabbar {
-                TabsView(selectedTab: $navigator.selectedTab) {
-                    navigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
+            if uniNavigator.showTabbar {
+                TabsView(selectedTab: $uniNavigator.selectedTab) {
+                    uniNavigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
                 }
                 .safeAreaPadding(.vertical)
-                .offset(y: navigator.showTabbar ? 0 : -20)
+                .offset(y: uniNavigator.showTabbar ? 0 : -20)
                 .zIndex(10)
             }
         }
-        .withSheets(sheetDestination: $navigator.presentedSheet)
-        .withCovers(sheetDestination: $navigator.presentedCover)
-        .environment(navigator)
+        .withSheets(sheetDestination: $uniNavigator.presentedSheet)
+        .withCovers(sheetDestination: $uniNavigator.presentedCover)
+        .environment(uniNavigator)
         .environment(accountManager)
         .environment(appDelegate)
         .environmentObject(preferences)
@@ -75,19 +75,19 @@ struct ContentView: View {
         .environment(\.openURL, OpenURLAction { url in
             // Open internal URL.
             guard preferences.browserType == .inApp else { return .systemAction }
-            navigator.presentedSheet = .safari(url: url)
+            uniNavigator.presentedSheet = .safari(url: url)
             return OpenURLAction.Result.handled
         })
         .onOpenURL(perform: { url in
             guard preferences.browserType == .inApp else { return }
-            navigator.presentedSheet = .safari(url: url)
+            uniNavigator.presentedSheet = .safari(url: url)
         })
     }
     
     func recognizeAccount() async {
         let appAccount: AppAccount? = AppAccount.loadAsCurrent()
         if appAccount == nil {
-            navigator.presentedSheet = .welcome
+            uniNavigator.presentedSheet = .welcome
         } else {
             //TODO: Fix this? (Fatal error: calling into SwiftUI on a non-main thread is not supported)
             accountManager.setClient(.init(server: appAccount!.server, oauthToken: appAccount!.oauthToken))
@@ -97,7 +97,7 @@ struct ContentView: View {
             if fetched == nil {
                 accountManager.clear()
                 appAccount!.clear()
-                navigator.presentedSheet = .welcome
+                uniNavigator.presentedSheet = .welcome
             }
         }
     }

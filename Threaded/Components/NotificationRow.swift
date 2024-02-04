@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct NotificationRow: View {
-    @Environment(Navigator.self) private var navigator: Navigator
+    @EnvironmentObject private var navigator: Navigator
     
     var notif: Notification = .placeholder()
     

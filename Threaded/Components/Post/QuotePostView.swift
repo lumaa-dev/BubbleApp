@@ -3,12 +3,12 @@
 import SwiftUI
 
 struct QuotePostView: View {
-    @Environment(Navigator.self) private var navigator: Navigator
+    @EnvironmentObject private var navigator: Navigator
     var status: Status
     
     var body: some View {
         CompactPostView(status: status, quoted: true)
-            .environment(navigator)
+            .environmentObject(navigator)
             .frame(maxWidth: 250, maxHeight: 200)
             .padding(15)
             .padding([.horizontal], 20)

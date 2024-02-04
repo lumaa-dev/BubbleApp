@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B915C4422B6F908C00042DDB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B915C4412B6F908C00042DDB /* ProfileView.swift */; };
 		B93B676D2B42C94F000892E9 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B93B676C2B42C94F000892E9 /* Nuke */; };
 		B93B676F2B42C94F000892E9 /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = B93B676E2B42C94F000892E9 /* NukeExtensions */; };
 		B93B67712B42C94F000892E9 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = B93B67702B42C94F000892E9 /* NukeUI */; };
@@ -106,6 +107,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B915C4412B6F908C00042DDB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B93B67772B42E8F0000892E9 /* TextEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEmoji.swift; sourceTree = "<group>"; };
 		B93B67792B42EC51000892E9 /* MetaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaPicker.swift; sourceTree = "<group>"; };
 		B93B677B2B433A6E000892E9 /* PostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				B9D9C6C42B6A587700C26A41 /* NotificationRow.swift */,
 				B9D9C6C62B6A590F00C26A41 /* ProfilePicture.swift */,
 				B97491E22B6E96700098BC48 /* SymbolWidth.swift */,
+				B915C4412B6F908C00042DDB /* ProfileView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				B9FB948C2B2E232300D81C07 /* OnlineImage.swift in Sources */,
 				B9BED5182B5D649C00C9B715 /* PostMenu.swift in Sources */,
 				B9FB94742B2DF6A100D81C07 /* ButtonStyles.swift in Sources */,
+				B915C4422B6F908C00042DDB /* ProfileView.swift in Sources */,
 				B9FB94702B2DF3CD00D81C07 /* Navigator.swift in Sources */,
 				B9EBE8562B47256900FB594D /* PostAttachment.swift in Sources */,
 				B9EBE8582B474FD600FB594D /* AppDelegate.swift in Sources */,

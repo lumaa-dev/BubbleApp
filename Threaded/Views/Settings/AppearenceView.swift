@@ -4,7 +4,7 @@ import SwiftUI
 
 struct AppearenceView: View {
     @ObservedObject private var userPreferences: UserPreferences = .defaultPreferences
-    @Environment(Navigator.self) private var navigator: Navigator
+    @EnvironmentObject private var navigator: Navigator
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
