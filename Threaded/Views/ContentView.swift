@@ -87,7 +87,7 @@ struct ContentView: View {
     func recognizeAccount() async {
         let appAccount: AppAccount? = AppAccount.loadAsCurrent()
         if appAccount == nil {
-            uniNavigator.presentedSheet = .welcome
+            uniNavigator.presentedCover = .welcome
         } else {
             //TODO: Fix this? (Fatal error: calling into SwiftUI on a non-main thread is not supported)
             accountManager.setClient(.init(server: appAccount!.server, oauthToken: appAccount!.oauthToken))
@@ -97,7 +97,7 @@ struct ContentView: View {
             if fetched == nil {
                 accountManager.clear()
                 appAccount!.clear()
-                uniNavigator.presentedSheet = .welcome
+                uniNavigator.presentedCover = .welcome
             }
         }
     }
