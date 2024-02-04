@@ -66,13 +66,15 @@ struct PostMenu: View {
             Image(systemName: "ellipsis")
                 .foregroundStyle(Color.white.opacity(0.3))
                 .font(.body)
+                .contentShape(Rectangle())
+                .padding(7.5)
         }
     }
     
     @MainActor
     private func createImage() {
         let view = HStack {
-            CompactPostView(status: status, navigator: Navigator(), imaging: true)
+            CompactPostView(status: status, imaging: true)
                 .padding(15)
                 .background(Color.appBackground)
         }

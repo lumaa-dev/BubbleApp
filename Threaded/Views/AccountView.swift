@@ -4,6 +4,7 @@ import SwiftUI
 
 struct AccountView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
+    @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
     
     @Namespace var accountAnims
     @Namespace var animPicture
@@ -19,32 +20,25 @@ struct AccountView: View {
     @State private var accountFollows: Bool = false
     
     @State private var loadingStatuses: Bool = false
-    @State private var statuses: [Status]?
-    @State private var statusesPinned: [Status]?
+    @State private var statuses: [Status]? = []
+    @State private var statusesPinned: [Status]? = []
     @State private var lastSeen: Int?
     
     private let animPicCurve = Animation.smooth(duration: 0.25, extraBounce: 0.0)
     
     var body: some View {
         if isCurrent {
-            if accountManager.getClient() != nil {
-                NavigationStack(path: $navigator.path) {
-                    accountView
-                        .withSheets(sheetDestination: $navigator.presentedSheet)
-                        .onAppear {
-                            account = accountManager.forceAccount()
-                        }
-                }
-            } else {
-                ZStack {
-                    Color.appBackground
-                    
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                }
+            NavigationStack(path: $navigator.path) {
+                accountView
+                    .environment(navigator)
+                    .withAppRouter(navigator)
+                    .onAppear {
+                        account = accountManager.forceAccount()
+                    }
             }
         } else {
             accountView
+                .environment(navigator)
         }
     }
     
@@ -88,7 +82,7 @@ struct AccountView: View {
             }
         }
         .task {
-            await updateRelationship()
+            await reloadUser()
             initialFollowing = isFollowing
         }
         .refreshable {
@@ -144,10 +138,10 @@ struct AccountView: View {
                             
                             Button {
                                 if let server = account.acct.split(separator: "@").last {
-                                    navigator.presentedSheet = .post(content: "@\(account.username)@\(server)")
+                                    uniNav.presentedSheet = .post(content: "@\(account.username)@\(server)")
                                 } else {
                                     let client = accountManager.getClient()
-                                    navigator.presentedSheet = .post(content: "@\(account.username)@\(client?.server ?? "???")")
+                                    uniNav.presentedSheet = .post(content: "@\(account.username)@\(client?.server ?? "???")")
                                 }
                             } label: {
                                 HStack {
@@ -175,24 +169,26 @@ struct AccountView: View {
             .safeAreaPadding(.vertical)
             .padding(.horizontal)
         }
-        .withAppRouter(navigator)
+        .environment(navigator)
     }
     
     var statusesList: some View {
         LazyVStack {
-            if statuses != nil {
+            if loadingStatuses == false || statuses == nil {
                 if !(statusesPinned?.isEmpty ?? true) {
                     ForEach(statusesPinned!, id: \.id) { status in
-                        CompactPostView(status: status, navigator: navigator, pinned: true)
+                        CompactPostView(status: status, pinned: true)
                     }
                 }
-                if !statuses!.isEmpty {
+                if !(statuses?.isEmpty ?? true) {
                     ForEach(statuses!, id: \.id) { status in
-                        CompactPostView(status: status, navigator: navigator)
+                        CompactPostView(status: status)
                             .onDisappear() {
                                 lastSeen = statuses!.firstIndex(where: { $0.id == status.id })
                             }
                     }
+                } else {
+                    ContentUnavailableView("account.no-statuses", systemImage: "pencil.slash")
                 }
             } else {
                 ProgressView()

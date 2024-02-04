@@ -60,7 +60,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Threaded uses third-party open-source libraries and code:\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)\n- [Nuke](https://github.com/kean/Nuke)\n- [EmojiText](https://github.com/divadretlaw/EmojiText)"
+            "value" : "Threaded uses third-party open-source libraries and code:\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)\n- [Nuke](https://github.com/kean/Nuke)\n- [EmojiText](https://github.com/divadretlaw/EmojiText)\n- [KeychainSwift](https://github.com/evgenyneu/keychain-swift)"
           }
         }
       }
@@ -68,6 +68,12 @@
     "about.version-%@" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ThreadedApp v%@"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ThreadedApp v%@"
@@ -194,6 +200,24 @@
               }
             }
           }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld follower"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld followers"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -209,6 +233,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mentionner"
+          }
+        }
+      }
+    },
+    "account.no-statuses" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No posts"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucunes publications"
           }
         }
       }
@@ -229,12 +269,34 @@
         }
       }
     },
+    "activity" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activity"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activité"
+          }
+        }
+      }
+    },
     "activity.favorite.%@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ liked your post"
+            "value" : "**%@** liked your post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**%@** a aimé votre publication"
           }
         }
       }
@@ -244,13 +306,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ followed you"
+            "value" : "**%@** followed you"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ vous a suivi(e)"
+            "value" : "**%@** vous a suivi(e)"
           }
         }
       }
@@ -260,13 +322,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ mentionned you "
+            "value" : "**%@** mentionned you "
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ vous a mentionné(e)"
+            "value" : "**%@** vous a mentionné(e)"
           }
         }
       }
@@ -292,13 +354,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ reposted your post"
+            "value" : "**%@** reposted your post"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ a republié votre publication"
+            "value" : "**%@** a republié votre publication"
           }
         }
       }
@@ -308,13 +370,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ posted"
+            "value" : "**%@** posted"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ a publié une publication"
+            "value" : "**%@** a publié une publication"
           }
         }
       }
@@ -324,7 +386,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unknown activity"
+            "value" : "Unknown Activity"
           }
         },
         "fr" : {
@@ -346,7 +408,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erreur Image"
+            "value" : "Erreur d'Image"
           }
         }
       }

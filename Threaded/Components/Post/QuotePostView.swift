@@ -7,7 +7,8 @@ struct QuotePostView: View {
     var status: Status
     
     var body: some View {
-        CompactPostView(status: status, navigator: navigator, quoted: true)
+        CompactPostView(status: status, quoted: true)
+            .environment(navigator)
             .frame(maxWidth: 250, maxHeight: 200)
             .padding(15)
             .padding([.horizontal], 20)

@@ -16,18 +16,21 @@ struct NotificationsView: View {
         NavigationStack(path: $navigator.path) {
             if !notifications.isEmpty {
                 ScrollView(.vertical, showsIndicators: false) {
-                    LazyVStack(alignment: .leading) {
+                    LazyVStack(alignment: .leading, spacing: 15) {
                         ForEach(notifications) { notif in
                             NotificationRow(notif: notif)
+                                .environment(navigator)
                                 .onDisappear() {
                                     guard !notifications.isEmpty else { return }
                                     lastId = notifications.firstIndex(where: { $0.id == notif.id })
                                 }
                         }
-                    }
-                    .refreshable {
-                        notifications = []
-                        await fetchNotifications(lastId: nil)
+                        
+                        if loadingNotifs {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                                .padding(.vertical)
+                        }
                     }
                     .onChange(of: lastId ?? 0) { _, new in
                         guard !loadingNotifs else { return }
@@ -38,6 +41,12 @@ struct NotificationsView: View {
                         }
                     }
                 }
+                .withAppRouter(navigator)
+                .background(Color.appBackground)
+                .refreshable {
+                    await fetchNotifications(lastId: nil)
+                }
+                .navigationTitle(String(localized: "activity"))
             } else if loadingNotifs == false && notifications.isEmpty {
                 ZStack {
                     Color.appBackground
@@ -70,7 +79,6 @@ struct NotificationsView: View {
         }
         
         do {
-            let allCases = Notification.NotificationType.allCases.map({ $0.rawValue })
             let notifs: [Notification] = try await client.get(endpoint: Notifications.notifications(minId: nil, maxId: nil, types: nil, limit: lastId != nil ? notifLimit : 30))
             guard !notifs.isEmpty else { return }
             

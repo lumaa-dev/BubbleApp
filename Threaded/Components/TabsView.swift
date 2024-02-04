@@ -3,14 +3,15 @@
 import SwiftUI
 
 struct TabsView: View {
-    @State var navigator: Navigator
+    @Binding var selectedTab: TabDestination
+    var postButton: () -> Void
     
     var body: some View {
         HStack(alignment: .center) {
             Button {
-                navigator.selectedTab = .timeline
+                selectedTab = .timeline
             } label: {
-                if navigator.selectedTab == .timeline {
+                if selectedTab == .timeline {
                     Tabs.timeline.imageFill
                 } else {
                     Tabs.timeline.image
@@ -21,9 +22,9 @@ struct TabsView: View {
             Spacer()
             
             Button {
-                navigator.selectedTab = .search
+                selectedTab = .search
             } label: {
-                if navigator.selectedTab == .search {
+                if selectedTab == .search {
                     Tabs.search.imageFill
                 } else {
                     Tabs.search.image
@@ -34,7 +35,7 @@ struct TabsView: View {
             Spacer()
             
             Button {
-                navigator.presentedSheet = .post()
+                postButton()
             } label: {
                 Tabs.post.image
             }
@@ -43,9 +44,9 @@ struct TabsView: View {
             Spacer()
             
             Button {
-                navigator.selectedTab = .activity
+                selectedTab = .activity
             } label: {
-                if navigator.selectedTab == .activity {
+                if selectedTab == .activity {
                     Tabs.activity.imageFill
                 } else {
                     Tabs.activity.image
@@ -56,9 +57,9 @@ struct TabsView: View {
             Spacer()
             
             Button {
-                navigator.selectedTab = .profile
+                selectedTab = .profile
             } label: {
-                if navigator.selectedTab == .profile {
+                if selectedTab == .profile {
                     Tabs.profile.imageFill
                 } else {
                     Tabs.profile.image
@@ -129,9 +130,4 @@ extension Image {
             .font(.title)
             .opacity(neutral ? 0.3 : 1)
     }
-}
-
-#Preview {
-    TabsView(navigator: Navigator())
-        .previewLayout(.sizeThatFits)
 }

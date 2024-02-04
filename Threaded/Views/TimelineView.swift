@@ -57,7 +57,7 @@ struct TimelineView: View {
                         
                         ForEach(statuses!, id: \.id) { status in
                             LazyVStack(alignment: .leading, spacing: 2) {
-                                CompactPostView(status: status, navigator: navigator)
+                                CompactPostView(status: status)
                                     .onDisappear {
                                         guard statuses != nil else { return }
                                         lastSeen = statuses!.firstIndex(where: { $0.id == status.id })
@@ -84,6 +84,7 @@ struct TimelineView: View {
                     }
                     .padding(.top)
                     .background(Color.appBackground)
+                    .environment(navigator)
                     .withAppRouter(navigator)
                 } else {
                     ZStack {

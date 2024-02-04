@@ -29,19 +29,16 @@ struct PostDetailsView: View {
                 VStack(alignment: .leading) {
                     if statuses.isEmpty {
                         statusPost(detailedStatus)
-                        
-//                        Spacer()
                     } else {
                         ForEach(statuses) { status in
                             if status.id == detailedStatus.id {
                                 statusPost(detailedStatus)
-                                    .padding(.horizontal, 15)
-                                    .padding(statuses.first!.id == detailedStatus.id ? .bottom : .vertical)
                                     .onAppear {
                                         proxy.scrollTo("\(detailedStatus.id)@\(detailedStatus.account.id)", anchor: .bottom)
                                     }
                             } else {
-                                CompactPostView(status: status, navigator: navigator)
+                                CompactPostView(status: status)
+                                    .environment(navigator)
                             }
                         }
                     }
@@ -118,6 +115,9 @@ struct PostDetailsView: View {
                 stats.padding(.top, 5)
             }
         }
+        .environment(navigator)
+        .padding(.horizontal, 15)
+        .padding(statuses.first!.id == detailedStatus.id ? .bottom : .vertical)
     }
     
     private func fetchStatusDetail() async {

@@ -14,6 +14,7 @@ Threaded is a 100% free, made in SwiftUI, [#OpenSource](https://github.com/luma
 - [SwiftSoup](https://github.com/scinfu/SwiftSoup)
 - [Nuke](https://github.com/kean/Nuke)
 - [EmojiText](https://github.com/divadretlaw/EmojiText)
+- [KeychainSwift](https://github.com/evgenyneu/keychain-swift)
 
 ## To-do list
 

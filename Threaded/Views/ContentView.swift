@@ -2,67 +2,63 @@
 
 import SwiftUI
 
+// TODO: Make some sort of "Universal Navigation"?
+/// Details: Fix bugs about `navigator.path` when tapping on any element that adds to it.
+/// Possibility 1: Put a `NavigationStack` in the parent view of the tabs' view with no title
+/// Possibility 2: Make another `Navigator` but universally
+
+///
 struct ContentView: View {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
     @State private var preferences: UserPreferences = .defaultPreferences
-    @State private var navigator = Navigator()
-    @State private var sheet: SheetDestination?
+    @StateObject private var navigator = UniversalNavigator() // "Universal Path" (POSS 1)
     @State private var accountManager: AccountManager = AccountManager()
     
     var body: some View {
-        TabView(selection: $navigator.selectedTab, content: {
-            ZStack {
-                if accountManager.getClient() != nil {
+        ZStack {
+            TabView(selection: $navigator.selectedTab, content: {
+                if accountManager.getAccount() != nil {
                     TimelineView(navigator: navigator, timelineModel: FetchTimeline(client: accountManager.forceClient()))
                         .background(Color.appBackground)
-                        .safeAreaPadding()
-                } else {
-                    ZStack {
-                        Color.appBackground
-                            .ignoresSafeArea()
-                    }
-                }
-            }
-            .background(Color.appBackground)
-            .tag(TabDestination.timeline)
-            
-            Text(String("Search"))
-                .background(Color.appBackground)
-                .tag(TabDestination.search)
-            
-            //TODO: Messaging UI in Activity tab
-            NotificationsView()
-                .background(Color.appBackground)
-                .tag(TabDestination.activity)
-            
-            ZStack {
-                if accountManager.getAccount() != nil {
-                    AccountView(isCurrent: true, account: accountManager.forceAccount())
-                        .environment(navigator)
+                        .tag(TabDestination.timeline)
+                    
+                    Text(String("Search"))
                         .background(Color.appBackground)
+                        .tag(TabDestination.search)
+                    
+                    //TODO: Messaging UI in Activity tab
+                    NotificationsView()
+                        .background(Color.appBackground)
+                        .tag(TabDestination.activity)
+                    
+                    AccountView(isCurrent: true, account: accountManager.forceAccount())
+                        .background(Color.appBackground)
+                        .tag(TabDestination.profile)
                 } else {
                     ZStack {
                         Color.appBackground
                             .ignoresSafeArea()
                     }
                 }
-            }
-            .background(Color.appBackground)
-            .tag(TabDestination.profile)
-            
-        })
-        .overlay(alignment: .bottom) {
-            TabsView(navigator: navigator)
-                .safeAreaPadding(.vertical)
-                .zIndex(10)
+            })
         }
-        .withCovers(sheetDestination: $sheet)
+        .overlay(alignment: .bottom) {
+            if navigator.showTabbar {
+                TabsView(selectedTab: $navigator.selectedTab) {
+                    navigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
+                }
+                .safeAreaPadding(.vertical)
+                .offset(y: navigator.showTabbar ? 0 : -20)
+                .zIndex(10)
+            }
+        }
         .withSheets(sheetDestination: $navigator.presentedSheet)
-        .environment(accountManager)
+        .withCovers(sheetDestination: $navigator.presentedCover)
         .environment(navigator)
+        .environment(accountManager)
         .environment(appDelegate)
-        .environment(preferences)
+        .environmentObject(preferences)
         .onAppear {
             do {
                 preferences = try UserPreferences.loadAsCurrent() ?? .defaultPreferences
@@ -75,9 +71,6 @@ struct ContentView: View {
                     await recognizeAccount()
                 }
             }
-        }
-        .task {
-            await recognizeAccount()
         }
         .environment(\.openURL, OpenURLAction { url in
             // Open internal URL.
@@ -92,20 +85,19 @@ struct ContentView: View {
     }
     
     func recognizeAccount() async {
-        let acc = try? AppAccount.loadAsCurrent()
-        if acc == nil {
-            sheet = .welcome
+        let appAccount: AppAccount? = AppAccount.loadAsCurrent()
+        if appAccount == nil {
+            navigator.presentedSheet = .welcome
         } else {
-            Task {
-                accountManager.setClient(.init(server: acc!.server, oauthToken: acc!.oauthToken))
-                
-                // check if token is still working
-                let fetched: Account? = await accountManager.fetchAccount()
-                if fetched == nil {
-                    accountManager.clear()
-                    AppAccount.clear()
-                    sheet = .welcome
-                }
+            //TODO: Fix this? (Fatal error: calling into SwiftUI on a non-main thread is not supported)
+            accountManager.setClient(.init(server: appAccount!.server, oauthToken: appAccount!.oauthToken))
+            
+            // Check if token is still working
+            let fetched: Account? = await accountManager.fetchAccount()
+            if fetched == nil {
+                accountManager.clear()
+                appAccount!.clear()
+                navigator.presentedSheet = .welcome
             }
         }
     }

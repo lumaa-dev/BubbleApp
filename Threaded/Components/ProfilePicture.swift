@@ -3,10 +3,17 @@
 import SwiftUI
 
 struct ProfilePicture: View {
-    @Environment(UserPreferences.self) private var pref
+    @EnvironmentObject private var pref: UserPreferences
     var url: URL
+    var size: CGFloat = 50.0
+    
+    init(url: URL, size: CGFloat = 50.0) {
+        self.url = url
+        self.size = size
+    }
+    
     var cornerRadius: CGFloat {
-        return pref.profilePictureShape == .circle ? (50 / 2) : 15.0
+        return pref.profilePictureShape == .circle ? (50 / 2) : 10.0
     }
     
     init(url: URL) {
@@ -18,8 +25,8 @@ struct ProfilePicture: View {
     }
     
     var body: some View {
-        OnlineImage(url: url, size: 50, useNuke: true)
-            .frame(width: 40, height: 40)
+        OnlineImage(url: url, size: size, useNuke: true)
+            .frame(width: size - 10, height: size - 10)
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
     }
 }

@@ -92,10 +92,7 @@ public final class Client: Equatable, Identifiable, Hashable {
         }
     }
     
-    private func makeURL(scheme: String = "https",
-                         endpoint: Endpoint,
-                         forceVersion: Version? = nil,
-                         forceServer: String? = nil) throws -> URL
+    private func makeURL(scheme: String = "https", endpoint: Endpoint, forceVersion: Version? = nil, forceServer: String? = nil) throws -> URL
     {
         var components = URLComponents()
         components.scheme = scheme
@@ -220,9 +217,7 @@ public final class Client: Equatable, Identifiable, Hashable {
         else {
             throw OauthError.invalidRedirectURL
         }
-        let token: OauthToken = try await post(endpoint: Oauth.token(code: code,
-                                                                     clientId: app.clientId,
-                                                                     clientSecret: app.clientSecret))
+        let token: OauthToken = try await post(endpoint: Oauth.token(code: code, clientId: app.clientId, clientSecret: app.clientSecret))
         critical.withLock { $0.oauthToken = token }
         return token
     }
@@ -236,12 +231,7 @@ public final class Client: Equatable, Identifiable, Hashable {
         return urlSession.webSocketTask(with: url, protocols: subprotocols)
     }
     
-    public func mediaUpload<Entity: Decodable>(endpoint: Endpoint,
-                                               version: Version,
-                                               method: String,
-                                               mimeType: String,
-                                               filename: String,
-                                               data: Data) async throws -> Entity
+    public func mediaUpload<Entity: Decodable>(endpoint: Endpoint, version: Version, method: String, mimeType: String, filename: String, data: Data) async throws -> Entity
     {
         let url = try makeURL(endpoint: endpoint, forceVersion: version)
         var request = makeURLRequest(url: url, endpoint: endpoint, httpMethod: method)

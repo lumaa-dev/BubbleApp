@@ -8,7 +8,6 @@ struct PostingView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    @Environment(Navigator.self) private var navigator: Navigator
     
     public var initialString: String = ""
     public var replyId: String? = nil
@@ -37,14 +36,27 @@ struct PostingView: View {
     
     var body: some View {
         if accountManager.getAccount() != nil {
-            posting
-                .background(Color.appBackground)
-                .sheet(isPresented: $selectingEmoji) {
-                    EmojiSelector(viewModel: $viewModel)
-                        .presentationDetents([.height(200), .medium])
-                        .presentationDragIndicator(.visible)
-                        .presentationBackgroundInteraction(.enabled(upThrough: .height(200))) // Allow users to move the cursor while adding emojis
+            ViewThatFits {
+                posting
+                    .background(Color.appBackground)
+                    .sheet(isPresented: $selectingEmoji) {
+                        EmojiSelector(viewModel: $viewModel)
+                            .presentationDetents([.height(200), .medium])
+                            .presentationDragIndicator(.visible)
+                            .presentationBackgroundInteraction(.enabled(upThrough: .height(200))) // Allow users to move the cursor while adding emojis
+                    }
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    posting
+                        .background(Color.appBackground)
+                        .sheet(isPresented: $selectingEmoji) {
+                            EmojiSelector(viewModel: $viewModel)
+                                .presentationDetents([.height(200), .medium])
+                                .presentationDragIndicator(.visible)
+                                .presentationBackgroundInteraction(.enabled(upThrough: .height(200))) // Allow users to move the cursor while adding emojis
+                        }
                 }
+            }
         } else {
             loading
                 .background(Color.appBackground)
@@ -175,13 +187,15 @@ struct PostingView: View {
                 let isEdit: Bool = editId != nil
                 let endp: Endpoint = isEdit ? Statuses.editStatus(id: editId!, json: json) : Statuses.postStatus(json: json)
                 
-                let newStatus: Status = isEdit ? try await client.put(endpoint: endp) : try await client.post(endpoint: endp)
+                let _: Status = isEdit ? try await client.put(endpoint: endp) : try await client.post(endpoint: endp)
                 
                 postingStatus = false
                 HapticManager.playHaptics(haptics: Haptic.success)
                 dismiss()
-                navigator.removeSettingsOfPath()
-                navigator.navigate(to: .post(status: newStatus))
+                
+                if isEdit {
+                    dismiss()
+                }
             }
         }
     }
@@ -205,7 +219,7 @@ struct PostingView: View {
                             Image(uiImage: img)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(minWidth: mediaContainers.count == 1 ? nil : containerWidth, maxWidth: 500)
+                                .frame(minWidth: mediaContainers.count == 1 ? nil : containerWidth, maxWidth: 450)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 15)
                                         .stroke(.gray.opacity(0.3), lineWidth: 1)

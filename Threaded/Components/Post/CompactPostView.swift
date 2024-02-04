@@ -4,8 +4,8 @@ import SwiftUI
 
 struct CompactPostView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
+    @Environment(Navigator.self) private var navigator: Navigator
     @State var status: Status
-    @ObservedObject var navigator: Navigator
     
     var pinned: Bool = false
     var detailed: Bool = false
@@ -23,7 +23,7 @@ struct CompactPostView: View {
     @State private var quoteStatus: Status? = nil
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             notices
             
             statusPost(status.reblogAsAsStatus ?? status)
@@ -35,6 +35,7 @@ struct CompactPostView: View {
                     .padding(.bottom, 3)
             }
         }
+        .environment(navigator)
         .onAppear {
             do {
                 preferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
@@ -205,17 +206,8 @@ struct CompactPostView: View {
     }
     
     var profilePicture: some View {
-        if status.reblog != nil {
-            OnlineImage(url: status.reblog!.account.avatar, size: 50, useNuke: true)
-                .frame(width: 40, height: 40)
-                .padding(.horizontal)
-                .clipShape(.circle)
-        } else {
-            OnlineImage(url: status.account.avatar, size: 50, useNuke: true)
-                .frame(width: 40, height: 40)
-                .padding(.horizontal)
-                .clipShape(.circle)
-        }
+        ProfilePicture(url: status.reblog?.account.avatar ?? status.account.avatar)
+            .padding(.horizontal)
     }
     
     var stats: some View {

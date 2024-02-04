@@ -1,8 +1,7 @@
 //Made by Lumaa
 
 import Foundation
-
-//TODO: Change this to SwiftData
+import KeychainSwift
 
 @Observable
 public class AccountManager {
@@ -52,7 +51,13 @@ public struct AppAccount: Codable, Identifiable, Hashable {
     public let server: String
     public var accountName: String?
     public let oauthToken: OauthToken?
+    
     private static let saveKey: String = "threaded-appaccount.current"
+    private static var keychain: KeychainSwift {
+        let kc = KeychainSwift()
+        // synchronise later
+        return kc
+    }
     
     public var key: String {
         if let oauthToken {
@@ -66,32 +71,40 @@ public struct AppAccount: Codable, Identifiable, Hashable {
         key
     }
     
-    public init(server: String,
-                accountName: String?,
-                oauthToken: OauthToken? = nil)
-    {
+    public init(server: String, accountName: String?, oauthToken: OauthToken? = nil) {
         self.server = server
         self.accountName = accountName
         self.oauthToken = oauthToken
     }
     
-    func saveAsCurrent() throws {
+    public static func clear() {
+        Self.keychain.delete(Self.saveKey)
+    }
+    
+    public func clear() {
+        Self.clear()
+    }
+    
+    public func saveAsCurrent(_ appAccount: AppAccount? = nil) {
         let encoder = JSONEncoder()
-        let json = try encoder.encode(self)
-        UserDefaults.standard.setValue(json, forKey: AppAccount.saveKey)
-    }
-    
-    static func loadAsCurrent() throws -> AppAccount? {
-        let decoder = JSONDecoder()
-        if let data = UserDefaults.standard.data(forKey: AppAccount.saveKey) {
-            let account = try decoder.decode(AppAccount.self, from: data)
-            return account
+        if let data = try? encoder.encode(appAccount ?? self) {
+            Self.keychain.set(data, forKey: Self.saveKey, withAccess: .accessibleWhenUnlocked)
+        } else {
+            fatalError("Couldn't encode AppAccount correctly to save")
         }
-        return nil
     }
     
-    static func clear() {
-        UserDefaults.standard.removeObject(forKey: AppAccount.saveKey)
+    public static func loadAsCurrent(_ data: Data? = nil) -> Self? {
+        let decoder = JSONDecoder()
+        if let newData = data ?? keychain.getData(Self.saveKey) {
+            if let decoded = try? decoder.decode(Self.self, from: newData) {
+                return decoded
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
     }
 }
 

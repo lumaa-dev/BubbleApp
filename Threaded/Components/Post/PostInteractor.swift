@@ -4,7 +4,7 @@ import SwiftUI
 
 struct PostInteractor: View {
     @Environment(AccountManager.self) private var accountManager
-    @Environment(Navigator.self) private var navigator
+    @Environment(UniversalNavigator.self) private var navigator
     
     var status: Status
     
@@ -56,10 +56,14 @@ struct PostInteractor: View {
         }
         .padding(.top)
         .onAppear {
-            isLiked = status.reblog != nil ? status.reblog!.favourited ?? false : status.favourited ?? false
-            isReposted = status.reblog != nil ? status.reblog!.reblogged ?? false : status.reblogged ?? false
-            isBookmarked = status.reblog != nil ? status.reblog!.bookmarked ?? false : status.bookmarked ?? false
+            syncInteractors(status: status)
         }
+    }
+    
+    func syncInteractors(status: Status) {
+        isLiked = status.reblog != nil ? status.reblog!.favourited ?? false : status.favourited ?? false
+        isReposted = status.reblog != nil ? status.reblog!.reblogged ?? false : status.reblogged ?? false
+        isBookmarked = status.reblog != nil ? status.reblog!.bookmarked ?? false : status.bookmarked ?? false
     }
     
     func likePost() async throws {
@@ -70,9 +74,7 @@ struct PostInteractor: View {
             
             isLiked = !isLiked
             let newStatus: Status = try await client.post(endpoint: endpoint)
-            if isLiked != newStatus.favourited {
-                isLiked = newStatus.favourited ?? !isLiked
-            }
+            syncInteractors(status: status)
         }
     }
     
@@ -84,9 +86,7 @@ struct PostInteractor: View {
             
             isReposted = !isReposted
             let newStatus: Status = try await client.post(endpoint: endpoint)
-            if isReposted != newStatus.reblogged {
-                isReposted = newStatus.reblogged ?? !isReposted
-            }
+            syncInteractors(status: status)
         }
     }
     
@@ -98,9 +98,7 @@ struct PostInteractor: View {
             
             isBookmarked = !isBookmarked
             let newStatus: Status = try await client.post(endpoint: endpoint)
-            if isBookmarked != newStatus.bookmarked {
-                isBookmarked = newStatus.bookmarked ?? !isBookmarked
-            }
+            syncInteractors(status: status)
         }
     }
     

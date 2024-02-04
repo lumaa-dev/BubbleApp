@@ -3,7 +3,7 @@
 import Foundation
 
 public enum AppInfo {
-    public static let scopes = "read write follow"
+    public static let scopes = "read write follow push"
     public static let scheme = "threaded://"
     public static let clientName = "ThreadedApp"
     public static let defaultServer = "mastodon.social"
