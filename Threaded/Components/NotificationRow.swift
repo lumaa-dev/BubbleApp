@@ -33,6 +33,14 @@ struct NotificationRow: View {
                             .font(.caption)
                             .foregroundStyle(Color.gray)
                             .lineLimit(3, reservesSpace: true)
+                        
+                        if notif.status!.mediaAttachments.count > 0 {
+                            Label("activity.status.attachments-\(notif.status!.mediaAttachments.count)", systemImage: "photo.on.rectangle.angled")
+                                .multilineTextAlignment(.leading)
+                                .font(.caption)
+                                .foregroundStyle(Color.gray)
+                                .lineLimit(1, reservesSpace: false)
+                        }
                     } else {
                         TextEmoji(notif.account.note, emojis: notif.account.emojis)
                             .multilineTextAlignment(.leading)
@@ -77,7 +85,7 @@ struct NotificationRow: View {
             case .mention:
                 return Color.blue
             case .reblog:
-                return Color.pink
+                return Color.orange
             case .status:
                 return Color.yellow
             default:
