@@ -54,6 +54,7 @@ class HapticManager {
         
         do {
             HapticManager.engine = try CHHapticEngine()
+            engine?.isMutedForHaptics = false
             try engine?.start()
         } catch {
             print("Error creating the engine: \(error.localizedDescription)")

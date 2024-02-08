@@ -153,7 +153,6 @@ struct ProfileView: View {
             .safeAreaPadding(.vertical)
             .padding(.horizontal)
         }
-        .environmentObject(navigator)
     }
     
     var statusesList: some View {

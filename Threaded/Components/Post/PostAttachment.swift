@@ -68,6 +68,7 @@ struct PostAttachment: View {
                     .onAppear {
                         if let url = attachment.url {
                             player = AVPlayer(url: url)
+                            player?.preventsDisplaySleepDuringVideoPlayback = false
                             player?.audiovisualBackgroundPlaybackPolicy = .pauses
                             player?.isMuted = true
                             player?.play()
@@ -104,8 +105,9 @@ struct PostAttachment: View {
                     .onAppear {
                         if let url = attachment.url {
                             player = AVPlayer(url: url)
+                            player?.preventsDisplaySleepDuringVideoPlayback = false
                             player?.audiovisualBackgroundPlaybackPolicy = .pauses
-                            player?.isMuted = false
+                            player?.isMuted = true
                             player?.play()
                         }
                     }

@@ -3,8 +3,8 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
     @State var navigator: Navigator
-    @State private var sheet: SheetDestination?
     
     var body: some View {
         NavigationStack(path: $navigator.path) {
@@ -42,7 +42,7 @@ struct SettingsView: View {
                         AppAccount.clear()
                         navigator.path = []
                         navigator.selectedTab = .timeline
-                        sheet = .welcome
+                        uniNav.presentedCover = .welcome
                     } label: {
                         Text("logout")
                             .foregroundStyle(.red)
@@ -52,7 +52,6 @@ struct SettingsView: View {
                 }
             }
             .withAppRouter(navigator)
-            .withCovers(sheetDestination: $sheet)
             .listThreaded()
             .navigationTitle("settings")
             .navigationBarTitleDisplayMode(.inline)

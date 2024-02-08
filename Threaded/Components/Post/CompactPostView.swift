@@ -45,10 +45,10 @@ struct CompactPostView: View {
             initialLike = isLiked
         }
         .task {
-            await loadEmbeddedStatus(status: status)
+//            await loadEmbeddedStatus(status: status)
             
             if let client = accountManager.getClient() {
-                if let newStatus: Status = try? await client.get(endpoint: Statuses.status(id: status.reblog?.id ?? status.id)) {
+                if let newStatus: Status = try? await client.get(endpoint: Statuses.status(id: status.id)) {
                     status = newStatus
                 }
             }
@@ -188,7 +188,7 @@ struct CompactPostView: View {
             
             if status.reblog != nil {
                 HStack (alignment:.center, spacing: 5) {
-                    Image(systemName: "bolt.horizontal")
+                    Image(systemName: "bolt.horizontal.fill")
                     
                     Text("status.reposted-by.\(status.account.username)")
                 }
