@@ -10,6 +10,9 @@
     "%@" : {
 
     },
+    "%lld" : {
+
+    },
     "•" : {
 
     },
@@ -52,12 +55,24 @@
             "state" : "translated",
             "value" : "Threaded is a very simple Mastodon client, that is meant to look like the newest social media Threads made by Meta Platforms. It integrates perfectly with your Mastodon account, and matches the Threads vibe, while having Mastodon-only features.\n\nThreaded is a 100% free, made in France using SwiftUI, [open-source](https://github.com/lumaa-dev/ThreadedApp), and doesn't violate [your privacy](https://apps.lumaa.fr/legal/privacy).\n\nThreaded is not related or affiliated to Meta Platforms."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded is a very simple Mastodon client, that is meant to look like the newest social media Threads made by Meta Platforms. It integrates perfectly with your Mastodon account, and matches the Threads vibe, while having Mastodon-only features.\n\nThreaded is a 100% free, made in France using SwiftUI, [open-source](https://github.com/lumaa-dev/ThreadedApp), and doesn't violate [your privacy](https://apps.lumaa.fr/legal/privacy).\n\nThreaded is not related or affiliated to Meta Platforms."
+          }
         }
       }
     },
     "about.app.third-party" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded uses third-party open-source libraries and code:\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)\n- [Nuke](https://github.com/kean/Nuke)\n- [EmojiText](https://github.com/divadretlaw/EmojiText)\n- [KeychainSwift](https://github.com/evgenyneu/keychain-swift)"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Threaded uses third-party open-source libraries and code:\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)\n- [Nuke](https://github.com/kean/Nuke)\n- [EmojiText](https://github.com/divadretlaw/EmojiText)\n- [KeychainSwift](https://github.com/evgenyneu/keychain-swift)"
@@ -212,7 +227,7 @@
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
+                  "state" : "translated",
                   "value" : "%lld followers"
                 }
               }
@@ -377,6 +392,78 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "**%@** a publié une publication"
+          }
+        }
+      }
+    },
+    "activity.status.attachments-%lld" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld attachment"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld attachments"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld pièce-jointe"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld pièces-jointe"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "activity.tip.messages.desc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your direct messages and mentions are separated, access your direct messages using the upper-right corner button"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vos messages privés et mentions sont séparés, accédez à vos messages privés en utilisant le bouton au coin supérieur droit"
+          }
+        }
+      }
+    },
+    "activity.tip.messages.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Direct Messages"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messages privés"
           }
         }
       }
@@ -900,6 +987,12 @@
             "state" : "translated",
             "value" : "Threaded+ - Description"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded+ - Description"
+          }
         }
       }
     },
@@ -945,12 +1038,12 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld likes"
+                  "value" : "%lld like"
                 }
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
+                  "state" : "translated",
                   "value" : "%lld likes"
                 }
               }
@@ -1349,6 +1442,50 @@
     },
     "timeline.trending" : {
 
+    },
+    "tip.headline.meta" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Just like Meta!"
+          }
+        }
+      }
+    },
+    "tip.headline.tip" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tip"
+          }
+        }
+      }
+    },
+    "tip.headline.update" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Updated"
+          }
+        }
+      }
+    },
+    "tip.healine.new" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New!"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
