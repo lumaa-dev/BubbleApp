@@ -10,7 +10,7 @@ struct DiscoveryView: View {
     @State private var searchQuery: String = ""
     @State private var results: [String : SearchResults] = [:]
     
-    let allTokens = [Token(name: String(localized: "discovery.search.users")), Token(name: String(localized: "discovery.search.posts")), Token(name: String(localized: "discovery.search.posts"))]
+    let allTokens = [Token(id: "accounts", name: String(localized: "discovery.search.users")), Token(id: "statuses", name: String(localized: "discovery.search.posts")), Token(id: "hashtags", name: String(localized: "discovery.search.tags"))]
     @State private var currentTokens = [Token]()
     
     @State private var suggestedAccounts: [Account] = []
@@ -39,6 +39,19 @@ struct DiscoveryView: View {
                     
                     tagsView
                 }
+            }
+            .submitLabel(.search)
+            .onSubmit {
+                Task {
+                    await search()
+                }
+            }
+            .onChange(of: currentTokens) { old, new in
+                guard new.count > 1 else { return }
+                let oldToken = old.first ?? allTokens[0]
+                let newToken = new.last ?? allTokens[1]
+                
+                currentTokens.removeAll(where: { $0 == oldToken })
             }
             .searchable(text: $searchQuery, tokens: $currentTokens, suggestedTokens: .constant(allTokens), prompt: Text("discovery.search.prompt")) { token in
                 Text(token.name)
@@ -134,8 +147,8 @@ struct DiscoveryView: View {
         do {
             try await Task.sleep(for: .milliseconds(250))
             var results: SearchResults = try await client.get(endpoint: Search.search(query: searchQuery, type: nil, offset: nil, following: nil), forceVersion: .v2)
-            let relationships: [Relationship] = try await client.get(endpoint: Accounts.relationships(ids: results.accounts.map(\.id)))
-            results.relationships = relationships
+//            let relationships: [Relationship] = try await client.get(endpoint: Accounts.relationships(ids: results.accounts.map(\.id)))
+//            results.relationships = relationships
             withAnimation {
                 self.results[searchQuery] = results
             }
@@ -174,8 +187,8 @@ struct DiscoveryView: View {
         let trendingLinks: [Card]
     }
     
-    struct Token: Identifiable {
-        var id: String { name }
+    struct Token: Identifiable, Equatable {
+        var id: String
         var name: String
     }
 }
