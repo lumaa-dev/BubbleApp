@@ -95,28 +95,40 @@ struct NotificationRow: View {
     
     @ViewBuilder
     private func notifIcon() -> some View {
-        let font: Font = .system(size: 12, weight: .regular, design: .monospaced)
+        let size: CGFloat = 60.0 / 4.0
         
         ZStack {
             switch (notif.supportedType) {
                 case .favourite:
                     Image(systemName: "heart.fill")
-                        .font(font)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: size, height: size)
                 case .follow:
                     Image(systemName: "person.fill.badge.plus")
-                        .font(font)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: size, height: size)
                 case .mention:
                     Image(systemName: "tag.fill")
-                        .font(font)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: size, height: size)
                 case .reblog:
                     Image(systemName: "bolt.horizontal.fill")
-                        .font(font)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: size, height: size)
                 case .status:
                     Image(systemName: "text.badge.plus")
-                        .font(font)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: size, height: size)
                 default:
                     Image(systemName: "questionmark")
-                        .font(font)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: size, height: size)
             }
         }
         .frame(minWidth: 30)
