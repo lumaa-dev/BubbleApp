@@ -111,6 +111,7 @@ public enum RouterDestination: Hashable {
     case account(acc: Account)
     case post(status: Status)
     case about
+    case contacts
 }
 
 extension RouterDestination {
@@ -133,6 +134,8 @@ extension View {
                     PostDetailsView(status: status)
                 case .about:
                     AboutView()
+                case .contacts:
+                    ContactsView()
             }
         }
     }

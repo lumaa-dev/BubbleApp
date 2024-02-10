@@ -23,7 +23,7 @@ struct ContentView: View {
                         .background(Color.appBackground)
                         .tag(TabDestination.timeline)
                     
-                    Text(String("Search"))
+                    DiscoveryView()
                         .background(Color.appBackground)
                         .tag(TabDestination.search)
                     

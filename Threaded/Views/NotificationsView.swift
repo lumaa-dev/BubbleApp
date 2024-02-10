@@ -12,9 +12,9 @@ struct NotificationsView: View {
     @State private var lastId: Int? = nil
     private let notifLimit = 50
     
-    @State private var messages: [Notification] = []
+    @State private var messages: [MessageContact] = []
     private var msgBadge: Int {
-        messages.map({ $0.account.id }).uniqued().count
+        messages.filter({ $0.unread == true }).count
     }
     
     private let msgTip: MsgTip = .init()
@@ -58,6 +58,7 @@ struct NotificationsView: View {
                     ToolbarItem(placement: .primaryAction) {
                         Button {
                             msgTip.invalidate(reason: .actionPerformed)
+                            navigator.navigate(to: .contacts)
                         } label: {
                             Image(systemName: "paperplane")
                                 .foregroundStyle(Color(uiColor: UIColor.label))
@@ -109,8 +110,10 @@ struct NotificationsView: View {
         }
         
         do {
-            let notifs: [Notification] = try await client.get(endpoint: Notifications.notifications(minId: nil, maxId: nil, types: nil, limit: lastId != nil ? notifLimit : 30))
+            var notifs: [Notification] = try await client.get(endpoint: Notifications.notifications(minId: nil, maxId: nil, types: nil, limit: lastId != nil ? notifLimit : 30))
             guard !notifs.isEmpty else { return }
+            
+            notifs = notifs.filter({ $0.supportedType != .mention && $0.status?.visibility != .direct })
             
             if notifications.isEmpty {
                 notifications = notifs
@@ -118,16 +121,23 @@ struct NotificationsView: View {
                 notifications.append(contentsOf: notifs)
             }
             
-            filterMessages()
+            await getBadge()
         } catch {
             print(error)
         }
     }
     
-    func filterMessages() {
-        guard !notifications.isEmpty else { return }
-        messages = notifications.filter({ $0.status?.visibility == .direct })
-        notifications.removeAll(where: { $0.status?.visibility == .direct })
+    func getBadge() async {
+        guard let client = accountManager.getClient() else { return }
+        
+        do {
+            let msgs: [MessageContact] = try await client.get(endpoint: Conversations.conversations(maxId: nil))
+            guard !msgs.isEmpty else { return }
+            
+            messages = msgs
+        } catch {
+            print(error)
+        }
     }
     
     struct MsgTip: Tip {

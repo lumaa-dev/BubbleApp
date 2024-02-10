@@ -6,6 +6,7 @@ struct NotificationRow: View {
     @EnvironmentObject private var navigator: Navigator
     
     var notif: Notification = .placeholder()
+    var showIcon: Bool = true
     
     var body: some View {
         VStack {
@@ -13,8 +14,10 @@ struct NotificationRow: View {
                 ProfilePicture(url: notif.account.avatar, size: 60)
                     .padding(.trailing)
                     .overlay(alignment: .bottomTrailing) {
-                        notifIcon()
-                            .offset(x: -5, y: 5)
+                        if showIcon {
+                            notifIcon()
+                                .offset(x: -5, y: 5)
+                        }
                     }
                     .padding(.horizontal, 10)
                     .onTapGesture {

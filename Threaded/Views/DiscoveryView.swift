@@ -3,11 +3,179 @@
 import SwiftUI
 
 struct DiscoveryView: View {
+    @Environment(AccountManager.self) private var accountManager: AccountManager
+    
+    @State private var navigator: Navigator = Navigator()
+    
+    @State private var searchQuery: String = ""
+    @State private var results: [String : SearchResults] = [:]
+    
+    let allTokens = [Token(name: String(localized: "discovery.search.users")), Token(name: String(localized: "discovery.search.posts")), Token(name: String(localized: "discovery.search.posts"))]
+    @State private var currentTokens = [Token]()
+    
+    @State private var suggestedAccounts: [Account] = []
+    @State private var suggestedAccountsRelationShips: [Relationship] = []
+    @State private var trendingTags: [Tag] = []
+    @State private var trendingStatuses: [Status] = []
+    @State private var trendingLinks: [Card] = []
+    
+    // TODO: "Read" button + search with scopes
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack(path: $navigator.path) {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Text("discovery.suggested.users")
+                        .multilineTextAlignment(.leading)
+                        .font(.title.bold())
+                        .padding(.horizontal)
+                    
+                    accountsView
+                    
+                    Text("discovery.trending.tags")
+                        .multilineTextAlignment(.leading)
+                        .font(.title.bold())
+                        .padding(.horizontal)
+                    
+                    tagsView
+                }
+            }
+            .searchable(text: $searchQuery, tokens: $currentTokens, suggestedTokens: .constant(allTokens), prompt: Text("discovery.search.prompt")) { token in
+                Text(token.name)
+            }
+            .withAppRouter(navigator)
+            .navigationTitle(Text("discovery"))
+        }
+        .task {
+            await fetchTrending()
+        }
     }
-}
-
-#Preview {
-    DiscoveryView()
+    
+    var accountsView: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack(spacing: 10) {
+                ForEach(suggestedAccounts) { account in
+                    VStack {
+                        ProfilePicture(url: account.avatar, size: 64)
+                        
+                        Text(account.displayName?.replacing(/:.+:/, with: "") ?? account.username)
+                            .font(.subheadline.bold())
+                            .foregroundStyle(Color(uiColor: UIColor.label))
+                            .lineLimit(1)
+                        
+                        Text("@\(account.username)")
+                            .font(.caption)
+                            .foregroundStyle(Color.gray)
+                        
+                        Spacer()
+                        
+                        Button {
+                            guard let client = accountManager.getClient() else { return }
+                            
+                            Task {
+                                do {
+                                    let better: Account = try await client.get(endpoint: Accounts.accounts(id: account.id))
+                                    navigator.navigate(to: .account(acc: better))
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                        } label: {
+                            Text("account.view")
+                        }
+                        .buttonStyle(LargeButton(filled: true, height: 7.5))
+                    }
+                    .padding(.vertical)
+                    .frame(width: 200)
+                    .background(Color.gray.opacity(0.2))
+                    .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                }
+                .scrollTargetLayout()
+            }
+        }
+        .padding(.horizontal)
+        .scrollClipDisabled()
+        .defaultScrollAnchor(.leading)
+    }
+    
+    var tagsView: some View {
+        ScrollView {
+            VStack(spacing: 7.5) {
+                ForEach(trendingTags) { tag in
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("#\(tag.name)")
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(1)
+                                .bold()
+                            Text("tag.posts-\(tag.totalUses)")
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(1)
+                                .foregroundStyle(Color.gray)
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            // do stuff
+                        } label: {
+                            Text("tag.read")
+                        }
+                        .buttonStyle(LargeButton(filled: true, height: 7.5))
+                    }
+                    .padding()
+                }
+            }
+        }
+    }
+    
+    private func search() async {
+        guard let client = accountManager.getClient(), !searchQuery.isEmpty else { return }
+        do {
+            try await Task.sleep(for: .milliseconds(250))
+            var results: SearchResults = try await client.get(endpoint: Search.search(query: searchQuery, type: nil, offset: nil, following: nil), forceVersion: .v2)
+            let relationships: [Relationship] = try await client.get(endpoint: Accounts.relationships(ids: results.accounts.map(\.id)))
+            results.relationships = relationships
+            withAnimation {
+                self.results[searchQuery] = results
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func fetchTrending() async {
+        guard let client = accountManager.getClient() else { return }
+        do {
+            let data = try await fetchTrendingsData(client: client)
+            suggestedAccounts = data.suggestedAccounts
+            trendingTags = data.trendingTags
+            trendingStatuses = data.trendingStatuses
+            trendingLinks = data.trendingLinks
+            
+            suggestedAccountsRelationShips = try await client.get(endpoint: Accounts.relationships(ids: suggestedAccounts.map(\.id)))
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func fetchTrendingsData(client: Client) async throws -> TrendingData {
+        async let suggestedAccounts: [Account] = client.get(endpoint: Accounts.suggestions)
+        async let trendingTags: [Tag] = client.get(endpoint: Trends.tags)
+        async let trendingStatuses: [Status] = client.get(endpoint: Trends.statuses(offset: nil))
+        async let trendingLinks: [Card] = client.get(endpoint: Trends.links)
+        return try await .init(suggestedAccounts: suggestedAccounts, trendingTags: trendingTags, trendingStatuses: trendingStatuses, trendingLinks: trendingLinks)
+    }
+    
+    private struct TrendingData {
+        let suggestedAccounts: [Account]
+        let trendingTags: [Tag]
+        let trendingStatuses: [Status]
+        let trendingLinks: [Card]
+    }
+    
+    struct Token: Identifiable {
+        var id: String { name }
+        var name: String
+    }
 }

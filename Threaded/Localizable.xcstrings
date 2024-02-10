@@ -284,6 +284,22 @@
         }
       }
     },
+    "account.view" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voir"
+          }
+        }
+      }
+    },
     "activity" : {
       "localizations" : {
         "en" : {
@@ -344,6 +360,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "**%@** vous a mentionné(e)"
+          }
+        }
+      }
+    },
+    "activity.messages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Direct Messages"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messages"
           }
         }
       }
@@ -480,6 +512,102 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Activité inconnue"
+          }
+        }
+      }
+    },
+    "discovery" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discovery"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Découverte"
+          }
+        }
+      }
+    },
+    "discovery.search.posts" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posts"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publications"
+          }
+        }
+      }
+    },
+    "discovery.search.prompt" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search content from Mastodon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chercher du contenu de Mastodon"
+          }
+        }
+      }
+    },
+    "discovery.search.users" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Users"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisateurs"
+          }
+        }
+      }
+    },
+    "discovery.suggested.users" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suggested Users"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisateurs recommendés"
+          }
+        }
+      }
+    },
+    "discovery.trending.tags" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trending Tags"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tag en vedette"
           }
         }
       }
@@ -1396,6 +1524,62 @@
         }
       }
     },
+    "tag.posts-%lld" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld post"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld posts"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld publication"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld publications"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "tag.read" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lire"
+          }
+        }
+      }
+    },
     "timeline.empty" : {
       "localizations" : {
         "en" : {
@@ -1451,6 +1635,12 @@
             "state" : "translated",
             "value" : "Just like Meta!"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout comme Meta !"
+          }
         }
       }
     },
@@ -1461,6 +1651,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tip"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conseil"
           }
         }
       }
@@ -1473,6 +1669,12 @@
             "state" : "translated",
             "value" : "Updated"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mis à jour"
+          }
         }
       }
     },
@@ -1483,6 +1685,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "New!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau !"
           }
         }
       }
