@@ -539,6 +539,12 @@
             "state" : "translated",
             "value" : "Found posts"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publications trouvées"
+          }
         }
       }
     },
@@ -549,6 +555,12 @@
             "state" : "translated",
             "value" : "Found tags"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tags trouvés"
+          }
         }
       }
     },
@@ -558,6 +570,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Found users"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisateurs trouvés"
           }
         }
       }
@@ -601,6 +619,12 @@
             "state" : "translated",
             "value" : "Tags"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tags"
+          }
         }
       }
     },
@@ -632,6 +656,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Utilisateurs recommendés"
+          }
+        }
+      }
+    },
+    "discovery.trending.posts" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trending Posts"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publications en vedette"
           }
         }
       }

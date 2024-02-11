@@ -51,6 +51,13 @@ struct DiscoveryView: View {
                         .padding(.horizontal)
                     
                     tagsView
+                    
+                    Text("discovery.trending.posts")
+                        .multilineTextAlignment(.leading)
+                        .font(.title.bold())
+                        .padding(.horizontal)
+                    
+                    statusView
                 }
             }
             .submitLabel(.search)
@@ -129,32 +136,41 @@ struct DiscoveryView: View {
     }
     
     var tagsView: some View {
-        ScrollView {
-            VStack(spacing: 7.5) {
-                ForEach(trendingTags) { tag in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("#\(tag.name)")
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(1)
-                                .bold()
-                            Text("tag.posts-\(tag.totalUses)")
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(1)
-                                .foregroundStyle(Color.gray)
-                        }
-                        
-                        Spacer()
-                        
-                        Button {
-                            // do stuff
-                        } label: {
-                            Text("tag.read")
-                        }
-                        .buttonStyle(LargeButton(filled: true, height: 7.5))
+        VStack(spacing: 7.5) {
+            ForEach(trendingTags) { tag in
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("#\(tag.name)")
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(1)
+                            .bold()
+                        Text("tag.posts-\(tag.totalUses)")
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(1)
+                            .foregroundStyle(Color.gray)
                     }
-                    .padding()
+                    
+                    Spacer()
+                    
+                    Button {
+                        navigator.navigate(to: .timeline(timeline: .hashtag(tag: tag.name, accountId: nil)))
+                    } label: {
+                        Text("tag.read")
+                    }
+                    .buttonStyle(LargeButton(filled: true, height: 7.5, disabled: true))
+                    .disabled(true)
                 }
+                .padding()
+            }
+        }
+    }
+    
+    var statusView: some View {
+        VStack(spacing: 7.5) {
+            ForEach(trendingStatuses) { status in
+                CompactPostView(status: status)
+                    .padding(.vertical)
+                    .environmentObject(navigator)
             }
         }
     }
@@ -163,7 +179,7 @@ struct DiscoveryView: View {
         guard let client = accountManager.getClient(), !searchQuery.isEmpty else { return }
         do {
             try await Task.sleep(for: .milliseconds(250))
-            var results: SearchResults = try await client.get(endpoint: Search.search(query: searchQuery, type: currentTokens.first?.id, offset: nil, following: nil), forceVersion: .v2)
+            let results: SearchResults = try await client.get(endpoint: Search.search(query: searchQuery, type: currentTokens.first?.id, offset: nil, following: nil), forceVersion: .v2)
 //            let relationships: [Relationship] = try await client.get(endpoint: Accounts.relationships(ids: results.accounts.map(\.id)))
 //            results.relationships = relationships
             withAnimation {
@@ -182,6 +198,8 @@ struct DiscoveryView: View {
             trendingTags = data.trendingTags
             trendingStatuses = data.trendingStatuses
             trendingLinks = data.trendingLinks
+            
+            trendingTags = trendingTags.sorted(by: { $0.totalUses > $1.totalUses })
             
             suggestedAccountsRelationShips = try await client.get(endpoint: Accounts.relationships(ids: suggestedAccounts.map(\.id)))
         } catch {
