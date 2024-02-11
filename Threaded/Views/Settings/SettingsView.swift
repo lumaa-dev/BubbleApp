@@ -17,12 +17,12 @@ struct SettingsView: View {
                     }
                     .listRowThreaded()
                     
-//                    Button {
-//                        navigator.presentedCover = .shop
-//                    } label: {
-//                        Label(String("Threaded+"), systemImage: "plus")
-//                    }
-//                    .listRowThreaded()
+                    Button {
+                        navigator.presentedCover = .shop
+                    } label: {
+                        Label(String("Threaded+"), systemImage: "plus")
+                    }
+                    .listRowThreaded()
                     
                     Button {
                         navigator.navigate(to: .privacy)
