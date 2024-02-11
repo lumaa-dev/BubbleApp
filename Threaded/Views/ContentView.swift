@@ -27,7 +27,6 @@ struct ContentView: View {
                         .background(Color.appBackground)
                         .tag(TabDestination.search)
                     
-                    //TODO: Messaging UI in Activity tab
                     NotificationsView()
                         .background(Color.appBackground)
                         .tag(TabDestination.activity)
@@ -89,7 +88,6 @@ struct ContentView: View {
         if appAccount == nil {
             uniNavigator.presentedCover = .welcome
         } else {
-            //TODO: Fix this? (Fatal error: calling into SwiftUI on a non-main thread is not supported)
             accountManager.setClient(.init(server: appAccount!.server, oauthToken: appAccount!.oauthToken))
             
             // Check if token is still working
