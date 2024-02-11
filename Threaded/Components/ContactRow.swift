@@ -6,6 +6,7 @@ struct ContactRow: View {
     @EnvironmentObject private var navigator: Navigator
     
     var cont: MessageContact = .placeholder()
+    @State private var multiPeopleSheet: Bool = false
     
     private var title: String {
         let named = cont.accounts.map { $0.displayName }
@@ -31,7 +32,7 @@ struct ContactRow: View {
                         }
                         .padding(.horizontal, 10)
                         .onTapGesture {
-                            // open sheet to select proper account
+                            multiPeopleSheet.toggle()
                         }
                 } else {
                     ProfilePicture(url: cont.accounts[0].avatar, size: 60)
@@ -74,7 +75,6 @@ struct ContactRow: View {
                 }
                 
                 if cont.unread {
-                    
                     Spacer()
                     
                     Circle()
@@ -86,6 +86,43 @@ struct ContactRow: View {
             .padding(.horizontal)
             .padding(.vertical, 5)
             .background(cont.unread ? Color.gray.opacity(0.3) : Color.appBackground)
+            .sheet(isPresented: $multiPeopleSheet) {
+                users
+                    .presentationDetents([.height(200), .medium])
+                    .presentationDragIndicator(.visible)
+                    .presentationCornerRadius(25)
+                    .scrollBounceBehavior(.basedOnSize)
+            }
+        }
+    }
+    
+    var users: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(alignment: .listRowSeparatorLeading) {
+                ForEach(cont.accounts) { acc in
+                    HStack {
+                        ProfilePicture(url: acc.avatar, size: 60)
+                            .padding(.horizontal)
+                        
+                        VStack(alignment: .leading) {
+                            Text(acc.displayName ?? acc.username)
+                                .font(.body.bold())
+                            Text("@\(acc.acct)")
+                                .font(.caption)
+                                .foregroundStyle(Color.gray)
+                                .lineLimit(1)
+                        }
+                        
+                        Spacer()
+                    }
+                    .padding(.vertical)
+                    .onTapGesture {
+                        multiPeopleSheet.toggle()
+                        navigator.navigate(to: .account(acc: acc))
+                    }
+                }
+            }
+            .padding(.top)
         }
     }
     

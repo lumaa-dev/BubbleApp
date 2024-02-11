@@ -47,7 +47,6 @@ struct NotificationsView: View {
                         }
                     }
                 }
-                .environmentObject(navigator)
                 .withAppRouter(navigator)
                 .background(Color.appBackground)
                 .refreshable {
@@ -95,6 +94,7 @@ struct NotificationsView: View {
                 }
             }
         }
+        .environmentObject(navigator)
         .task {
             loadingNotifs = true
             await fetchNotifications(lastId: nil)
@@ -110,7 +110,7 @@ struct NotificationsView: View {
         }
         
         do {
-            var notifs: [Notification] = try await client.get(endpoint: Notifications.notifications(minId: nil, maxId: nil, types: nil, limit: lastId != nil ? notifLimit : 30))
+            var notifs: [Notification] = try await client.get(endpoint: Notifications.notifications(minId: notifications.last?.id, maxId: nil, types: nil, limit: lastId != nil ? notifLimit : 30))
             guard !notifs.isEmpty else { return }
             
             notifs = notifs.filter({ $0.supportedType != .mention && $0.status?.visibility != .direct })

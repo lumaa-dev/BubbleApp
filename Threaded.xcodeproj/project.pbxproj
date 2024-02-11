@@ -53,6 +53,7 @@
 		B9D9C6C52B6A587700C26A41 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9C6C42B6A587700C26A41 /* NotificationRow.swift */; };
 		B9D9C6C72B6A590F00C26A41 /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9C6C62B6A590F00C26A41 /* ProfilePicture.swift */; };
 		B9DC69292B78D9A500E625B9 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DC69282B78D9A500E625B9 /* SearchResultView.swift */; };
+		B9DC692B2B78E60300E625B9 /* PostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DC692A2B78E60300E625B9 /* PostsView.swift */; };
 		B9EBE8562B47256900FB594D /* PostAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBE8552B47256900FB594D /* PostAttachment.swift */; };
 		B9EBE8582B474FD600FB594D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBE8572B474FD600FB594D /* AppDelegate.swift */; };
 		B9F8FA162B5D3AC30044DAB4 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F8FA152B5D3AC30044DAB4 /* SafariView.swift */; };
@@ -153,6 +154,7 @@
 		B9D9C6C42B6A587700C26A41 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
 		B9D9C6C62B6A590F00C26A41 /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
 		B9DC69282B78D9A500E625B9 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
+		B9DC692A2B78E60300E625B9 /* PostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
 		B9EBE8552B47256900FB594D /* PostAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAttachment.swift; sourceTree = "<group>"; };
 		B9EBE8572B474FD600FB594D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9F8FA152B5D3AC30044DAB4 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				B9FB94982B2EEB9400D81C07 /* AddInstanceView.swift */,
 				B9FB945C2B2DEECE00D81C07 /* ContentView.swift */,
 				B9842C112B2F2A5800D9F3C1 /* TimelineView.swift */,
+				B9DC692A2B78E60300E625B9 /* PostsView.swift */,
 				B93ADFCA2B7625CD00FF9172 /* DiscoveryView.swift */,
 				B9D9C6C22B6A576C00C26A41 /* NotificationsView.swift */,
 				B999DE5B2B76F8CB00509868 /* ContactsView.swift */,
@@ -555,6 +558,7 @@
 				B9FB945B2B2DEECE00D81C07 /* ThreadedApp.swift in Sources */,
 				B9FB94862B2E211200D81C07 /* Account+Elms.swift in Sources */,
 				B97491E32B6E96700098BC48 /* SymbolWidth.swift in Sources */,
+				B9DC692B2B78E60300E625B9 /* PostsView.swift in Sources */,
 				B9FB94BC2B2F035500D81C07 /* Tag.swift in Sources */,
 				B9BED51A2B5D662D00C9B715 /* ShareSheetController.swift in Sources */,
 				B9BED5162B5D5E6500C9B715 /* PostInteractor.swift in Sources */,

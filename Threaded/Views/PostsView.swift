@@ -2,9 +2,9 @@
 
 import SwiftUI
 
-struct TimelineView: View {
+struct PostsView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    @State var navigator: Navigator = Navigator()
+//    @State var navigator: Navigator = Navigator()
     
     @State private var showPicker: Bool = false
     @State private var stringTimeline: String = "home"
@@ -18,14 +18,16 @@ struct TimelineView: View {
     @State var showHero: Bool = true
     @State var timelineModel: FetchTimeline // home timeline by default
     
-    init(timelineModel: FetchTimeline, filter: TimelineFilter = .home, showHero: Bool = true) {
-        self.timelineModel = timelineModel
+    init(filter: TimelineFilter = .home, showHero: Bool = true) {
+        self.timelineModel = FetchTimeline()
         self.filter = filter
         self.showHero = showHero
+        
+        self.timelineModel.setTimelineFilter(self.filter)
     }
     
     var body: some View {
-        NavigationStack(path: $navigator.path) {
+        ZStack {
             if statuses != nil {
                 if !statuses!.isEmpty {
                     ScrollView(showsIndicators: false) {
@@ -42,27 +44,6 @@ struct TimelineView: View {
                                     .padding(.bottom)
                             }
                         }
-                        
-//                        if showPicker {
-//                            //TODO: Fix this
-//                            
-//                            MetaPicker(items: timelines.map { $0.rawValue }, selectedItem: $stringTimeline) { item in
-//                                let title: String = timelines.filter{ $0.rawValue == item }.first?.localizedTitle() ?? "Unknown"
-//                                Text("\(title)")
-//                            }
-//                                .padding(.bottom)
-//                                .onChange(of: stringTimeline) { _, newTimeline in
-//                                    let loc = timelines.filter{ $0.rawValue == newTimeline }.first?.localizedTitle()
-//                                    switch (loc) {
-//                                        case "home":
-//                                            timeline = .home
-//                                        case "trending":
-//                                            timeline = .trending
-//                                        default:
-//                                            timeline = .home
-//                                    }
-//                                }
-//                        }
                         
                         ForEach(statuses!, id: \.id) { status in
                             LazyVStack(alignment: .leading, spacing: 2) {
@@ -93,7 +74,6 @@ struct TimelineView: View {
                     }
                     .padding(.top)
                     .background(Color.appBackground)
-                    .withAppRouter(navigator)
                 } else {
                     ZStack {
                         Color.appBackground
@@ -125,6 +105,7 @@ struct TimelineView: View {
                         .ignoresSafeArea()
                         .onAppear {
                             if let client = accountManager.getClient() {
+                                timelineModel.client = client
                                 Task {
                                     statuses = await timelineModel.fetch(client: client)
                                 }
@@ -136,7 +117,6 @@ struct TimelineView: View {
                 }
             }
         }
-        .environmentObject(navigator)
         .background(Color.appBackground)
         .toolbarBackground(Color.appBackground, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)

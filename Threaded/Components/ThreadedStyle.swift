@@ -31,7 +31,7 @@ struct HeadlineTipViewStyle: TipViewStyle {
                 configuration.image?
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 48.0, height: 48.0)
+                    .frame(width: 40.0, height: 40.0)
                 
                 
                 VStack(alignment: .leading, spacing: 8.0) {
