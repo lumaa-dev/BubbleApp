@@ -532,6 +532,36 @@
         }
       }
     },
+    "discovery.results.posts" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found posts"
+          }
+        }
+      }
+    },
+    "discovery.results.tags" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found tags"
+          }
+        }
+      }
+    },
+    "discovery.results.users" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found users"
+          }
+        }
+      }
+    },
     "discovery.search.posts" : {
       "localizations" : {
         "en" : {
@@ -560,6 +590,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chercher du contenu de Mastodon"
+          }
+        }
+      }
+    },
+    "discovery.search.tags" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tags"
           }
         }
       }

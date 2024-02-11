@@ -52,6 +52,7 @@
 		B9D9C6C32B6A576C00C26A41 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9C6C22B6A576C00C26A41 /* NotificationsView.swift */; };
 		B9D9C6C52B6A587700C26A41 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9C6C42B6A587700C26A41 /* NotificationRow.swift */; };
 		B9D9C6C72B6A590F00C26A41 /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9C6C62B6A590F00C26A41 /* ProfilePicture.swift */; };
+		B9DC69292B78D9A500E625B9 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DC69282B78D9A500E625B9 /* SearchResultView.swift */; };
 		B9EBE8562B47256900FB594D /* PostAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBE8552B47256900FB594D /* PostAttachment.swift */; };
 		B9EBE8582B474FD600FB594D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBE8572B474FD600FB594D /* AppDelegate.swift */; };
 		B9F8FA162B5D3AC30044DAB4 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F8FA152B5D3AC30044DAB4 /* SafariView.swift */; };
@@ -151,6 +152,7 @@
 		B9D9C6C22B6A576C00C26A41 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		B9D9C6C42B6A587700C26A41 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
 		B9D9C6C62B6A590F00C26A41 /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
+		B9DC69282B78D9A500E625B9 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		B9EBE8552B47256900FB594D /* PostAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAttachment.swift; sourceTree = "<group>"; };
 		B9EBE8572B474FD600FB594D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9F8FA152B5D3AC30044DAB4 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				B9D9C6C62B6A590F00C26A41 /* ProfilePicture.swift */,
 				B97491E22B6E96700098BC48 /* SymbolWidth.swift */,
 				B915C4412B6F908C00042DDB /* ProfileView.swift */,
+				B9DC69282B78D9A500E625B9 /* SearchResultView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				B999DE602B76FB3E00509868 /* ContactRow.swift in Sources */,
 				B999DE5C2B76F8CB00509868 /* ContactsView.swift in Sources */,
 				B9842C0E2B2F21B700D9F3C1 /* CompactPostView.swift in Sources */,
+				B9DC69292B78D9A500E625B9 /* SearchResultView.swift in Sources */,
 				B98BC7492B46CEDA00595441 /* AppearenceView.swift in Sources */,
 				B9D9C6C52B6A587700C26A41 /* NotificationRow.swift in Sources */,
 				B9FB94992B2EEB9400D81C07 /* AddInstanceView.swift in Sources */,

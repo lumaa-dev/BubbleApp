@@ -9,8 +9,9 @@ struct DiscoveryView: View {
     
     @State private var searchQuery: String = ""
     @State private var results: [String : SearchResults] = [:]
+    @State private var querying: Bool = false
     
-    let allTokens = [Token(id: "accounts", name: String(localized: "discovery.search.users")), Token(id: "statuses", name: String(localized: "discovery.search.posts")), Token(id: "hashtags", name: String(localized: "discovery.search.tags"))]
+    let allTokens = [Token(id: "accounts", name: String(localized: "discovery.search.users"), image: "person.3.fill"), Token(id: "statuses", name: String(localized: "discovery.search.posts"), image: "note.text"), Token(id: "hashtags", name: String(localized: "discovery.search.tags"), image: "tag.fill")]
     @State private var currentTokens = [Token]()
     
     @State private var suggestedAccounts: [Account] = []
@@ -19,11 +20,23 @@ struct DiscoveryView: View {
     @State private var trendingStatuses: [Status] = []
     @State private var trendingLinks: [Card] = []
     
-    // TODO: "Read" button + search with scopes
+    // TODO: "Read" button
     
     var body: some View {
         NavigationStack(path: $navigator.path) {
             ScrollView {
+                if results != [:] && !querying {
+                    SearchResultView(searchResults: results[searchQuery] ?? .init(accounts: [], statuses: [], hashtags: []), query: searchQuery)
+                        .environmentObject(navigator)
+                    
+                    Spacer()
+                        .foregroundStyle(Color.white)
+                        .padding()
+                } else if querying {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                }
+                
                 VStack(alignment: .leading) {
                     Text("discovery.suggested.users")
                         .multilineTextAlignment(.leading)
@@ -41,20 +54,24 @@ struct DiscoveryView: View {
                 }
             }
             .submitLabel(.search)
-            .onSubmit {
-                Task {
+            .task(id: searchQuery) {
+                if !searchQuery.isEmpty {
+                    querying = true
                     await search()
+                    querying = false
+                } else {
+                    querying = false
+                    results = [:]
                 }
             }
             .onChange(of: currentTokens) { old, new in
                 guard new.count > 1 else { return }
-                let oldToken = old.first ?? allTokens[0]
                 let newToken = new.last ?? allTokens[1]
                 
-                currentTokens.removeAll(where: { $0 == oldToken })
+                currentTokens = [newToken]
             }
             .searchable(text: $searchQuery, tokens: $currentTokens, suggestedTokens: .constant(allTokens), prompt: Text("discovery.search.prompt")) { token in
-                Text(token.name)
+                Label(token.name, systemImage: token.image)
             }
             .withAppRouter(navigator)
             .navigationTitle(Text("discovery"))
@@ -146,7 +163,7 @@ struct DiscoveryView: View {
         guard let client = accountManager.getClient(), !searchQuery.isEmpty else { return }
         do {
             try await Task.sleep(for: .milliseconds(250))
-            var results: SearchResults = try await client.get(endpoint: Search.search(query: searchQuery, type: nil, offset: nil, following: nil), forceVersion: .v2)
+            var results: SearchResults = try await client.get(endpoint: Search.search(query: searchQuery, type: currentTokens.first?.id, offset: nil, following: nil), forceVersion: .v2)
 //            let relationships: [Relationship] = try await client.get(endpoint: Accounts.relationships(ids: results.accounts.map(\.id)))
 //            results.relationships = relationships
             withAnimation {
@@ -190,5 +207,6 @@ struct DiscoveryView: View {
     struct Token: Identifiable, Equatable {
         var id: String
         var name: String
+        var image: String
     }
 }

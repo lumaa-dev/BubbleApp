@@ -19,6 +19,12 @@ public struct SearchResults: Decodable {
 
 extension SearchResults: Sendable {}
 
+extension SearchResults: Equatable {
+    public static func == (lhs: SearchResults, rhs: SearchResults) -> Bool {
+        return lhs.statuses == rhs.statuses && lhs.accounts == rhs.accounts && lhs.relationships == rhs.relationships && lhs.hashtags == rhs.hashtags
+    }
+}
+
 public enum Search: Endpoint {
     case search(query: String, type: String?, offset: Int?, following: Bool?)
     case accountsSearch(query: String, type: String?, offset: Int?, following: Bool?)

@@ -125,4 +125,4 @@ public extension Relationship {
     }
 }
 
-extension Relationship: Sendable {}
+extension Relationship: Sendable, Equatable {}
