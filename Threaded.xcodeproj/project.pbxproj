@@ -54,6 +54,8 @@
 		B9D9C6C72B6A590F00C26A41 /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9C6C62B6A590F00C26A41 /* ProfilePicture.swift */; };
 		B9DC69292B78D9A500E625B9 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DC69282B78D9A500E625B9 /* SearchResultView.swift */; };
 		B9DC692B2B78E60300E625B9 /* PostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DC692A2B78E60300E625B9 /* PostsView.swift */; };
+		B9DC692D2B79362700E625B9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9DC692C2B79362700E625B9 /* StoreKit.framework */; };
+		B9DC69302B79378400E625B9 /* ThreadedPlus.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B9DC692F2B79378400E625B9 /* ThreadedPlus.storekit */; };
 		B9EBE8562B47256900FB594D /* PostAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBE8552B47256900FB594D /* PostAttachment.swift */; };
 		B9EBE8582B474FD600FB594D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBE8572B474FD600FB594D /* AppDelegate.swift */; };
 		B9F8FA162B5D3AC30044DAB4 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F8FA152B5D3AC30044DAB4 /* SafariView.swift */; };
@@ -155,6 +157,8 @@
 		B9D9C6C62B6A590F00C26A41 /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
 		B9DC69282B78D9A500E625B9 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		B9DC692A2B78E60300E625B9 /* PostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
+		B9DC692C2B79362700E625B9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		B9DC692F2B79378400E625B9 /* ThreadedPlus.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = ThreadedPlus.storekit; sourceTree = "<group>"; };
 		B9EBE8552B47256900FB594D /* PostAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAttachment.swift; sourceTree = "<group>"; };
 		B9EBE8572B474FD600FB594D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9F8FA152B5D3AC30044DAB4 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 				B93B67762B42E8AB000892E9 /* EmojiText in Frameworks */,
 				B9FB94842B2E20AF00D81C07 /* SwiftSoup in Frameworks */,
 				B93B676D2B42C94F000892E9 /* Nuke in Frameworks */,
+				B9DC692D2B79362700E625B9 /* StoreKit.framework in Frameworks */,
 				B9BF54072B6B6823004B24E7 /* KeychainSwift in Frameworks */,
 				B93B67732B42C94F000892E9 /* NukeVideo in Frameworks */,
 				B93B676F2B42C94F000892E9 /* NukeExtensions in Frameworks */,
@@ -255,6 +260,14 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
+		B9DC692E2B79375B00E625B9 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				B9DC692F2B79378400E625B9 /* ThreadedPlus.storekit */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
 		B9FB944E2B2DEECE00D81C07 = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +299,7 @@
 				B9FB946E2B2DF3BB00D81C07 /* Components */,
 				B9FB946D2B2DF3B800D81C07 /* Views */,
 				B9FB946C2B2DF3A600D81C07 /* Data */,
+				B9DC692E2B79375B00E625B9 /* Store */,
 				B9FB94602B2DEECF00D81C07 /* Assets.xcassets */,
 				B9FB94622B2DEECF00D81C07 /* Preview Content */,
 				B9FB948F2B2E2B0E00D81C07 /* Localizable.xcstrings */,
@@ -377,6 +391,7 @@
 		B9FB94A82B2F009F00D81C07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B9DC692C2B79362700E625B9 /* StoreKit.framework */,
 				B9FB94A92B2F009F00D81C07 /* AuthenticationServices.framework */,
 			);
 			name = Frameworks;
@@ -501,6 +516,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B97BCE282B3ED2A80044756D /* .gitignore in Resources */,
+				B9DC69302B79378400E625B9 /* ThreadedPlus.storekit in Resources */,
 				B9FB94642B2DEECF00D81C07 /* Preview Assets.xcassets in Resources */,
 				B9FB94612B2DEECF00D81C07 /* Assets.xcassets in Resources */,
 				B9FB94902B2E2B0E00D81C07 /* Localizable.xcstrings in Resources */,
@@ -745,7 +761,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_ASSET_PATHS = "\"Threaded/Preview Content\"";
 				DEVELOPMENT_TEAM = HB5P3BML86;
 				ENABLE_PREVIEWS = YES;
@@ -783,7 +799,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_ASSET_PATHS = "\"Threaded/Preview Content\"";
 				DEVELOPMENT_TEAM = HB5P3BML86;
 				ENABLE_PREVIEWS = YES;
