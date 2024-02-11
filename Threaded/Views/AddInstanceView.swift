@@ -25,7 +25,13 @@ struct AddInstanceView: View {
                     .textContentType(.URL)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
+                    .submitLabel(.continue)
                     .disabled(verifying)
+                    .onSubmit {
+                        if !verified {
+                            verify()
+                        }
+                    }
                 
                 if !verifying {
                     if !verified {
