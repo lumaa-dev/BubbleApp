@@ -24,7 +24,7 @@ Threaded is a 100% free, made in SwiftUI, [#OpenSource](https://github.com/luma
 
 - [x] Infinite scroll
 
-- [ ] Smart deep links
+- [ ] Smart deep links (half implemented)
 
 - [ ] Animate T while reloading timeline (branding)
 
