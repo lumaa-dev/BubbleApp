@@ -13,7 +13,7 @@ struct ThreadedApp: App {
                     HapticManager.prepareHaptics()
                 }
                 .task {
-                    Tips.showAllTipsForTesting()
+//                    Tips.showAllTipsForTesting()
                     
                     try? Tips.configure([
                         .displayFrequency(.immediate),
