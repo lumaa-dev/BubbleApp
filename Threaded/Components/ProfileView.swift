@@ -345,8 +345,7 @@ struct ProfileView: View {
     }
     
     var profilePicture: some View {
-        OnlineImage(url: account.avatar, size: biggerPicture ? 300 : 50, useNuke: true)
-            .clipShape(.circle)
+        ProfilePicture(url: account.avatar, size: biggerPicture ? 300 : 50)
             .matchedGeometryEffect(id: animPicture, in: accountAnims)
             .onTapGesture {
                 withAnimation(animPicCurve) {
