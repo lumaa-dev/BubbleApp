@@ -18,7 +18,7 @@ struct SettingsView: View {
                     .listRowThreaded()
                     
 //                    Button {
-//                        sheet = .shop
+//                        navigator.presentedCover = .shop
 //                    } label: {
 //                        Label(String("Threaded+"), systemImage: "plus")
 //                    }
@@ -41,7 +41,7 @@ struct SettingsView: View {
                     Button {
                         AppAccount.clear()
                         navigator.path = []
-                        navigator.selectedTab = .timeline
+                        uniNav.selectedTab = .timeline
                         uniNav.presentedCover = .welcome
                     } label: {
                         Text("logout")
@@ -52,6 +52,7 @@ struct SettingsView: View {
                 }
             }
             .withAppRouter(navigator)
+            .withCovers(sheetDestination: $navigator.presentedCover)
             .listThreaded()
             .navigationTitle("settings")
             .navigationBarTitleDisplayMode(.inline)
