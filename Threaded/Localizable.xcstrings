@@ -1172,22 +1172,6 @@
         }
       }
     },
-    "shop.cancel" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancel"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Annuler"
-          }
-        }
-      }
-    },
     "shop.threaded-plus.description" : {
       "localizations" : {
         "en" : {
