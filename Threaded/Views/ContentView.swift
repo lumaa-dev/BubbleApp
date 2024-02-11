@@ -13,7 +13,7 @@ struct ContentView: View {
     
     @State private var preferences: UserPreferences = .defaultPreferences
     @StateObject private var uniNavigator = UniversalNavigator() // "Universal Path" (POSS 1)
-    @State private var accountManager: AccountManager = AccountManager()
+    @StateObject private var accountManager: AccountManager = AccountManager.shared
     
     var body: some View {
         ZStack {

@@ -4,9 +4,11 @@ import Foundation
 import KeychainSwift
 
 @Observable
-public class AccountManager {
+public class AccountManager: ObservableObject {
     private var client: Client?
     private var account: Account?
+    
+    public static let shared: AccountManager = AccountManager()
     
     init(client: Client? = nil, account: Account? = nil) {
         self.client = client
@@ -24,6 +26,10 @@ public class AccountManager {
     
     public func getClient() -> Client? {
         return client
+    }
+    
+    public func setAccount(_ account: Account) {
+        self.account = account
     }
     
     public func getAccount() -> Account? {
