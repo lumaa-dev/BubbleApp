@@ -8,7 +8,7 @@ struct ShopView: View {
     
     var body: some View {
         NavigationStack {
-            ProductView(id: "fr.lumaa.Threaded.plus") {
+            SubscriptionStoreView(productIDs:  ["fr.lumaa.ThreadedPlus.yearly"]) {
                 VStack {
                     Text(String("Threaded+")) // Force the name as untranslatable
                         .font(.title.bold())
@@ -25,15 +25,6 @@ struct ShopView: View {
             .navigationTitle(String(""))
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("shop.cancel")
-                    }
-                }
-            }
         }
     }
 }
