@@ -4,6 +4,7 @@ import SwiftUI
 import StoreKit
 
 struct ShopView: View {
+    @Environment(AppDelegate.self) private var delegate: AppDelegate
     @Environment(\.dismiss) private var dismiss
     
     @State private var showSub: Bool = false
@@ -55,6 +56,7 @@ struct ShopView: View {
             }
             .padding(.vertical)
         }
+        .frame(width: delegate.windowWidth)
         .background(Color.appBackground)
         .sheet(isPresented: $showSub) {
             ShopView.SubView()
