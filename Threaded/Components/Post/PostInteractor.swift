@@ -74,7 +74,7 @@ struct PostInteractor: View {
             
             isLiked = !isLiked
             let newStatus: Status = try await client.post(endpoint: endpoint)
-            syncInteractors(status: status)
+            syncInteractors(status: newStatus)
         }
     }
     
@@ -86,7 +86,7 @@ struct PostInteractor: View {
             
             isReposted = !isReposted
             let newStatus: Status = try await client.post(endpoint: endpoint)
-            syncInteractors(status: status)
+            syncInteractors(status: newStatus)
         }
     }
     
@@ -98,7 +98,7 @@ struct PostInteractor: View {
             
             isBookmarked = !isBookmarked
             let newStatus: Status = try await client.post(endpoint: endpoint)
-            syncInteractors(status: status)
+            syncInteractors(status: newStatus)
         }
     }
     
