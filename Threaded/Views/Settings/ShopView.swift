@@ -29,7 +29,7 @@ struct ShopView: View {
                 } label: {
                     Text("shop.threaded-plus.subscription")
                 }
-                .buttonStyle(LargeButton(filled: true))
+                .buttonStyle(LargeButton(filled: true, disabled: true))
                 .overlay(alignment: .topTrailing) {
                     Text("shop.best")
                         .foregroundStyle(Color.white)
@@ -41,13 +41,15 @@ struct ShopView: View {
                         .offset(x: 20.0, y: -25.0)
                         .rotationEffect(.degrees(25.0))
                 }
+                .disabled(true)
                 
                 Button {
                     showLifetime.toggle()
                 } label: {
                     Text("shop.threaded-plus.lifetime")
                 }
-                .buttonStyle(LargeButton(filled: false))
+                .buttonStyle(LargeButton(filled: false, disabled: true))
+                .disabled(true)
                 
                 Button {
                     dismiss()
