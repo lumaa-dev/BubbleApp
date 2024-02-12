@@ -1108,18 +1108,18 @@
         }
       }
     },
-    "setting.privacy" : {
+    "setting.support" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Privacy"
+            "value" : "Support"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Confidentialité"
+            "value" : "Aide"
           }
         }
       }
@@ -1172,18 +1172,98 @@
         }
       }
     },
-    "shop.threaded-plus.description" : {
+    "shop.best" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Threaded+ - Description"
+            "value" : "BEST"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Threaded+ - Description"
+            "value" : "MEILLEUR"
+          }
+        }
+      }
+    },
+    "shop.threaded-plus.dismiss" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dismiss"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
+          }
+        }
+      }
+    },
+    "shop.threaded-plus.lifetime" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus for a Lifetime"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus à vie"
+          }
+        }
+      }
+    },
+    "shop.threaded-plus.lifetime.header" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A lifetime support"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un soutien à vie."
+          }
+        }
+      }
+    },
+    "shop.threaded-plus.subscription" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus as a Subscription"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus en tant qu'abonnement"
+          }
+        }
+      }
+    },
+    "shop.threaded-plus.subscription.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Threaded+ subscription adds additional new and unique features to Threaded! It also supports the development ❤️"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'abonnement Threaded+ ajoute des nouvelles et uniques fonctionnalités à Threaded ! Cela permet aussi de contribuer à son développement ❤️"
           }
         }
       }
@@ -1588,6 +1668,214 @@
         }
       }
     },
+    "support" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aide"
+          }
+        }
+      }
+    },
+    "support.discord" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discord"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discord"
+          }
+        }
+      }
+    },
+    "support.discord.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join the Threaded Discord server to receive help, talk about the Fediverse, and many other things"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rejoignez le serveur Discord Threaded pour recevoir de l'aide, parler du fédivers, et autres"
+          }
+        }
+      }
+    },
+    "support.discord.join" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join Threaded"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rejoindre Threaded"
+          }
+        }
+      }
+    },
+    "support.email" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mail"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
+    },
+    "support.email.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send emails to the developer directly and instantly"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyez des emails directement et instantanément au développeur"
+          }
+        }
+      }
+    },
+    "support.mail.no-mail" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You cannot send e-mail via Threaded"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous ne pouvez pas envoyer d'emails via Threaded"
+          }
+        }
+      }
+    },
+    "support.mail.send" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send an email"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer un email"
+          }
+        }
+      }
+    },
+    "support.mail.subject" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded Support"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aide Threaded"
+          }
+        }
+      }
+    },
+    "support.matrix" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matrix"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matrix"
+          }
+        }
+      }
+    },
+    "support.matrix.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matrix is a decentralised and safe messaging platform, receive help about the app or Plus"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matrix est une plateforme de messagerie décentralisée et sécurisée, recevez de l'aide pour l'application ou Plus"
+          }
+        }
+      }
+    },
+    "support.matrix.join" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join #threadedapp:matrix.org"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rejoindre #threadedapp:matrix.org"
+          }
+        }
+      }
+    },
+    "support.platform" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose your platform"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez votre platforme"
+          }
+        }
+      }
+    },
     "tag.posts-%lld" : {
       "localizations" : {
         "en" : {
@@ -1755,6 +2043,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nouveau !"
+          }
+        }
+      }
+    },
+    "tos.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded is not affiliated to Mastodon. Threaded does not take responsabilities for posting misinforming or illegal content. Read your Mastodon instance's Terms of Service for more information."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded n'est pas affilié à Mastodon. Threaded ne prend aucune responsabilité sur la publication de contenu ayant de la désinformation ou du contenu illégal. Lisez les Condition d'utilisation de votre instance Mastodon pour plus d'information."
           }
         }
       }

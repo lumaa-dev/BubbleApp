@@ -40,9 +40,9 @@ struct ProfileView: View {
                             if isCurrent {
                                 HStack {
                                     Button {
-                                        navigator.navigate(to: .privacy)
+                                        navigator.navigate(to: .support)
                                     } label: {
-                                        Image(systemName: "globe")
+                                        Image(systemName: "info.bubble")
                                             .font(.title2)
                                     }
                                     

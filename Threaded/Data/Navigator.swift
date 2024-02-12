@@ -106,7 +106,7 @@ public enum SheetDestination: Identifiable {
 
 public enum RouterDestination: Hashable {
     case settings
-    case privacy
+    case support
     case appearence
     case account(acc: Account)
     case post(status: Status)
@@ -116,7 +116,7 @@ public enum RouterDestination: Hashable {
 }
 
 extension RouterDestination {
-    static let allSettings: [RouterDestination] = [.settings, .privacy, .about, .appearence]
+    static let allSettings: [RouterDestination] = [.settings, .support, .about, .appearence]
 }
 
 extension View {
@@ -125,8 +125,8 @@ extension View {
             switch destination {
                 case .settings:
                     SettingsView(navigator: navigator)
-                case .privacy:
-                    PrivacyView()
+                case .support:
+                    SupportView()
                 case .appearence:
                     AppearenceView()
                 case .account(let acc):

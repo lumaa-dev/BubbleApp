@@ -25,9 +25,9 @@ struct SettingsView: View {
                     .listRowThreaded()
                     
                     Button {
-                        navigator.navigate(to: .privacy)
+                        navigator.navigate(to: .support)
                     } label: {
-                        Label("setting.privacy", systemImage: "lock")
+                        Label("setting.support", systemImage: "person.line.dotted.person")
                     }
                     .listRowThreaded()
                     

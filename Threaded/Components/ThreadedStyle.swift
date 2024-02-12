@@ -66,6 +66,7 @@ extension View {
             .scrollContentBackground(.hidden)
             .tint(tint)
             .background(Color.appBackground)
+            .toolbarBackground(Color.appBackground, for: .navigationBar)
             .listStyle(.inset)
     }
     func listRowThreaded() -> some View {
