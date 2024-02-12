@@ -13,7 +13,7 @@ struct ProfilePicture: View {
     }
     
     var cornerRadius: CGFloat {
-        return pref.profilePictureShape == .circle ? (50 / 2) : 10.0
+        return pref.profilePictureShape == .circle ? (size / 2) : 10.0
     }
     
     init(url: URL) {
