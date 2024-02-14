@@ -59,7 +59,7 @@ struct SupportView: View {
                 .lineLimit(3, reservesSpace: true)
             
             Button {
-                let discordUrl = URL(string: "https://lumaa.fr/")
+                let discordUrl = URL(string: "https://discord.gg/MaHcRbkX46")
                 openURL(discordUrl!)
             } label: {
                 Text("support.discord.join")
