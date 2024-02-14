@@ -2,11 +2,6 @@
 
 import SwiftUI
 
-// TODO: Make some sort of "Universal Navigation"?
-/// Details: Fix bugs about `navigator.path` when tapping on any element that adds to it.
-/// Possibility 1: Put a `NavigationStack` in the parent view of the tabs' view with no title
-/// Possibility 2: Make another `Navigator` but universally
-
 ///
 struct ContentView: View {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
@@ -47,7 +42,6 @@ struct ContentView: View {
                 TabsView(selectedTab: $uniNavigator.selectedTab) {
                     uniNavigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
                 }
-                .safeAreaPadding(.vertical)
                 .offset(y: uniNavigator.showTabbar ? 0 : -20)
                 .zIndex(10)
             }
