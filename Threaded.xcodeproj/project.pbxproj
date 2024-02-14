@@ -368,13 +368,13 @@
 				B9B63B202B442D1500BBC82D /* DynamicTextEditor.swift */,
 				B98BC74A2B46CF0400595441 /* ThreadedStyle.swift */,
 				B9BED5192B5D662D00C9B715 /* ShareSheetController.swift */,
+				B9D365602B79A1BE004C1255 /* MailView.swift */,
 				B9D9C6C42B6A587700C26A41 /* NotificationRow.swift */,
 				B999DE5F2B76FB3E00509868 /* ContactRow.swift */,
 				B9D9C6C62B6A590F00C26A41 /* ProfilePicture.swift */,
 				B97491E22B6E96700098BC48 /* SymbolWidth.swift */,
 				B915C4412B6F908C00042DDB /* ProfileView.swift */,
 				B9DC69282B78D9A500E625B9 /* SearchResultView.swift */,
-				B9D365602B79A1BE004C1255 /* MailView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
