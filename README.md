@@ -16,7 +16,9 @@ Join the Threaded Discord server to receive help, talk about the Fediverse, and 
 ## Credits
 
 - [Lumaa](https://lumaa.fr/)
-- [IceCubesApp](https://github.com/dimillian/IceCubesApp) by [@dimillian](https://github.com/dimillian)
+- [@Damon](https://mozilla.social/@Damon) - Beta tester, Discord admin
+- [@Dimillian](https://github.com/dimillian) - Beta tester
+- [IceCubesApp](https://github.com/dimillian/IceCubesApp) by [@Dimillian](https://github.com/dimillian)
 - [SwiftSoup](https://github.com/scinfu/SwiftSoup)
 - [Nuke](https://github.com/kean/Nuke)
 - [EmojiText](https://github.com/divadretlaw/EmojiText)
