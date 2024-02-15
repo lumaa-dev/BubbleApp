@@ -1335,6 +1335,38 @@
         }
       }
     },
+    "shop.features.more-accounts" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More Accounts"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus de comptes"
+          }
+        }
+      }
+    },
+    "shop.features.more-accounts.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get an infinite amount of alternative accounts inside of the Account Switcher"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez avoir un nombre illimité de comptes de le Switcheur de Compte"
+          }
+        }
+      }
+    },
     "shop.features.vip" : {
       "localizations" : {
         "en" : {
