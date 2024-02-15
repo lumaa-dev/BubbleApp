@@ -2,6 +2,8 @@
 
 import SwiftUI
 
+//TODO: Bring back "Privacy" with mutelist, blocklist and default visibility
+
 struct SettingsView: View {
     @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
     @State var navigator: Navigator

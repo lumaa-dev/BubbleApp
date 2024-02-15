@@ -76,7 +76,7 @@ struct PostingView: View {
                         .foregroundStyle(Color(uiColor: UIColor.label))
                         
                         if !mediaContainers.isEmpty {
-                            mediasView(containers: mediaContainers)
+                            mediasView(containers: mediaContainers) //TODO: ALT text
                         }
                         
                         editorButtons
