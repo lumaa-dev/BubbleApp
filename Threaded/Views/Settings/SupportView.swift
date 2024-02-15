@@ -4,6 +4,7 @@ import SwiftUI
 import MessageUI
 
 struct SupportView: View {
+    @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
     @Environment(AppDelegate.self) private var appDelegate: AppDelegate
     @Environment(\.openURL) private var openURL
     
@@ -25,6 +26,9 @@ struct SupportView: View {
                             .listRowThreaded()
                         
                         matrixSupport
+                            .listRowThreaded()
+                        
+                        mentionAccount
                             .listRowThreaded()
                         
                         mailApp
@@ -100,6 +104,35 @@ struct SupportView: View {
             .padding(.vertical)
         }
         .boxify(appDelegate.windowWidth - 50,bgColor: Color.mountainMeadow)
+    }
+    
+    var mentionAccount: some View {
+        VStack(alignment: .center) {
+            Image(systemName: "at")
+                .mark()
+                .foregroundStyle(Color(uiColor: UIColor.label))
+            
+            Text("support.mention")
+                .font(.title.bold())
+            
+            Text("support.mention.description")
+                .padding(.horizontal)
+                .lineLimit(3, reservesSpace: true)
+            
+            Button {
+                uniNav.presentedSheet = .post(content: "@Threaded@mastodon.online", replyId: nil, editId: nil)
+            } label: {
+                Text("support.mention.post")
+                    .foregroundStyle(Color(uiColor: UIColor.systemBackground))
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+            }
+            .zIndex(10.0)
+            .buttonStyle(.borderedProminent)
+            .tint(Color(uiColor: UIColor.label))
+            .padding(.vertical)
+        }
+        .boxify(appDelegate.windowWidth - 50, bgColor: Color(uiColor: UIColor.label))
     }
     
     var mailApp: some View {
