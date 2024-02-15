@@ -141,7 +141,7 @@ struct CompactPostView: View {
                             }
                             .scrollClipDisabled()
                         } else {
-                            PostAttachment(attachment: status.mediaAttachments.first!, isImaging: imaging)
+                            PostAttachment(attachment: status.mediaAttachments.first!, isImaging: imaging) //TODO: AttachmentView (details on attachment)
                         }
                     }
                     
@@ -164,9 +164,9 @@ struct CompactPostView: View {
                 stats.padding(.top, 5)
             }
             
-            if !quoted && !imaging {
-                PostMenu(status: status.reblogAsAsStatus ?? status)
-            }
+//            if !quoted && !imaging {
+//                PostMenu(status: status.reblogAsAsStatus ?? status)
+//            }
         }
     }
     
