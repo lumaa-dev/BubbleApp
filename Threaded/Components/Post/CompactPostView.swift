@@ -207,62 +207,31 @@ struct CompactPostView: View {
             .padding(.horizontal)
     }
     
+    @ViewBuilder
     var stats: some View {
-        //MARK: I acknowledge the existance of a count bug here
-        if status.reblog == nil {
-            HStack {
-                if status.repliesCount > 0 {
-                    Text("status.replies-\(status.repliesCount)")
-                        .monospacedDigit()
-                        .foregroundStyle(.gray)
-                        .font(quoted ? .caption : .callout)
-                }
-                
-                if status.repliesCount > 0 && (status.favouritesCount > 0 || isLiked) {
-                    Text("•")
-                        .foregroundStyle(.gray)
-                }
-                
-                if status.favouritesCount > 0 || isLiked {
-                    let likeCount: Int = status.favouritesCount - (initialLike ? 1 : 0)
-                    let incrLike: Int = isLiked ? 1 : 0
-                    Text("status.favourites-\(likeCount + incrLike)")
-                        .monospacedDigit()
-                        .foregroundStyle(.gray)
-                        .contentTransition(.numericText(value: Double(likeCount + incrLike)))
-                        .font(quoted ? .caption : .callout)
-                        .transaction { t in
-                            t.animation = .default
-                        }
-                }
+        let status = status.reblogAsAsStatus ?? status
+        
+        HStack {
+            if status.repliesCount > 0 {
+                Text("status.replies-\(status.repliesCount)")
+                    .monospacedDigit()
+                    .foregroundStyle(.gray)
+                    .font(quoted ? .caption : .callout)
             }
-        } else {
-            HStack {
-                if status.reblog!.repliesCount > 0 {
-                    Text("status.replies-\(status.reblog!.repliesCount)")
-                        .monospacedDigit()
-                        .foregroundStyle(.gray)
-                        .font(quoted ? .caption : .callout)
-                }
-                
-                if status.reblog!.repliesCount > 0 && (status.reblog!.favouritesCount > 0 || isLiked) {
-                    Text("•")
-                        .foregroundStyle(.gray)
-                        .font(quoted ? .caption : .callout)
-                }
-                
-                if status.reblog!.favouritesCount > 0 || isLiked {
-                    let likeCount: Int = status.reblog!.favouritesCount - (initialLike ? 1 : 0)
-                    let incrLike: Int = isLiked ? 1 : 0
-                    Text("status.favourites-\(likeCount + incrLike)")
-                        .monospacedDigit()
-                        .foregroundStyle(.gray)
-                        .contentTransition(.numericText(value: Double(likeCount + incrLike)))
-                        .font(quoted ? .caption : .callout)
-                        .transaction { t in
-                            t.animation = .default
-                        }
-                }
+            
+            if status.repliesCount > 0 && (status.favouritesCount > 0 || isLiked) {
+                Text("•")
+                    .foregroundStyle(.gray)
+            }
+            
+            if status.favouritesCount > 0 || isLiked {
+                let likeCount: Int = status.favouritesCount - (initialLike ? 1 : 0)
+                let incrLike: Int = isLiked ? 1 : 0
+                Text("status.favourites-\(likeCount + incrLike)")
+                    .monospacedDigit()
+                    .foregroundStyle(.gray)
+                    .contentTransition(.numericText(value: Double(likeCount + incrLike)))
+                    .font(quoted ? .caption : .callout)
             }
         }
     }
