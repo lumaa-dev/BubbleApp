@@ -38,10 +38,10 @@ struct ContentView: View {
             })
         }
         .overlay(alignment: .bottom) {
-            TabsView(selectedTab: $uniNavigator.selectedTab) {
-                uniNavigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
-            }
-            .padding(.vertical, 10)
+            TabsView(selectedTab: $uniNavigator.selectedTab, postButton: {
+                    uniNavigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
+            })
+            .safeAreaPadding(.vertical, 10)
             .zIndex(10)
         }
         .withSheets(sheetDestination: $uniNavigator.presentedSheet)
