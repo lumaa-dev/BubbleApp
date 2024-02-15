@@ -4,12 +4,20 @@ import SwiftUI
 
 struct TabsView: View {
     @Binding var selectedTab: TabDestination
-    var postButton: () -> Void
+    
+    var postButton: () -> Void = {}
+    var tapAction: () -> Void = {}
+    var retapAction: () -> Void = {}
     
     var body: some View {
         HStack(alignment: .center) {
             Button {
-                selectedTab = .timeline
+                if selectedTab == .timeline {
+                    retapAction()
+                } else {
+                    selectedTab = .timeline
+                    tapAction()
+                }
             } label: {
                 if selectedTab == .timeline {
                     Tabs.timeline.imageFill
@@ -22,7 +30,12 @@ struct TabsView: View {
             Spacer()
             
             Button {
-                selectedTab = .search
+                if selectedTab == .search {
+                    retapAction()
+                } else {
+                    selectedTab = .search
+                    tapAction()
+                }
             } label: {
                 if selectedTab == .search {
                     Tabs.search.imageFill
@@ -44,7 +57,12 @@ struct TabsView: View {
             Spacer()
             
             Button {
-                selectedTab = .activity
+                if selectedTab == .activity {
+                    retapAction()
+                } else {
+                    selectedTab = .activity
+                    tapAction()
+                }
             } label: {
                 if selectedTab == .activity {
                     Tabs.activity.imageFill
@@ -57,7 +75,12 @@ struct TabsView: View {
             Spacer()
             
             Button {
-                selectedTab = .profile
+                if selectedTab == .profile {
+                    retapAction()
+                } else {
+                    selectedTab = .profile
+                    tapAction()
+                }
             } label: {
                 if selectedTab == .profile {
                     Tabs.profile.imageFill

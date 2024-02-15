@@ -38,13 +38,11 @@ struct ContentView: View {
             })
         }
         .overlay(alignment: .bottom) {
-            if uniNavigator.showTabbar {
-                TabsView(selectedTab: $uniNavigator.selectedTab) {
-                    uniNavigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
-                }
-                .offset(y: uniNavigator.showTabbar ? 0 : -20)
-                .zIndex(10)
+            TabsView(selectedTab: $uniNavigator.selectedTab) {
+                uniNavigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
             }
+            .padding(.vertical, 10)
+            .zIndex(10)
         }
         .withSheets(sheetDestination: $uniNavigator.presentedSheet)
         .withCovers(sheetDestination: $uniNavigator.presentedCover)
