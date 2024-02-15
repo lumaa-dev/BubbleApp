@@ -7,7 +7,7 @@ struct ContentView: View {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
     @State private var preferences: UserPreferences = .defaultPreferences
-    @StateObject private var uniNavigator = UniversalNavigator() // "Universal Path" (POSS 1)
+    @StateObject private var uniNavigator = UniversalNavigator()
     @StateObject private var accountManager: AccountManager = AccountManager.shared
     
     var body: some View {
