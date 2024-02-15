@@ -2071,6 +2071,54 @@
         }
       }
     },
+    "support.mention" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mention Threaded"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mentionner Threaded"
+          }
+        }
+      }
+    },
+    "support.mention.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can mention the official Threaded account on Mastodon, and you will get the help you need"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez mentionner le compte officiel de Threaded, puis vous aurez l'aide dont vous avez besoin"
+          }
+        }
+      }
+    },
+    "support.mention.post" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publier"
+          }
+        }
+      }
+    },
     "support.platform" : {
       "localizations" : {
         "en" : {
