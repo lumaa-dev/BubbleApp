@@ -4,7 +4,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct PostMenu: View {
-    @EnvironmentObject private var navigator: Navigator
+    @Environment(UniversalNavigator.self) private var navigator
     @Environment(AccountManager.self) private var accountManager
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
@@ -82,6 +82,7 @@ struct PostMenu: View {
                 .background(Color.appBackground)
         }
         .environment(\.colorScheme, colorScheme == .dark ? .dark : .light)
+        .environment(UniversalNavigator())
         .environment(AccountManager())
         .environment(AppDelegate())
         .environment(pref)
