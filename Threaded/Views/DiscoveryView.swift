@@ -60,6 +60,7 @@ struct DiscoveryView: View {
                     statusView
                 }
             }
+            .listThreaded()
             .submitLabel(.search)
             .task(id: searchQuery) {
                 if !searchQuery.isEmpty {
