@@ -10,29 +10,12 @@ public class Navigator: ObservableObject {
     public var presentedCover: SheetDestination?
     public var selectedTab: TabDestination = .timeline
     
-    public var showTabbar: Bool = true
-    
     public func navigate(to: RouterDestination) {
         path.append(to)
-        if path.contains(where: { $0 == .settings }) {
-            toggleTabbar(false)
-        } else {
-            toggleTabbar(true)
-        }
     }
     
     public func removeSettingsOfPath() {
         self.path = self.path.filter({ !RouterDestination.allSettings.contains($0) })
-    }
-    
-    
-    /// Defines the visibility of the main tab bar in from `ContentView`
-    /// - Parameter bool: `true` shows the tab bar and `false` hides the tab bar
-    public func toggleTabbar(_ bool: Bool? = nil) {
-        print("\((bool ?? !self.showTabbar) ? "shown" : "hide") the tab bar")
-        withAnimation(.easeInOut(duration: 0.4)) {
-            self.showTabbar = bool ?? !self.showTabbar
-        }
     }
 }
 
