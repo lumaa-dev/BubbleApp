@@ -3,6 +3,7 @@
 import SwiftUI
 
 struct ContactRow: View {
+    @Environment(AccountManager.self) private var accountManager: AccountManager
     @EnvironmentObject private var navigator: Navigator
     
     var cont: MessageContact = .placeholder()
@@ -71,6 +72,18 @@ struct ContactRow: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
+                    guard let client = accountManager.getClient() else { return }
+                    
+                    if cont.unread {
+                        Task {
+                            do {
+                                _ = try await client.post(endpoint: Conversations.read(id: cont.id))
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    }
+                    
                     navigator.navigate(to: cont.lastStatus == nil ? .account(acc: cont.accounts[0]) : .post(status: cont.lastStatus!))
                 }
                 
