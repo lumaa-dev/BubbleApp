@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B915C4422B6F908C00042DDB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B915C4412B6F908C00042DDB /* ProfileView.swift */; };
+		B93757112B7FB8D400652F91 /* AltClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93757102B7FB8D400652F91 /* AltClients.swift */; };
 		B93ADFCB2B7625CD00FF9172 /* DiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93ADFCA2B7625CD00FF9172 /* DiscoveryView.swift */; };
 		B93B676D2B42C94F000892E9 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B93B676C2B42C94F000892E9 /* Nuke */; };
 		B93B676F2B42C94F000892E9 /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = B93B676E2B42C94F000892E9 /* NukeExtensions */; };
@@ -117,6 +118,7 @@
 
 /* Begin PBXFileReference section */
 		B915C4412B6F908C00042DDB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		B93757102B7FB8D400652F91 /* AltClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltClients.swift; sourceTree = "<group>"; };
 		B93ADFCA2B7625CD00FF9172 /* DiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
 		B93B67772B42E8F0000892E9 /* TextEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEmoji.swift; sourceTree = "<group>"; };
 		B93B67792B42EC51000892E9 /* MetaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaPicker.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				B9FB949C2B2EF0D600D81C07 /* Instance.swift */,
 				B9FB949E2B2EF0F200D81C07 /* MastodonRequest.swift */,
 				B97BCE232B3DD8400044756D /* HapticManager.swift */,
+				B93757102B7FB8D400652F91 /* AltClients.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				B9DC692B2B78E60300E625B9 /* PostsView.swift in Sources */,
 				B9FB94BC2B2F035500D81C07 /* Tag.swift in Sources */,
 				B9BED51A2B5D662D00C9B715 /* ShareSheetController.swift in Sources */,
+				B93757112B7FB8D400652F91 /* AltClients.swift in Sources */,
 				B9BED5162B5D5E6500C9B715 /* PostInteractor.swift in Sources */,
 				B98BC74B2B46CF0400595441 /* ThreadedStyle.swift in Sources */,
 				B9FB94812B2E1FEF00D81C07 /* HTMLString.swift in Sources */,
