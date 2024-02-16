@@ -4,7 +4,7 @@ import Foundation
 import SwiftUI
 
 @Observable
-public class Navigator: ObservableObject {    
+public class Navigator: ObservableObject {
     public var path: [RouterDestination] = []
     public var presentedSheet: SheetDestination?
     public var presentedCover: SheetDestination?
@@ -135,47 +135,6 @@ extension View {
     func withCovers(sheetDestination: Binding<SheetDestination?>) -> some View {
         fullScreenCover(item: sheetDestination) { destination in
             viewCover(destination: destination)
-        }
-    }
-    
-    @available(*, deprecated, renamed: "withSheets", message: "These two cannot support themselves")
-    func withOver(sheetDestination: Binding<SheetDestination?>) -> some View {
-        self
-            .withCovers(sheetDestination: sheetDestination)
-            .withSheets(sheetDestination: sheetDestination)
-    }
-    
-    @available(*, deprecated,  message: "Causes bugs with sheets to display as covers")
-    private func viewRepresentation(destination: SheetDestination, isCover: Bool) -> some View {
-        Group {
-            if destination.isCover {
-                switch destination {
-                    case .welcome:
-                        ConnectView()
-                    case .shop:
-                        ShopView()
-                    default:
-                        EmptySheetView(destId: destination.id)
-                }
-            } else {
-                switch destination {
-                    case .post(let content, let replyId, let editId):
-                        NavigationStack {
-                            PostingView(initialString: content, replyId: replyId, editId: editId)
-                                .tint(Color(uiColor: UIColor.label))
-                        }
-                    case let .mastodonLogin(logged):
-                        AddInstanceView(logged: logged)
-                            .tint(Color.accentColor)
-                    case let .safari(url):
-                        SfSafariView(url: url)
-                            .ignoresSafeArea()
-                    case let .shareImage(image, status):
-                        ShareSheet(image: image, status: status)
-                    default:
-                        EmptySheetView(destId: destination.id)
-                }
-            }
         }
     }
     
