@@ -17,7 +17,7 @@ struct PostMenu: View {
     
     private var isOwner: Bool {
         if let acc = accountManager.getAccount() {
-            return status.account.id == acc.id
+            return status.reblogAsAsStatus?.account.id ?? status.account.id == acc.id
         }
         return false
     }
