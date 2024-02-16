@@ -99,16 +99,16 @@ struct PostingView: View {
                         HStack(alignment: .firstTextBaseline) {
                             switch (item) {
                                 case .pub:
-                                    Text("status.posting.visibility.public")
+                                    Label("status.posting.visibility.public", systemImage: "text.magnifyingglass")
                                         .foregroundStyle(Color.gray)
                                 case .unlisted:
-                                    Text("status.posting.visibility.unlisted")
+                                    Label("status.posting.visibility.unlisted", systemImage: "magnifyingglass")
                                         .foregroundStyle(Color.gray)
                                 case .direct:
-                                    Text("status.posting.visibility.direct")
+                                    Label("status.posting.visibility.direct", systemImage: "paperplane")
                                         .foregroundStyle(Color.gray)
                                 case .priv:
-                                    Text("status.posting.visibility.private")
+                                    Label("status.posting.visibility.private", systemImage: "lock.fill")
                                         .foregroundStyle(Color.gray)
                             }
                             
