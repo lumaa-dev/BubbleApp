@@ -383,6 +383,22 @@
         }
       }
     },
+    "activity.messages.read" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark as read"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marquer comme lu"
+          }
+        }
+      }
+    },
     "activity.no-notifications" : {
       "localizations" : {
         "en" : {
@@ -739,6 +755,70 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Règles"
+          }
+        }
+      }
+    },
+    "login.instance.unsafe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This instance is dangerous"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette instance est dangereuse"
+          }
+        }
+      }
+    },
+    "login.instance.unsafe.agree" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I agree"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je suis d'accord"
+          }
+        }
+      }
+    },
+    "login.instance.unsafe.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The instance has been detected to be dangerous, Threaded does not take responsibility for any content posted  or seen on this instance and will not provide support. Do you agree to take FULL responsibility?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette instance a été détectée comme étant dangereuse, Threaded ne prend pas la responsabilité pour tout contenu posté ou vu dans cette instance et ne fournira pas d'aide. Êtes-vous d'accord pour prendre la TOTALE responsabilité ?"
+          }
+        }
+      }
+    },
+    "login.instance.unsafe.disagree" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I disagree"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je suis pas d'accord"
           }
         }
       }
@@ -1475,6 +1555,70 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "L'abonnement Threaded+ ajoute des nouvelles et uniques fonctionnalités à Threaded ! Cela permet aussi de contribuer à son développement ❤️"
+          }
+        }
+      }
+    },
+    "status.action.bookmark" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bookmark"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Placer un signet"
+          }
+        }
+      }
+    },
+    "status.action.like" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Like"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aimer"
+          }
+        }
+      }
+    },
+    "status.action.unbookmark" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbookmark"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enlever le signet"
+          }
+        }
+      }
+    },
+    "status.action.unlike" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlike"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus aimer"
           }
         }
       }

@@ -9,9 +9,16 @@ struct AddInstanceView: View {
     
     // Instance URL and verify
     @State private var instanceUrl: String = ""
+    
     @State private var verifying: Bool = false
     @State private var verified: Bool = false
     @State private var verifyError: Bool = false
+    
+    @State private var blockList: [String] = []
+    @State private var responsability: Bool = false
+    @State private var showingResponsability: Bool = false
+    @State private var agreedResponsability: Bool = false
+    
     @State private var instanceInfo: Instance?
     
     @State private var signInClient: Client?
@@ -87,6 +94,36 @@ struct AddInstanceView: View {
                 }
             }
         }
+        .task {
+            withAnimation {
+                verifying = true
+            }
+            
+            blockList = Instance.getBlocklist()
+            
+            withAnimation {
+                verifying = false
+            }
+        }
+        .alert("login.instance.unsafe", isPresented: $showingResponsability, actions: {
+            Button(role: .destructive) {
+                responsability = true
+                agreedResponsability = true
+                showingResponsability.toggle()
+            } label: {
+                Text("login.instance.unsafe.agree")
+            }
+            
+            Button(role: .cancel) {
+                responsability = true
+                agreedResponsability = false
+                showingResponsability.toggle()
+            } label: {
+                Text("login.instance.unsafe.disagree")
+            }
+        }, message: {
+            Text("login.instance.unsafe.description")
+        })
         .scrollContentBackground(.hidden)
         .background(Color.appBackground)
         .onChange(of: instanceUrl) { _, newValue in
@@ -105,6 +142,38 @@ struct AddInstanceView: View {
         let cleanInstance = instanceUrl
             .replacingOccurrences(of: "http://", with: "")
             .replacingOccurrences(of: "https://", with: "")
+        
+        if !isInstanceSafe() {
+            if responsability == false && agreedResponsability == false {
+                responsability = true
+                agreedResponsability = false
+                showingResponsability = true
+                
+                withAnimation {
+                    verifying = false
+                    verified = false
+                    verifyError = false
+                }
+                
+                return
+            } else if responsability == true && agreedResponsability == true {
+                showingResponsability = false
+            } else if responsability == true && agreedResponsability == false {
+                showingResponsability = true
+                
+                withAnimation {
+                    verifying = false
+                    verified = false
+                    verifyError = false
+                }
+                
+                return
+            }
+        } else {
+            responsability = false
+            agreedResponsability = false
+            UserDefaults.standard.removeObject(forKey: "unsafe")
+        }
         
         let client = Client(server: cleanInstance)
         
@@ -147,6 +216,12 @@ struct AddInstanceView: View {
             return
         }
         
+        if agreedResponsability && responsability {
+            UserDefaults.standard.setValue(true, forKey: "unsafe")
+        } else {
+            UserDefaults.standard.removeObject(forKey: "unsafe")
+        }
+        
         do {
             let oauthToken = try await client.continueOauthFlow(url: url)
             let client = Client(server: client.server, oauthToken: oauthToken)
@@ -162,6 +237,13 @@ struct AddInstanceView: View {
         } catch {
             print(error)
         }
+    }
+    
+    /// Is the user input instance URL a safe instance
+    /// - returns: True, if the instance isn't consider as dangerous
+    private func isInstanceSafe() -> Bool {
+        let unsafe = blockList.contains(instanceUrl.trimmingCharacters(in: .whitespacesAndNewlines))
+        return !unsafe
     }
 }
 
