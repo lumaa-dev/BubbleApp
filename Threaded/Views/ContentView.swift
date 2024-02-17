@@ -36,6 +36,7 @@ struct ContentView: View {
                     }
                 }
             })
+            .withAppRouter(uniNavigator)
         }
         .overlay(alignment: .bottom) {
             TabsView(selectedTab: $uniNavigator.selectedTab, postButton: {
@@ -50,6 +51,7 @@ struct ContentView: View {
         .environment(accountManager)
         .environment(appDelegate)
         .environmentObject(preferences)
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             do {
                 preferences = try UserPreferences.loadAsCurrent() ?? .defaultPreferences
@@ -66,12 +68,13 @@ struct ContentView: View {
         .environment(\.openURL, OpenURLAction { url in
             // Open internal URL.
             guard preferences.browserType == .inApp else { return .systemAction }
-            uniNavigator.presentedSheet = .safari(url: url)
+//            let handled = uniNavigator.handle(url: url)
             return OpenURLAction.Result.handled
         })
         .onOpenURL(perform: { url in
             guard preferences.browserType == .inApp else { return }
             uniNavigator.presentedSheet = .safari(url: url)
+//            let handled = uniNavigator.handle(url: url)
         })
     }
     
@@ -80,7 +83,9 @@ struct ContentView: View {
         if appAccount == nil {
             uniNavigator.presentedCover = .welcome
         } else {
-            accountManager.setClient(.init(server: appAccount!.server, oauthToken: appAccount!.oauthToken))
+            let cli = Client(server: appAccount!.server, oauthToken: appAccount!.oauthToken)
+            accountManager.setClient(cli)
+            uniNavigator.client = cli
             
             // Check if token is still working
             let fetched: Account? = await accountManager.fetchAccount()
