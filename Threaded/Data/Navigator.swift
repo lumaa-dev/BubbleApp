@@ -19,7 +19,31 @@ public class Navigator: ObservableObject {
     }
 }
 
-public class UniversalNavigator: Navigator {}
+public class UniversalNavigator: Navigator {
+    public var client: Client?
+    
+    public func handle(url: URL) -> OpenURLAction.Result {
+        guard let client = self.client else { return .systemAction }
+        let path: String = url.absoluteString.replacingOccurrences(of: AppInfo.scheme, with: "") // remove all path
+        let urlPath: URL = URL(string: path)!
+        
+        if client.isAuth && client.hasConnection(with: url) {
+            if urlPath.lastPathComponent.starts(with: "@") {
+                Task {
+                    do {
+                        let search: SearchResults = try await client.get(endpoint: Search.search(query: urlPath.lastPathComponent, type: "accounts", offset: nil, following: nil), forceVersion: .v2)
+                        let acc: Account = search.accounts.first ?? .placeholder()
+                        self.navigate(to: .account(acc: acc))
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+        }
+        
+        return .handled
+    }
+}
 
 public enum TabDestination: Identifiable {
     case timeline
