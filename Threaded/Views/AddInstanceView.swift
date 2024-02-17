@@ -227,6 +227,10 @@ struct AddInstanceView: View {
             let client = Client(server: client.server, oauthToken: oauthToken)
             let account: Account = try await client.get(endpoint: Accounts.verifyCredentials)
             let appAcc = AppAccount(server: client.server, accountName: "\(account.acct)@\(client.server)", oauthToken: oauthToken)
+            
+            let connections: [String] = try await client.get(endpoint: Instances.peers)
+            client.addConnections(connections)
+            
             appAcc.saveAsCurrent()
             AccountManager.shared.setClient(client)
             AccountManager.shared.setAccount(account)
