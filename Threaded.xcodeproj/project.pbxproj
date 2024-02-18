@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B9029FC22B81259400AA9B68 /* Secret.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9029FC12B81259400AA9B68 /* Secret.plist */; };
+		B9029FC42B8125CE00AA9B68 /* HuggingFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9029FC32B8125CE00AA9B68 /* HuggingFace.swift */; };
 		B915C4422B6F908C00042DDB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B915C4412B6F908C00042DDB /* ProfileView.swift */; };
 		B93757112B7FB8D400652F91 /* AltClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93757102B7FB8D400652F91 /* AltClients.swift */; };
 		B93ADFCB2B7625CD00FF9172 /* DiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93ADFCA2B7625CD00FF9172 /* DiscoveryView.swift */; };
@@ -117,6 +119,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B9029FC12B81259400AA9B68 /* Secret.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
+		B9029FC32B8125CE00AA9B68 /* HuggingFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuggingFace.swift; sourceTree = "<group>"; };
 		B915C4412B6F908C00042DDB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B93757102B7FB8D400652F91 /* AltClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltClients.swift; sourceTree = "<group>"; };
 		B93ADFCA2B7625CD00FF9172 /* DiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
@@ -298,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				B9FB94A02B2EF23100D81C07 /* Info.plist */,
+				B9029FC12B81259400AA9B68 /* Secret.plist */,
 				B9FB945A2B2DEECE00D81C07 /* ThreadedApp.swift */,
 				B9EBE8572B474FD600FB594D /* AppDelegate.swift */,
 				B9FB946E2B2DF3BB00D81C07 /* Components */,
@@ -328,6 +333,7 @@
 				B9D9C6BF2B6A56D500C26A41 /* Notifications */,
 				B9FB946F2B2DF3CD00D81C07 /* Navigator.swift */,
 				B9FB94A12B2EF24A00D81C07 /* AppInfo.swift */,
+				B9029FC32B8125CE00AA9B68 /* HuggingFace.swift */,
 				B98BC74C2B46CFCE00595441 /* UserPreferences.swift */,
 				B9FB94872B2E223E00D81C07 /* Emoji.swift */,
 				B9FB949A2B2EF09A00D81C07 /* Client.swift */,
@@ -525,6 +531,7 @@
 				B9DC69302B79378400E625B9 /* ThreadedPlus.storekit in Resources */,
 				B9FB94642B2DEECF00D81C07 /* Preview Assets.xcassets in Resources */,
 				B9FB94612B2DEECF00D81C07 /* Assets.xcassets in Resources */,
+				B9029FC22B81259400AA9B68 /* Secret.plist in Resources */,
 				B9FB94902B2E2B0E00D81C07 /* Localizable.xcstrings in Resources */,
 				B9CFC43B2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard in Resources */,
 				B97BCE2A2B3ED2C80044756D /* LICENSE in Resources */,
@@ -582,6 +589,7 @@
 				B97491E32B6E96700098BC48 /* SymbolWidth.swift in Sources */,
 				B9DC692B2B78E60300E625B9 /* PostsView.swift in Sources */,
 				B9FB94BC2B2F035500D81C07 /* Tag.swift in Sources */,
+				B9029FC42B8125CE00AA9B68 /* HuggingFace.swift in Sources */,
 				B9BED51A2B5D662D00C9B715 /* ShareSheetController.swift in Sources */,
 				B93757112B7FB8D400652F91 /* AltClients.swift in Sources */,
 				B9BED5162B5D5E6500C9B715 /* PostInteractor.swift in Sources */,

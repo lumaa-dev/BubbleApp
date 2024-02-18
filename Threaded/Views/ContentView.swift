@@ -6,6 +6,7 @@ import SwiftUI
 struct ContentView: View {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
+    private var huggingFace: HuggingFace = HuggingFace()
     @State private var preferences: UserPreferences = .defaultPreferences
     @StateObject private var uniNavigator = UniversalNavigator()
     @StateObject private var accountManager: AccountManager = AccountManager.shared
@@ -50,6 +51,7 @@ struct ContentView: View {
         .environment(uniNavigator)
         .environment(accountManager)
         .environment(appDelegate)
+        .environment(huggingFace)
         .environmentObject(preferences)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
@@ -64,6 +66,8 @@ struct ContentView: View {
                     await recognizeAccount()
                 }
             }
+            
+            _ = HuggingFace.getToken()
         }
         .environment(\.openURL, OpenURLAction { url in
             // Open internal URL.

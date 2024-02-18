@@ -20,10 +20,12 @@ struct PostingView: View {
     
     @State private var selectingPhotos: Bool = false
     @State private var mediaContainers: [MediaContainer] = []
+    @State private var mediaAttributes: [StatusData.MediaAttribute] = []
     @State private var selectedPhotos: [PhotosPickerItem] = []
     @State private var player: AVPlayer?
     
     @State private var selectingEmoji: Bool = false
+    @State private var makingAlt: MediaContainer? = nil
     
     @State private var loadingContent: Bool = false
     @State private var postingStatus: Bool = false
@@ -43,6 +45,11 @@ struct PostingView: View {
                         .presentationDetents([.height(200), .medium])
                         .presentationDragIndicator(.visible)
                         .presentationBackgroundInteraction(.enabled(upThrough: .height(200))) // Allow users to move the cursor while adding emojis
+                }
+                .sheet(item: $makingAlt) { container in
+                    AltTextView(container: container, mediaContainers: $mediaContainers, mediaAttributes: $mediaAttributes)
+                        .presentationDetents([.height(235), .medium])
+                        .presentationDragIndicator(.visible)
                 }
         } else {
             loading
@@ -76,7 +83,7 @@ struct PostingView: View {
                         .foregroundStyle(Color(uiColor: UIColor.label))
                         
                         if !mediaContainers.isEmpty {
-                            mediasView(containers: mediaContainers) //TODO: ALT text
+                            mediasView(containers: mediaContainers)
                         }
                         
                         editorButtons
@@ -199,13 +206,13 @@ struct PostingView: View {
     private let containerHeight: CGFloat = 450
     
     @ViewBuilder
-    private func mediasView(containers: [MediaContainer]) -> some View {
+    private func mediasView(containers: [MediaContainer], actions: Bool = true) -> some View {
         ViewThatFits {
-            hMedias(containers)
+            hMedias(containers, actions: actions)
                 .frame(maxHeight: containerHeight)
             
             ScrollView(.horizontal, showsIndicators: false) {
-                hMedias(containers)
+                hMedias(containers, actions: actions)
             }
             .frame(maxHeight: containerHeight)
             .scrollClipDisabled()
@@ -213,7 +220,7 @@ struct PostingView: View {
     }
     
     @ViewBuilder
-    private func hMedias(_ containers: [MediaContainer]) -> some View {
+    private func hMedias(_ containers: [MediaContainer], actions: Bool) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 10) {
             ForEach(containers) { container in
                 ZStack(alignment: .topLeading) {
@@ -237,15 +244,31 @@ struct PostingView: View {
                     }
                 }
                 .overlay(alignment: .topTrailing) {
-                    Button {
-                        deleteAction(container: container)
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.subheadline)
-                            .padding(10)
-                            .background(Material.ultraThick)
-                            .clipShape(Circle())
-                            .padding(5)
+                    if actions {
+                        Button {
+                            deleteAction(container: container)
+                        } label: {
+                            Image(systemName: "xmark")
+                                .font(.subheadline)
+                                .padding(10)
+                                .background(Material.ultraThick)
+                                .clipShape(Circle())
+                                .padding(5)
+                        }
+                    }
+                }
+                .overlay(alignment: .topLeading) {
+                    if actions && container.mediaAttachment != nil {
+                        Button {
+                            makingAlt = container
+                        } label: {
+                            Text(String("ALT"))
+                                .font(.subheadline.smallCaps())
+                                .padding(7.5)
+                                .background(Material.ultraThick)
+                                .clipShape(Capsule())
+                                .padding(5)
+                        }
                     }
                 }
             }
@@ -374,7 +397,6 @@ struct PostingView: View {
                 mediaContainers.removeAll { removedIDs.contains($0.id) }
                 
                 let newPickerItems = selectedPhotos.filter { !oldValue.contains($0) }
-                print("newPickerItems: \(newPickerItems.count)")
                 if !newPickerItems.isEmpty {
                     loadingContent = true
                     Task {
@@ -564,25 +586,6 @@ struct PostingView: View {
         }
     }
     
-    func addDescription(container: PostingView.MediaContainer, description: String) async {
-        guard let client = accountManager.getClient(), let attachment = container.mediaAttachment else { return }
-        if let index = indexOf(container: container) {
-            do {
-                let media: MediaAttachment = try await client.put(endpoint: Media.media(id: attachment.id,
-                                                                                        json: .init(description: description)))
-                mediaContainers[index] = MediaContainer(id: container.id, image: nil, movieTransferable: nil, gifTransferable: nil, mediaAttachment: media, error: nil)
-            } catch { print(error) }
-        }
-    }
-    
-    private var mediaAttributes: [StatusData.MediaAttribute] = []
-    mutating func editDescription(container: PostingView.MediaContainer, description: String) async {
-        guard let attachment = container.mediaAttachment else { return }
-        if indexOf(container: container) != nil {
-            mediaAttributes.append(StatusData.MediaAttribute(id: attachment.id, description: description, thumbnail: nil, focus: nil))
-        }
-    }
-    
     private func uploadMedia(data: Data, mimeType: String) async throws -> MediaAttachment? {
         guard let client = accountManager.getClient() else { return nil }
         return try await client.mediaUpload(endpoint: Media.medias, version: .v2, method: "POST", mimeType: mimeType, filename: "file", data: data)
@@ -649,5 +652,144 @@ extension PostingView {
         let gifTransferable: GifFileTranseferable?
         let mediaAttachment: MediaAttachment?
         let error: Error?
+    }
+    
+    struct AltTextView: View {
+        @Environment(AccountManager.self) private var accountManager: AccountManager
+        @Environment(HuggingFace.self) private var huggingFace: HuggingFace
+        @Environment(\.dismiss) private var dismiss
+        
+        var container: MediaContainer
+        @Binding var mediaContainers: [MediaContainer]
+        @Binding var mediaAttributes: [StatusData.MediaAttribute]
+        
+        @State private var tasking: Bool = false
+        @State private var applying: Bool = false
+        @State private var alt: String = ""
+        @FocusState private var altFocused: Bool
+        
+        var body: some View {
+            NavigationStack {
+                List {
+                    TextField(String(""), text: $alt, prompt: Text("posting.alt.prompt"), axis: .vertical)
+                        .labelsHidden()
+                        .keyboardType(.asciiCapable)
+                        .focused($altFocused)
+                    
+                    Button {
+                        tasking = true
+                        let img = container.image
+                        if img == nil, let media = container.mediaAttachment {
+                            guard media.supportedType == .image else { return }
+                            downloadImage(from: media.url ?? URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg")!) { image in
+                                if let uiimage = image {
+                                    alt = huggingFace.altGeneration(image: uiimage) ?? ""
+                                    tasking = false
+                                } else {
+                                    print("Couldn't download image")
+                                }
+                            }
+                        } else {
+                            alt = huggingFace.altGeneration(image: img!) ?? ""
+                            tasking = false
+                        }
+                    } label: {
+                        if !tasking {
+                            Label("posting.alt.generate", systemImage: "printer")
+                                .foregroundStyle(Color.blue)
+                        } else {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                                .foregroundStyle(Color(uiColor: UIColor.label))
+                        }
+                    }
+                    .tint(tasking ? Color(uiColor: UIColor.label) : Color.blue)
+                    .disabled(tasking)
+                }
+                .navigationTitle(Text("posting.alt.header"))
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button {
+                            applying = true
+                            if let mediaAttachment = container.mediaAttachment {
+                                if let str = mediaAttachment.description, !str.isEmpty {
+                                    Task {
+                                        await editDescription(container: container, description: alt)
+                                        applying = false
+                                        dismiss()
+                                    }
+                                } else {
+                                    Task {
+                                        await addDescription(container: container, description: alt)
+                                        applying = false
+                                        dismiss()
+                                    }
+                                }
+                            }
+                        } label: {
+                            if applying {
+                                ProgressView()
+                                    .progressViewStyle(.circular)
+                            } else {
+                                Text("posting.alt.apply")
+                            }
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("posting.alt.cancel")
+                        }
+                    }
+                }
+                .onAppear {
+                    altFocused = true
+                }
+            }
+        }
+        
+        private func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                guard let data = data, error == nil else {
+                    completion(nil)
+                    return
+                }
+                DispatchQueue.main.async {
+                    completion(UIImage(data: data))
+                }
+            }.resume()
+        }
+        
+        private func addDescription(container: MediaContainer, description: String) async {
+            guard let client = accountManager.getClient(), let attachment = container.mediaAttachment else { return }
+            if let index = indexOf(container: container) {
+                do {
+                    let media: MediaAttachment = try await client.put(endpoint: Media.media(id: attachment.id,
+                                                                                            json: .init(description: description)))
+                    mediaContainers[index] = MediaContainer(
+                        id: container.id,
+                        image: nil,
+                        movieTransferable: nil,
+                        gifTransferable: nil,
+                        mediaAttachment: media,
+                        error: nil
+                    )
+                } catch {}
+            }
+        }
+        
+        private func editDescription(container: MediaContainer, description: String) async {
+            guard let attachment = container.mediaAttachment else { return }
+            if indexOf(container: container) != nil {
+                mediaAttributes.append(StatusData.MediaAttribute(id: attachment.id, description: description, thumbnail: nil, focus: nil))
+            }
+        }
+        
+        private func indexOf(container: MediaContainer) -> Int? {
+            mediaContainers.firstIndex(where: { $0.id == container.id })
+        }
     }
 }
