@@ -681,7 +681,7 @@ extension PostingView {
                         let img = container.image
                         if img == nil, let media = container.mediaAttachment {
                             guard media.supportedType == .image else { return }
-                            downloadImage(from: media.url ?? URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg")!) { image in
+                            downloadImage(from: media.url ?? URL.placeholder) { image in
                                 if let uiimage = image {
                                     alt = huggingFace.altGeneration(image: uiimage) ?? ""
                                     tasking = false
