@@ -535,6 +535,41 @@
         }
       }
     },
+    "attachment.alt.action" : {
+
+    },
+    "attachment.close" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer"
+          }
+        }
+      }
+    },
+    "attachment.no-attachments" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No attachments"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de pièces-jointe"
+          }
+        }
+      }
+    },
     "discovery" : {
       "localizations" : {
         "en" : {

@@ -63,6 +63,7 @@
 		B9EBE8562B47256900FB594D /* PostAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBE8552B47256900FB594D /* PostAttachment.swift */; };
 		B9EBE8582B474FD600FB594D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBE8572B474FD600FB594D /* AppDelegate.swift */; };
 		B9F8FA162B5D3AC30044DAB4 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F8FA152B5D3AC30044DAB4 /* SafariView.swift */; };
+		B9FA6E752B82367B00D63E30 /* AttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA6E742B82367B00D63E30 /* AttachmentView.swift */; };
 		B9FB945B2B2DEECE00D81C07 /* ThreadedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB945A2B2DEECE00D81C07 /* ThreadedApp.swift */; };
 		B9FB945D2B2DEECE00D81C07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB945C2B2DEECE00D81C07 /* ContentView.swift */; };
 		B9FB94612B2DEECF00D81C07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9FB94602B2DEECF00D81C07 /* Assets.xcassets */; };
@@ -170,6 +171,7 @@
 		B9EBE8552B47256900FB594D /* PostAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAttachment.swift; sourceTree = "<group>"; };
 		B9EBE8572B474FD600FB594D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9F8FA152B5D3AC30044DAB4 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		B9FA6E742B82367B00D63E30 /* AttachmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentView.swift; sourceTree = "<group>"; };
 		B9FB94572B2DEECE00D81C07 /* Threaded.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Threaded.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9FB945A2B2DEECE00D81C07 /* ThreadedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadedApp.swift; sourceTree = "<group>"; };
 		B9FB945C2B2DEECE00D81C07 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				B9FB94952B2EDAB600D81C07 /* Settings */,
 				B9FB94712B2DF49700D81C07 /* ConnectView.swift */,
 				B9FB94982B2EEB9400D81C07 /* AddInstanceView.swift */,
+				B9FA6E742B82367B00D63E30 /* AttachmentView.swift */,
 				B9FB945C2B2DEECE00D81C07 /* ContentView.swift */,
 				B9842C112B2F2A5800D9F3C1 /* TimelineView.swift */,
 				B93ADFCA2B7625CD00FF9172 /* DiscoveryView.swift */,
@@ -570,6 +573,7 @@
 				B9DC69292B78D9A500E625B9 /* SearchResultView.swift in Sources */,
 				B98BC7492B46CEDA00595441 /* AppearenceView.swift in Sources */,
 				B9D9C6C52B6A587700C26A41 /* NotificationRow.swift in Sources */,
+				B9FA6E752B82367B00D63E30 /* AttachmentView.swift in Sources */,
 				B9FB94992B2EEB9400D81C07 /* AddInstanceView.swift in Sources */,
 				B9FB94972B2EDABF00D81C07 /* SupportView.swift in Sources */,
 				B9F8FA162B5D3AC30044DAB4 /* SafariView.swift in Sources */,
@@ -785,6 +789,7 @@
 				INFOPLIST_FILE = Threaded/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Threaded;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Threaded allows you to save images you see in posts";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchStoryboard.storyboard;
@@ -823,6 +828,7 @@
 				INFOPLIST_FILE = Threaded/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Threaded;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Threaded allows you to save images you see in posts";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchStoryboard.storyboard;

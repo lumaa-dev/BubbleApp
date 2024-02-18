@@ -35,6 +35,7 @@ struct CompactPostView: View {
                     .padding(.bottom, 3)
             }
         }
+        .withCovers(sheetDestination: $navigator.presentedCover)
         .onAppear {
             do {
                 preferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
@@ -136,12 +137,18 @@ struct CompactPostView: View {
                                 HStack(alignment: .firstTextBaseline, spacing: 5) {
                                     ForEach(status.mediaAttachments) { attachment in
                                         PostAttachment(attachment: attachment, isFeatured: false, isImaging: imaging)
+                                            .onTapGesture {
+                                                navigator.presentedCover = .media(attachments: status.mediaAttachments, selected: attachment)
+                                            }
                                     }
                                 }
                             }
                             .scrollClipDisabled()
                         } else {
-                            PostAttachment(attachment: status.mediaAttachments.first!, isImaging: imaging) //TODO: AttachmentView (details on attachment)
+                            PostAttachment(attachment: status.mediaAttachments.first!, isImaging: imaging)
+                                .onTapGesture {
+                                    navigator.presentedCover = .media(attachments: status.mediaAttachments, selected: status.mediaAttachments[0])
+                                }
                         }
                     }
                     

@@ -120,4 +120,6 @@ public extension URL {
             "application/octet-stream"
         }
     }
+    
+    static let placeholder: URL = URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg")!
 }

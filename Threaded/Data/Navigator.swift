@@ -68,6 +68,7 @@ public enum TabDestination: Identifiable {
 public enum SheetDestination: Identifiable {
     case welcome
     case shop
+    case media(attachments: [MediaAttachment], selected: MediaAttachment)
     
     case mastodonLogin(logged: Binding<Bool>)
     case post(content: String = "", replyId: String? = nil, editId: String? = nil)
@@ -80,6 +81,8 @@ public enum SheetDestination: Identifiable {
                 return "welcome"
             case .shop:
                 return "shop"
+            case .media:
+                return "media"
                 
             case .mastodonLogin:
                 return "login"
@@ -97,6 +100,8 @@ public enum SheetDestination: Identifiable {
             case .welcome:
                 return true
             case .shop:
+                return true
+            case .media:
                 return true
                 
             case .mastodonLogin:
@@ -169,6 +174,8 @@ extension View {
                     ConnectView()
                 case .shop:
                     ShopView()
+                case .media(let attachments, let selected):
+                    AttachmentView(attachments: attachments, selectedId: selected.id)
                 default:
                     EmptySheetView(destId: destination.id)
             }
