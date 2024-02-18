@@ -157,7 +157,7 @@ struct ProfileView: View {
     
     var statusesList: some View {
         LazyVStack {
-            if loadingStatuses == false || statuses == nil {
+            if loadingStatuses == false {
                 if !(statusesPinned?.isEmpty ?? true) {
                     ForEach(statusesPinned!, id: \.id) { status in
                         CompactPostView(status: status, pinned: true)
@@ -194,11 +194,11 @@ struct ProfileView: View {
             guard statuses != nil && new >= statuses!.count - 6 && !loadingStatuses else { return }
             if let client = accountManager.getClient(), let lastStatus = statuses!.last {
                 Task {
-                    loadingStatuses = true
+//                    loadingStatuses = true
                     if let newStatuses: [Status] = try await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: lastStatus.id, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil)) {
                         statuses?.append(contentsOf: newStatuses)
                     }
-                    loadingStatuses = false
+//                    loadingStatuses = false
                 }
             }
         }
