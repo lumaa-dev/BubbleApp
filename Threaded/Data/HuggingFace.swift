@@ -7,6 +7,7 @@ import UIKit
 final class HuggingFace: ObservableObject {
     static var token: String = ""
     static let altGenUrl: URL = URL(string: "https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-large")!
+    static let textGenURL: URL = URL(string: "https://api-inference.huggingface.co/models/grammarly/coedit-large")!
     
     var lastImgGeneration: String? = nil
     
@@ -41,12 +42,11 @@ final class HuggingFace: ObservableObject {
                 defer { semaphore.signal() }
                 if let data = data {
                     jsonResponse = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]]
-                    print(jsonResponse?[0]["generated_text"] ?? "idfk")
                 }
             }.resume()
             
             semaphore.wait()
-            return (jsonResponse?[0]["generated_text"] as! String)
+            return jsonResponse?[0]["generated_text"] as? String
         }
         
         return nil
