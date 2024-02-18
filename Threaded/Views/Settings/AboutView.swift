@@ -46,15 +46,15 @@ struct AboutView: View {
     
     var aboutApp: some View {
         // TODO: Change this entire ugly thing
-        ScrollView {
-            VStack (spacing: 15) {
-                Text("about.app.details")
-                    .multilineTextAlignment(.leading)
-                Text("about.app.third-party")
-                    .multilineTextAlignment(.leading)
-            }
-            .padding(.horizontal)
+        List {
+            Text("about.app.details")
+                .multilineTextAlignment(.leading)
+                .listRowThreaded()
+            Text("about.app.third-party")
+                .multilineTextAlignment(.leading)
+                .listRowThreaded()
         }
+        .padding(.horizontal)
         .listThreaded(tint: Color.blue)
         .navigationTitle("about.app")
         .navigationBarTitleDisplayMode(.large)
