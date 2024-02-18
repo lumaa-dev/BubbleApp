@@ -92,4 +92,6 @@ iOSInjectionProject/
 
 # StoreKit content
 Store/
+
+# Secret
 Threaded/Secret.plist
