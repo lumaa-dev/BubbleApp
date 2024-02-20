@@ -4,6 +4,7 @@ import SwiftUI
 
 struct AboutView: View {
     @ObservedObject private var userPreferences: UserPreferences = .defaultPreferences
+    @EnvironmentObject private var navigator: Navigator
     
     var body: some View {
         List {
@@ -59,8 +60,4 @@ struct AboutView: View {
         .navigationTitle("about.app")
         .navigationBarTitleDisplayMode(.large)
     }
-}
-
-#Preview {
-    AboutView()
 }

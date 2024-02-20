@@ -37,7 +37,6 @@ struct ContentView: View {
                     }
                 }
             })
-            .withAppRouter(uniNavigator)
         }
         .overlay(alignment: .bottom) {
             TabsView(selectedTab: $uniNavigator.selectedTab, postButton: {

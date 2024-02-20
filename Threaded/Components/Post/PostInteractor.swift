@@ -13,46 +13,81 @@ struct PostInteractor: View {
     @Binding var isBookmarked: Bool
     
     var body: some View {
-        HStack(spacing: 13) {
-            asyncActionButton(isLiked ? "heart.fill" : "heart") {
-                do {
-                    HapticManager.playHaptics(haptics: Haptic.tap)
-                    try await likePost()
-                } catch {
-                    HapticManager.playHaptics(haptics: Haptic.error)
-                    print("Error: \(error.localizedDescription)")
+        ViewThatFits {
+            HStack(spacing: 13) {
+                asyncActionButton(isLiked ? "heart.fill" : "heart") {
+                    do {
+                        HapticManager.playHaptics(haptics: Haptic.tap)
+                        try await likePost()
+                    } catch {
+                        HapticManager.playHaptics(haptics: Haptic.error)
+                        print("Error: \(error.localizedDescription)")
+                    }
                 }
-            }
-            actionButton("bubble.right") {
-                navigator.presentedSheet = .post(content: "@\(status.account.acct)", replyId: status.id)
-            }
-            asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
-                do {
-                    HapticManager.playHaptics(haptics: Haptic.tap)
-                    try await repostPost()
-                } catch {
-                    HapticManager.playHaptics(haptics: Haptic.error)
-                    print("Error: \(error.localizedDescription)")
+                actionButton("bubble.right") {
+                    navigator.presentedSheet = .post(content: "@\(status.account.acct)", replyId: status.id)
                 }
-            }
-            asyncActionButton(isBookmarked ? "bookmark.fill" : "bookmark") {
-                do {
-                    HapticManager.playHaptics(haptics: Haptic.tap)
-                    try await bookmarkPost()
-                } catch {
-                    HapticManager.playHaptics(haptics: Haptic.error)
-                    print("Error: \(error.localizedDescription)")
+                asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
+                    do {
+                        HapticManager.playHaptics(haptics: Haptic.tap)
+                        try await repostPost()
+                    } catch {
+                        HapticManager.playHaptics(haptics: Haptic.error)
+                        print("Error: \(error.localizedDescription)")
+                    }
                 }
+                asyncActionButton(isBookmarked ? "bookmark.fill" : "bookmark") {
+                    do {
+                        HapticManager.playHaptics(haptics: Haptic.tap)
+                        try await bookmarkPost()
+                    } catch {
+                        HapticManager.playHaptics(haptics: Haptic.error)
+                        print("Error: \(error.localizedDescription)")
+                    }
+                }
+                
+                Spacer()
+                
+                ShareLink(item: URL(string: status.url ?? "https://joinmastodon.org/")!) {
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.system(size: 22))
+                        .padding(.horizontal)
+                }
+                .tint(Color(uiColor: UIColor.label))
             }
             
-            Spacer()
-            
-            ShareLink(item: URL(string: status.url ?? "https://joinmastodon.org/")!) {
-                Image(systemName: "square.and.arrow.up")
-                    .font(.title2)
-                    .padding(.horizontal)
+            HStack(spacing: 13) {
+                asyncActionButton(isLiked ? "heart.fill" : "heart") {
+                    do {
+                        HapticManager.playHaptics(haptics: Haptic.tap)
+                        try await likePost()
+                    } catch {
+                        HapticManager.playHaptics(haptics: Haptic.error)
+                        print("Error: \(error.localizedDescription)")
+                    }
+                }
+                actionButton("bubble.right") {
+                    navigator.presentedSheet = .post(content: "@\(status.account.acct)", replyId: status.id)
+                }
+                asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
+                    do {
+                        HapticManager.playHaptics(haptics: Haptic.tap)
+                        try await repostPost()
+                    } catch {
+                        HapticManager.playHaptics(haptics: Haptic.error)
+                        print("Error: \(error.localizedDescription)")
+                    }
+                }
+                asyncActionButton(isBookmarked ? "bookmark.fill" : "bookmark") {
+                    do {
+                        HapticManager.playHaptics(haptics: Haptic.tap)
+                        try await bookmarkPost()
+                    } catch {
+                        HapticManager.playHaptics(haptics: Haptic.error)
+                        print("Error: \(error.localizedDescription)")
+                    }
+                }
             }
-            .tint(Color(uiColor: UIColor.label))
         }
         .padding(.top)
         .onAppear {
@@ -108,9 +143,10 @@ struct PostInteractor: View {
             action()
         } label: {
             Image(systemName: image)
-                .font(.title2)
+                .font(.system(size: 22))
         }
         .tint(Color(uiColor: UIColor.label))
+        .contentShape(Rectangle())
     }
     
     @ViewBuilder
@@ -121,8 +157,17 @@ struct PostInteractor: View {
             }
         } label: {
             Image(systemName: image)
-                .font(.title2)
+                .font(.system(size: 22))
         }
         .tint(Color(uiColor: UIColor.label))
+        .contentShape(Rectangle())
     }
+}
+
+#Preview {
+    CompactPostView(status: .placeholder())
+        .environment(Navigator())
+        .environment(UserPreferences.defaultPreferences)
+        .environment(UniversalNavigator())
+        .environment(AccountManager.shared)
 }

@@ -6,7 +6,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
-    @State var navigator: Navigator
+    @StateObject var navigator: Navigator
     
     var body: some View {
         NavigationStack(path: $navigator.path) {
