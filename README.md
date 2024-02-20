@@ -1,7 +1,7 @@
-# Threaded
+# [Threaded](https://apps.lumaa.fr/app/threaded)
 
 > [!IMPORTANT]
-> Currently, the app is still in a very early stage with a lot of bugs, missmatches, networking issues, and a lot more. You can contribute to Threaded for free by making a pull request, don't forget to keep the Threads vibe!
+> The app is currently being tested on TestFlight and will be hitting the App Store later this year.
 
 [Threaded](https://apps.lumaa.fr/app/threaded) is a very simple [#Mastodon](https://joinmastodon.org) client, that is meant to look like the newest social media [#Threads](https://threads.net/) made by Meta Platforms. It integrates perfectly with your Mastodon account, and matches the Threads vibe, while having Mastodon-only features.
 
@@ -11,14 +11,17 @@ Threaded also includes its own premium service, available as a subscription and 
 
 With Threaded+, you can have a better Content Filter, you can save attachments, you get exclusive sneak peeks to Threaded's next updates, and other premium features! Prices revealed later this year.
 
-Join the Threaded Discord server to receive help, talk about the Fediverse, and many other things: [Join Threaded](https://discord.gg/MaHcRbkX46)
+Join the Threaded Discord server to receive help, talk about the Fediverse, and many other things: [Join Threaded](https://discord.gg/MaHcRbkX46)\
+Join the Matrix Space to get support, with full security: [Join #threadedapp:matrix.org](https://matrix.to/#/#threadedapp:matrix.org)
 
 ## Credits
 
-- [Lumaa](https://lumaa.fr/)
-- [@Damon](https://mozilla.social/@Damon) - Beta tester, Discord admin
-- [@Dimillian](https://github.com/dimillian) - Beta tester
+- [Lumaa](https://lumaa.fr/) - Developer
+- [@Damon](https://mozilla.social/@Damon) - Discord admin
 - [IceCubesApp](https://github.com/dimillian/IceCubesApp) by [@Dimillian](https://github.com/dimillian)
+- [Tier 2 Instance Blocklist](https://codeberg.org/oliphant/blocklists/raw/branch/main/blocklists/_unified_tier2_blocklist.csv)
+
+## Packages
 - [SwiftSoup](https://github.com/scinfu/SwiftSoup)
 - [Nuke](https://github.com/kean/Nuke)
 - [EmojiText](https://github.com/divadretlaw/EmojiText)
@@ -26,7 +29,7 @@ Join the Threaded Discord server to receive help, talk about the Fediverse, and 
 
 ## To-do list
 
-- [ ] Fix all bugs and implement features cited with `TODO`
+- [ ] Fix most bugs and implement features cited with `TODO`
 
 - [ ] Accessibility features
 
@@ -44,4 +47,4 @@ Join the Threaded Discord server to receive help, talk about the Fediverse, and 
 
 - [ ] A proper messaging user interface
 
-- [ ] [In-app purchases](https://mastodon.online/@Threaded/111813166173390719) and/or subscriptions (name to decide)
+- [ ] [In-app purchases](https://mastodon.online/@Threaded/111813166173390719) and/or subscriptions
