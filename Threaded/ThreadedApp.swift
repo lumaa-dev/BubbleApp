@@ -15,6 +15,7 @@ struct ThreadedApp: App {
                 .task {
                     #if DEBUG
                     Tips.showAllTipsForTesting()
+                    UserDefaults.standard.removeObject(forKey: "lastVersion")
                     #endif
                     
                     try? Tips.configure([

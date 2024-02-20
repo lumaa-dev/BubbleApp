@@ -54,6 +54,8 @@ struct ContentView: View {
         .environmentObject(preferences)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
+            showNew()
+            
             do {
                 preferences = try UserPreferences.loadAsCurrent() ?? .defaultPreferences
             } catch {
@@ -97,6 +99,14 @@ struct ContentView: View {
                 appAccount!.clear()
                 uniNavigator.presentedCover = .welcome
             }
+        }
+    }
+    
+    func showNew() {
+        let lastVersion = UserDefaults.standard.string(forKey: "lastVersion")
+        if lastVersion == nil || lastVersion != AppInfo.appVersion {
+            UserDefaults.standard.setValue(AppInfo.appVersion, forKey: "lastVersion")
+            uniNavigator.presentedSheet = .update
         }
     }
     

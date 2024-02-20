@@ -74,6 +74,7 @@ public enum SheetDestination: Identifiable {
     case post(content: String = "", replyId: String? = nil, editId: String? = nil)
     case safari(url: URL)
     case shareImage(image: UIImage, status: Status)
+    case update
     
     public var id: String {
         switch self {
@@ -92,6 +93,8 @@ public enum SheetDestination: Identifiable {
                 return "safari"
             case .shareImage:
                 return "shareImage"
+            case .update:
+                return "update"
         }
     }
     
@@ -111,6 +114,8 @@ public enum SheetDestination: Identifiable {
             case .safari:
                 return false
             case .shareImage:
+                return false
+            case .update:
                 return false
         }
     }
@@ -198,6 +203,8 @@ extension View {
                         .ignoresSafeArea()
                 case let .shareImage(image, status):
                     ShareSheet(image: image, status: status)
+                case .update:
+                    UpdateView()
                 default:
                     EmptySheetView(destId: destination.id)
             }
