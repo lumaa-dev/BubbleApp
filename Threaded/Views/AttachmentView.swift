@@ -15,6 +15,7 @@ struct AttachmentView: View {
     }
     
     @State private var readAlt: Bool = false
+    @State private var hasSwitch: Bool = false
     
     @State private var currentZoom = 0.0
     @State private var totalZoom = 1.0
@@ -106,13 +107,23 @@ struct AttachmentView: View {
             .highPriorityGesture(
                 DragGesture()
                     .onChanged { gesture in
-                        guard totalZoom > 1.1 else { return }
-                        currentPos = gesture.translation
+                        if totalZoom > 1.1 {
+                            currentPos = gesture.translation
+                        } else {
+                            guard !hasSwitch && attachments.count > 1 else { return }
+                            if gesture.translation.width >= 40 || gesture.translation.width <= -40 {
+                                let currentIndex = attachments.firstIndex(where: { $0.id == selectedId }) ?? 0
+                                let newIndex = gesture.translation.width >= 20 ? loseIndex(currentIndex - 1, max: attachments.count - 1) : loseIndex(currentIndex + 1, max: attachments.count - 1)
+                                selectedId = attachments[newIndex].id
+                                hasSwitch = true
+                            }
+                        }
                     }
                     .onEnded { gesture in
                         totalPos.width += currentPos.width
                         totalPos.height += currentPos.height
                         currentPos = .zero
+                        hasSwitch = false
                     }
             )
             .accessibilityZoomAction { action in
@@ -161,6 +172,15 @@ struct AttachmentView: View {
                 .padding()
             }
         }
+    }
+    
+    private func loseIndex(_ index: Int, max: Int) -> Int {
+        if index < 0 {
+            return max
+        } else if index > max {
+            return 0
+        }
+        return index
     }
 }
 

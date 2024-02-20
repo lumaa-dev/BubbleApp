@@ -303,6 +303,38 @@
         }
       }
     },
+    "accounts.developer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded Developer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Développeur de Threaded"
+          }
+        }
+      }
+    },
+    "accounts.official" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Official Account"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compte officiel"
+          }
+        }
+      }
+    },
     "activity" : {
       "localizations" : {
         "en" : {
@@ -536,7 +568,20 @@
       }
     },
     "attachment.alt.action" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "attachment.close" : {
       "localizations" : {
@@ -582,6 +627,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Découverte"
+          }
+        }
+      }
+    },
+    "discovery.app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inside Threaded"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Par Threaded"
           }
         }
       }

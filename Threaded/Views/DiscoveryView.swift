@@ -27,7 +27,6 @@ struct DiscoveryView: View {
             ScrollView {
                 if results != [:] && !querying {
                     SearchResultView(searchResults: results[searchQuery] ?? .init(accounts: [], statuses: [], hashtags: []), query: searchQuery)
-                        .environmentObject(navigator)
                     
                     Spacer()
                         .foregroundStyle(Color.white)
@@ -51,6 +50,14 @@ struct DiscoveryView: View {
                         .padding(.horizontal)
                     
                     tagsView
+                    
+                    Text("discovery.app")
+                        .multilineTextAlignment(.leading)
+                        .font(.title.bold())
+                        .padding(.horizontal)
+                    
+                    appView
+                        .padding(.horizontal)
                     
                     Text("discovery.trending.posts")
                         .multilineTextAlignment(.leading)
@@ -84,6 +91,7 @@ struct DiscoveryView: View {
             .withAppRouter(navigator)
             .navigationTitle(Text("discovery"))
         }
+        .environmentObject(navigator)
         .task {
             await fetchTrending()
         }
@@ -172,6 +180,21 @@ struct DiscoveryView: View {
                 CompactPostView(status: status)
                     .padding(.vertical)
                     .environmentObject(navigator)
+            }
+        }
+    }
+    
+    var appView: some View {
+        VStack(spacing: 7.5) {
+            AccountRow(acct: "Threaded@mastodon.online") {
+                Text("accounts.official")
+                    .font(.headline.bold().width(.condensed))
+                    .foregroundStyle(.green)
+            }
+            AccountRow(acct: "lumaa@mastodon.online") {
+                Text("accounts.developer")
+                    .font(.headline.bold().width(.condensed))
+                    .foregroundStyle(.blue)
             }
         }
     }
