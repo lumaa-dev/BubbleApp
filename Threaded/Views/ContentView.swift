@@ -57,6 +57,7 @@ struct ContentView: View {
             showNew()
             
             do {
+                //TODO: Like AccMan > .static
                 preferences = try UserPreferences.loadAsCurrent() ?? .defaultPreferences
             } catch {
                 print(error)
