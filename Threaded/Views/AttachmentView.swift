@@ -1,6 +1,8 @@
 //Made by Lumaa
 
 import SwiftUI
+import UIKit
+import AVKit
 
 struct AttachmentView: View {
     @Environment(\.dismiss) private var dismiss
@@ -13,6 +15,8 @@ struct AttachmentView: View {
         guard !selectedId.isEmpty else { return nil }
         return attachments.filter({ $0.id == selectedId })[0]
     }
+    
+    @State private var player: AVPlayer?
     
     @State private var readAlt: Bool = false
     @State private var hasSwitch: Bool = false
@@ -34,25 +38,91 @@ struct AttachmentView: View {
                 if !attachments.isEmpty {
                     TabView(selection: $selectedId) {
                         ForEach(attachments) { atchmnt in
-                            AsyncImage(url: atchmnt.url, content: { image in
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: size.width)
+                            ZStack {
+                                if atchmnt.supportedType == .image {
+                                    AsyncImage(url: atchmnt.url, content: { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: size.width)
+                                            .ignoresSafeArea()
+                                    }, placeholder: {
+                                        ZStack {
+                                            Rectangle()
+                                                .fill(Color.gray)
+                                                .frame(width: size.width - 10, height: size.width - 10)
+                                            
+                                            ProgressView()
+                                                .progressViewStyle(.circular)
+                                        }
+                                        
+                                    })
+                                    .tag(atchmnt.id)
                                     .ignoresSafeArea()
-                            }, placeholder: {
-                                ZStack {
-                                    Rectangle()
-                                        .fill(Color.gray)
-                                        .frame(width: size.width - 10, height: size.width - 10)
-                                    
-                                    ProgressView()
-                                        .progressViewStyle(.circular)
+                                } else if atchmnt.supportedType == .video {
+                                    ZStack {
+                                        if player != nil {
+                                            VideoPlayer(player: player)
+                                                .scaledToFit()
+                                                .frame(width: size.width)
+                                                .ignoresSafeArea()
+                                        } else {
+                                            Color.gray
+                                            
+                                            ProgressView()
+                                                .progressViewStyle(.circular)
+                                        }
+                                    }
+                                    .onAppear {
+                                        if let url = atchmnt.url {
+                                            player = AVPlayer(url: url)
+                                            player?.preventsDisplaySleepDuringVideoPlayback = false
+                                            player?.audiovisualBackgroundPlaybackPolicy = .pauses
+                                            player?.isMuted = true
+                                            player?.play()
+                                        }
+                                    }
+                                    .onDisappear() {
+                                        guard player != nil else { return }
+                                        player?.pause()
+                                    }
+                                } else if atchmnt.supportedType == .gifv {
+                                    ZStack(alignment: .center) {
+                                        if player != nil {
+                                            VideoPlayer(player: player)
+                                                .scaledToFit()
+                                                .frame(width: size.width)
+                                                .ignoresSafeArea()
+                                        } else {
+                                            Color.gray
+                                            
+                                            ProgressView()
+                                                .progressViewStyle(.circular)
+                                        }
+                                    }
+                                    .onAppear {
+                                        if let url = atchmnt.url {
+                                            player = AVPlayer(url: url)
+                                            player?.preventsDisplaySleepDuringVideoPlayback = false
+                                            player?.audiovisualBackgroundPlaybackPolicy = .pauses
+                                            player?.isMuted = true
+                                            player?.play()
+                                            
+                                            guard let player else { return }
+                                            NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { _ in
+                                                Task { @MainActor in
+                                                    player.seek(to: CMTime.zero)
+                                                    player.play()
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .onDisappear() {
+                                        guard player != nil else { return }
+                                        player?.pause()
+                                    }
                                 }
-                                
-                            })
-                            .tag(atchmnt.id)
-                            .ignoresSafeArea()
+                            }
                             .offset(x: currentPos.width + totalPos.width, y: currentPos.height + totalPos.height)
                             .scaleEffect(currentZoom + totalZoom)
                         }
@@ -108,7 +178,10 @@ struct AttachmentView: View {
                 DragGesture()
                     .onChanged { gesture in
                         if totalZoom > 1.1 {
-                            currentPos = gesture.translation
+                            var fixedGesture = gesture.translation
+                            fixedGesture.width = fixedGesture.width / (self.currentZoom + self.totalZoom)
+                            fixedGesture.height = fixedGesture.height / (self.currentZoom + self.totalZoom)
+                            currentPos = fixedGesture
                         } else {
                             guard !hasSwitch && attachments.count > 1 else { return }
                             if gesture.translation.width >= 40 || gesture.translation.width <= -40 {
