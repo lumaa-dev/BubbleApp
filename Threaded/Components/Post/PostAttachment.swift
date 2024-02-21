@@ -90,7 +90,7 @@ struct PostAttachment: View {
                 } else if attachment.supportedType == .video {
                     ZStack {
                         if player != nil {
-                            VideoPlayer(player: player)
+                            NoControlsPlayerViewController(player: player!) // No controls outside of AttachmentView
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 15)
                                         .stroke(.gray.opacity(0.3), lineWidth: 1)
