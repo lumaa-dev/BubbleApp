@@ -91,6 +91,7 @@ public struct AppAccount: Codable, Identifiable, Hashable {
         Self.clear()
     }
     
+    /// This function only works with the given `AppAccount`
     public func saveAsCurrent(_ appAccount: AppAccount? = nil) {
         let encoder = JSONEncoder()
         if let data = try? encoder.encode(appAccount ?? self) {
@@ -100,6 +101,7 @@ public struct AppAccount: Codable, Identifiable, Hashable {
         }
     }
     
+    /// This function only works with the last saved `AppAccount` or with the given `Data`
     public static func loadAsCurrent(_ data: Data? = nil) -> Self? {
         let decoder = JSONDecoder()
         if let newData = data ?? keychain.getData(Self.saveKey) {

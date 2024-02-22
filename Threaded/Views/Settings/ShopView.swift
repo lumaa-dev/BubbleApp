@@ -2,13 +2,22 @@
 
 import SwiftUI
 import StoreKit
+import RevenueCat
 
 struct ShopView: View {
     @Environment(AppDelegate.self) private var delegate: AppDelegate
     @Environment(\.dismiss) private var dismiss
     
     @State private var showSub: Bool = false
-    @State private var showLifetime: Bool = false
+    @State private var purchaseError: Bool = false
+    
+    private var canPay: Bool {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }
     
     var body: some View {
         VStack {
@@ -29,7 +38,7 @@ struct ShopView: View {
                 } label: {
                     Text("shop.threaded-plus.subscription")
                 }
-                .buttonStyle(LargeButton(filled: true, disabled: true))
+                .buttonStyle(LargeButton(filled: true, disabled: !canPay))
                 .overlay(alignment: .topTrailing) {
                     Text("shop.best")
                         .foregroundStyle(Color.white)
@@ -41,15 +50,16 @@ struct ShopView: View {
                         .offset(x: 20.0, y: -25.0)
                         .rotationEffect(.degrees(25.0))
                 }
-                .disabled(true)
+                .disabled(!canPay)
                 
                 Button {
-                    showLifetime.toggle()
+//                    showLifetime.toggle()
+                    purchase(entitlement: .lifetime)
                 } label: {
                     Text("shop.threaded-plus.lifetime")
                 }
-                .buttonStyle(LargeButton(filled: false, disabled: true))
-                .disabled(true)
+                .buttonStyle(LargeButton(filled: false, disabled: !canPay))
+                .disabled(!canPay)
                 
                 Button {
                     dismiss()
@@ -66,9 +76,6 @@ struct ShopView: View {
         .navigationTitle(Text(String("Threaded+")))
         .sheet(isPresented: $showSub) {
             ShopView.SubView()
-        }
-        .sheet(isPresented: $showLifetime) {
-            ShopView.LifetimeView()
         }
     }
     
@@ -140,79 +147,151 @@ struct ShopView: View {
 
 extension ShopView {
     struct SubView: View {
+        @State private var selectedPlan: PlusPlan = .monthly
+        
         var body: some View {
             NavigationStack {
-                SubscriptionStoreView(productIDs:  ["fr.lumaa.Threaded.Plus.monthly", "fr.lumaa.ThreadedPlus.yearly"]) {
+                ZStack {
+                    Color.appBackground
+                        .ignoresSafeArea()
+                    
                     VStack {
-                        Spacer()
-                        
-                        Image("HeroPlus")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100, height: 100)
+                        header
+                            .frame(height: 300)
                         
                         Spacer()
                         
-                        Text(String("Threaded+")) // Force the name as untranslatable
-                            .font(.title.bold())
-                            .foregroundStyle(.white)
-                        Text("shop.threaded-plus.subscription.description")
-                            .font(.caption)
-                            .foregroundStyle(.gray)
-                            .multilineTextAlignment(.center)
-                    }
-                    .padding(.horizontal)
-                }
-                .background(Color.appBackground)
-                .productViewStyle(.large)
-                .storeButton(.visible, for: .redeemCode)
-                .subscriptionStoreControlStyle(.prominentPicker)
-                .subscriptionStoreControlBackground(Color.appBackground)
-                .subscriptionStorePolicyDestination(url: URL(string: "https://apps.lumaa.fr/legal/privacy")!, for: .privacyPolicy)
-                .subscriptionStorePolicyDestination(for: .termsOfService) {
-                    ZStack {
-                        Color.appBackground
-                            .ignoresSafeArea()
+                        Button {
+                            guard selectedPlan != .monthly else { return }
+                            withAnimation(.spring.speed(2.0)) {
+                                selectedPlan = .monthly
+                            }
+                        } label: {
+                            planSelector(.monthly, isSelected: selectedPlan == PlusPlan.monthly)
+                        }
                         
-                        Text("tos.description")
-                            .padding()
-                            .background(Color.gray.opacity(0.2))
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                            .padding(.horizontal)
+                        
+                        Button {
+                            guard selectedPlan != .yearly else { return }
+                            withAnimation(.spring.speed(2.0)) {
+                                selectedPlan = .yearly
+                            }
+                        } label: {
+                            planSelector(.yearly, isSelected: selectedPlan == PlusPlan.yearly)
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            purchase(entitlement: selectedPlan.getEntitlement())
+                        } label: {
+                            Text("shop.threaded-plus.subscribe")
+                        }
+                        .buttonStyle(LargeButton(filled: true))
                     }
-                    .environment(\.colorScheme, ColorScheme.dark)
                 }
-                .navigationTitle(String("Subscription"))
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarBackButtonHidden()
-                .tint(Color.white)
             }
             .environment(\.colorScheme, ColorScheme.dark)
         }
-    }
-    
-    struct LifetimeView: View {
-        var body: some View {
+        
+        var header: some View {
             VStack {
-                Text("shop.threaded-plus.lifetime.header")
-                    .font(.title.bold())
-                    .fontWidth(.expanded)
+                Spacer()
                 
-                ProductView(id: "fr.lumaa.ThreadedPlus.lifetime", prefersPromotionalIcon: true) {
-                    ZStack {
-                        Color.appBackground
-                        
-                        Image("HeroPlus")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100, height: 100)
-                    }
-                    .clipShape(RoundedRectangle(cornerRadius: 25.0))
-                    .environment(\.colorScheme, ColorScheme.dark)
-                }
-                .productViewStyle(.large)
+                Image("HeroPlus")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                
+                Spacer()
+                
+                Text(String("Threaded+")) // Force the name as untranslatable
+                    .font(.title.bold())
+                    .foregroundStyle(.white)
+                Text("shop.threaded-plus.subscription.description")
+                    .font(.caption)
+                    .foregroundStyle(.gray)
+                    .multilineTextAlignment(.center)
             }
             .padding(.horizontal)
+        }
+        
+        var tos: some View {
+            ZStack {
+                Color.appBackground
+                    .ignoresSafeArea()
+                
+                Text("tos.description")
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .padding(.horizontal)
+            }
+            .environment(\.colorScheme, ColorScheme.dark)
+        }
+        
+        @ViewBuilder
+        private func planSelector(_ plan: PlusPlan, isSelected: Bool = false) -> some View {
+            VStack(alignment: .leading) {
+                Text(plan.getTitle())
+                    .font(.headline.bold())
+                    .multilineTextAlignment(.leading)
+                
+                Text(plan.getPrice())
+                    .multilineTextAlignment(.leading)
+            }
+            .padding(.vertical, 30)
+            .frame(width: 350)
+            .background(Color.gray.opacity(0.5))
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .overlay {
+                if isSelected {
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(Color.green, lineWidth: 1.5)
+                } else {
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(Color(uiColor: UIColor.label).opacity(0.35), lineWidth: 1.5)
+                }
+            }
+            .overlay(alignment: .topTrailing) {
+                if isSelected {
+                    Image(systemName: "checkmark.seal.fill")
+                        .foregroundStyle(Color.green)
+                        .font(.title)
+                }
+            }
+        }
+        
+        private enum PlusPlan {
+            case monthly
+            case yearly
+            
+            func getTitle() -> String {
+                switch (self) {
+                    case .monthly:
+                        return String(localized: "shop.threaded-plus.monthly")
+                    case .yearly:
+                        return String(localized: "shop.threaded-plus.yearly")
+                }
+            }
+            
+            func getPrice() -> String {
+                switch (self) {
+                    case .monthly:
+                        return String(localized: "shop.threaded-plus.monthly.price")
+                    case .yearly:
+                        return String(localized: "shop.threaded-plus.yearly.price")
+                }
+            }
+            
+            func getEntitlement() -> PlusEntitlements {
+                switch (self) {
+                    case .monthly:
+                        return .monthly
+                    case .yearly:
+                        return .yearly
+                }
+            }
         }
     }
 }
@@ -221,4 +300,56 @@ extension ShopView {
     ShopView()
         .environment(AppDelegate())
 //        .environment(\.locale, Locale(identifier: "en-us"))
+}
+
+private func hasActuallyPlus(customerInfo: CustomerInfo?) -> Bool {
+    return customerInfo?.entitlements[PlusEntitlements.lifetime.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.monthly.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.yearly.getEntitlementId()]?.isActive == true
+}
+
+private func purchase(entitlement: PlusEntitlements) {
+    Purchases.shared.getOfferings { (offerings, error) in
+        if let product = entitlement.toPackage(offerings: offerings) {
+            Purchases.shared.purchase(package: product) { (transaction, customerInfo, error, userCancelled) in
+                if hasActuallyPlus(customerInfo: customerInfo) {
+                    print("BOUGHT PLUS")
+                    AppDelegate.premium = true
+                }
+            }
+        }
+        if let e = error {
+            print(e)
+        }
+    }
+}
+
+enum PlusEntitlements: String {
+    case monthly
+    case yearly
+    case lifetime
+    
+    func toPackage(offerings: Offerings?) -> Package? {
+        if let offs = offerings {
+            switch (self) {
+                case .monthly:
+                    return offs.current?.monthly
+                case .yearly:
+                    return offs.current?.annual
+                case .lifetime:
+                    return offs.current?.lifetime
+            }
+        } else {
+            return nil
+        }
+    }
+    
+    func getEntitlementId() -> String {
+        switch (self) {
+            case .lifetime:
+                return "thrd_30$_life"
+            case .monthly:
+                return "thrd_2$_1mth_1mth0"
+            case .yearly:
+                return "thrd_20$_1y_1mth0"
+        }
+    }
 }

@@ -2,9 +2,20 @@
 
 import SwiftUI
 import TipKit
+import RevenueCat
 
 @main
 struct ThreadedApp: App {
+    init() {
+        guard let plist = AppDelegate.readSecret() else { return }
+        if let apiKey = plist["RevenueCat_public"], let deviceId = UIDevice.current.identifierForVendor?.uuidString {
+            #if DEBUG
+            Purchases.logLevel = .debug
+            #endif
+            Purchases.configure(withAPIKey: apiKey, appUserID: deviceId)
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -23,6 +34,7 @@ struct ThreadedApp: App {
                         .datastoreLocation(.applicationDefault)
                     ])
                 }
+                .modelData()
         }
     }
 }

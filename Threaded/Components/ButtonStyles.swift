@@ -28,6 +28,7 @@ struct LargeButton: ButtonStyle {
             .bold(filled)
             .clipShape(.rect(cornerRadius: 15))
             .opacity(configuration.isPressed ? 0.3 : 1)
+            .opacity(!filled && disabled ? 0.5 : 1)
             .overlay {
                 if !filled {
                     RoundedRectangle(cornerRadius: 15)

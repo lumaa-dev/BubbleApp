@@ -20,6 +20,9 @@
 		B93B67782B42E8F0000892E9 /* TextEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B67772B42E8F0000892E9 /* TextEmoji.swift */; };
 		B93B677A2B42EC51000892E9 /* MetaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B67792B42EC51000892E9 /* MetaPicker.swift */; };
 		B93B677C2B433A6E000892E9 /* PostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B677B2B433A6E000892E9 /* PostingView.swift */; };
+		B95ED2332B8707D60055F5BD /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = B95ED2322B8707D60055F5BD /* RevenueCat */; };
+		B95ED2352B8707D60055F5BD /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = B95ED2342B8707D60055F5BD /* RevenueCatUI */; };
+		B95ED2372B87C9550055F5BD /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = B95ED2362B87C9550055F5BD /* StoreKitTestCertificate.cer */; };
 		B97491E32B6E96700098BC48 /* SymbolWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97491E22B6E96700098BC48 /* SymbolWidth.swift */; };
 		B97798892B853E6600DC869F /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97798882B853E6600DC869F /* UpdateView.swift */; };
 		B97BCE242B3DD8400044756D /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BCE232B3DD8400044756D /* HapticManager.swift */; };
@@ -32,6 +35,7 @@
 		B9842C142B2F310C00D9F3C1 /* FetchTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9842C132B2F310C00D9F3C1 /* FetchTimeline.swift */; };
 		B9842C162B2F363600D9F3C1 /* TimelineFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9842C152B2F363600D9F3C1 /* TimelineFilter.swift */; };
 		B9842C182B2F36F500D9F3C1 /* AccountsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9842C172B2F36F500D9F3C1 /* AccountsList.swift */; };
+		B98627312B86F23500844245 /* LoggedAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98627302B86F23500844245 /* LoggedAccounts.swift */; };
 		B98BC7472B46CE6300595441 /* PostDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98BC7462B46CE6300595441 /* PostDetailsView.swift */; };
 		B98BC7492B46CEDA00595441 /* AppearenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98BC7482B46CEDA00595441 /* AppearenceView.swift */; };
 		B98BC74B2B46CF0400595441 /* ThreadedStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98BC74A2B46CF0400595441 /* ThreadedStyle.swift */; };
@@ -130,6 +134,7 @@
 		B93B67772B42E8F0000892E9 /* TextEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEmoji.swift; sourceTree = "<group>"; };
 		B93B67792B42EC51000892E9 /* MetaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaPicker.swift; sourceTree = "<group>"; };
 		B93B677B2B433A6E000892E9 /* PostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
+		B95ED2362B87C9550055F5BD /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = StoreKitTestCertificate.cer; path = ../../../../../Downloads/StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		B97491E22B6E96700098BC48 /* SymbolWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolWidth.swift; sourceTree = "<group>"; };
 		B97798882B853E6600DC869F /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		B97BCE232B3DD8400044756D /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
@@ -142,6 +147,7 @@
 		B9842C132B2F310C00D9F3C1 /* FetchTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchTimeline.swift; sourceTree = "<group>"; };
 		B9842C152B2F363600D9F3C1 /* TimelineFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineFilter.swift; sourceTree = "<group>"; };
 		B9842C172B2F36F500D9F3C1 /* AccountsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsList.swift; sourceTree = "<group>"; };
+		B98627302B86F23500844245 /* LoggedAccounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedAccounts.swift; sourceTree = "<group>"; };
 		B98BC7462B46CE6300595441 /* PostDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsView.swift; sourceTree = "<group>"; };
 		B98BC7482B46CEDA00595441 /* AppearenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearenceView.swift; sourceTree = "<group>"; };
 		B98BC74A2B46CF0400595441 /* ThreadedStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadedStyle.swift; sourceTree = "<group>"; };
@@ -219,8 +225,10 @@
 				B93B676D2B42C94F000892E9 /* Nuke in Frameworks */,
 				B9DC692D2B79362700E625B9 /* StoreKit.framework in Frameworks */,
 				B9BF54072B6B6823004B24E7 /* KeychainSwift in Frameworks */,
+				B95ED2332B8707D60055F5BD /* RevenueCat in Frameworks */,
 				B93B67732B42C94F000892E9 /* NukeVideo in Frameworks */,
 				B93B676F2B42C94F000892E9 /* NukeExtensions in Frameworks */,
+				B95ED2352B8707D60055F5BD /* RevenueCatUI in Frameworks */,
 				B93B67712B42C94F000892E9 /* NukeUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				B9DC692F2B79378400E625B9 /* ThreadedPlus.storekit */,
+				B95ED2362B87C9550055F5BD /* StoreKitTestCertificate.cer */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -435,6 +444,7 @@
 				B9FB947E2B2E1D5F00D81C07 /* Account.swift */,
 				B9FB94852B2E211200D81C07 /* Account+Elms.swift */,
 				B9842C172B2F36F500D9F3C1 /* AccountsList.swift */,
+				B98627302B86F23500844245 /* LoggedAccounts.swift */,
 			);
 			path = Accounts;
 			sourceTree = "<group>";
@@ -465,6 +475,8 @@
 				B93B67722B42C94F000892E9 /* NukeVideo */,
 				B93B67752B42E8AB000892E9 /* EmojiText */,
 				B9BF54062B6B6823004B24E7 /* KeychainSwift */,
+				B95ED2322B8707D60055F5BD /* RevenueCat */,
+				B95ED2342B8707D60055F5BD /* RevenueCatUI */,
 			);
 			productName = Threaded;
 			productReference = B9FB94572B2DEECE00D81C07 /* Threaded.app */;
@@ -520,6 +532,7 @@
 				B93B676B2B42C94F000892E9 /* XCRemoteSwiftPackageReference "Nuke" */,
 				B93B67742B42E8AB000892E9 /* XCRemoteSwiftPackageReference "EmojiText" */,
 				B9BF54052B6B6823004B24E7 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = B9FB94582B2DEECE00D81C07 /* Products */;
 			projectDirPath = "";
@@ -541,6 +554,7 @@
 				B9FB94642B2DEECF00D81C07 /* Preview Assets.xcassets in Resources */,
 				B9FB94612B2DEECF00D81C07 /* Assets.xcassets in Resources */,
 				B9029FC22B81259400AA9B68 /* Secret.plist in Resources */,
+				B95ED2372B87C9550055F5BD /* StoreKitTestCertificate.cer in Resources */,
 				B9FB94902B2E2B0E00D81C07 /* Localizable.xcstrings in Resources */,
 				B9CFC43B2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard in Resources */,
 				B97BCE2A2B3ED2C80044756D /* LICENSE in Resources */,
@@ -619,6 +633,7 @@
 				B9EBE8582B474FD600FB594D /* AppDelegate.swift in Sources */,
 				B93B677C2B433A6E000892E9 /* PostingView.swift in Sources */,
 				B97BCE262B3DE5A10044756D /* AccountView.swift in Sources */,
+				B98627312B86F23500844245 /* LoggedAccounts.swift in Sources */,
 				B9B63B272B449CDC00BBC82D /* SearchResults.swift in Sources */,
 				B9B63B252B44997400BBC82D /* QuotePostView.swift in Sources */,
 				B97BCE242B3DD8400044756D /* HapticManager.swift in Sources */,
@@ -969,6 +984,14 @@
 				minimumVersion = 3.3.0;
 			};
 		};
+		B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.37.0;
+			};
+		};
 		B9BF54052B6B6823004B24E7 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift?tab=readme-ov-file#usage";
@@ -1012,6 +1035,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B93B67742B42E8AB000892E9 /* XCRemoteSwiftPackageReference "EmojiText" */;
 			productName = EmojiText;
+		};
+		B95ED2322B8707D60055F5BD /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
+		};
+		B95ED2342B8707D60055F5BD /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCatUI;
 		};
 		B9BF54062B6B6823004B24E7 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;

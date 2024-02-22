@@ -16,10 +16,7 @@ final class HuggingFace: ObservableObject {
     }
     
     static func getToken() -> String? {
-        guard let path = Bundle.main.path(forResource: "Secret", ofType: "plist") else { return nil }
-        let url = URL(fileURLWithPath: path)
-        let data = try! Data(contentsOf: url)
-        guard let plist = try! PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? [String: String] else { return nil }
+        guard let plist = AppDelegate.readSecret() else { return nil }
         Self.token = plist["AI_Token"] ?? ""
         return Self.token
     }

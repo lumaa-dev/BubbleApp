@@ -1687,18 +1687,50 @@
         }
       }
     },
-    "shop.threaded-plus.lifetime.header" : {
+    "shop.threaded-plus.monthly" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A lifetime support"
+            "value" : "Threaded+ - Monthly"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Un soutien à vie."
+            "value" : "Threaded+ - Mensuel"
+          }
+        }
+      }
+    },
+    "shop.threaded-plus.monthly.price" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For $1.99 per month, auto-renewed"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour 1.99€ par mois, renouvellement automatique"
+          }
+        }
+      }
+    },
+    "shop.threaded-plus.subscribe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribe"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S'abonner"
           }
         }
       }
@@ -1731,6 +1763,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "L'abonnement Threaded+ ajoute des nouvelles et uniques fonctionnalités à Threaded ! Cela permet aussi de contribuer à son développement ❤️"
+          }
+        }
+      }
+    },
+    "shop.threaded-plus.yearly" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded+ - Yearly"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded+ - Annuel"
+          }
+        }
+      }
+    },
+    "shop.threaded-plus.yearly.price" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For $17.99 per year, auto-renewed"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pour 19.99€ par mois, renouvellement automatique"
           }
         }
       }
