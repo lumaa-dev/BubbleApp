@@ -26,6 +26,7 @@ Join the Matrix Space to get support, with full security: [Join #threadedapp:mat
 - [Nuke](https://github.com/kean/Nuke)
 - [EmojiText](https://github.com/divadretlaw/EmojiText)
 - [KeychainSwift](https://github.com/evgenyneu/keychain-swift)
+- [RevenueCat](https://www.revenuecat.com/)
 
 ## To-do list
 
