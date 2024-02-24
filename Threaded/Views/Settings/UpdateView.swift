@@ -13,7 +13,7 @@ struct UpdateView: View {
             VStack(alignment: .center) {
                 Text("update.title")
                     .font(.title.bold())
-                    .padding(.top)
+                    .padding(.top, 50)
                 Text("about.version-\(AppInfo.appVersion)")
                     .font(.caption)
                     .foregroundStyle(Color.gray)
@@ -28,6 +28,7 @@ struct UpdateView: View {
                     dismiss()
                 } label: {
                     Text("update.hide")
+                        .frame(minWidth: 250)
                 }
                 .buttonStyle(LargeButton(filled: true))
             }
@@ -36,11 +37,11 @@ struct UpdateView: View {
     
     var features: some View {
         VStack(spacing: 40) {
-            newFeature(systemImage: "sparkle.magnifyingglass", title: "Account officials", text: "In the Discovery tab, A new section \"\(String(localized: "discovery.app"))\" displays official accounts")
+            newFeature(imageName: "HeroPlus", title: "Threaded+", text: "You can now pay for the, long teased, Plus features. Starting at $1.99")
             
-            newFeature(systemImage: "accessibility", title: "Accessibility interactors", text: "The like, repost, bookmark, and share buttons are now displayed at the same font size")
+            newFeature(systemImage: "folder.badge.person.crop", title: "Account Switcher", text: "You can now switch accounts very easily using the Account Switcher, go in the settings to start using it")
             
-            newFeature(systemImage: "photo.on.rectangle", title: "Attachments viewer", text: "Tapping on an attachment will display a brand new screen, with ALT text and downloading")
+            newFeature(systemImage: "photo.on.rectangle", title: "Better Viewer", text: "The attachment viewer used to only work on images, now it works on all type of media with new buttons as well")
         }
         .frame(height: 500)
     }
@@ -92,8 +93,58 @@ struct UpdateView: View {
             .padding(.horizontal)
         }
     }
+    
+    @ViewBuilder
+    private func newFeature(imageName: String, title: String, text: String) -> some View {
+        ViewThatFits {
+            HStack(alignment: .center) {
+                Image(imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 60, height: 60)
+                    .foregroundStyle(Color(uiColor: UIColor.label))
+                
+                Spacer()
+                    .frame(width: 30)
+                
+                VStack(alignment: .leading) {
+                    Text(title)
+                        .bold()
+                        .foregroundStyle(Color(uiColor: UIColor.label))
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                    
+                    Text(text)
+                        .foregroundStyle(Color(uiColor: UIColor.label).opacity(0.7))
+                        .font(.callout)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(4)
+                }
+                
+                Spacer()
+            }
+            .frame(width: 330)
+            
+            VStack(alignment: .leading) {
+                Text(title)
+                    .bold()
+                    .foregroundStyle(Color(uiColor: UIColor.label))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(1)
+                
+                Text(text)
+                    .foregroundStyle(Color(uiColor: UIColor.label))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(4)
+            }
+            .padding(.horizontal)
+        }
+    }
 }
 
 #Preview {
-    UpdateView()
+    Text(String("UpdateView"))
+        .sheet(isPresented: .constant(true)) {
+            UpdateView()
+        }
 }
