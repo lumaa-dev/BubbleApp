@@ -5,6 +5,7 @@ import SwiftUI
 struct ProfileView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
     @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
+    @Environment(AppDelegate.self) private var appDelegate: AppDelegate
     @EnvironmentObject private var navigator: Navigator
     
     @Namespace var accountAnims
@@ -91,6 +92,24 @@ struct ProfileView: View {
         ScrollView {
             VStack {
                 VStack (alignment: .leading) {
+                    if account.haveHeader {
+                        AsyncImage(url: account.header, scale: 1.0) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: appDelegate.windowHeight / 5)
+                                .clipped()
+                                .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                                .padding(.bottom)
+                        } placeholder: {
+                            EmptyView()
+                        }
+                        .onTapGesture {
+                            let attachment: MediaAttachment = .init(id: account.id, type: "image", url: account.header)
+                            navigator.presentedCover = .media(attachments: [attachment], selected: attachment)
+                        }
+                    }
+                    
                     unbig
                     
                     Text(account.note.asRawText)
