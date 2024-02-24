@@ -8,7 +8,7 @@ public class AccountManager: ObservableObject {
     private var client: Client?
     private var account: Account?
     
-    public static let shared: AccountManager = AccountManager()
+    public static var shared: AccountManager = AccountManager()
     
     init(client: Client? = nil, account: Account? = nil) {
         self.client = client

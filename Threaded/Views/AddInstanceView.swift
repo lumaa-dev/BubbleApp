@@ -1,11 +1,15 @@
 //Made by Lumaa
 
 import SwiftUI
+import SwiftData
 import AuthenticationServices
 
 struct AddInstanceView: View {
     @Environment(\.webAuthenticationSession) private var webAuthenticationSession
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
+    
+    @Query private var loggedAccounts: [LoggedAccount]
     
     // Instance URL and verify
     @State private var instanceUrl: String = ""
@@ -216,7 +220,7 @@ struct AddInstanceView: View {
             return
         }
         
-        if agreedResponsability && responsability {
+        if agreedResponsability && responsability && loggedAccounts.count <= 0 {
             UserDefaults.standard.setValue(true, forKey: "unsafe")
         } else {
             UserDefaults.standard.removeObject(forKey: "unsafe")
@@ -235,10 +239,16 @@ struct AddInstanceView: View {
             AccountManager.shared.setClient(client)
             AccountManager.shared.setAccount(account)
             
+            let newLog: LoggedAccount = .init(appAccount: appAcc)
+            modelContext.insert(newLog)
+            
+            HapticManager.playHaptics(haptics: Haptic.success)
+            
             signInClient = client
             logged = true
             dismiss()
         } catch {
+            HapticManager.playHaptics(haptics: Haptic.error)
             print(error)
         }
     }

@@ -5,16 +5,22 @@ import SwiftUI
 import SwiftData
 
 @Model
-class LoggedAccounts {
-    let appAccounts: [AppAccount]
-    let currentAccount: AppAccount
+class LoggedAccount {
+    let token: OauthToken
+    let acct: String
+    let app: AppAccount?
     
-    static let shared: LoggedAccounts = LoggedAccounts()
+    init(token: OauthToken, acct: String) {
+        self.token = token
+        self.acct = acct
+        self.app = nil
+    }
     
-    init(appAccounts: [AppAccount] = [], current: AppAccount? = nil) {
-        let curr: AppAccount = current ?? AppAccount.loadAsCurrent()!
-        self.appAccounts = appAccounts.count < 1 ? [curr] : appAccounts
-        self.currentAccount = curr
+    init(appAccount: AppAccount) {
+        guard let token = appAccount.oauthToken, let acct = appAccount.accountName else { fatalError("Cannot convert AppAccount to LoggedAccount") }
+        self.token = token
+        self.acct = acct
+        self.app = appAccount
     }
 }
 
@@ -22,6 +28,6 @@ public extension View {
     @ViewBuilder
     func modelData() -> some View {
         self
-            .modelContainer(for: LoggedAccounts.self)
+            .modelContainer(for: LoggedAccount.self)
     }
 }
