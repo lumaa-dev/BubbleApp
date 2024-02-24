@@ -101,6 +101,8 @@ struct ShopView: View {
                 
                 feature("shop.features.more-accounts", description: "shop.features.more-accounts.description", systemImage: "person.fill.badge.plus")
                 
+                feature("shop.features.experimental", description: "shop.features.experimental.description", systemImage: "gearshape.fill")
+                
                 feature("shop.features.vip", description: "shop.features.vip.description", systemImage: "crown")
             }
             .frame(width: delegate.windowWidth)

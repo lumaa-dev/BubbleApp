@@ -1703,6 +1703,38 @@
         }
       }
     },
+    "shop.features.experimental" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Experimental settings"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paramètres expérimentaux"
+          }
+        }
+      }
+    },
+    "shop.features.experimental.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can access all the experimental settings from the settings menu"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez accéder aux paramètres expérimentaux depuis les paramètres"
+          }
+        }
+      }
+    },
     "shop.features.more-accounts" : {
       "localizations" : {
         "en" : {
