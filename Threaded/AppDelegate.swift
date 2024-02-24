@@ -51,10 +51,15 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
     }
     
     static func hasPlus() -> Bool {
+        #if DEBUG
+        self.premium = true
+        return true
+        #else
         Purchases.shared.getCustomerInfo { (customerInfo, error) in
             self.premium = hasActuallyPlus(customerInfo: customerInfo)
         }
         return self.premium
+        #endif
     }
     
     private static func hasActuallyPlus(customerInfo: CustomerInfo?) -> Bool {
