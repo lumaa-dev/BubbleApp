@@ -296,13 +296,13 @@ public struct MediaAttachment: Codable, Identifiable, Hashable, Equatable {
     public let description: String?
     public let meta: MetaContainer?
     
-    public static func imageWith(url: URL) -> MediaAttachment {
-        .init(id: UUID().uuidString,
-              type: "image",
-              url: url,
-              previewUrl: url,
-              description: "Alternative text",
-              meta: nil)
+    init(id: String, type: String, url: URL?, previewUrl: URL? = URL.placeholder, description: String? = nil, meta: MetaContainer? = nil) {
+        self.id = id
+        self.type = type
+        self.url = url
+        self.previewUrl = previewUrl
+        self.description = description
+        self.meta = meta
     }
 }
 

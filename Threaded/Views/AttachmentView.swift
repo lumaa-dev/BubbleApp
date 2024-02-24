@@ -137,8 +137,8 @@ struct AttachmentView: View {
                         }
                     }
                     .onChange(of: selectedId) { _, new in
-                        currentZoom = 0
-                        totalZoom = 1
+                        currentZoom = 0.0
+                        totalZoom = 1.0
                         currentPos = .zero
                         totalPos = .zero
                     }
@@ -224,13 +224,13 @@ struct AttachmentView: View {
                         Text(String("ALT"))
                             .font(.body)
                     }
-                    .disabled(selectedAttachment?.description?.isEmpty ?? true)
-                    .opacity(selectedAttachment?.description?.isEmpty ?? true ? 0.3 : 1.0)
+                    .realDisabled(selectedAttachment?.description?.isEmpty ?? true)
                     
                     Divider()
                         .frame(height: 10)
                     
                     Button {
+                        guard AppDelegate.premium else { return }
                         Task {
                             let imgData = try await URLSession.shared.data(from: selectedAttachment?.url ?? URL.placeholder)
                             if let img = UIImage(data: imgData.0) {
@@ -239,6 +239,46 @@ struct AttachmentView: View {
                         }
                     } label: {
                         Image(systemName: "square.and.arrow.down")
+                    }
+                    .realDisabled(!AppDelegate.premium)
+                    
+                    Divider()
+                        .frame(height: 10)
+                    
+                    Menu {
+                        Button {
+                            withAnimation(.spring.speed(2.0)) {
+                                currentPos = .zero
+                                totalPos = .zero
+                                currentZoom = 0.0
+                                totalZoom = 1.0
+                            }
+                        } label: {
+                            Label("attachment.reset-move", systemImage: "arrow.up.and.down.and.arrow.left.and.right")
+                        }
+                        
+                        Divider()
+                        
+                        Button {
+                            let currentIndex = attachments.firstIndex(where: { $0.id == selectedId }) ?? 0
+                            let newIndex = loseIndex(currentIndex - 1, max: attachments.count - 1)
+                            selectedId = attachments[newIndex].id
+                        } label: {
+                            Label("attachment.previous-image", systemImage: "arrowshape.left")
+                        }
+                        .disabled(attachments.count <= 1)
+                        
+                        Button {
+                            let currentIndex = attachments.firstIndex(where: { $0.id == selectedId }) ?? 0
+                            let newIndex = loseIndex(currentIndex + 1, max: attachments.count - 1)
+                            selectedId = attachments[newIndex].id
+                        } label: {
+                            Label("attachment.next-image", systemImage: "arrowshape.right")
+                        }
+                        .disabled(attachments.count <= 1)
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .frame(height: 20)
                     }
                 }
                 .pill()
@@ -266,9 +306,15 @@ private extension View {
             .background(Material.thin)
             .clipShape(Capsule())
     }
+    
+    func realDisabled(_ bool: Bool) -> some View {
+        self
+            .disabled(bool)
+            .opacity(bool ? 0.3 : 1.0)
+    }
 }
 
 #Preview {
-    AttachmentView(attachments: [.init(id: "ABC", type: "photo", url: URL(string: "https://i.stack.imgur.com/HX3Aj.png"), previewUrl: URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg"), description: String("This displays the TabView with a page indicator at the bottom"), meta: nil), .init(id: "DEF", type: "photo", url: URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg"), previewUrl: URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg"), description: nil, meta: nil)])
+    AttachmentView(attachments: [.init(id: "ABC", type: "image", url: URL(string: "https://i.stack.imgur.com/HX3Aj.png"), previewUrl: URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg"), description: String("This displays the TabView with a page indicator at the bottom"), meta: nil), .init(id: "DEF", type: "image", url: URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg"), previewUrl: URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg"), description: nil, meta: nil)])
         .environment(AppDelegate())
 }

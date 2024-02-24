@@ -599,6 +599,22 @@
         }
       }
     },
+    "attachment.next-image" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show next image"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher l'image suivante"
+          }
+        }
+      }
+    },
     "attachment.no-attachments" : {
       "localizations" : {
         "en" : {
@@ -611,6 +627,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pas de pièces-jointe"
+          }
+        }
+      }
+    },
+    "attachment.previous-image" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show previous image"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher l'image précédente"
+          }
+        }
+      }
+    },
+    "attachment.reset-move" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore position"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurer la position"
           }
         }
       }
