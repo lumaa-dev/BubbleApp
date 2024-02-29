@@ -97,7 +97,7 @@ struct ProfileView: View {
                             image
                                 .resizable()
                                 .scaledToFill()
-                                .frame(height: appDelegate.windowHeight / 5)
+                                .frame(width: appDelegate.windowWidth - 50, height: appDelegate.windowHeight / 5)
                                 .clipped()
                                 .clipShape(RoundedRectangle(cornerRadius: 15.0))
                                 .padding(.bottom)
