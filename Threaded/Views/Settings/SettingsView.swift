@@ -136,7 +136,7 @@ extension SettingsView {
             ZStack {
                 if let acc = account {
                     HStack {
-                        ProfilePicture(url: acc.avatar, size: 64)
+                        ProfilePicture(url: acc.avatar, size: 46)
                         
                         VStack(alignment: .leading) {
                             Text(acc.displayName ?? "@\(acc.acct)")
