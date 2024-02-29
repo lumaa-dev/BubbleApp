@@ -7,7 +7,7 @@ struct NotificationsView: View {
     @Environment(AccountManager.self) private var accountManager
     
     @State private var navigator: Navigator = Navigator()
-    @State private var notifications: [Notification] = []
+    @State private var notifications: [GroupedNotification] = []
     @State private var loadingNotifs: Bool = true
     @State private var lastId: Int? = nil
     private let notifLimit = 50
@@ -110,15 +110,15 @@ struct NotificationsView: View {
         }
         
         do {
-            var notifs: [Notification] = try await client.get(endpoint: Notifications.notifications(minId: notifications.last?.id, maxId: nil, types: nil, limit: lastId != nil ? notifLimit : 30))
+            var notifs: [Notification] = try await client.get(endpoint: Notifications.notifications(minId: nil, maxId: notifications.last?.id, types: nil, limit: lastId != nil ? notifLimit : 30))
             guard !notifs.isEmpty else { return }
             
             notifs = notifs.filter({ $0.supportedType != .mention && $0.status?.visibility != .direct })
             
             if notifications.isEmpty {
-                notifications = notifs
+                notifications = notifs.toGrouped()
             } else {
-                notifications.append(contentsOf: notifs)
+                notifications.append(contentsOf: notifs.toGrouped())
             }
             
             await getBadge()
