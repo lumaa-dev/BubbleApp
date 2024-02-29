@@ -383,6 +383,22 @@
         }
       }
     },
+    "activity.group.%@-%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ and %lld other"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ et %lld autre"
+          }
+        }
+      }
+    },
     "activity.mentionned.%@" : {
       "localizations" : {
         "en" : {
@@ -563,6 +579,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Activité inconnue"
+          }
+        }
+      }
+    },
+    "activity.update.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**%@** modified a post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**%@** a modifié(e) sa publication"
           }
         }
       }
