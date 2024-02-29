@@ -172,6 +172,9 @@ struct AttachmentView: View {
                         totalZoom += currentZoom
                         totalZoom = max(1, totalZoom)
                         currentZoom = 0
+                        withAnimation(.spring.speed(2.0)) {
+                            totalZoom = min(5, totalZoom)
+                        }
                     }
             )
             .highPriorityGesture(
