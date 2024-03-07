@@ -125,7 +125,7 @@ extension SettingsView {
         @State private var error: Bool = false
         
         private var currentAccount: Bool {
-            return AccountManager.shared.forceClient().server == app.server
+            return AccountManager.shared.forceAccount().acct == app.accountName ?? ""
         }
         
         init(app: AppAccount) {
