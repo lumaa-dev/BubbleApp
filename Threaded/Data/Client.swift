@@ -139,6 +139,10 @@ public final class Client: Equatable, Identifiable, Hashable {
         try await makeEntityRequest(endpoint: endpoint, method: "GET", forceVersion: forceVersion)
     }
     
+    public func getString(endpoint: Endpoint, forceVersion: Version? = nil) async throws -> String {
+        try await makeEntityRequestForString(endpoint: endpoint, method: "GET", forceVersion: forceVersion)
+    }
+    
     public func getWithLink<Entity: Decodable>(endpoint: Endpoint) async throws -> (Entity, LinkHandler?) {
         let (data, httpResponse) = try await urlSession.data(for: makeGet(endpoint: endpoint))
         var linkHandler: LinkHandler?
@@ -180,10 +184,7 @@ public final class Client: Equatable, Identifiable, Hashable {
         return httpResponse as? HTTPURLResponse
     }
     
-    private func makeEntityRequest<Entity: Decodable>(endpoint: Endpoint,
-                                                      method: String,
-                                                      forceVersion: Version? = nil) async throws -> Entity
-    {
+    private func makeEntityRequest<Entity: Decodable>(endpoint: Endpoint, method: String, forceVersion: Version? = nil) async throws -> Entity {
         let url = try makeURL(endpoint: endpoint, forceVersion: forceVersion)
         let request = makeURLRequest(url: url, endpoint: endpoint, httpMethod: method)
         let (data, httpResponse) = try await urlSession.data(for: request)
@@ -200,6 +201,14 @@ public final class Client: Equatable, Identifiable, Hashable {
             }
             throw error
         }
+    }
+    
+    private func makeEntityRequestForString(endpoint: Endpoint, method: String, forceVersion: Version? = nil) async throws -> String {
+        let url = try makeURL(endpoint: endpoint, forceVersion: forceVersion)
+        let request = makeURLRequest(url: url, endpoint: endpoint, httpMethod: method)
+        let (data, httpResponse) = try await urlSession.data(for: request)
+        logResponseOnError(httpResponse: httpResponse, data: data)
+        return String(data: data, encoding: .utf8) ?? ""
     }
     
     public func oauthURL() async throws -> URL {

@@ -49,6 +49,13 @@ extension [Notification] {
     }
 }
 
+public extension Array where Element: Hashable {
+    func uniqued() -> [Element] {
+        var seen = Set<Element>()
+        return filter { seen.insert($0).inserted }
+    }
+}
+
 public struct GroupedNotification: Identifiable, Hashable {
     public var id: String? { notifications.first?.id }
     public var notifications: [Notification]

@@ -318,6 +318,6 @@ private extension View {
 }
 
 #Preview {
-    AttachmentView(attachments: [.init(id: "ABC", type: "image", url: URL(string: "https://i.stack.imgur.com/HX3Aj.png"), previewUrl: URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg"), description: String("This displays the TabView with a page indicator at the bottom"), meta: nil), .init(id: "DEF", type: "image", url: URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg"), previewUrl: URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg"), description: nil, meta: nil)])
+    AttachmentView(attachments: [.init(id: "ABC", type: "image", url: URL(string: "https://i.stack.imgur.com/HX3Aj.png"), previewUrl: URL.placeholder, description: String("This displays the TabView with a page indicator at the bottom"), meta: nil), .init(id: "DEF", type: "image", url: URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg"), previewUrl: URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg"), description: nil, meta: nil)])
         .environment(AppDelegate())
 }

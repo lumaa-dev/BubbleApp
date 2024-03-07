@@ -5,6 +5,7 @@ import SwiftUI
 struct PostDetailsView: View {
     @EnvironmentObject private var navigator: Navigator
     @Environment(AccountManager.self) private var accountManager: AccountManager
+    @Environment(AppDelegate.self) private var delegate: AppDelegate
     
     var detailedStatus: Status
     
@@ -128,6 +129,8 @@ struct PostDetailsView: View {
             statusesContext.append(contentsOf: data.context.descendants)
             
             statuses = statusesContext
+            
+//            await loadEmbeddedStatus()
         } catch {
             if let error = error as? ServerError, error.httpCode == 404 {
                 _ = navigator.path.popLast()

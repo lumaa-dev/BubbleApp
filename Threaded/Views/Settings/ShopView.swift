@@ -304,26 +304,6 @@ extension ShopView {
 //        .environment(\.locale, Locale(identifier: "en-us"))
 }
 
-private func hasActuallyPlus(customerInfo: CustomerInfo?) -> Bool {
-    return customerInfo?.entitlements[PlusEntitlements.lifetime.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.monthly.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.yearly.getEntitlementId()]?.isActive == true
-}
-
-private func purchase(entitlement: PlusEntitlements) {
-    Purchases.shared.getOfferings { (offerings, error) in
-        if let product = entitlement.toPackage(offerings: offerings) {
-            Purchases.shared.purchase(package: product) { (transaction, customerInfo, error, userCancelled) in
-                if hasActuallyPlus(customerInfo: customerInfo) {
-                    print("BOUGHT PLUS")
-                    AppDelegate.premium = true
-                }
-            }
-        }
-        if let e = error {
-            print(e)
-        }
-    }
-}
-
 enum PlusEntitlements: String {
     case monthly
     case yearly
@@ -352,6 +332,26 @@ enum PlusEntitlements: String {
                 return "thrd_2$_1mth_1mth0"
             case .yearly:
                 return "thrd_20$_1y_1mth0"
+        }
+    }
+}
+
+private func hasActuallyPlus(customerInfo: CustomerInfo?) -> Bool {
+    return customerInfo?.entitlements[PlusEntitlements.lifetime.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.monthly.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.yearly.getEntitlementId()]?.isActive == true
+}
+
+private func purchase(entitlement: PlusEntitlements) {
+    Purchases.shared.getOfferings { (offerings, error) in
+        if let product = entitlement.toPackage(offerings: offerings) {
+            Purchases.shared.purchase(package: product) { (transaction, customerInfo, error, userCancelled) in
+                if hasActuallyPlus(customerInfo: customerInfo) {
+                    print("BOUGHT PLUS")
+                    AppDelegate.premium = true
+                }
+            }
+        }
+        if let e = error {
+            print(e)
         }
     }
 }
