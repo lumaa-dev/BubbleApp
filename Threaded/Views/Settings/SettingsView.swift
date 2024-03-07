@@ -79,7 +79,7 @@ struct SettingsView: View {
                     Button {
                         navigator.navigate(to: .support)
                     } label: {
-                        Label("setting.support", systemImage: "person.line.dotted.person")
+                        Label("setting.support", systemImage: "person.crop.circle.badge.questionmark")
                     }
                     .listRowThreaded()
                     
