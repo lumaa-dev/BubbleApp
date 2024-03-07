@@ -46,6 +46,7 @@
 		B999DE5C2B76F8CB00509868 /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B999DE5B2B76F8CB00509868 /* ContactsView.swift */; };
 		B999DE5E2B76F9D100509868 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B999DE5D2B76F9D100509868 /* Message.swift */; };
 		B999DE602B76FB3E00509868 /* ContactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B999DE5F2B76FB3E00509868 /* ContactRow.swift */; };
+		B9B469B02B9A275F00AD5585 /* FollowGoalWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */; };
 		B9B63B212B442D1500BBC82D /* DynamicTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B63B202B442D1500BBC82D /* DynamicTextEditor.swift */; };
 		B9B63B232B447B8000BBC82D /* PostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B63B222B447B8000BBC82D /* PostCardView.swift */; };
 		B9B63B252B44997400BBC82D /* QuotePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B63B242B44997400BBC82D /* QuotePostView.swift */; };
@@ -181,6 +182,7 @@
 		B999DE5B2B76F8CB00509868 /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 		B999DE5D2B76F9D100509868 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		B999DE5F2B76FB3E00509868 /* ContactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRow.swift; sourceTree = "<group>"; };
+		B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowGoalWidget.swift; sourceTree = "<group>"; };
 		B9B63B202B442D1500BBC82D /* DynamicTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextEditor.swift; sourceTree = "<group>"; };
 		B9B63B222B447B8000BBC82D /* PostCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardView.swift; sourceTree = "<group>"; };
 		B9B63B242B44997400BBC82D /* QuotePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotePostView.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				B9C20D582B923CDD004DC9B3 /* ThreadedWidgetsExtension.entitlements */,
 				B9C20D0F2B921C78004DC9B3 /* ThreadedWidgetsBundle.swift */,
 				B9C20D112B921C78004DC9B3 /* FollowCountWidget.swift */,
+				B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */,
 				B9C20D132B921C78004DC9B3 /* AppIntent.swift */,
 				B9C20D602B949AD7004DC9B3 /* Redeclarations.swift */,
 				B9C20D152B921C7B004DC9B3 /* Assets.xcassets */,
@@ -684,6 +687,7 @@
 				B9C20D142B921C78004DC9B3 /* AppIntent.swift in Sources */,
 				B9C20D372B9229EC004DC9B3 /* AppInfo.swift in Sources */,
 				B9C20D3D2B9229EC004DC9B3 /* Emoji.swift in Sources */,
+				B9B469B02B9A275F00AD5585 /* FollowGoalWidget.swift in Sources */,
 				B9C20D342B9229EC004DC9B3 /* Client.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

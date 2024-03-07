@@ -8,5 +8,6 @@ import UIKit
 struct ThreadedWidgetsBundle: WidgetBundle {
     var body: some Widget {
         FollowCountWidget()
+        FollowGoalWidget()
     }
 }

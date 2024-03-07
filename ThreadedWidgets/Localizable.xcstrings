@@ -34,6 +34,26 @@
         }
       }
     },
+    "widget.follow-goal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follower Goal"
+          }
+        }
+      }
+    },
+    "widget.follow-goal.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set a follower goal and see the progress"
+          }
+        }
+      }
+    },
     "widget.followers" : {
       "localizations" : {
         "en" : {
@@ -50,6 +70,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select an account"
+          }
+        }
+      }
+    },
+    "widget.set-goal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goal"
           }
         }
       }

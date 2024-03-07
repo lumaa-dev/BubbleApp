@@ -4,19 +4,23 @@ import WidgetKit
 import SwiftUI
 import SwiftData
 
-struct FollowCountWidgetView: View {
+struct FollowGoalWidgetView: View {
     @Environment(\.widgetFamily) private var family: WidgetFamily
-    var entry: FollowCountWidget.Provider.Entry
+    var entry: FollowGoalWidget.Provider.Entry
+    
+    var maxGauge: Double {
+        return entry.followers >= entry.configuration.goal ? Double(entry.followers) : Double(entry.configuration.goal)
+    }
     
     var body: some View {
         if let account = entry.configuration.account {
             ZStack {
-                if family == WidgetFamily.systemSmall {
-                    small
-                } else if family == WidgetFamily.systemMedium {
+                if family == WidgetFamily.systemMedium {
                     medium
                 } else if family == WidgetFamily.accessoryRectangular {
                     rectangular
+                } else if family == WidgetFamily.accessoryCircular {
+                    circular
                 } else {
                     Text(String("Unsupported WidgetFamily"))
                         .font(.caption)
@@ -29,117 +33,124 @@ struct FollowCountWidgetView: View {
         }
     }
     
-    var small: some View {
-        VStack(alignment: .center) {
-            Image(uiImage: entry.pfp)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 60, height: 60)
-                .foregroundStyle(Color.white)
-                .clipShape(Circle())
-            
-            Spacer()
-            
-            Text(entry.followers, format: .number.notation(.compactName))
-                .font(.title.monospacedDigit().bold())
-                .contentTransition(.numericText())
-            Text("widget.followers")
-                .font(.caption)
-                .foregroundStyle(Color.gray)
-            
-            Spacer()
-            
-            Text("@\(entry.configuration.account!.username)")
-                .redacted(reason: .privacy)
-                .font(.caption.bold())
-        }
-    }
-    
     var medium: some View {
-        HStack {
-            Spacer()
-            
-            VStack(alignment: .center, spacing: 10) {
+        VStack(alignment: .center) {
+            HStack(alignment: .center, spacing: 7.5) {
                 Image(uiImage: entry.pfp)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 60, height: 60)
+                    .frame(width: 30, height: 30)
                     .foregroundStyle(Color.white)
                     .clipShape(Circle())
                 
                 Text("@\(entry.configuration.account!.username)")
                     .redacted(reason: .privacy)
                     .font(.caption.bold())
+                    .lineLimit(1)
+                
+                Spacer()
             }
+            .padding(.horizontal, 7.5)
+
             
-            Spacer()
-            
-            VStack {
+            HStack(alignment: .center, spacing: 7.5) {
                 Text(entry.followers, format: .number.notation(.compactName))
                     .font(.title.monospacedDigit().bold())
                     .contentTransition(.numericText())
                 Text("widget.followers")
                     .font(.caption)
                     .foregroundStyle(Color.gray)
+                
+                Spacer()
             }
+            .padding(.horizontal, 7.5)
             
-            Spacer()
+            Gauge(value: Double(entry.followers), in: 0...maxGauge) {
+                EmptyView()
+            } currentValueLabel: {
+                EmptyView()
+            } minimumValueLabel: {
+                Text(0, format: .number.notation(.compactName))
+            } maximumValueLabel: {
+                Text(entry.configuration.goal, format: .number.notation(.compactName))
+            }
+            .gaugeStyle(.linearCapacity)
+            .tint(Double(entry.followers) >= maxGauge ? Color.green : Color.blue)
+            .labelsHidden()
         }
     }
     
     var rectangular: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("@\(entry.configuration.account!.username)")
-                    .multilineTextAlignment(.leading)
-                    .font(.caption)
-                    .opacity(0.7)
-                
+        Gauge(value: Double(entry.followers), in: 0...maxGauge) {
+            Text("@\(entry.configuration.account!.username)")
+                .multilineTextAlignment(.leading)
+                .font(.caption)
+                .opacity(0.7)
+        } currentValueLabel: {
+            HStack {
                 Text(entry.followers, format: .number.notation(.compactName))
-                    .multilineTextAlignment(.leading)
-                    .font(.system(size: 32, weight: .bold).monospacedDigit())
+                    .font(.caption.monospacedDigit().bold())
                     .contentTransition(.numericText())
-                    .redacted(reason: .privacy)
+                Text("widget.followers")
+                    .font(.caption)
+                    .foregroundStyle(Color.gray)
             }
-            .padding(.horizontal, 7.5)
-            
-            Spacer()
+        } minimumValueLabel: {
+            Text(0, format: .number.notation(.compactName))
+        } maximumValueLabel: {
+            Text(entry.configuration.goal, format: .number.notation(.compactName))
         }
+        .gaugeStyle(.accessoryLinearCapacity)
+    }
+    
+    var circular: some View {
+        Gauge(value: Double(entry.followers), in: 0...maxGauge) {
+            EmptyView()
+        } currentValueLabel: {
+            Text(entry.followers, format: .number.notation(.compactName))
+                .multilineTextAlignment(.center)
+        } minimumValueLabel: {
+            EmptyView()
+        } maximumValueLabel: {
+            EmptyView()
+        }
+        .gaugeStyle(.accessoryCircularCapacity)
+        .tint(Double(entry.followers) >= maxGauge ? Color.green : Color.blue)
     }
 }
 
-struct FollowCountWidget: Widget {
-    let kind: String = "FollowCountWidget"
+struct FollowGoalWidget: Widget {
+    let kind: String = "FollowGoalWidget"
     let modelContainer: ModelContainer
     
     init() {
         guard let modelContainer: ModelContainer = try? .init(for: LoggedAccount.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true)) else { fatalError("Couldn't get LoggedAccounts") }
         self.modelContainer = modelContainer
     }
-
+    
     var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: AccountAppIntent.self, provider: Provider()) { entry in
-            FollowCountWidgetView(entry: entry)
+        AppIntentConfiguration(kind: kind, intent: AccountGoalAppIntent.self, provider: Provider()) { entry in
+            FollowGoalWidgetView(entry: entry)
                 .containerBackground(Color("WidgetBackground"), for: .widget)
         }
-        .configurationDisplayName("widget.follow-count")
-        .description("widget.follow-count.description")
-        .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular])
+        .configurationDisplayName("widget.follow-goal")
+        .description("widget.follow-goal.description")
+        .supportedFamilies([.systemMedium, .accessoryRectangular, .accessoryCircular])
     }
     
     struct Provider: AppIntentTimelineProvider {
         func placeholder(in context: Context) -> SimpleEntry {
             let placeholder: UIImage = UIImage(systemName: "person.crop.circle") ?? UIImage()
             placeholder.withTintColor(UIColor.label)
-            return SimpleEntry(date: Date(), pfp: placeholder, followers: 38, configuration: AccountAppIntent())
+            return SimpleEntry(date: Date(), pfp: placeholder, followers: 38, configuration: AccountGoalAppIntent())
         }
         
-        func snapshot(for configuration: AccountAppIntent, in context: Context) async -> SimpleEntry {
+        func snapshot(for configuration: AccountGoalAppIntent, in context: Context) async -> SimpleEntry {
             let data = await getData(configuration: configuration)
             return SimpleEntry(date: Date(), pfp: data.0, followers: data.1, configuration: configuration)
         }
         
-        func timeline(for configuration: AccountAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
+        func timeline(for configuration: AccountGoalAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
             var entries: [SimpleEntry] = []
             
             let data = await getData(configuration: configuration)
@@ -155,7 +166,7 @@ struct FollowCountWidget: Widget {
             return Timeline(entries: entries, policy: .atEnd)
         }
         
-        private func getData(configuration: AccountAppIntent) async -> (UIImage, Int) {
+        private func getData(configuration: AccountGoalAppIntent) async -> (UIImage, Int) {
             var pfp: UIImage = UIImage(systemName: "person.crop.circle") ?? UIImage()
             pfp.withTintColor(UIColor.label)
             if let account = configuration.account {
@@ -182,6 +193,6 @@ struct FollowCountWidget: Widget {
         let date: Date
         let pfp: UIImage
         let followers: Int
-        let configuration: AccountAppIntent
+        let configuration: AccountGoalAppIntent
     }
 }

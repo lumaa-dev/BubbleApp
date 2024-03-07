@@ -5,13 +5,24 @@ import SwiftData
 import WidgetKit
 import AppIntents
 
-/// Widgets that require to select an account will use this `ConfigurationIntent`
+/// Widgets that require to select only an account will use this `ConfigurationIntent`
 struct AccountAppIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "widget.follow-count"
     static var description = IntentDescription("widget.follow-count.description")
-
+    
     @Parameter(title: "widget.select-account")
     var account: AccountEntity?
+}
+
+struct AccountGoalAppIntent: WidgetConfigurationIntent {
+    static var title: LocalizedStringResource = "widget.follow-goal"
+    static var description = IntentDescription("widget.follow-goal.description")
+    
+    @Parameter(title: "widget.select-account")
+    var account: AccountEntity?
+    
+    @Parameter(title: "widget.set-goal", default: 1_000)
+    var goal: Int
 }
 
 struct AccountEntity: AppEntity {
