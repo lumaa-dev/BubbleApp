@@ -58,7 +58,7 @@
 		B9C20D0B2B921C78004DC9B3 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C20D0A2B921C78004DC9B3 /* WidgetKit.framework */; };
 		B9C20D0D2B921C78004DC9B3 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C20D0C2B921C78004DC9B3 /* SwiftUI.framework */; };
 		B9C20D102B921C78004DC9B3 /* ThreadedWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D0F2B921C78004DC9B3 /* ThreadedWidgetsBundle.swift */; };
-		B9C20D122B921C78004DC9B3 /* ThreadedWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D112B921C78004DC9B3 /* ThreadedWidgets.swift */; };
+		B9C20D122B921C78004DC9B3 /* FollowCountWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D112B921C78004DC9B3 /* FollowCountWidget.swift */; };
 		B9C20D142B921C78004DC9B3 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D132B921C78004DC9B3 /* AppIntent.swift */; };
 		B9C20D162B921C7B004DC9B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9C20D152B921C7B004DC9B3 /* Assets.xcassets */; };
 		B9C20D1A2B921C7B004DC9B3 /* ThreadedWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B9C20D092B921C78004DC9B3 /* ThreadedWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -193,7 +193,7 @@
 		B9C20D0A2B921C78004DC9B3 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		B9C20D0C2B921C78004DC9B3 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		B9C20D0F2B921C78004DC9B3 /* ThreadedWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadedWidgetsBundle.swift; sourceTree = "<group>"; };
-		B9C20D112B921C78004DC9B3 /* ThreadedWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadedWidgets.swift; sourceTree = "<group>"; };
+		B9C20D112B921C78004DC9B3 /* FollowCountWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCountWidget.swift; sourceTree = "<group>"; };
 		B9C20D132B921C78004DC9B3 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		B9C20D152B921C7B004DC9B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9C20D172B921C7B004DC9B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -325,7 +325,7 @@
 			children = (
 				B9C20D582B923CDD004DC9B3 /* ThreadedWidgetsExtension.entitlements */,
 				B9C20D0F2B921C78004DC9B3 /* ThreadedWidgetsBundle.swift */,
-				B9C20D112B921C78004DC9B3 /* ThreadedWidgets.swift */,
+				B9C20D112B921C78004DC9B3 /* FollowCountWidget.swift */,
 				B9C20D132B921C78004DC9B3 /* AppIntent.swift */,
 				B9C20D602B949AD7004DC9B3 /* Redeclarations.swift */,
 				B9C20D152B921C7B004DC9B3 /* Assets.xcassets */,
@@ -679,7 +679,7 @@
 			files = (
 				B9C20D282B9229DF004DC9B3 /* LoggedAccounts.swift in Sources */,
 				B9C20D612B949AD7004DC9B3 /* Redeclarations.swift in Sources */,
-				B9C20D122B921C78004DC9B3 /* ThreadedWidgets.swift in Sources */,
+				B9C20D122B921C78004DC9B3 /* FollowCountWidget.swift in Sources */,
 				B9C20D102B921C78004DC9B3 /* ThreadedWidgetsBundle.swift in Sources */,
 				B9C20D142B921C78004DC9B3 /* AppIntent.swift in Sources */,
 				B9C20D372B9229EC004DC9B3 /* AppInfo.swift in Sources */,
