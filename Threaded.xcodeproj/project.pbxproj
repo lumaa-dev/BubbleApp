@@ -47,6 +47,7 @@
 		B999DE5E2B76F9D100509868 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B999DE5D2B76F9D100509868 /* Message.swift */; };
 		B999DE602B76FB3E00509868 /* ContactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B999DE5F2B76FB3E00509868 /* ContactRow.swift */; };
 		B9B469B02B9A275F00AD5585 /* FollowGoalWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */; };
+		B9B469B22B9A6E8300AD5585 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469B12B9A6E8300AD5585 /* PrivacyView.swift */; };
 		B9B63B212B442D1500BBC82D /* DynamicTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B63B202B442D1500BBC82D /* DynamicTextEditor.swift */; };
 		B9B63B232B447B8000BBC82D /* PostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B63B222B447B8000BBC82D /* PostCardView.swift */; };
 		B9B63B252B44997400BBC82D /* QuotePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B63B242B44997400BBC82D /* QuotePostView.swift */; };
@@ -183,6 +184,7 @@
 		B999DE5D2B76F9D100509868 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		B999DE5F2B76FB3E00509868 /* ContactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRow.swift; sourceTree = "<group>"; };
 		B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowGoalWidget.swift; sourceTree = "<group>"; };
+		B9B469B12B9A6E8300AD5585 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		B9B63B202B442D1500BBC82D /* DynamicTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextEditor.swift; sourceTree = "<group>"; };
 		B9B63B222B447B8000BBC82D /* PostCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardView.swift; sourceTree = "<group>"; };
 		B9B63B242B44997400BBC82D /* QuotePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotePostView.swift; sourceTree = "<group>"; };
@@ -482,6 +484,7 @@
 				B9CC45B72B40A2D6001E4FA5 /* AboutView.swift */,
 				B98BC7482B46CEDA00595441 /* AppearenceView.swift */,
 				B97798882B853E6600DC869F /* UpdateView.swift */,
+				B9B469B12B9A6E8300AD5585 /* PrivacyView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -700,6 +703,7 @@
 				B98BC7472B46CE6300595441 /* PostDetailsView.swift in Sources */,
 				B9CC45B82B40A2D6001E4FA5 /* AboutView.swift in Sources */,
 				B98F47962B645DF40092000F /* EmojiSelector.swift in Sources */,
+				B9B469B22B9A6E8300AD5585 /* PrivacyView.swift in Sources */,
 				B9FB94882B2E223E00D81C07 /* Emoji.swift in Sources */,
 				B93B67782B42E8F0000892E9 /* TextEmoji.swift in Sources */,
 				B9FB94762B2E023D00D81C07 /* TabsView.swift in Sources */,

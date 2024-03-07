@@ -70,6 +70,13 @@ struct SettingsView: View {
                     .listRowThreaded()
                     
                     Button {
+                        navigator.navigate(to: .privacy)
+                    } label: {
+                        Label("privacy", systemImage: "lock")
+                    }
+                    .listRowThreaded()
+                    
+                    Button {
                         navigator.presentedCover = .shop
                     } label: {
                         Label(String("Threaded+"), systemImage: "plus")
@@ -125,7 +132,11 @@ extension SettingsView {
         @State private var error: Bool = false
         
         private var currentAccount: Bool {
-            return AccountManager.shared.forceAccount().acct == app.accountName ?? ""
+            let currentAccount = AccountManager.shared.forceAccount()
+            let currentClient = AccountManager.shared.forceClient()
+            
+            let currentAcct = "\(currentAccount.acct)@\(currentClient.server)"
+            return currentAcct == app.accountName ?? ""
         }
         
         init(app: AppAccount) {

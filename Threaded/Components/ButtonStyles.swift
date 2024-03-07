@@ -4,6 +4,7 @@ import SwiftUI
 
 struct LargeButton: ButtonStyle {
     var filled: Bool = false
+    var filledColor: Color = Color(uiColor: UIColor.label)
     var height: CGFloat? = nil
     var disabled: Bool = false
     
@@ -11,7 +12,7 @@ struct LargeButton: ButtonStyle {
         if disabled {
             Color.gray
         } else {
-            Color(uiColor: UIColor.label)
+            filledColor
         }
     }
     

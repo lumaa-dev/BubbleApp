@@ -1239,6 +1239,22 @@
         }
       }
     },
+    "privacy" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confidentialité"
+          }
+        }
+      }
+    },
     "setting.appearence" : {
       "localizations" : {
         "en" : {
@@ -1571,6 +1587,54 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Terminé"
+          }
+        }
+      }
+    },
+    "settings.privacy.clear" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vider"
+          }
+        }
+      }
+    },
+    "settings.privacy.clear-cache" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Image cache"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cache des images"
+          }
+        }
+      }
+    },
+    "settings.privacy.cleared" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cleared!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vidé !"
           }
         }
       }

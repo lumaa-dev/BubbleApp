@@ -125,9 +125,11 @@ public enum RouterDestination: Hashable {
     case settings
     case support
     case appearence
+    case about
+    case privacy
+    
     case account(acc: Account)
     case post(status: Status)
-    case about
     case contacts
     case timeline(timeline: TimelineFilter?)
 }
@@ -154,6 +156,8 @@ extension View {
                     AboutView()
                 case .contacts:
                     ContactsView()
+                case .privacy:
+                    PrivacyView()
                 case .timeline(let timeline):
                     PostsView(filter: timeline ?? .home, showHero: false)
             }
