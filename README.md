@@ -48,4 +48,4 @@ Join the Matrix Space to get support, with full security: [Join #threadedapp:mat
 
 - [ ] A proper messaging user interface
 
-- [ ] [In-app purchases](https://mastodon.online/@Threaded/111813166173390719) and/or subscriptions
+- [x] [In-app purchases](https://mastodon.online/@Threaded/111813166173390719) and/or subscriptions
