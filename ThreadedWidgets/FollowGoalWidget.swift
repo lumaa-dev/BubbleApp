@@ -15,15 +15,16 @@ struct FollowGoalWidgetView: View {
     var body: some View {
         if let account = entry.configuration.account {
             ZStack {
+                #if os(iOS)
                 if family == WidgetFamily.systemMedium {
                     medium
-                } else if family == WidgetFamily.accessoryRectangular {
+                }
+                #endif
+                
+                if family == WidgetFamily.accessoryRectangular {
                     rectangular
                 } else if family == WidgetFamily.accessoryCircular {
                     circular
-                } else {
-                    Text(String("Unsupported WidgetFamily"))
-                        .font(.caption)
                 }
             }
             .modelContainer(for: [LoggedAccount.self])
@@ -135,13 +136,21 @@ struct FollowGoalWidget: Widget {
         }
         .configurationDisplayName("widget.follow-goal")
         .description("widget.follow-goal.description")
+        #if os(iOS)
         .supportedFamilies([.systemMedium, .accessoryRectangular, .accessoryCircular])
+        #else
+        .supportedFamilies([.accessoryRectangular, .accessoryCircular])
+        #endif
     }
     
     struct Provider: AppIntentTimelineProvider {
+        func recommendations() -> [AppIntentRecommendation<AccountGoalAppIntent>] {
+            return []
+        }
+        
         func placeholder(in context: Context) -> SimpleEntry {
             let placeholder: UIImage = UIImage(systemName: "person.crop.circle") ?? UIImage()
-            placeholder.withTintColor(UIColor.label)
+            placeholder.withTintColor(UIColor.actualLabel)
             return SimpleEntry(date: Date(), pfp: placeholder, followers: 38, configuration: AccountGoalAppIntent())
         }
         
@@ -168,7 +177,7 @@ struct FollowGoalWidget: Widget {
         
         private func getData(configuration: AccountGoalAppIntent) async -> (UIImage, Int) {
             var pfp: UIImage = UIImage(systemName: "person.crop.circle") ?? UIImage()
-            pfp.withTintColor(UIColor.label)
+            pfp.withTintColor(UIColor.actualLabel)
             if let account = configuration.account {
                 do {
                     let acc = try await account.client.getString(endpoint: Accounts.verifyCredentials, forceVersion: .v1)
@@ -194,5 +203,25 @@ struct FollowGoalWidget: Widget {
         let pfp: UIImage
         let followers: Int
         let configuration: AccountGoalAppIntent
+    }
+}
+
+private extension Color {
+    private static var label: Color {
+#if os(iOS)
+        return Color(uiColor: UIColor.label)
+#else
+        return Color.white
+#endif
+    }
+}
+
+private extension UIColor {
+    static var actualLabel: UIColor {
+#if os(iOS)
+        return UIColor.label
+#else
+        return UIColor.white
+#endif
     }
 }

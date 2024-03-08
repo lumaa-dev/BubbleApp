@@ -695,6 +695,9 @@
         }
       }
     },
+    "coming-soon" : {
+
+    },
     "discovery" : {
       "localizations" : {
         "en" : {
@@ -1555,6 +1558,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pour avoir accès au Account Switcher, veuillez vous déconnecter puis reconnecter"
+          }
+        }
+      }
+    },
+    "settings.account-switcher.remove" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Supprimer"
+          }
+        }
+      }
+    },
+    "settings.account-switcher.send-to-watch" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send to Apple Watch"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer vers l'Apple Watch"
           }
         }
       }

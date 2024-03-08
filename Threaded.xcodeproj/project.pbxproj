@@ -48,6 +48,23 @@
 		B999DE602B76FB3E00509868 /* ContactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B999DE5F2B76FB3E00509868 /* ContactRow.swift */; };
 		B9B469B02B9A275F00AD5585 /* FollowGoalWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */; };
 		B9B469B22B9A6E8300AD5585 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469B12B9A6E8300AD5585 /* PrivacyView.swift */; };
+		B9B469BA2B9A7E6800AD5585 /* ThreadedWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469B92B9A7E6800AD5585 /* ThreadedWatchApp.swift */; };
+		B9B469BC2B9A7E6800AD5585 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469BB2B9A7E6800AD5585 /* ContentView.swift */; };
+		B9B469BE2B9A7E6B00AD5585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B469BD2B9A7E6B00AD5585 /* Assets.xcassets */; };
+		B9B469C12B9A7E6B00AD5585 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B469C02B9A7E6B00AD5585 /* Preview Assets.xcassets */; };
+		B9B469C42B9A7E6B00AD5585 /* Threaded.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B9B469B72B9A7E6800AD5585 /* Threaded.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B9B469C92B9A804800AD5585 /* Redeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D602B949AD7004DC9B3 /* Redeclarations.swift */; };
+		B9B469CA2B9A811200AD5585 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB94A12B2EF24A00D81C07 /* AppInfo.swift */; };
+		B9B469CB2B9A816D00AD5585 /* LoggedAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98627302B86F23500844245 /* LoggedAccounts.swift */; };
+		B9B469CD2B9A823600AD5585 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B9B469CC2B9A823600AD5585 /* Localizable.xcstrings */; };
+		B9B469CF2B9A82ED00AD5585 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B9B469CE2B9A82ED00AD5585 /* KeychainSwift */; };
+		B9B469D12B9A82FD00AD5585 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B469D02B9A82FD00AD5585 /* SwiftUI.framework */; };
+		B9B469D42B9A871C00AD5585 /* WatchConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469D32B9A871C00AD5585 /* WatchConnectivity.swift */; };
+		B9B469D52B9A871C00AD5585 /* WatchConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469D32B9A871C00AD5585 /* WatchConnectivity.swift */; };
+		B9B469D72B9A8B0700AD5585 /* GivenAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469D62B9A8B0700AD5585 /* GivenAccount.swift */; };
+		B9B469D82B9A8B1600AD5585 /* GivenAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469D62B9A8B0700AD5585 /* GivenAccount.swift */; };
+		B9B469D92B9AA4DF00AD5585 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB949A2B2EF09A00D81C07 /* Client.swift */; };
+		B9B469DB2B9B2EDB00AD5585 /* ComingSoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469DA2B9B2EDB00AD5585 /* ComingSoonView.swift */; };
 		B9B63B212B442D1500BBC82D /* DynamicTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B63B202B442D1500BBC82D /* DynamicTextEditor.swift */; };
 		B9B63B232B447B8000BBC82D /* PostCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B63B222B447B8000BBC82D /* PostCardView.swift */; };
 		B9B63B252B44997400BBC82D /* QuotePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B63B242B44997400BBC82D /* QuotePostView.swift */; };
@@ -119,6 +136,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B9B469C22B9A7E6B00AD5585 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B9FB944F2B2DEECE00D81C07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B9B469B62B9A7E6800AD5585;
+			remoteInfo = "ThreadedWatch Watch App";
+		};
 		B9C20D182B921C7B004DC9B3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B9FB944F2B2DEECE00D81C07 /* Project object */;
@@ -136,6 +160,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		B9B469C82B9A7E6B00AD5585 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				B9B469C42B9A7E6B00AD5585 /* Threaded.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B9FB94B82B2F009F00D81C07 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -185,6 +220,17 @@
 		B999DE5F2B76FB3E00509868 /* ContactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRow.swift; sourceTree = "<group>"; };
 		B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowGoalWidget.swift; sourceTree = "<group>"; };
 		B9B469B12B9A6E8300AD5585 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
+		B9B469B72B9A7E6800AD5585 /* Threaded.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Threaded.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9B469B92B9A7E6800AD5585 /* ThreadedWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadedWatchApp.swift; sourceTree = "<group>"; };
+		B9B469BB2B9A7E6800AD5585 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B9B469BD2B9A7E6B00AD5585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B9B469C02B9A7E6B00AD5585 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B9B469CC2B9A823600AD5585 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		B9B469D02B9A82FD00AD5585 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS10.4.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
+		B9B469D22B9A838500AD5585 /* ThreadedWatch Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "ThreadedWatch Watch App.entitlements"; sourceTree = "<group>"; };
+		B9B469D32B9A871C00AD5585 /* WatchConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivity.swift; sourceTree = "<group>"; };
+		B9B469D62B9A8B0700AD5585 /* GivenAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GivenAccount.swift; sourceTree = "<group>"; };
+		B9B469DA2B9B2EDB00AD5585 /* ComingSoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComingSoonView.swift; sourceTree = "<group>"; };
 		B9B63B202B442D1500BBC82D /* DynamicTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextEditor.swift; sourceTree = "<group>"; };
 		B9B63B222B447B8000BBC82D /* PostCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardView.swift; sourceTree = "<group>"; };
 		B9B63B242B44997400BBC82D /* QuotePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotePostView.swift; sourceTree = "<group>"; };
@@ -256,6 +302,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B9B469B42B9A7E6800AD5585 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9B469D12B9A82FD00AD5585 /* SwiftUI.framework in Frameworks */,
+				B9B469CF2B9A82ED00AD5585 /* KeychainSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B9C20D062B921C78004DC9B3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -310,6 +365,28 @@
 			path = Content;
 			sourceTree = "<group>";
 		};
+		B9B469B82B9A7E6800AD5585 /* ThreadedWatch */ = {
+			isa = PBXGroup;
+			children = (
+				B9B469B92B9A7E6800AD5585 /* ThreadedWatchApp.swift */,
+				B9B469BB2B9A7E6800AD5585 /* ContentView.swift */,
+				B9B469D32B9A871C00AD5585 /* WatchConnectivity.swift */,
+				B9B469D62B9A8B0700AD5585 /* GivenAccount.swift */,
+				B9B469BD2B9A7E6B00AD5585 /* Assets.xcassets */,
+				B9B469BF2B9A7E6B00AD5585 /* Preview Content */,
+				B9B469CC2B9A823600AD5585 /* Localizable.xcstrings */,
+			);
+			path = ThreadedWatch;
+			sourceTree = "<group>";
+		};
+		B9B469BF2B9A7E6B00AD5585 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B9B469C02B9A7E6B00AD5585 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		B9BED5142B5D5CCD00C9B715 /* Post */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,8 +438,10 @@
 		B9FB944E2B2DEECE00D81C07 = {
 			isa = PBXGroup;
 			children = (
+				B9B469D22B9A838500AD5585 /* ThreadedWatch Watch App.entitlements */,
 				B9CC45B92B40AA1E001E4FA5 /* README.md */,
 				B9FB94592B2DEECE00D81C07 /* Threaded */,
+				B9B469B82B9A7E6800AD5585 /* ThreadedWatch */,
 				B9C20D0E2B921C78004DC9B3 /* ThreadedWidgets */,
 				B9FB94AB2B2F009F00D81C07 /* AuthService */,
 				B9FB94A82B2F009F00D81C07 /* Frameworks */,
@@ -378,6 +457,7 @@
 				B9FB94572B2DEECE00D81C07 /* Threaded.app */,
 				B9FB94A72B2F009F00D81C07 /* ThreadedAuthService.appex */,
 				B9C20D092B921C78004DC9B3 /* ThreadedWidgetsExtension.appex */,
+				B9B469B72B9A7E6800AD5585 /* Threaded.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -471,6 +551,7 @@
 				B9FA6E762B82788A00D63E30 /* AccountRow.swift */,
 				B97491E22B6E96700098BC48 /* SymbolWidth.swift */,
 				B9DC69282B78D9A500E625B9 /* SearchResultView.swift */,
+				B9B469DA2B9B2EDB00AD5585 /* ComingSoonView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -492,6 +573,7 @@
 		B9FB94A82B2F009F00D81C07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B9B469D02B9A82FD00AD5585 /* SwiftUI.framework */,
 				B9DC692C2B79362700E625B9 /* StoreKit.framework */,
 				B9FB94A92B2F009F00D81C07 /* AuthenticationServices.framework */,
 				B9C20D0A2B921C78004DC9B3 /* WidgetKit.framework */,
@@ -525,6 +607,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B9B469B62B9A7E6800AD5585 /* ThreadedWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B9B469C52B9A7E6B00AD5585 /* Build configuration list for PBXNativeTarget "ThreadedWatch Watch App" */;
+			buildPhases = (
+				B9B469B32B9A7E6800AD5585 /* Sources */,
+				B9B469B42B9A7E6800AD5585 /* Frameworks */,
+				B9B469B52B9A7E6800AD5585 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ThreadedWatch Watch App";
+			packageProductDependencies = (
+				B9B469CE2B9A82ED00AD5585 /* KeychainSwift */,
+			);
+			productName = "ThreadedWatch Watch App";
+			productReference = B9B469B72B9A7E6800AD5585 /* Threaded.app */;
+			productType = "com.apple.product-type.application";
+		};
 		B9C20D082B921C78004DC9B3 /* ThreadedWidgetsExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B9C20D1D2B921C7B004DC9B3 /* Build configuration list for PBXNativeTarget "ThreadedWidgetsExtension" */;
@@ -553,12 +655,14 @@
 				B9FB94542B2DEECE00D81C07 /* Frameworks */,
 				B9FB94552B2DEECE00D81C07 /* Resources */,
 				B9FB94B82B2F009F00D81C07 /* Embed Foundation Extensions */,
+				B9B469C82B9A7E6B00AD5585 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				B9FB94B32B2F009F00D81C07 /* PBXTargetDependency */,
 				B9C20D192B921C7B004DC9B3 /* PBXTargetDependency */,
+				B9B469C32B9A7E6B00AD5585 /* PBXTargetDependency */,
 			);
 			name = Threaded;
 			packageProductDependencies = (
@@ -600,9 +704,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1520;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1510;
 				TargetAttributes = {
+					B9B469B62B9A7E6800AD5585 = {
+						CreatedOnToolsVersion = 15.3;
+					};
 					B9C20D082B921C78004DC9B3 = {
 						CreatedOnToolsVersion = 15.2;
 					};
@@ -636,13 +743,24 @@
 			projectRoot = "";
 			targets = (
 				B9FB94562B2DEECE00D81C07 /* Threaded */,
-				B9FB94A62B2F009F00D81C07 /* ThreadedAuthService */,
+				B9B469B62B9A7E6800AD5585 /* ThreadedWatch Watch App */,
 				B9C20D082B921C78004DC9B3 /* ThreadedWidgetsExtension */,
+				B9FB94A62B2F009F00D81C07 /* ThreadedAuthService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B9B469B52B9A7E6800AD5585 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9B469C12B9A7E6B00AD5585 /* Preview Assets.xcassets in Resources */,
+				B9B469BE2B9A7E6B00AD5585 /* Assets.xcassets in Resources */,
+				B9B469CD2B9A823600AD5585 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B9C20D072B921C78004DC9B3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -679,6 +797,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B9B469B32B9A7E6800AD5585 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9B469D72B9A8B0700AD5585 /* GivenAccount.swift in Sources */,
+				B9B469D52B9A871C00AD5585 /* WatchConnectivity.swift in Sources */,
+				B9B469C92B9A804800AD5585 /* Redeclarations.swift in Sources */,
+				B9B469CB2B9A816D00AD5585 /* LoggedAccounts.swift in Sources */,
+				B9B469CA2B9A811200AD5585 /* AppInfo.swift in Sources */,
+				B9B469BC2B9A7E6800AD5585 /* ContentView.swift in Sources */,
+				B9B469D92B9AA4DF00AD5585 /* Client.swift in Sources */,
+				B9B469BA2B9A7E6800AD5585 /* ThreadedWatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B9C20D052B921C78004DC9B3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -722,6 +855,7 @@
 				B9FB94972B2EDABF00D81C07 /* SupportView.swift in Sources */,
 				B9F8FA162B5D3AC30044DAB4 /* SafariView.swift in Sources */,
 				B97798892B853E6600DC869F /* UpdateView.swift in Sources */,
+				B9B469D82B9A8B1600AD5585 /* GivenAccount.swift in Sources */,
 				B9842C142B2F310C00D9F3C1 /* FetchTimeline.swift in Sources */,
 				B9842C162B2F363600D9F3C1 /* TimelineFilter.swift in Sources */,
 				B9B63B232B447B8000BBC82D /* PostCardView.swift in Sources */,
@@ -747,6 +881,7 @@
 				B9FB94812B2E1FEF00D81C07 /* HTMLString.swift in Sources */,
 				B9FB947F2B2E1D5F00D81C07 /* Account.swift in Sources */,
 				B9842C122B2F2A5800D9F3C1 /* TimelineView.swift in Sources */,
+				B9B469D42B9A871C00AD5585 /* WatchConnectivity.swift in Sources */,
 				B9FB948C2B2E232300D81C07 /* OnlineImage.swift in Sources */,
 				B9BED5182B5D649C00C9B715 /* PostMenu.swift in Sources */,
 				B9FB94742B2DF6A100D81C07 /* ButtonStyles.swift in Sources */,
@@ -761,6 +896,7 @@
 				B9B63B272B449CDC00BBC82D /* SearchResults.swift in Sources */,
 				B9B63B252B44997400BBC82D /* QuotePostView.swift in Sources */,
 				B9BCC3182B90B3BC00211976 /* Tenor.swift in Sources */,
+				B9B469DB2B9B2EDB00AD5585 /* ComingSoonView.swift in Sources */,
 				B97BCE242B3DD8400044756D /* HapticManager.swift in Sources */,
 				B9B63B212B442D1500BBC82D /* DynamicTextEditor.swift in Sources */,
 				B9FB949F2B2EF0F200D81C07 /* MastodonRequest.swift in Sources */,
@@ -784,6 +920,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B9B469C32B9A7E6B00AD5585 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B9B469B62B9A7E6800AD5585 /* ThreadedWatch Watch App */;
+			targetProxy = B9B469C22B9A7E6B00AD5585 /* PBXContainerItemProxy */;
+		};
 		B9C20D192B921C7B004DC9B3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B9C20D082B921C78004DC9B3 /* ThreadedWidgetsExtension */;
@@ -808,6 +949,66 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B9B469C62B9A7E6B00AD5585 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "ThreadedWatch Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ThreadedWatch/Preview Content\"";
+				DEVELOPMENT_TEAM = HB5P3BML86;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = fr.lumaa.Threaded;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded.watchkitapp;
+				PRODUCT_NAME = Threaded;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		B9B469C72B9A7E6B00AD5585 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "ThreadedWatch Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ThreadedWatch/Preview Content\"";
+				DEVELOPMENT_TEAM = HB5P3BML86;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = fr.lumaa.Threaded;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded.watchkitapp;
+				PRODUCT_NAME = Threaded;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 		B9C20D1B2B921C7B004DC9B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -831,13 +1032,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded.ThreadedWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,4";
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
@@ -864,13 +1066,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded.ThreadedWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,4";
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
@@ -1001,7 +1204,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Threaded/Threaded.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 500;
+				CURRENT_PROJECT_VERSION = 1482;
 				DEVELOPMENT_ASSET_PATHS = "\"Threaded/Preview Content\"";
 				DEVELOPMENT_TEAM = HB5P3BML86;
 				ENABLE_PREVIEWS = YES;
@@ -1041,7 +1244,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Threaded/Threaded.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 500;
+				CURRENT_PROJECT_VERSION = 1482;
 				DEVELOPMENT_ASSET_PATHS = "\"Threaded/Preview Content\"";
 				DEVELOPMENT_TEAM = HB5P3BML86;
 				ENABLE_PREVIEWS = YES;
@@ -1136,6 +1339,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B9B469C52B9A7E6B00AD5585 /* Build configuration list for PBXNativeTarget "ThreadedWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B9B469C62B9A7E6B00AD5585 /* Debug */,
+				B9B469C72B9A7E6B00AD5585 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B9C20D1D2B921C7B004DC9B3 /* Build configuration list for PBXNativeTarget "ThreadedWidgetsExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1252,6 +1464,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios" */;
 			productName = RevenueCatUI;
+		};
+		B9B469CE2B9A82ED00AD5585 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9BF54052B6B6823004B24E7 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 		B9BF54062B6B6823004B24E7 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;

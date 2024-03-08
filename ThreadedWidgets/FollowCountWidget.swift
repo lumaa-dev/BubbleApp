@@ -11,15 +11,16 @@ struct FollowCountWidgetView: View {
     var body: some View {
         if let account = entry.configuration.account {
             ZStack {
+                #if os(iOS)
                 if family == WidgetFamily.systemSmall {
                     small
                 } else if family == WidgetFamily.systemMedium {
                     medium
-                } else if family == WidgetFamily.accessoryRectangular {
+                }
+                #endif
+                
+                if family == WidgetFamily.accessoryRectangular {
                     rectangular
-                } else {
-                    Text(String("Unsupported WidgetFamily"))
-                        .font(.caption)
                 }
             }
             .modelContainer(for: [LoggedAccount.self])
@@ -124,13 +125,22 @@ struct FollowCountWidget: Widget {
         }
         .configurationDisplayName("widget.follow-count")
         .description("widget.follow-count.description")
+        #if os(iOS)
         .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular])
+        #else
+        .supportedFamilies([.accessoryRectangular])
+        #endif
     }
     
     struct Provider: AppIntentTimelineProvider {
+        func recommendations() -> [AppIntentRecommendation<AccountAppIntent>] {
+            let intent = AccountAppIntent()
+            return [.init(intent: intent, description: intent.account?.username ?? String("Mastodon"))]
+        }
+        
         func placeholder(in context: Context) -> SimpleEntry {
             let placeholder: UIImage = UIImage(systemName: "person.crop.circle") ?? UIImage()
-            placeholder.withTintColor(UIColor.label)
+            placeholder.withTintColor(UIColor.actualLabel)
             return SimpleEntry(date: Date(), pfp: placeholder, followers: 38, configuration: AccountAppIntent())
         }
         
@@ -157,7 +167,7 @@ struct FollowCountWidget: Widget {
         
         private func getData(configuration: AccountAppIntent) async -> (UIImage, Int) {
             var pfp: UIImage = UIImage(systemName: "person.crop.circle") ?? UIImage()
-            pfp.withTintColor(UIColor.label)
+            pfp.withTintColor(UIColor.actualLabel)
             if let account = configuration.account {
                 do {
                     let acc = try await account.client.getString(endpoint: Accounts.verifyCredentials, forceVersion: .v1)
@@ -183,5 +193,25 @@ struct FollowCountWidget: Widget {
         let pfp: UIImage
         let followers: Int
         let configuration: AccountAppIntent
+    }
+}
+
+private extension Color {
+    private static var label: Color {
+        #if os(iOS)
+        return Color(uiColor: UIColor.label)
+        #else
+        return Color.white
+        #endif
+    }
+}
+
+private extension UIColor {
+    static var actualLabel: UIColor {
+        #if os(iOS)
+        return UIColor.label
+        #else
+        return UIColor.white
+        #endif
     }
 }

@@ -2,6 +2,7 @@
 
 import SwiftUI
 import SwiftData
+import WatchConnectivity
 
 //TODO: Bring back "Privacy" with mutelist, blocklist and default visibility
 
@@ -20,7 +21,7 @@ struct SettingsView: View {
                     Section {
                         ForEach(loggedAccounts) { logged in
                             if let app = logged.app {
-                                SwitcherRow(app: app)
+                                SwitcherRow(app: app, loggedAccount: logged)
                                     .listRowThreaded()
                             }
                         }
@@ -122,11 +123,15 @@ struct SettingsView: View {
 
 extension SettingsView {
     struct SwitcherRow: View {
+        @Environment(\.modelContext) private var modelContext
         @Environment(AccountManager.self) private var accountManager: AccountManager
         @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
         @EnvironmentObject private var navigator: Navigator
         
+        var logged: LoggedAccount
         var app: AppAccount
+        
+        private let connectivity: SessionDelegator = .init()
         
         @State private var account: Account? = nil
         @State private var error: Bool = false
@@ -139,8 +144,9 @@ extension SettingsView {
             return currentAcct == app.accountName ?? ""
         }
         
-        init(app: AppAccount) {
+        init(app: AppAccount, loggedAccount: LoggedAccount) {
             self.app = app
+            self.logged = loggedAccount
         }
         
         var body: some View {
@@ -174,8 +180,9 @@ extension SettingsView {
                                     } else {
                                         AccountManager.shared.setAccount(fetched!)
                                         AccountManager.shared.setClient(c)
-                                        uniNav.selectedTab = .timeline
+                                        
                                         navigator.path = []
+                                        uniNav.selectedTab = .timeline
                                     }
                                 }
                             } label: {
@@ -189,6 +196,33 @@ extension SettingsView {
                                 .font(.caption)
                                 .padding(.horizontal)
                                 .lineLimit(1)
+                        }
+                    }
+                    .contextMenu {
+                        Button(role: .destructive) {
+                            modelContext.delete(self.logged)
+                        } label: {
+                            Label("settings.account-switcher.remove", systemImage: "trash")
+                        }
+                        
+                        Divider()
+                        
+                        if connectivity.isWorking {
+                            Button {
+                                // double check in case states change in between
+                                if connectivity.isWorking {
+                                    let message = GivenAccount(acct: app.accountName!, bearerToken: app.oauthToken?.accessToken ?? "")
+                                    connectivity.session.sendMessageData(message.turnToMessage(), replyHandler: { data in
+                                        let str = String(data: data, encoding: .utf8)
+                                        print(str ?? "No data?")
+                                        HapticManager.playHaptics(haptics: Haptic.success)
+                                    })
+                                } else {
+                                    print("No Watch?")
+                                }
+                            } label: {
+                                Label("settings.account-switcher.send-to-watch", systemImage: "applewatch.and.arrow.forward")
+                            }
                         }
                     }
                 } else {
@@ -221,6 +255,8 @@ extension SettingsView {
             }
             .task {
                 account = await findAccount(acct: app.accountName!)
+                
+                connectivity.initialize()
             }
         }
         

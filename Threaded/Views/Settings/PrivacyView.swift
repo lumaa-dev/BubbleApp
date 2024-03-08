@@ -25,6 +25,7 @@ struct PrivacyView: View {
                     }
                 } label: {
                     Text(clearedCache ? "settings.privacy.cleared" : "settings.privacy.clear")
+                        .foregroundStyle(clearedCache ? Color(uiColor: UIColor.label) : Color(uiColor: UIColor.systemBackground))
                 }
                 .buttonStyle(LargeButton(filled: true, filledColor: clearedCache ? Color.green : Color(uiColor: UIColor.label), height: 7.5))
                 .disabled(clearedCache)

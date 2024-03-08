@@ -6,6 +6,7 @@ import UIKit
 
 // this is messy but it's alr
 
+#if os(iOS)
 public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicationDelegate {
     public var window: UIWindow?
     public private(set) var windowWidth: CGFloat = UIScreen.main.bounds.size.width
@@ -70,6 +71,7 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
         }
     }
 }
+#endif
 
 public extension URL {
     static let placeholder: URL = URL(string: "https://cdn.pixabay.com/photo/2023/08/28/20/32/flower-8220018_1280.jpg")!
@@ -222,3 +224,10 @@ public struct LinkHandler {
 }
 
 extension LinkHandler: Sendable {}
+
+public extension Array where Element: Hashable {
+    func uniqued() -> [Element] {
+        var seen = Set<Element>()
+        return filter { seen.insert($0).inserted }
+    }
+}
