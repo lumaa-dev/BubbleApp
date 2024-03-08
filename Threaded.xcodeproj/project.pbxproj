@@ -373,6 +373,7 @@
 				B9B469D32B9A871C00AD5585 /* WatchConnectivity.swift */,
 				B9B469D62B9A8B0700AD5585 /* GivenAccount.swift */,
 				B9B469BD2B9A7E6B00AD5585 /* Assets.xcassets */,
+				B9B469D22B9A838500AD5585 /* ThreadedWatch Watch App.entitlements */,
 				B9B469BF2B9A7E6B00AD5585 /* Preview Content */,
 				B9B469CC2B9A823600AD5585 /* Localizable.xcstrings */,
 			);
@@ -438,7 +439,6 @@
 		B9FB944E2B2DEECE00D81C07 = {
 			isa = PBXGroup;
 			children = (
-				B9B469D22B9A838500AD5585 /* ThreadedWatch Watch App.entitlements */,
 				B9CC45B92B40AA1E001E4FA5 /* README.md */,
 				B9FB94592B2DEECE00D81C07 /* Threaded */,
 				B9B469B82B9A7E6800AD5585 /* ThreadedWatch */,
