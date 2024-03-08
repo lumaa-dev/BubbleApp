@@ -17,6 +17,7 @@ struct PostingView: View {
     
     @State private var hasKeyboard: Bool = true
     @State private var visibility: Visibility = .pub
+    @State private var pref: UserPreferences = .defaultPreferences
     
     @State private var selectingPhotos: Bool = false
     @State private var mediaContainers: [MediaContainer] = []
@@ -161,6 +162,9 @@ struct PostingView: View {
             }
         }
         .onAppear {
+            self.pref = try! UserPreferences.loadAsCurrent()!
+            self.visibility = pref.defaultVisibility
+            
             if !initialString.isEmpty && editId == nil {
                 viewModel.append(text: initialString + " ") // add space for quick typing
             } else {

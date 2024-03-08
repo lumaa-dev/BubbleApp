@@ -696,7 +696,20 @@
       }
     },
     "coming-soon" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coming Soon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bientôt"
+          }
+        }
+      }
     },
     "discovery" : {
       "localizations" : {
@@ -1466,6 +1479,22 @@
         }
       }
     },
+    "setting.privacy.default-visibility" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default posting visibility"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visibilité par défaut des publications"
+          }
+        }
+      }
+    },
     "setting.support" : {
       "localizations" : {
         "en" : {
@@ -1572,7 +1601,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Supprimer"
           }
         }

@@ -12,15 +12,17 @@ class UserPreferences: Codable, ObservableObject {
     var profilePictureShape: ProfilePictureShape = .circle
     
     var browserType: BrowserType = .inApp
+    var defaultVisibility: Visibility = .pub
     
     // Experimental
     var showExperimental: Bool = false
     var experimental: UserPreferences.Experimental
     
-    init(displayedName: DisplayedName = .username, profilePictureShape: ProfilePictureShape = .circle, browserType: BrowserType = .inApp, showExperimental: Bool = false, experimental: UserPreferences.Experimental = .init()) {
+    init(displayedName: DisplayedName = .username, profilePictureShape: ProfilePictureShape = .circle, browserType: BrowserType = .inApp, defaultVisibility: Visibility = .pub, showExperimental: Bool = false, experimental: UserPreferences.Experimental = .init()) {
         self.displayedName = displayedName
         self.profilePictureShape = profilePictureShape
         self.browserType = browserType
+        self.defaultVisibility = defaultVisibility
         
         self.showExperimental = showExperimental
         self.experimental = experimental
