@@ -4,7 +4,7 @@ import SwiftUI
 import SwiftData
 import WatchConnectivity
 
-//TODO: Bring back "Privacy" with mutelist, blocklist and default visibility
+//TODO: "Privacy" with mutelist, blocklist
 
 struct SettingsView: View {
     @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
@@ -99,10 +99,30 @@ struct SettingsView: View {
                     .listRowThreaded()
                     
                     Button {
-                        AppAccount.clear()
-                        navigator.path = []
-                        uniNav.selectedTab = .timeline
-                        uniNav.presentedCover = .welcome
+                        if loggedAccounts.count <= 1 {
+                            AppAccount.clear()
+                            navigator.path = []
+                            uniNav.selectedTab = .timeline
+                            uniNav.presentedCover = .welcome
+                        } else {
+                            Task {
+                                if let app = loggedAccounts[0].app {
+                                    let c: Client = Client(server: app.server, oauthToken: app.oauthToken)
+                                    let am: AccountManager = .init(client: c)
+                                    
+                                    let fetched: Account? = await am.fetchAccount()
+                                    if fetched == nil {
+                                        am.clear()
+                                    } else {
+                                        AccountManager.shared.setAccount(fetched!)
+                                        AccountManager.shared.setClient(c)
+                                        
+                                        navigator.path = []
+                                        uniNav.selectedTab = .timeline
+                                    }
+                                }
+                            }
+                        }
                     } label: {
                         Text("logout")
                             .foregroundStyle(.red)
@@ -199,10 +219,12 @@ extension SettingsView {
                         }
                     }
                     .contextMenu {
-                        Button(role: .destructive) {
-                            modelContext.delete(self.logged)
-                        } label: {
-                            Label("settings.account-switcher.remove", systemImage: "trash")
+                        if !currentAccount {
+                            Button(role: .destructive) {
+                                modelContext.delete(self.logged)
+                            } label: {
+                                Label("settings.account-switcher.remove", systemImage: "trash")
+                            }
                         }
                         
                         Divider()
@@ -228,7 +250,7 @@ extension SettingsView {
                 } else {
                     Circle()
                         .fill(error ? Color.red.opacity(0.45) : Color.gray.opacity(0.45))
-                        .frame(width: 54, height: 54)
+                        .frame(width: 36, height: 36)
                     
                     VStack(alignment: .leading) {
                         Text(Account.placeholder().displayName ?? "@\(Account.placeholder().acct)")
