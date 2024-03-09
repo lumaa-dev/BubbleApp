@@ -172,7 +172,7 @@ struct PostingView: View {
             }
         }
         .onAppear {
-            self.pref = try! UserPreferences.loadAsCurrent()!
+            self.pref = try! UserPreferences.loadAsCurrent()
             self.visibility = pref.defaultVisibility
             
             if !initialString.isEmpty && editId == nil {
