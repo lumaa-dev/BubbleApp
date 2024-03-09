@@ -151,8 +151,10 @@ struct NotificationRow: View {
                 return "activity.status.\(nameStr)"
             case .update:
                 return "activity.update.\(nameStr)"
+            case .poll:
+                return "activity.poll.\(nameStr)"
             default:
-                return "activity.unknown" // follow requests & polls
+                return "activity.unknown" // follow requests
         }
     }
     
@@ -168,6 +170,8 @@ struct NotificationRow: View {
                 return Color.orange
             case .status, .update: // update and post are techn. the same
                 return Color.yellow
+            case .poll:
+                return Color.green
             default:
                 return Color.gray
         }
@@ -206,6 +210,11 @@ struct NotificationRow: View {
                         .frame(width: size, height: size)
                 case .update:
                     Image(systemName: "pencil.and.scribble")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: size, height: size)
+                case .poll:
+                    Image(systemName: "checklist")
                         .resizable()
                         .scaledToFit()
                         .frame(width: size, height: size)
