@@ -2,6 +2,8 @@
 
 import SwiftUI
 
+//TODO: Changes this for ONLY timeline picker
+
 struct MetaPicker<Content : View>: View {
     @Namespace private var metaPicker
     @Namespace private var selectBar

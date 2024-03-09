@@ -147,7 +147,7 @@ enum Tabs {
     }
 }
 
-extension Image {
+private extension Image {
     func tabBarify(_ neutral: Bool = true) -> some View {
         self
             .font(.title)
