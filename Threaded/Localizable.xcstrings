@@ -1198,6 +1198,12 @@
             "state" : "translated",
             "value" : "5 minutes"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 minutes"
+          }
         }
       }
     },
@@ -1207,6 +1213,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "1 day"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 jour"
           }
         }
       }
@@ -1218,6 +1230,12 @@
             "state" : "translated",
             "value" : "1 hour"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 heure"
+          }
         }
       }
     },
@@ -1227,6 +1245,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "7 days"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 jours"
           }
         }
       }
@@ -1238,12 +1262,24 @@
             "state" : "translated",
             "value" : "6 hours"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 heures"
+          }
         }
       }
     },
     "poll.expiry.thirtyMinutes" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 minutes"
+          }
+        },
+        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "30 minutes"
@@ -1258,6 +1294,12 @@
             "state" : "translated",
             "value" : "3 days"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 jours"
+          }
         }
       }
     },
@@ -1267,6 +1309,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "12 hours"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "12 heures"
           }
         }
       }
@@ -2634,6 +2682,12 @@
             "state" : "translated",
             "value" : "Multiple votes"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plusieurs votes"
+          }
         }
       }
     },
@@ -2644,6 +2698,12 @@
             "state" : "translated",
             "value" : "One vote"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un vote"
+          }
         }
       }
     },
@@ -2653,6 +2713,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Poll Duration"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durée du Vote"
           }
         }
       }
