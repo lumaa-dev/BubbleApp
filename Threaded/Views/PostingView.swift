@@ -8,6 +8,7 @@ struct PostingView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(AccountManager.self) private var accountManager: AccountManager
+    @Environment(AppDelegate.self) private var appDelegate: AppDelegate
     
     public var initialString: String = ""
     public var replyId: String? = nil
@@ -65,97 +66,104 @@ struct PostingView: View {
     }
     
     var posting: some View {
-        VStack {
-            HStack(alignment: .top, spacing: 0) {
-                // MARK: Profile picture
-                profilePicture
-                
-                VStack(alignment: .leading) {
-                    // MARK: Status main content
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("@\(accountManager.forceAccount().username)")
-                            .multilineTextAlignment(.leading)
-                            .bold()
-                        
-                        DynamicTextEditor($viewModel.postText, getTextView: { textView in
-                            viewModel.textView = textView
-                        })
-                        .placeholder(String(localized: "status.posting.placeholder"))
-                        .setKeyboardType(.twitter)
-                        .onFocus {
-                            selectingEmoji = false
-                        }
-                        .multilineTextAlignment(.leading)
-                        .font(.callout)
-                        .foregroundStyle(Color(uiColor: UIColor.label))
-                        
-                        if !mediaContainers.isEmpty {
-                            mediasView(containers: mediaContainers)
-                        }
-                        
-                        if hasPoll {
-                            editPollView
-                        }
-                        
-                        editorButtons
-                            .padding(.vertical)
-                    }
+        ScrollView {
+            VStack(alignment: .leading) {
+                HStack(alignment: .top, spacing: 0) {
+                    // MARK: Profile picture
+                    profilePicture
                     
-                    Spacer()
-                }
-            }
-            .onChange(of: selectingEmoji) { _, new in
-                guard new == false else { return }
-                viewModel.textView?.becomeFirstResponder()
-            }
-            
-            Spacer()
-            
-            HStack {
-                Picker("status.posting.visibility", selection: $visibility) {
-                    ForEach(Visibility.allCases, id: \.self) { item in
-                        HStack(alignment: .firstTextBaseline) {
-                            switch (item) {
-                                case .pub:
-                                    Label("status.posting.visibility.public", systemImage: "text.magnifyingglass")
-                                        .foregroundStyle(Color.gray)
-                                case .unlisted:
-                                    Label("status.posting.visibility.unlisted", systemImage: "magnifyingglass")
-                                        .foregroundStyle(Color.gray)
-                                case .direct:
-                                    Label("status.posting.visibility.direct", systemImage: "paperplane")
-                                        .foregroundStyle(Color.gray)
-                                case .priv:
-                                    Label("status.posting.visibility.private", systemImage: "lock.fill")
-                                        .foregroundStyle(Color.gray)
+                    VStack(alignment: .leading) {
+                        // MARK: Status main content
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("@\(accountManager.forceAccount().username)")
+                                .multilineTextAlignment(.leading)
+                                .bold()
+                            
+                            DynamicTextEditor($viewModel.postText, getTextView: { textView in
+                                viewModel.textView = textView
+                            })
+                            .placeholder(String(localized: "status.posting.placeholder"))
+                            .setKeyboardType(.twitter)
+                            .onFocus {
+                                selectingEmoji = false
+                            }
+                            .multilineTextAlignment(.leading)
+                            .font(.callout)
+                            .foregroundStyle(Color(uiColor: UIColor.label))
+                            
+                            if !mediaContainers.isEmpty {
+                                mediasView(containers: mediaContainers)
                             }
                             
-                            Spacer()
+                            if hasPoll {
+                                editPollView
+                                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+                            }
                         }
                     }
                 }
-                .labelsHidden()
-                .pickerStyle(.menu)
-                .foregroundStyle(Color.gray)
-                .frame(width: 200, alignment: .leading)
-                .multilineTextAlignment(.leading)
-                
-                Spacer()
-                
-                Button {
-                    postText()
-                } label: {
-                    if postingStatus {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .foregroundStyle(Color.appBackground)
-                            .tint(Color.appBackground)
-                    } else {
-                        Text("status.posting.post")
-                    }
+                .onChange(of: selectingEmoji) { _, new in
+                    guard new == false else { return }
+                    viewModel.textView?.becomeFirstResponder()
                 }
-                .disabled(postingStatus || viewModel.postText.length <= 0)
-                .buttonStyle(LargeButton(filled: true, height: 7.5, disabled: postingStatus || viewModel.postText.length <= 0))
+            }
+        }
+        .scrollDismissesKeyboard(.interactively)
+        .scrollBounceBehavior(.basedOnSize)
+        .scrollIndicators(.hidden)
+        .frame(maxHeight: appDelegate.windowHeight - 140)
+        .safeAreaInset(edge: .bottom, alignment: .leading) {
+            VStack(alignment: .leading) {
+                HStack {
+                    Picker("status.posting.visibility", selection: $visibility) {
+                        ForEach(Visibility.allCases, id: \.self) { item in
+                            HStack(alignment: .firstTextBaseline) {
+                                switch (item) {
+                                    case .pub:
+                                        Label("status.posting.visibility.public", systemImage: "text.magnifyingglass")
+                                            .foregroundStyle(Color.gray)
+                                            .multilineTextAlignment(.leading)
+                                    case .unlisted:
+                                        Label("status.posting.visibility.unlisted", systemImage: "magnifyingglass")
+                                            .foregroundStyle(Color.gray)
+                                            .multilineTextAlignment(.leading)
+                                    case .direct:
+                                        Label("status.posting.visibility.direct", systemImage: "paperplane")
+                                            .foregroundStyle(Color.gray)
+                                            .multilineTextAlignment(.leading)
+                                    case .priv:
+                                        Label("status.posting.visibility.private", systemImage: "lock.fill")
+                                            .foregroundStyle(Color.gray)
+                                            .multilineTextAlignment(.leading)
+                                }
+                            }
+                        }
+                    }
+                    .labelsHidden()
+                    .pickerStyle(.menu)
+                    .foregroundStyle(Color.gray)
+                    .frame(width: 200, alignment: .leading)
+                    .multilineTextAlignment(.leading)
+                    
+                    Spacer()
+                    
+                    Button {
+                        postText()
+                    } label: {
+                        if postingStatus {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                                .foregroundStyle(Color.appBackground)
+                                .tint(Color.appBackground)
+                        } else {
+                            Text("status.posting.post")
+                        }
+                    }
+                    .disabled(postingStatus || viewModel.postText.length <= 0)
+                    .buttonStyle(LargeButton(filled: true, height: 7.5, disabled: postingStatus || viewModel.postText.length <= 0))
+                }
+               
+                editorButtons
             }
             .padding()
         }
@@ -477,7 +485,7 @@ struct PostingView: View {
                 actionButton("photo.badge.plus") {
                     selectingPhotos.toggle()
                 }
-                .transition(.opacity.combined(with: .move(edge: .leading)))
+                .transition(.opacity.combined(with: .move(edge: .bottom)))
                 .photosPicker(isPresented: $selectingPhotos, selection: $selectedPhotos, maxSelectionCount: 4, matching: .any(of: [.images, .videos]), photoLibrary: .shared())
                 .onChange(of: selectedPhotos) { oldValue, _ in
                     if selectedPhotos.count > 4 {
@@ -508,6 +516,7 @@ struct PostingView: View {
                         self.hasPoll.toggle()
                     }
                 }
+                .transition(.opacity.combined(with: .move(edge: .bottom)))
             }
             
 //            actionButton("number") {
