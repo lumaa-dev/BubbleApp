@@ -37,11 +37,11 @@ struct UpdateView: View {
     
     var features: some View {
         VStack(spacing: 40) {
-            newFeature(imageName: "HeroPlus", title: "Threaded+", text: "You can now pay for the, long teased, Plus features. Starting at $1.99")
+            newFeature(systemImage: "applewatch", title: "Apple Watch", text: "View your account details on your wrist, experimental")
             
-            newFeature(systemImage: "folder.badge.person.crop", title: "Account Switcher", text: "You can now switch accounts very easily using the Account Switcher, go in the settings to start using it")
+            newFeature(systemImage: "checklist", title: "Polls", text: "Interact with polls and post new ones")
             
-            newFeature(systemImage: "photo.on.rectangle", title: "Better Viewer", text: "The attachment viewer used to only work on images, now it works on all type of media with new buttons as well")
+            newFeature(systemImage: "apps.iphone.badge.plus", title: "Widgets", text: "This new version includes a few widgets, both on the Home Screen and Lock Screen")
         }
         .frame(height: 500)
     }
