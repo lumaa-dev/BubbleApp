@@ -463,6 +463,22 @@
         }
       }
     },
+    "activity.poll.%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**%@**'s poll ended"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sondage de **%@** terminé"
+          }
+        }
+      }
+    },
     "activity.reblogged.%@" : {
       "localizations" : {
         "en" : {
@@ -1171,6 +1187,86 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Déconnexion"
+          }
+        }
+      }
+    },
+    "poll.expiry.fiveMinutes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 minutes"
+          }
+        }
+      }
+    },
+    "poll.expiry.oneDay" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 day"
+          }
+        }
+      }
+    },
+    "poll.expiry.oneHour" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 hour"
+          }
+        }
+      }
+    },
+    "poll.expiry.sevenDays" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 days"
+          }
+        }
+      }
+    },
+    "poll.expiry.sixHours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 hours"
+          }
+        }
+      }
+    },
+    "poll.expiry.thirtyMinutes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 minutes"
+          }
+        }
+      }
+    },
+    "poll.expiry.threeDays" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 days"
+          }
+        }
+      }
+    },
+    "poll.expiry.twelveHours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "12 hours"
           }
         }
       }
@@ -2342,6 +2438,12 @@
             "state" : "translated",
             "value" : "Expired"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expiré"
+          }
         }
       }
     },
@@ -2351,6 +2453,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Expires %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expire %@"
           }
         }
       }
@@ -2362,6 +2470,12 @@
             "state" : "translated",
             "value" : "Hide Results"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cacher les votes"
+          }
         }
       }
     },
@@ -2372,6 +2486,12 @@
             "state" : "translated",
             "value" : "Show Results"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voir les votes"
+          }
         }
       }
     },
@@ -2381,6 +2501,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Submit"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer"
           }
         }
       }
@@ -2406,6 +2532,30 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "No votes"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld votant"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld votants"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Aucun votants"
                 }
               }
             }
@@ -2473,6 +2623,52 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Quoi de neuf ?"
+          }
+        }
+      }
+    },
+    "status.posting.poll.disable-multi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multiple votes"
+          }
+        }
+      }
+    },
+    "status.posting.poll.enable-multi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One vote"
+          }
+        }
+      }
+    },
+    "status.posting.poll.expiry" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poll Duration"
+          }
+        }
+      }
+    },
+    "status.posting.poll.option-%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Option %lld"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Option %lld"
           }
         }
       }

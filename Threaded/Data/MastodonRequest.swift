@@ -2,6 +2,7 @@
 
 import Foundation
 import RegexBuilder
+import SwiftUI
 
 public protocol Endpoint: Sendable {
     func path() -> String
@@ -500,6 +501,38 @@ public struct StatusData: Encodable, Sendable {
             self.options = options
             self.multiple = multiple
             self.expires_in = expires_in
+        }
+        
+        enum DefaultExpiry: Int, CaseIterable {
+            case fiveMinutes = 300
+            case thirtyMinutes = 1800
+            case oneHour = 3600
+            case sixHours = 21600
+            case twelveHours = 43200
+            case oneDay = 86400
+            case threeDays = 259_200
+            case sevenDays = 604_800
+            
+            public var description: LocalizedStringKey {
+                switch self {
+                    case .fiveMinutes:
+                        "poll.expiry.fiveMinutes"
+                    case .thirtyMinutes:
+                        "poll.expiry.thirtyMinutes"
+                    case .oneHour:
+                        "poll.expiry.oneHour"
+                    case .sixHours:
+                        "poll.expiry.sixHours"
+                    case .twelveHours:
+                        "poll.expiry.twelveHours"
+                    case .oneDay:
+                        "poll.expiry.oneDay"
+                    case .threeDays:
+                        "poll.expiry.threeDays"
+                    case .sevenDays:
+                        "poll.expiry.sevenDays"
+                }
+            }
         }
     }
     

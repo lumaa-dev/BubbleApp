@@ -25,6 +25,12 @@ struct PostingView: View {
     @State private var selectedPhotos: [PhotosPickerItem] = []
     @State private var player: AVPlayer?
     
+    @State private var hasPoll: Bool = false
+    @State private var pollOptions: [String] = ["", ""]
+    @State private var pollExpiry: StatusData.PollData.DefaultExpiry = .oneDay
+    @State private var multiSelect: Bool = false
+    
+    
     @State private var selectingEmoji: Bool = false
     @State private var makingAlt: MediaContainer? = nil
     
@@ -85,6 +91,10 @@ struct PostingView: View {
                         
                         if !mediaContainers.isEmpty {
                             mediasView(containers: mediaContainers)
+                        }
+                        
+                        if hasPoll {
+                            editPollView
                         }
                         
                         editorButtons
@@ -182,7 +192,12 @@ struct PostingView: View {
 //                    await upload(container: container)
 //                }
                 
-                let json: StatusData = .init(status: viewModel.postText.string, visibility: visibility, inReplyToId: replyId, mediaIds: mediaContainers.compactMap { $0.mediaAttachment?.id }, mediaAttributes: mediaAttributes)
+                var pollData: StatusData.PollData? = nil
+                if self.hasPoll {
+                    pollData = StatusData.PollData(options: self.pollOptions, multiple: self.multiSelect, expires_in: pollExpiry.rawValue)
+                }
+                
+                let json: StatusData = .init(status: viewModel.postText.string, visibility: visibility, inReplyToId: replyId, mediaIds: mediaContainers.compactMap { $0.mediaAttachment?.id }, poll: pollData, mediaAttributes: mediaAttributes)
                 
                 let isEdit: Bool = editId != nil
                 let endp: Endpoint = isEdit ? Statuses.editStatus(id: editId!, json: json) : Statuses.postStatus(json: json)
@@ -197,6 +212,77 @@ struct PostingView: View {
                     dismiss()
                 }
             }
+        }
+    }
+    
+    var editPollView: some View {
+        VStack {
+            ForEach(0 ..< pollOptions.count, id: \.self) { i in
+                let isLast: Bool = pollOptions.count - 1 == i;
+                
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.gray.opacity(0.4), lineWidth: 2.5)
+                    .frame(width: 300, height: 50)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+                    .overlay {
+                        HStack {
+                            TextField("status.posting.poll.option-\(i + 1)", text: $pollOptions[i], axis: .horizontal)
+                                .font(.subheadline)
+                                .padding(.leading, 25)
+                                .foregroundStyle(Color(uiColor: UIColor.label))
+                            
+                            Spacer()
+                            
+                            HStack(spacing: 3.5) {
+                                Button {
+                                    withAnimation(.spring) {
+                                        self.pollOptions.append("")
+                                    }
+                                } label: {
+                                    Image(systemName: "plus.circle.fill")
+                                        .font(.callout)
+                                        .foregroundStyle(pollOptions.count >= 4 || !isLast ? Color.gray : Color(uiColor: UIColor.label))
+                                }
+                                .disabled(pollOptions.count >= 4 || !isLast)
+                                
+                                Button {
+                                    withAnimation(.spring) {
+                                        if pollOptions.count == 2 {
+                                            self.hasPoll = false
+                                        } else {
+                                            let index: Int = i
+                                            self.pollOptions.remove(at: index)
+                                        }
+                                    }
+                                } label: {
+                                    Image(systemName: "minus.circle.fill")
+                                        .font(.callout)
+                                        .foregroundStyle(Color(uiColor: UIColor.label))
+                                }
+                            }
+                            .padding(.trailing, 25)
+                        }
+                    }
+            }
+            HStack {
+                Button {
+                    withAnimation(.spring) {
+                        multiSelect.toggle()
+                    }
+                } label: {
+                    Text(multiSelect ? LocalizedStringKey("status.posting.poll.disable-multi") : LocalizedStringKey("status.posting.poll.enable-multi"))
+                }
+                .buttonStyle(LargeButton(filled: false, height: 7.5))
+                
+                Spacer()
+                
+                Picker("status.posting.poll.expiry", selection: $pollExpiry) {
+                    ForEach(StatusData.PollData.DefaultExpiry.allCases, id: \.self) { expiry in
+                        Text(expiry.description)
+                    }
+                }
+            }
+            .frame(width: 300)
         }
     }
     
@@ -385,38 +471,50 @@ struct PostingView: View {
     }
     
     var editorButtons: some View {
+        //MARK: Action buttons
         HStack(spacing: 18) {
-            actionButton("photo.badge.plus") {
-                selectingPhotos.toggle()
-            }
-            .photosPicker(isPresented: $selectingPhotos, selection: $selectedPhotos, maxSelectionCount: 4, matching: .any(of: [.images, .videos]), photoLibrary: .shared())
-            .onChange(of: selectedPhotos) { oldValue, _ in
-                if selectedPhotos.count > 4 {
-                    selectedPhotos = selectedPhotos.prefix(4).map { $0 }
+            if !self.hasPoll {
+                actionButton("photo.badge.plus") {
+                    selectingPhotos.toggle()
                 }
-                
-                let removedIDs = oldValue
-                    .filter { !selectedPhotos.contains($0) }
-                    .compactMap(\.itemIdentifier)
-                mediaContainers.removeAll { removedIDs.contains($0.id) }
-                
-                let newPickerItems = selectedPhotos.filter { !oldValue.contains($0) }
-                if !newPickerItems.isEmpty {
-                    loadingContent = true
-                    Task {
-                        for item in newPickerItems {
-                            initImage(for: item)
+                .transition(.opacity.combined(with: .move(edge: .leading)))
+                .photosPicker(isPresented: $selectingPhotos, selection: $selectedPhotos, maxSelectionCount: 4, matching: .any(of: [.images, .videos]), photoLibrary: .shared())
+                .onChange(of: selectedPhotos) { oldValue, _ in
+                    if selectedPhotos.count > 4 {
+                        selectedPhotos = selectedPhotos.prefix(4).map { $0 }
+                    }
+                    
+                    let removedIDs = oldValue
+                        .filter { !selectedPhotos.contains($0) }
+                        .compactMap(\.itemIdentifier)
+                    mediaContainers.removeAll { removedIDs.contains($0.id) }
+                    
+                    let newPickerItems = selectedPhotos.filter { !oldValue.contains($0) }
+                    if !newPickerItems.isEmpty {
+                        loadingContent = true
+                        Task {
+                            for item in newPickerItems {
+                                initImage(for: item)
+                            }
                         }
                     }
                 }
+                .tint(Color.blue)
             }
-            .tint(Color.blue)
             
-            actionButton("number") {
-                DispatchQueue.main.async {
-                    viewModel.append(text: "#")
+            if mediaContainers.isEmpty || selectedPhotos.isEmpty {
+                actionButton("checklist") {
+                    withAnimation(.spring) {
+                        self.hasPoll.toggle()
+                    }
                 }
             }
+            
+//            actionButton("number") {
+//                DispatchQueue.main.async {
+//                    viewModel.append(text: "#")
+//                }
+//            }
             
             let smileSf = colorScheme == .light ? "face.smiling" : "face.smiling.inverse"
             actionButton(smileSf) {
