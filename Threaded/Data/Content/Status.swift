@@ -71,7 +71,7 @@ public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable
     
     public static func placeholder(forSettings: Bool = false, language: String? = nil) -> Status {
         .init(id: UUID().uuidString,
-              content: .init(stringValue: "Here's to the [#crazy](#) ones",
+              content: .init(stringValue: "Have you ever tried [#Threaded](#)?",
                              parseMarkdown: forSettings),
               
               account: .placeholder(),
@@ -94,7 +94,7 @@ public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable
               inReplyToId: nil,
               inReplyToAccountId: nil,
               visibility: .pub,
-              poll: nil,
+              poll: Poll.placeholder,
               spoilerText: .init(stringValue: ""),
               filtered: [],
               sensitive: false,
@@ -412,10 +412,19 @@ public struct Poll: Codable, Equatable, Hashable {
     public var safeVotersCount: Int {
         votersCount ?? votesCount
     }
+    
+    static let placeholder: Poll = Poll(id: "ABC", expiresAt: NullableString(), expired: false, multiple: true, votesCount: 3, votersCount: 3, voted: false, ownVotes: nil, options: [
+        Poll.Option.init(id: "ABC", title: "Option 1", votesCount: 1),
+        Poll.Option.init(id: "DEF", title: "Option 2", votesCount: 2)
+    ])
 }
 
 public struct NullableString: Codable, Equatable, Hashable {
     public let value: ServerDate?
+    
+    init() {
+        self.value = ServerDate()
+    }
     
     public init(from decoder: Decoder) throws {
         do {

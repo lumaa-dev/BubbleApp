@@ -23,6 +23,7 @@
 		B95ED2332B8707D60055F5BD /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = B95ED2322B8707D60055F5BD /* RevenueCat */; };
 		B95ED2352B8707D60055F5BD /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = B95ED2342B8707D60055F5BD /* RevenueCatUI */; };
 		B95ED2372B87C9550055F5BD /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = B95ED2362B87C9550055F5BD /* StoreKitTestCertificate.cer */; };
+		B964F8062B9B78F4005C193D /* PostPoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = B964F8052B9B78F4005C193D /* PostPoll.swift */; };
 		B97491E32B6E96700098BC48 /* SymbolWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97491E22B6E96700098BC48 /* SymbolWidth.swift */; };
 		B97798892B853E6600DC869F /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97798882B853E6600DC869F /* UpdateView.swift */; };
 		B97BCE242B3DD8400044756D /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BCE232B3DD8400044756D /* HapticManager.swift */; };
@@ -195,6 +196,7 @@
 		B93B67792B42EC51000892E9 /* MetaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaPicker.swift; sourceTree = "<group>"; };
 		B93B677B2B433A6E000892E9 /* PostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
 		B95ED2362B87C9550055F5BD /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = StoreKitTestCertificate.cer; path = ../../../../../Downloads/StoreKitTestCertificate.cer; sourceTree = "<group>"; };
+		B964F8052B9B78F4005C193D /* PostPoll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPoll.swift; sourceTree = "<group>"; };
 		B97491E22B6E96700098BC48 /* SymbolWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolWidth.swift; sourceTree = "<group>"; };
 		B97798882B853E6600DC869F /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		B97BCE232B3DD8400044756D /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 				B9B63B242B44997400BBC82D /* QuotePostView.swift */,
 				B9BED5152B5D5E6500C9B715 /* PostInteractor.swift */,
 				B9BED5172B5D649C00C9B715 /* PostMenu.swift */,
+				B964F8052B9B78F4005C193D /* PostPoll.swift */,
 				B98F47952B645DF40092000F /* EmojiSelector.swift */,
 			);
 			path = Post;
@@ -875,6 +878,7 @@
 				B9FB94BC2B2F035500D81C07 /* Tag.swift in Sources */,
 				B9029FC42B8125CE00AA9B68 /* HuggingFace.swift in Sources */,
 				B9BED51A2B5D662D00C9B715 /* ShareSheetController.swift in Sources */,
+				B964F8062B9B78F4005C193D /* PostPoll.swift in Sources */,
 				B93757112B7FB8D400652F91 /* AltClients.swift in Sources */,
 				B9BED5162B5D5E6500C9B715 /* PostInteractor.swift in Sources */,
 				B98BC74B2B46CF0400595441 /* ThreadedStyle.swift in Sources */,
@@ -954,7 +958,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "ThreadedWatch Watch App.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "ThreadedWatch/ThreadedWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ThreadedWatch/Preview Content\"";
@@ -984,7 +988,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "ThreadedWatch Watch App.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "ThreadedWatch/ThreadedWatch Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ThreadedWatch/Preview Content\"";

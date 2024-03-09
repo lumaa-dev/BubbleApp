@@ -127,6 +127,10 @@ struct CompactPostView: View {
                             }
                     }
                     
+                    if status.poll != nil {
+                        PostPoll(poll: status.poll!)
+                    }
+                    
                     if status.card != nil && status.mediaAttachments.isEmpty && !hasQuote {
                         PostCardView(card: status.card!)
                     }
@@ -269,4 +273,12 @@ struct CompactPostView: View {
             quoteStatus = nil
         }
     }
+}
+
+#Preview {
+    CompactPostView(status: Status.placeholder(forSettings: true, language: "fr"))
+        .environment(AccountManager())
+        .environment(UniversalNavigator())
+        .environmentObject(UserPreferences.defaultPreferences)
+        .environmentObject(Navigator())
 }

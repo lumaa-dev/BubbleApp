@@ -90,6 +90,10 @@ struct PostDetailsView: View {
                             .id("\(detailedStatus.id)@\(detailedStatus.account.id)")
                     }
                     
+                    if status.poll != nil {
+                        PostPoll(poll: status.poll!)
+                    }
+                    
                     if status.card != nil && status.mediaAttachments.isEmpty {
                         PostCardView(card: status.card!)
                     }
