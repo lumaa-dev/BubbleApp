@@ -60,13 +60,24 @@ class UserPreferences: Codable, ObservableObject {
         UserDefaults.standard.setValue(json, forKey: UserPreferences.saveKey)
     }
     
-    static func loadAsCurrent() throws -> UserPreferences? {
+    static func loadAsCurrent() throws -> UserPreferences {
         let decoder = JSONDecoder()
         if let data = UserDefaults.standard.data(forKey: UserPreferences.saveKey) {
-            let pref = try decoder.decode(UserPreferences.self, from: data)
-            return pref
+            let pref = try? decoder.decode(UserPreferences.self, from: data)
+            return pref ?? UserPreferences.defaultPreferences
         }
-        return nil
+        return UserPreferences.defaultPreferences
+    }
+    
+    // WARNINGS EVERYWHERE WHY...
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.displayedName = try container.decode(DisplayedName.self, forKey: ._displayedName) ?? .username
+        self.profilePictureShape = try container.decode(ProfilePictureShape.self, forKey: ._profilePictureShape) ?? .circle
+        self.browserType = try container.decode(BrowserType.self, forKey: ._browserType) ?? .inApp
+        self.defaultVisibility = try container.decode(Visibility.self, forKey: ._defaultVisibility) ?? .pub
+        self.showExperimental = try container.decode(Bool.self, forKey: ._showExperimental) ?? false
+        self.experimental = try container.decode(UserPreferences.Experimental.self, forKey: ._experimental) ?? .init()
     }
     
     // Enums and other
