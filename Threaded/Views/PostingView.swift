@@ -241,7 +241,7 @@ struct PostingView: View {
                             
                             Spacer()
                             
-                            HStack(spacing: 3.5) {
+                            HStack(spacing: 5) {
                                 Button {
                                     withAnimation(.spring) {
                                         self.pollOptions.append("")
@@ -485,7 +485,7 @@ struct PostingView: View {
                 actionButton("photo.badge.plus") {
                     selectingPhotos.toggle()
                 }
-                .transition(.opacity.combined(with: .move(edge: .bottom)))
+                .transition(.opacity.combined(with: .move(edge: .leading)))
                 .photosPicker(isPresented: $selectingPhotos, selection: $selectedPhotos, maxSelectionCount: 4, matching: .any(of: [.images, .videos]), photoLibrary: .shared())
                 .onChange(of: selectedPhotos) { oldValue, _ in
                     if selectedPhotos.count > 4 {
