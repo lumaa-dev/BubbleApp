@@ -69,15 +69,14 @@ class UserPreferences: Codable, ObservableObject {
         return UserPreferences.defaultPreferences
     }
     
-    // WARNINGS EVERYWHERE WHY...
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.displayedName = try container.decode(DisplayedName.self, forKey: ._displayedName) ?? .username
-        self.profilePictureShape = try container.decode(ProfilePictureShape.self, forKey: ._profilePictureShape) ?? .circle
-        self.browserType = try container.decode(BrowserType.self, forKey: ._browserType) ?? .inApp
-        self.defaultVisibility = try container.decode(Visibility.self, forKey: ._defaultVisibility) ?? .pub
-        self.showExperimental = try container.decode(Bool.self, forKey: ._showExperimental) ?? false
-        self.experimental = try container.decode(UserPreferences.Experimental.self, forKey: ._experimental) ?? .init()
+        self.displayedName = try container.decodeIfPresent(DisplayedName.self, forKey: ._displayedName) ?? .username
+        self.profilePictureShape = try container.decodeIfPresent(ProfilePictureShape.self, forKey: ._profilePictureShape) ?? .circle
+        self.browserType = try container.decodeIfPresent(BrowserType.self, forKey: ._browserType) ?? .inApp
+        self.defaultVisibility = try container.decodeIfPresent(Visibility.self, forKey: ._defaultVisibility) ?? .pub
+        self.showExperimental = try container.decodeIfPresent(Bool.self, forKey: ._showExperimental) ?? false
+        self.experimental = try container.decodeIfPresent(UserPreferences.Experimental.self, forKey: ._experimental) ?? .init()
     }
     
     // Enums and other
