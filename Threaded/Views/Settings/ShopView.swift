@@ -27,8 +27,14 @@ struct ShopView: View {
                 .frame(width: 100, height: 100)
                 .padding(.vertical)
             
-            features
-                .padding(.bottom)
+            if canPay {
+                features
+                    .padding(.bottom)
+            } else {
+                Spacer()
+                
+                ComingSoonView()
+            }
             
             Spacer()
             
