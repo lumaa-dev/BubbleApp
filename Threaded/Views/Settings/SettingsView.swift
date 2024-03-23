@@ -80,7 +80,13 @@ struct SettingsView: View {
                     Button {
                         navigator.presentedCover = .shop
                     } label: {
-                        Label(String("Threaded+"), systemImage: "plus")
+                        Label {
+                            Text(String("Threaded+"))
+                        } icon: {
+                            Image("HeroPlus")
+                                .resizable()
+                                .scaledToFit()
+                        }
                     }
                     .listRowThreaded()
                     
@@ -131,10 +137,10 @@ struct SettingsView: View {
                     .listRowThreaded()
                 }
             }
-            .environmentObject(navigator)
             .withAppRouter(navigator)
             .withCovers(sheetDestination: $navigator.presentedCover)
             .listThreaded()
+            .environmentObject(navigator)
             .navigationTitle("settings")
             .navigationBarTitleDisplayMode(.inline)
         }

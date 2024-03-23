@@ -188,13 +188,11 @@ struct DiscoveryView: View {
         VStack(spacing: 7.5) {
             AccountRow(acct: "Threaded@mastodon.online") {
                 Text("accounts.official")
-                    .font(.headline.bold().width(.condensed))
-                    .foregroundStyle(.green)
+                    .accountRowLabel(.green)
             }
             AccountRow(acct: "lumaa@mastodon.online") {
                 Text("accounts.developer")
-                    .font(.headline.bold().width(.condensed))
-                    .foregroundStyle(.blue)
+                    .accountRowLabel(.blue)
             }
         }
     }

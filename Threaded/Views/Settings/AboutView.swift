@@ -19,11 +19,12 @@ struct AboutView: View {
                 Toggle("setting.experimental.activate", isOn: $userPreferences.showExperimental)
                     .listRowThreaded()
                     .tint(Color(uiColor: UIColor.label))
+                    .disabled(!AppDelegate.hasPlus())
                     .onAppear {
                         do {
                             let oldPreferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
                             
-                            userPreferences.showExperimental = oldPreferences.showExperimental
+                            userPreferences.showExperimental = oldPreferences.showExperimental && AppDelegate.hasPlus()
                         } catch {
                             print(error)
                         }

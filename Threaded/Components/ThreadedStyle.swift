@@ -69,10 +69,17 @@ extension View {
             .toolbarBackground(Color.appBackground, for: .navigationBar)
             .listStyle(.inset)
     }
+    
     func listRowThreaded() -> some View {
         self
             .listRowSeparator(.hidden)
             .listRowBackground(Color.appBackground)
             .tint(Color.blue)
+    }
+    func accountRowLabel(_ foreground: Color) -> some View {
+        self
+            .multilineTextAlignment(.leading)
+            .font(.headline.bold().width(.condensed))
+            .foregroundStyle(foreground)
     }
 }
