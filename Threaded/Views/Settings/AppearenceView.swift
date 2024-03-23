@@ -2,9 +2,10 @@
 
 import SwiftUI
 
+// TODO: Show/hide profile header
+
 struct AppearenceView: View {
     @ObservedObject private var userPreferences: UserPreferences = .defaultPreferences
-    @EnvironmentObject private var navigator: Navigator
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {

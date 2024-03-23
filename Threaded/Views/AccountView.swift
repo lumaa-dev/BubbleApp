@@ -11,11 +11,11 @@ struct AccountView: View {
     var body: some View {
         NavigationStack(path: $navigator.path) {
             ProfileView(account: account, isCurrent: true)
-                .environmentObject(navigator)
                 .withAppRouter(navigator)
                 .onAppear {
                     account = accountManager.forceAccount()
                 }
         }
+        .environmentObject(navigator)
     }
 }

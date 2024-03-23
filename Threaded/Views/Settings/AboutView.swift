@@ -10,7 +10,7 @@ struct AboutView: View {
         List {
             Section(footer: Text("about.version-\(AppInfo.appVersion)")) {
                 NavigationLink {
-                    aboutApp
+                    ComingSoonView()
                 } label: {
                     Text("about.app")
                 }

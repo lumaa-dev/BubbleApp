@@ -50,17 +50,21 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
         return nil
     }
     
-    static func hasPlus() -> Bool {
-        #if DEBUG
-        self.premium = true
-        return true
-        #else
-        Purchases.shared.getCustomerInfo { (customerInfo, error) in
-            self.premium = hasActuallyPlus(customerInfo: customerInfo)
-        }
-        return self.premium
-        #endif
-    }
+    /// This function uses the REAL customer info to access the premium state
+//    static func hasPlus() -> Bool {
+//        #if DEBUG
+//        self.premium = true
+//        return true
+//        #else
+//        Purchases.shared.getCustomerInfo { (customerInfo, error) in
+//            self.premium = hasActuallyPlus(customerInfo: customerInfo)
+//        }
+//        return self.premium
+//        #endif
+//    }
+    
+    /// This function returns a fake "true" value every time whatever the customer info is
+    static func hasPlus() -> Bool { return true }
     
     private static func hasActuallyPlus(customerInfo: CustomerInfo?) -> Bool {
         return customerInfo?.entitlements[PlusEntitlements.lifetime.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.monthly.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.yearly.getEntitlementId()]?.isActive == true
