@@ -127,6 +127,7 @@ public enum RouterDestination: Hashable {
     case appearence
     case about
     case privacy
+    case restricted
     
     case account(acc: Account)
     case post(status: Status)
@@ -135,7 +136,7 @@ public enum RouterDestination: Hashable {
 }
 
 extension RouterDestination {
-    static let allSettings: [RouterDestination] = [.settings, .support, .about, .appearence]
+    static let allSettings: [RouterDestination] = [.settings, .support, .about, .appearence, .privacy, .restricted]
 }
 
 extension View {
@@ -143,7 +144,7 @@ extension View {
         navigationDestination(for: RouterDestination.self) { destination in
             switch destination {
                 case .settings:
-                    SettingsView(navigator: navigator)
+                    SettingsView()
                 case .support:
                     SupportView()
                 case .appearence:
@@ -158,6 +159,8 @@ extension View {
                     ContactsView()
                 case .privacy:
                     PrivacyView()
+                case .restricted:
+                    RestrictedView()
                 case .timeline(let timeline):
                     PostsView(filter: timeline ?? .home, showHero: false)
             }

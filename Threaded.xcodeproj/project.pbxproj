@@ -10,6 +10,7 @@
 		B9029FC22B81259400AA9B68 /* Secret.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9029FC12B81259400AA9B68 /* Secret.plist */; };
 		B9029FC42B8125CE00AA9B68 /* HuggingFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9029FC32B8125CE00AA9B68 /* HuggingFace.swift */; };
 		B915C4422B6F908C00042DDB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B915C4412B6F908C00042DDB /* ProfileView.swift */; };
+		B934EA242BAB5E7F001F4345 /* RestrictedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934EA232BAB5E7F001F4345 /* RestrictedView.swift */; };
 		B93757112B7FB8D400652F91 /* AltClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93757102B7FB8D400652F91 /* AltClients.swift */; };
 		B93ADFCB2B7625CD00FF9172 /* DiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93ADFCA2B7625CD00FF9172 /* DiscoveryView.swift */; };
 		B93B676D2B42C94F000892E9 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B93B676C2B42C94F000892E9 /* Nuke */; };
@@ -190,6 +191,7 @@
 		B9029FC12B81259400AA9B68 /* Secret.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
 		B9029FC32B8125CE00AA9B68 /* HuggingFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuggingFace.swift; sourceTree = "<group>"; };
 		B915C4412B6F908C00042DDB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		B934EA232BAB5E7F001F4345 /* RestrictedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestrictedView.swift; sourceTree = "<group>"; };
 		B93757102B7FB8D400652F91 /* AltClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltClients.swift; sourceTree = "<group>"; };
 		B93ADFCA2B7625CD00FF9172 /* DiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
 		B93B67772B42E8F0000892E9 /* TextEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEmoji.swift; sourceTree = "<group>"; };
@@ -569,6 +571,7 @@
 				B98BC7482B46CEDA00595441 /* AppearenceView.swift */,
 				B97798882B853E6600DC869F /* UpdateView.swift */,
 				B9B469B12B9A6E8300AD5585 /* PrivacyView.swift */,
+				B934EA232BAB5E7F001F4345 /* RestrictedView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -870,6 +873,7 @@
 				B93B677A2B42EC51000892E9 /* MetaPicker.swift in Sources */,
 				B9D9C6C32B6A576C00C26A41 /* NotificationsView.swift in Sources */,
 				B9FA6E772B82788A00D63E30 /* AccountRow.swift in Sources */,
+				B934EA242BAB5E7F001F4345 /* RestrictedView.swift in Sources */,
 				B9FB94722B2DF49700D81C07 /* ConnectView.swift in Sources */,
 				B9FB945B2B2DEECE00D81C07 /* ThreadedApp.swift in Sources */,
 				B9FB94862B2E211200D81C07 /* Account+Elms.swift in Sources */,

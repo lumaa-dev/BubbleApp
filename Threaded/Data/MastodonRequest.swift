@@ -741,3 +741,33 @@ public enum Polls: Endpoint {
         }
     }
 }
+
+public enum Restricted: Endpoint {
+    case mutes(maxId: String?)
+    case blockedUsers(maxId: String?)
+    case blockedDomains(maxId: String?) // array of strings
+    
+    public func path() -> String {
+        switch self {
+            case .mutes:
+                "mutes"
+            case .blockedUsers:
+                "blocks"
+            case .blockedDomains:
+                "domain_blocks"
+        }
+    }
+    
+    public func queryItems() -> [URLQueryItem]? {
+        switch self {
+            case let .mutes(maxId):
+                return makePaginationParam(sinceId: nil, maxId: maxId, mindId: nil)
+                
+            case let .blockedUsers(maxId):
+                return makePaginationParam(sinceId: nil, maxId: maxId, mindId: nil)
+                
+            case let .blockedDomains(maxId):
+                return makePaginationParam(sinceId: nil, maxId: maxId, mindId: nil)
+        }
+    }
+}

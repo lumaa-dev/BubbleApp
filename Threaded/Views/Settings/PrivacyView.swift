@@ -12,7 +12,16 @@ struct PrivacyView: View {
     
     var body: some View {
         List {
-            //TODO: Blocklist & Mutelist
+            Button {
+                navigator.navigate(to: .restricted)
+            } label: {
+                Label("settings.privacy.restricted", systemImage: "speaker.badge.exclamationmark")
+            }
+            .listRowThreaded()
+            
+            Spacer()
+                .frame(height: 30)
+                .listRowThreaded()
             
             Picker(LocalizedStringKey("setting.privacy.default-visibility"), selection: $userPreferences.defaultVisibility) {
                 ForEach(Visibility.allCases, id: \.self) { visibility in
@@ -99,8 +108,4 @@ struct PrivacyView: View {
             dismiss()
         }
     }
-}
-
-#Preview {
-    PrivacyView()
 }

@@ -1415,6 +1415,89 @@
         }
       }
     },
+    "restricted.blocked-domain" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hidden"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caché"
+          }
+        }
+      }
+    },
+    "restricted.blocked-user" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocked"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bloqué(e)"
+          }
+        }
+      }
+    },
+    "restricted.muted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muted"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muet(te)"
+          }
+        }
+      }
+    },
+    "restricted.no-restricted" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No restrictions"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun restreints"
+          }
+        }
+      }
+    },
+    "restricted.no-restricted.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have no mutes and blocks, it means you are peaceful."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous n'avez aucun muets ou bloqués, vous ne faites qu'un avec la paix."
+          }
+        }
+      }
+    },
     "setting.appearence" : {
       "localizations" : {
         "en" : {
@@ -1843,6 +1926,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vidé !"
+          }
+        }
+      }
+    },
+    "settings.privacy.restricted" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restricted"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restreints"
+          }
+        }
+      }
+    },
+    "settings.restart-app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Some settings might require the app to be restarted"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certains paramètres nécessite le redémarrage de l'application"
           }
         }
       }
