@@ -4,146 +4,146 @@ import SwiftUI
 import SwiftData
 import WatchConnectivity
 
-//TODO: "Privacy" with mutelist, blocklist
-
 struct SettingsView: View {
     @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
     
     @Query private var loggedAccounts: [LoggedAccount]
-
-    @StateObject var navigator: Navigator
+    
+    @EnvironmentObject private var navigator: Navigator
     @State private var switched: Bool = false
     
     var body: some View {
-        NavigationStack(path: $navigator.path) {
-            List {
-                if loggedAccounts.count > 0 {
-                    Section {
-                        ForEach(loggedAccounts) { logged in
-                            if let app = logged.app {
-                                SwitcherRow(app: app, loggedAccount: logged)
-                                    .listRowThreaded()
-                            }
-                        }
-                        if AppDelegate.premium || loggedAccounts.count < 3 {
-                            Button {
-                                uniNav.presentedSheet = .mastodonLogin(logged: $switched)
-                            } label: {
-                                Label("settings.account-switcher.add", systemImage: "person.crop.circle.badge.plus")
-                                    .foregroundStyle(Color.blue)
-                            }
-                            .listRowThreaded()
+        List {
+            if loggedAccounts.count > 0 {
+                Section {
+                    ForEach(loggedAccounts) { logged in
+                        if let app = logged.app {
+                            SwitcherRow(app: app, loggedAccount: logged)
+                                .listRowThreaded()
                         }
                     }
-                    .onChange(of: switched) { _, new in
-                        if new == true {
-                            // switched correctly
-                            HapticManager.playHaptics(haptics: Haptic.success)
-                            uniNav.selectedTab = .timeline
-                            navigator.path = []
-                        }
-                    }
-                } else {
-                    Section {
-                        //MARK: Remove in later update
-                        HStack(alignment: .center) {
-                            Spacer()
-                            Text("settings.account-switcher.relog")
-                                .foregroundStyle(Color.gray)
-                                .multilineTextAlignment(.center)
-                                .font(.caption)
-                            Spacer()
+                    if AppDelegate.premium || loggedAccounts.count < 3 {
+                        Button {
+                            uniNav.presentedSheet = .mastodonLogin(logged: $switched)
+                        } label: {
+                            Label("settings.account-switcher.add", systemImage: "person.crop.circle.badge.plus")
+                                .foregroundStyle(Color.blue)
                         }
                         .listRowThreaded()
                     }
                 }
-                
-                Spacer()
-                    .frame(height: 30)
-                    .listRowThreaded()
-                
+                .onChange(of: switched) { _, new in
+                    if new == true {
+                        // switched correctly
+                        HapticManager.playHaptics(haptics: Haptic.success)
+                        uniNav.selectedTab = .timeline
+                        navigator.path = []
+                    }
+                }
+            } else {
                 Section {
-                    Button {
-                        navigator.navigate(to: .about)
-                    } label: {
-                        Label("about", systemImage: "info.circle")
+                    //MARK: Remove in later update
+                    HStack(alignment: .center) {
+                        Spacer()
+                        Text("settings.account-switcher.relog")
+                            .foregroundStyle(Color.gray)
+                            .multilineTextAlignment(.center)
+                            .font(.caption)
+                        Spacer()
                     }
-                    .listRowThreaded()
-                    
-                    Button {
-                        navigator.navigate(to: .privacy)
-                    } label: {
-                        Label("privacy", systemImage: "lock")
-                    }
-                    .listRowThreaded()
-                    
-                    Button {
-                        navigator.presentedCover = .shop
-                    } label: {
-                        Label {
-                            Text(String("Threaded+"))
-                        } icon: {
-                            Image("HeroPlus")
-                                .resizable()
-                                .scaledToFit()
-                        }
-                    }
-                    .listRowThreaded()
-                    
-                    Button {
-                        navigator.navigate(to: .support)
-                    } label: {
-                        Label("setting.support", systemImage: "person.crop.circle.badge.questionmark")
-                    }
-                    .listRowThreaded()
-                    
-                    Button {
-                        navigator.navigate(to: .appearence)
-                    } label: {
-                        Label("setting.appearence", systemImage: "rectangle.3.group")
-                    }
-                    .listRowThreaded()
-                    
-                    Button {
-                        if loggedAccounts.count <= 1 {
-                            AppAccount.clear()
-                            navigator.path = []
-                            uniNav.selectedTab = .timeline
-                            uniNav.presentedCover = .welcome
-                        } else {
-                            Task {
-                                if let app = loggedAccounts[0].app {
-                                    let c: Client = Client(server: app.server, oauthToken: app.oauthToken)
-                                    let am: AccountManager = .init(client: c)
-                                    
-                                    let fetched: Account? = await am.fetchAccount()
-                                    if fetched == nil {
-                                        am.clear()
-                                    } else {
-                                        AccountManager.shared.setAccount(fetched!)
-                                        AccountManager.shared.setClient(c)
-                                        
-                                        navigator.path = []
-                                        uniNav.selectedTab = .timeline
-                                    }
-                                }
-                            }
-                        }
-                    } label: {
-                        Text("logout")
-                            .foregroundStyle(.red)
-                    }
-                    .tint(Color.red)
                     .listRowThreaded()
                 }
             }
-            .withAppRouter(navigator)
-            .withCovers(sheetDestination: $navigator.presentedCover)
-            .listThreaded()
-            .environmentObject(navigator)
-            .navigationTitle("settings")
-            .navigationBarTitleDisplayMode(.inline)
+            
+            Spacer()
+                .frame(height: 30)
+                .listRowThreaded()
+            
+            Section {
+                Text("settings.restart-app")
+                    .font(.caption)
+                    .foregroundStyle(Color.gray)
+                    .listRowThreaded()
+                
+                Button {
+                    navigator.navigate(to: .about)
+                } label: {
+                    Label("about", systemImage: "info.circle")
+                }
+                .listRowThreaded()
+                
+                Button {
+                    navigator.navigate(to: .privacy)
+                } label: {
+                    Label("privacy", systemImage: "lock")
+                }
+                .listRowThreaded()
+                
+                Button {
+                    navigator.presentedCover = .shop
+                } label: {
+                    Label {
+                        Text(String("Threaded+"))
+                    } icon: {
+                        Image("HeroPlus")
+                            .resizable()
+                            .scaledToFit()
+                    }
+                }
+                .listRowThreaded()
+                
+                Button {
+                    navigator.navigate(to: .support)
+                } label: {
+                    Label("setting.support", systemImage: "person.crop.circle.badge.questionmark")
+                }
+                .listRowThreaded()
+                
+                Button {
+                    navigator.navigate(to: .appearence)
+                } label: {
+                    Label("setting.appearence", systemImage: "rectangle.3.group")
+                }
+                .listRowThreaded()
+                
+                Button {
+                    if loggedAccounts.count <= 1 {
+                        AppAccount.clear()
+                        navigator.path = []
+                        uniNav.selectedTab = .timeline
+                        uniNav.presentedCover = .welcome
+                    } else {
+                        Task {
+                            if let app = loggedAccounts[0].app {
+                                let c: Client = Client(server: app.server, oauthToken: app.oauthToken)
+                                let am: AccountManager = .init(client: c)
+                                
+                                let fetched: Account? = await am.fetchAccount()
+                                if fetched == nil {
+                                    am.clear()
+                                } else {
+                                    AccountManager.shared.setAccount(fetched!)
+                                    AccountManager.shared.setClient(c)
+                                    
+                                    navigator.path = []
+                                    uniNav.selectedTab = .timeline
+                                }
+                            }
+                        }
+                    }
+                } label: {
+                    Text("logout")
+                        .foregroundStyle(.red)
+                }
+                .tint(Color.red)
+                .listRowThreaded()
+            }
         }
+        .withAppRouter(navigator)
+        .withCovers(sheetDestination: $navigator.presentedCover)
+        .listThreaded()
+        .navigationTitle("settings")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
