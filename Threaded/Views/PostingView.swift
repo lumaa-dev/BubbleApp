@@ -384,7 +384,7 @@ struct PostingView: View {
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(minWidth: mediaContainers.count == 1 ? nil : containerWidth, maxWidth: 450)
+                            .frame(idealWidth: mediaContainers.count == 1 ? 300 : containerWidth, maxWidth: 300)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 15)
                                     .stroke(.gray.opacity(0.3), lineWidth: 1)
@@ -437,7 +437,7 @@ struct PostingView: View {
                 }
             }
         }
-        .frame(minWidth: mediaContainers.count == 1 ? nil : containerWidth, maxWidth: 450)
+        .frame(idealWidth: mediaContainers.count == 1 ? 300 : containerWidth, maxWidth: 300, idealHeight: containerHeight)
         .clipShape(.rect(cornerRadius: 15))
         .contentShape(Rectangle())
     }
