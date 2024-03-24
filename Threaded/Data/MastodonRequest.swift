@@ -551,21 +551,21 @@ public struct StatusData: Encodable, Sendable {
             public var description: LocalizedStringKey {
                 switch self {
                     case .fiveMinutes:
-                        "poll.expiry.fiveMinutes"
+                        "duration.fiveMinutes"
                     case .thirtyMinutes:
-                        "poll.expiry.thirtyMinutes"
+                        "duration.thirtyMinutes"
                     case .oneHour:
-                        "poll.expiry.oneHour"
+                        "duration.oneHour"
                     case .sixHours:
-                        "poll.expiry.sixHours"
+                        "duration.sixHours"
                     case .twelveHours:
-                        "poll.expiry.twelveHours"
+                        "duration.twelveHours"
                     case .oneDay:
-                        "poll.expiry.oneDay"
+                        "duration.oneDay"
                     case .threeDays:
-                        "poll.expiry.threeDays"
+                        "duration.threeDays"
                     case .sevenDays:
-                        "poll.expiry.sevenDays"
+                        "duration.sevenDays"
                 }
             }
         }
