@@ -37,11 +37,11 @@ struct UpdateView: View {
     
     var features: some View {
         VStack(spacing: 40) {
-            newFeature(systemImage: "applewatch", title: "Apple Watch", text: "View your account details on your wrist, experimental")
+            newFeature(systemImage: "shield.righthalf.filled", title: "Better Privacy", text: "View your mutelist, blocklist or you can mute and block new people.")
             
-            newFeature(systemImage: "checklist", title: "Polls", text: "Interact with polls and post new ones")
+            newFeature(systemImage: "info.circle", title: "\"About Threaded\" redesign", text: "This informational view is going to have a major change soon!")
             
-            newFeature(systemImage: "apps.iphone.badge.plus", title: "Widgets", text: "This new version includes a few widgets, both on the Home Screen and Lock Screen")
+            newFeature(systemImage: "sparkles", title: "Fixes and improvements", text: "Fixed issues with images, changed Threaded+ page, etc...")
         }
         .frame(height: 500)
     }
