@@ -292,6 +292,41 @@ public struct MuteData: Encodable, Sendable {
     public init(duration: Int) {
         self.duration = duration
     }
+    
+    enum MuteDuration: Int, CaseIterable {
+        case infinite = 0
+        case fiveMinutes = 300
+        case thirtyMinutes = 1800
+        case oneHour = 3600
+        case sixHours = 21600
+        case twelveHours = 43200
+        case oneDay = 86400
+        case threeDays = 259_200
+        case sevenDays = 604_800
+        
+        public var description: LocalizedStringKey {
+            switch self {
+                case .infinite:
+                    "duration.infinite"
+                case .fiveMinutes:
+                    "duration.fiveMinutes"
+                case .thirtyMinutes:
+                    "duration.thirtyMinutes"
+                case .oneHour:
+                    "duration.oneHour"
+                case .sixHours:
+                    "duration.sixHours"
+                case .twelveHours:
+                    "duration.twelveHours"
+                case .oneDay:
+                    "duration.oneDay"
+                case .threeDays:
+                    "duration.threeDays"
+                case .sevenDays:
+                    "duration.sevenDays"
+            }
+        }
+    }
 }
 
 public struct RelationshipNoteData: Encodable, Sendable {

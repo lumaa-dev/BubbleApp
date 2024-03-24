@@ -17,6 +17,10 @@ struct ProfileView: View {
     @State private var isFollowing: Bool = false
     @State private var accountFollows: Bool = false
     
+    @State private var accountMuted: Bool = false
+    @State private var accountBlocked: Bool = false
+    @State private var instanceBlocked: Bool = false
+    
     @State private var loadingStatuses: Bool = false
     @State private var statuses: [Status]? = []
     @State private var statusesPinned: [Status]? = []
@@ -37,6 +41,73 @@ struct ProfileView: View {
                 } else {
                     wholeSmall
                         .offset(y: isCurrent ? 50 : 0)
+                        .toolbar {
+                            if !isCurrent {
+                                ToolbarItem(placement: .primaryAction) {
+                                    Menu {
+                                        if accountMuted {
+                                            Button {
+                                                guard let client = accountManager.getClient() else { return }
+                                                
+                                                Task {
+                                                    do {
+                                                        _ = try await client.post(endpoint: Accounts.unmute(id: account.id))
+                                                        accountMuted = false
+                                                        HapticManager.playHaptics(haptics: Haptic.success)
+                                                    } catch {
+                                                        print(error)
+                                                    }
+                                                }
+                                            } label: {
+                                                Label("account.unmute", systemImage: "speaker.wave.2.fill")
+                                            }
+                                        } else {
+                                            Menu {
+                                                ForEach(MuteData.MuteDuration.allCases, id: \.self) { duration in
+                                                    Button {
+                                                        guard let client = accountManager.getClient() else { return }
+                                                        
+                                                        Task {
+                                                            do {
+                                                                _ = try await client.post(endpoint: Accounts.mute(id: account.id, json: .init(duration: duration.rawValue)))
+                                                                accountMuted = true
+                                                                HapticManager.playHaptics(haptics: Haptic.success)
+                                                            } catch {
+                                                                print(error)
+                                                            }
+                                                        }
+                                                    } label: {
+                                                        Text(duration.description)
+                                                    }
+                                                }
+                                            } label: {
+                                                Label("account.mute", systemImage: "speaker.slash")
+                                            }
+                                        }
+                                        
+                                        Button(role: accountBlocked ? .cancel : .destructive) {
+                                            guard let client = accountManager.getClient() else { return }
+                                            
+                                            Task {
+                                                do {
+                                                    let endp: Endpoint = accountBlocked ? Accounts.unblock(id: account.id) : Accounts.block(id: account.id)
+                                                    _ = try await client.post(endpoint: endp)
+                                                    accountBlocked.toggle()
+                                                    HapticManager.playHaptics(haptics: Haptic.success)
+                                                } catch {
+                                                    print(error)
+                                                }
+                                            }
+                                        } label: {
+                                            Label(accountBlocked ? "account.unblock" : "account.block", systemImage: accountBlocked ? "person.fill.badge.plus" : "person.slash.fill")
+                                        }
+                                    } label: {
+                                        Image(systemName: "shield.righthalf.filled")
+                                            .font(.title2)
+                                    }
+                                }
+                            }
+                        }
                         .overlay(alignment: .top) {
                             if isCurrent {
                                 HStack {
@@ -257,8 +328,11 @@ struct ProfileView: View {
                 canFollow = currentAccount.id != account.id
                 guard canFollow == true else { return }
                 if let relationship: [Relationship] = try? await client.get(endpoint: Accounts.relationships(ids: [account.id])) {
-                    isFollowing = relationship.first!.following
-                    accountFollows = relationship.first!.followedBy
+                    let rel: Relationship = relationship.first!
+                    isFollowing = rel.following
+                    accountFollows = rel.followedBy
+                    accountMuted = rel.muting
+                    accountBlocked = rel.blocking
                 }
             } else {
                 canFollow = false
