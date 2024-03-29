@@ -73,6 +73,7 @@ struct PostPoll: View {
                                         .foregroundStyle(Color(uiColor: UIColor.systemBackground))
                                         .font(.subheadline)
                                         .padding(.leading, 25)
+                                        .transition(.identity)
                                     
                                     if selectedOption.contains(index ?? 0) {
                                         Image(systemName: "checkmark.circle.fill")
@@ -122,6 +123,7 @@ struct PostPoll: View {
                         Text(showResults ? LocalizedStringKey("status.poll.hide-results") : LocalizedStringKey("status.poll.show-results"))
                     }
                     .buttonStyle(LargeButton(filled: false, height: 7.5))
+                    .disabled(poll.safeVotersCount == 0)
                 }
             }
             
