@@ -16,17 +16,6 @@ public enum RemoteTimelineFilter: String, CaseIterable, Hashable, Equatable {
                 "timeline.trending"
         }
     }
-    
-    public func iconName() -> String {
-        switch self {
-            case .federated:
-                "globe.americas"
-            case .local:
-                "person.2"
-            case .trending:
-                "chart.line.uptrend.xyaxis"
-        }
-    }
 }
 
 public enum TimelineFilter: Hashable, Equatable {
@@ -102,27 +91,6 @@ public enum TimelineFilter: Hashable, Equatable {
                 LocalizedStringKey(list.title)
             case let .remoteLocal(server, _):
                 LocalizedStringKey(server)
-        }
-    }
-    
-    public func iconName() -> String? {
-        switch self {
-            case .latest:
-                "arrow.counterclockwise"
-            case .federated:
-                "globe.americas"
-            case .local:
-                "person.2"
-            case .trending:
-                "chart.line.uptrend.xyaxis"
-            case .home:
-                "house"
-            case .list:
-                "list.bullet"
-            case .remoteLocal:
-                "dot.radiowaves.right"
-            default:
-                nil
         }
     }
     
