@@ -37,11 +37,11 @@ struct UpdateView: View {
     
     var features: some View {
         VStack(spacing: 40) {
-            newFeature(systemImage: "shield.righthalf.filled", title: "Better Privacy", text: "View your mutelist, blocklist or you can mute and block new people.")
+            newFeature(systemImage: "network", title: "Timeline Selector", text: "By tapping on the Threaded logo, you'll be able to select a timeine.")
             
-            newFeature(systemImage: "info.circle", title: "\"About Threaded\" redesign", text: "This informational view is going to have a major change soon!")
+            newFeature(systemImage: "info.circle", title: "\"About Threaded\" redesign", text: "This informational view has been majorly changed!")
             
-            newFeature(systemImage: "sparkles", title: "Fixes and improvements", text: "Fixed issues with images, changed Threaded+ page, etc...")
+            newFeature(systemImage: "checklist", title: "Polls fixes", text: "A few issues with polls have been fixed")
         }
         .frame(height: 500)
     }
