@@ -48,6 +48,7 @@
 		B999DE5C2B76F8CB00509868 /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B999DE5B2B76F8CB00509868 /* ContactsView.swift */; };
 		B999DE5E2B76F9D100509868 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B999DE5D2B76F9D100509868 /* Message.swift */; };
 		B999DE602B76FB3E00509868 /* ContactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B999DE5F2B76FB3E00509868 /* ContactRow.swift */; };
+		B9A8DABA2BB7364300A890CC /* PostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A8DAB92BB7364300A890CC /* PostsView.swift */; };
 		B9B469B02B9A275F00AD5585 /* FollowGoalWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */; };
 		B9B469B22B9A6E8300AD5585 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469B12B9A6E8300AD5585 /* PrivacyView.swift */; };
 		B9B469BA2B9A7E6800AD5585 /* ThreadedWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469B92B9A7E6800AD5585 /* ThreadedWatchApp.swift */; };
@@ -98,7 +99,6 @@
 		B9D9C6C52B6A587700C26A41 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9C6C42B6A587700C26A41 /* NotificationRow.swift */; };
 		B9D9C6C72B6A590F00C26A41 /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9C6C62B6A590F00C26A41 /* ProfilePicture.swift */; };
 		B9DC69292B78D9A500E625B9 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DC69282B78D9A500E625B9 /* SearchResultView.swift */; };
-		B9DC692B2B78E60300E625B9 /* PostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DC692A2B78E60300E625B9 /* PostsView.swift */; };
 		B9DC692D2B79362700E625B9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9DC692C2B79362700E625B9 /* StoreKit.framework */; };
 		B9DC69302B79378400E625B9 /* ThreadedPlus.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B9DC692F2B79378400E625B9 /* ThreadedPlus.storekit */; };
 		B9EBE8562B47256900FB594D /* PostAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBE8552B47256900FB594D /* PostAttachment.swift */; };
@@ -222,6 +222,7 @@
 		B999DE5B2B76F8CB00509868 /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 		B999DE5D2B76F9D100509868 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		B999DE5F2B76FB3E00509868 /* ContactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRow.swift; sourceTree = "<group>"; };
+		B9A8DAB92BB7364300A890CC /* PostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
 		B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowGoalWidget.swift; sourceTree = "<group>"; };
 		B9B469B12B9A6E8300AD5585 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		B9B469B72B9A7E6800AD5585 /* Threaded.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Threaded.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,7 +265,6 @@
 		B9D9C6C42B6A587700C26A41 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
 		B9D9C6C62B6A590F00C26A41 /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
 		B9DC69282B78D9A500E625B9 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
-		B9DC692A2B78E60300E625B9 /* PostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
 		B9DC692C2B79362700E625B9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B9DC692F2B79378400E625B9 /* ThreadedPlus.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = ThreadedPlus.storekit; sourceTree = "<group>"; };
 		B9EBE8552B47256900FB594D /* PostAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAttachment.swift; sourceTree = "<group>"; };
@@ -528,10 +528,10 @@
 				B9D9C6C22B6A576C00C26A41 /* NotificationsView.swift */,
 				B999DE5B2B76F8CB00509868 /* ContactsView.swift */,
 				B97BCE252B3DE5A10044756D /* AccountView.swift */,
-				B9DC692A2B78E60300E625B9 /* PostsView.swift */,
 				B98BC7462B46CE6300595441 /* PostDetailsView.swift */,
 				B93B677B2B433A6E000892E9 /* PostingView.swift */,
 				B9F8FA152B5D3AC30044DAB4 /* SafariView.swift */,
+				B9A8DAB92BB7364300A890CC /* PostsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -856,6 +856,7 @@
 				B9DC69292B78D9A500E625B9 /* SearchResultView.swift in Sources */,
 				B98BC7492B46CEDA00595441 /* AppearenceView.swift in Sources */,
 				B9D9C6C52B6A587700C26A41 /* NotificationRow.swift in Sources */,
+				B9A8DABA2BB7364300A890CC /* PostsView.swift in Sources */,
 				B9FA6E752B82367B00D63E30 /* AttachmentView.swift in Sources */,
 				B9FB94992B2EEB9400D81C07 /* AddInstanceView.swift in Sources */,
 				B9FB94972B2EDABF00D81C07 /* SupportView.swift in Sources */,
@@ -878,7 +879,6 @@
 				B9FB945B2B2DEECE00D81C07 /* ThreadedApp.swift in Sources */,
 				B9FB94862B2E211200D81C07 /* Account+Elms.swift in Sources */,
 				B97491E32B6E96700098BC48 /* SymbolWidth.swift in Sources */,
-				B9DC692B2B78E60300E625B9 /* PostsView.swift in Sources */,
 				B9FB94BC2B2F035500D81C07 /* Tag.swift in Sources */,
 				B9029FC42B8125CE00AA9B68 /* HuggingFace.swift in Sources */,
 				B9BED51A2B5D662D00C9B715 /* ShareSheetController.swift in Sources */,
@@ -975,7 +975,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded.watchkitapp;
 				PRODUCT_NAME = Threaded;
 				SDKROOT = watchos;
@@ -1005,7 +1005,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded.watchkitapp;
 				PRODUCT_NAME = Threaded;
 				SDKROOT = watchos;
@@ -1145,6 +1145,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
@@ -1201,6 +1202,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
@@ -1231,7 +1233,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.2;
+				MARKETING_VERSION = 0.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1271,7 +1273,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.2;
+				MARKETING_VERSION = 0.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
