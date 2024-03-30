@@ -4,26 +4,31 @@ import SwiftUI
 
 struct PostsView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-//    @State var navigator: Navigator = Navigator()
+//    @EnvironmentObject private var navigator: Navigator
     
     @State private var showPicker: Bool = false
-    @State private var stringTimeline: String = "home"
-    @State private var timelines: [TimelineFilter] = [.trending, .home]
+    @State private var timelines: [TimelineFilter] = [.home, .trending, .local, .federated]
     
     @State private var loadingStatuses: Bool = false
     @State private var statuses: [Status]?
     @State private var lastSeen: Int?
     
-    @State var filter: TimelineFilter = .home
-    @State var showHero: Bool = true
+    @State var filter: TimelineFilter
+    @State var showHero: Bool = false
     @State var timelineModel: FetchTimeline // home timeline by default
     
-    init(filter: TimelineFilter = .home, showHero: Bool = true) {
-        self.timelineModel = FetchTimeline()
+    init(timelineModel: FetchTimeline, filter: TimelineFilter, showHero: Bool = false) {
+        self.timelineModel = timelineModel
         self.filter = filter
+        self.timelineModel.setTimelineFilter(filter)
         self.showHero = showHero
-        
-        self.timelineModel.setTimelineFilter(self.filter)
+    }
+    
+    init(filter: TimelineFilter, showHero: Bool = false) {
+        self.timelineModel = .init(client: AccountManager.shared.forceClient())
+        self.filter = filter
+        self.timelineModel.setTimelineFilter(filter)
+        self.showHero = showHero
     }
     
     var body: some View {
@@ -42,6 +47,44 @@ struct PostsView: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 30)
                                     .padding(.bottom)
+                            }
+                        }
+                        
+                        if showPicker {
+                            ViewThatFits {
+                                HStack {
+                                    ForEach(timelines, id: \.self) { t in
+                                        Button {
+                                            Task {
+                                                await reloadTimeline(t)
+                                            }
+                                        } label: {
+                                            Text(t.localizedTitle())
+                                                .padding(.horizontal)
+                                        }
+                                        .buttonStyle(LargeButton(filled: t == filter, height: 7.5))
+                                        .disabled(t == filter)
+                                    }
+                                }
+                                
+                                ScrollView(.horizontal) {
+                                    HStack {
+                                        ForEach(timelines, id: \.self) { t in
+                                            Button {
+                                                Task {
+                                                    await reloadTimeline(t)
+                                                }
+                                            } label: {
+                                                Text(t.localizedTitle())
+                                                    .padding(.horizontal)
+                                            }
+                                            .buttonStyle(LargeButton(filled: t == filter, height: 7.5))
+                                            .disabled(t == filter)
+                                        }
+                                    }
+                                }
+                                .padding(.vertical)
+                                .scrollIndicators(.hidden)
                             }
                         }
                         
@@ -72,7 +115,7 @@ struct PostsView: View {
                             loadingStatuses = false
                         }
                     }
-                    .padding(.top)
+//                    .padding(.top)
                     .background(Color.appBackground)
                 } else {
                     ZStack {
@@ -104,8 +147,8 @@ struct PostsView: View {
                     Color.appBackground
                         .ignoresSafeArea()
                         .onAppear {
+                            timelineModel.setTimelineFilter(filter)
                             if let client = accountManager.getClient() {
-                                timelineModel.client = client
                                 Task {
                                     statuses = await timelineModel.fetch(client: client)
                                 }
@@ -117,9 +160,23 @@ struct PostsView: View {
                 }
             }
         }
+        .navigationTitle(filter.localizedTitle())
         .background(Color.appBackground)
         .toolbarBackground(Color.appBackground, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .safeAreaPadding()
+    }
+    
+    private func reloadTimeline(_ filter: TimelineFilter) async {
+        guard let client = accountManager.getClient() else { return }
+        statuses = nil
+        self.filter = filter
+        timelineModel.setTimelineFilter(filter)
+        
+        Task {
+            loadingStatuses = true
+            statuses = await timelineModel.fetch(client: client)
+            lastSeen = nil
+            loadingStatuses = false
+        }
     }
 }

@@ -132,7 +132,7 @@ public enum RouterDestination: Hashable {
     case account(acc: Account)
     case post(status: Status)
     case contacts
-    case timeline(timeline: TimelineFilter?)
+    case timeline(timeline: TimelineFilter)
 }
 
 extension RouterDestination {
@@ -162,7 +162,7 @@ extension View {
                 case .restricted:
                     RestrictedView()
                 case .timeline(let timeline):
-                    PostsView(filter: timeline ?? .home, showHero: false)
+                    PostsView(filter: timeline)
             }
         }
     }

@@ -166,8 +166,7 @@ struct DiscoveryView: View {
                     } label: {
                         Text("tag.read")
                     }
-                    .buttonStyle(LargeButton(filled: true, height: 7.5, disabled: true))
-                    .disabled(true)
+                    .buttonStyle(LargeButton(filled: true, height: 7.5))
                 }
                 .padding()
             }
