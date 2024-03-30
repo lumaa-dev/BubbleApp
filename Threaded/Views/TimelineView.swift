@@ -7,8 +7,7 @@ struct TimelineView: View {
     @State var navigator: Navigator = Navigator()
     
     @State private var showPicker: Bool = false
-    @State private var stringTimeline: String = "home"
-    @State private var timelines: [TimelineFilter] = [.trending, .home]
+    @State private var timelines: [TimelineFilter] = [.home, .trending, .local, .federated]
     
     @State private var loadingStatuses: Bool = false
     @State private var statuses: [Status]?
@@ -20,6 +19,12 @@ struct TimelineView: View {
     
     init(timelineModel: FetchTimeline, filter: TimelineFilter = .home, showHero: Bool = true) {
         self.timelineModel = timelineModel
+        self.filter = filter
+        self.showHero = showHero
+    }
+    
+    init(filter: TimelineFilter = .home, showHero: Bool = true) {
+        self.timelineModel = .init(client: AccountManager.shared.forceClient())
         self.filter = filter
         self.showHero = showHero
     }
@@ -43,26 +48,43 @@ struct TimelineView: View {
                             }
                         }
                         
-//                        if showPicker {
-//                            //TODO: Fix this
-//                            
-//                            MetaPicker(items: timelines.map { $0.rawValue }, selectedItem: $stringTimeline) { item in
-//                                let title: String = timelines.filter{ $0.rawValue == item }.first?.localizedTitle() ?? "Unknown"
-//                                Text("\(title)")
-//                            }
-//                                .padding(.bottom)
-//                                .onChange(of: stringTimeline) { _, newTimeline in
-//                                    let loc = timelines.filter{ $0.rawValue == newTimeline }.first?.localizedTitle()
-//                                    switch (loc) {
-//                                        case "home":
-//                                            timeline = .home
-//                                        case "trending":
-//                                            timeline = .trending
-//                                        default:
-//                                            timeline = .home
-//                                    }
-//                                }
-//                        }
+                        if showPicker {
+                            ViewThatFits {
+                                HStack {
+                                    ForEach(timelines, id: \.self) { t in
+                                        Button {
+                                            Task {
+                                                await reloadTimeline(t)
+                                            }
+                                        } label: {
+                                            Text(t.localizedTitle())
+                                                .padding(.horizontal)
+                                        }
+                                        .buttonStyle(LargeButton(filled: t == filter, height: 7.5))
+                                        .disabled(t == filter)
+                                    }
+                                }
+                                
+                                ScrollView(.horizontal) {
+                                    HStack {
+                                        ForEach(timelines, id: \.self) { t in
+                                            Button {
+                                                Task {
+                                                    await reloadTimeline(t)
+                                                }
+                                            } label: {
+                                                Text(t.localizedTitle())
+                                                    .padding(.horizontal)
+                                            }
+                                            .buttonStyle(LargeButton(filled: t == filter, height: 7.5))
+                                            .disabled(t == filter)
+                                        }
+                                    }
+                                }
+                                .padding(.vertical)
+                                .scrollIndicators(.hidden)
+                            }
+                        }
                         
                         ForEach(statuses!, id: \.id) { status in
                             LazyVStack(alignment: .leading, spacing: 2) {
@@ -141,5 +163,19 @@ struct TimelineView: View {
         .toolbarBackground(Color.appBackground, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .safeAreaPadding()
+    }
+    
+    private func reloadTimeline(_ filter: TimelineFilter) async {
+        guard let client = accountManager.getClient() else { return }
+        statuses = nil
+        self.filter = filter
+        timelineModel.setTimelineFilter(filter)
+        
+        Task {
+            loadingStatuses = true
+            statuses = await timelineModel.fetch(client: client)
+            lastSeen = nil
+            loadingStatuses = false
+        }
     }
 }
