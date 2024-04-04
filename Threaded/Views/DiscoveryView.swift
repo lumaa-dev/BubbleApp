@@ -91,6 +91,12 @@ struct DiscoveryView: View {
             .withAppRouter(navigator)
             .navigationTitle(Text("discovery"))
         }
+        .environment(\.openURL, OpenURLAction { url in
+            // Open internal URL.
+//            guard preferences.browserType == .inApp else { return .systemAction }
+            let handled = navigator.handle(url: url)
+            return handled
+        })
         .environmentObject(navigator)
         .task {
             await fetchTrending()

@@ -94,6 +94,12 @@ struct NotificationsView: View {
                 }
             }
         }
+        .environment(\.openURL, OpenURLAction { url in
+            // Open internal URL.
+//            guard preferences.browserType == .inApp else { return .systemAction }
+            let handled = navigator.handle(url: url)
+            return handled
+        })
         .environmentObject(navigator)
         .task {
             loadingNotifs = true

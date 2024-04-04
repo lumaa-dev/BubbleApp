@@ -16,6 +16,11 @@ struct AccountView: View {
                     account = accountManager.forceAccount()
                 }
         }
+        .environment(\.openURL, OpenURLAction { url in
+            // Open internal URL.
+            let handled = navigator.handle(url: url)
+            return handled
+        })
         .environmentObject(navigator)
     }
 }

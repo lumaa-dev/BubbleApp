@@ -3,14 +3,15 @@
 import SwiftUI
 
 struct AboutView: View {
-    @ObservedObject private var userPreferences: UserPreferences = .defaultPreferences
+    @Environment(AppDelegate.self) private var appDelegate: AppDelegate
     @EnvironmentObject private var navigator: Navigator
+    @ObservedObject private var userPreferences: UserPreferences = .defaultPreferences
     
     var body: some View {
         List {
             Section(footer: Text("about.version-\(AppInfo.appVersion)")) {
                 NavigationLink {
-                    ComingSoonView()
+                    aboutApp
                 } label: {
                     Text("about.app")
                 }
@@ -47,18 +48,44 @@ struct AboutView: View {
     }
     
     var aboutApp: some View {
-        // TODO: Change this entire ugly thing
-        List {
-            Text("about.app.details")
-                .multilineTextAlignment(.leading)
-                .listRowThreaded()
-            Text("about.app.third-party")
-                .multilineTextAlignment(.leading)
-                .listRowThreaded()
+        ScrollView {
+            VStack(alignment: .center) {
+                Image("HeroIcon")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 100)
+                
+                Text(String("Threaded"))
+                    .font(.title.bold())
+                
+                Text(String("© Lumaa 2023-2024"))
+                    .font(.caption)
+                    .foregroundStyle(Color.gray)
+                
+                Spacer()
+                    .frame(height: 40)
+                
+                Text("about.app.details")
+                    .multilineTextAlignment(.leading)
+                    .frame(width: appDelegate.windowWidth - 50)
+                    .padding()
+                    .background(Material.bar)
+                    .clipShape(.rect(cornerRadius: 7.5))
+                
+                Spacer()
+                    .frame(height: 10)
+                
+                Text("about.app.third-party")
+                    .multilineTextAlignment(.leading)
+                    .frame(width: appDelegate.windowWidth - 50)
+                    .padding()
+                    .background(Material.bar)
+                    .clipShape(.rect(cornerRadius: 7.5))
+            }
+            .padding()
         }
-        .padding(.horizontal)
-        .listThreaded(tint: Color.blue)
+        .background(Color("AppBackground"))
         .navigationTitle("about.app")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -71,16 +71,10 @@ struct ContentView: View {
             
             _ = HuggingFace.getToken()
         }
-        .environment(\.openURL, OpenURLAction { url in
-            // Open internal URL.
-            guard preferences.browserType == .inApp else { return .systemAction }
-//            let handled = uniNavigator.handle(url: url)
-            return OpenURLAction.Result.handled
-        })
         .onOpenURL(perform: { url in
             guard preferences.browserType == .inApp else { return }
             uniNavigator.presentedSheet = .safari(url: url)
-//            let handled = uniNavigator.handle(url: url)
+            let handled = uniNavigator.handle(url: url)
         })
     }
     
