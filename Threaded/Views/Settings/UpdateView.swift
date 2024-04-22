@@ -41,7 +41,7 @@ struct UpdateView: View {
             
             newFeature(systemImage: "info.circle", title: "\"About Threaded\" redesign", text: "This informational view has been majorly changed!")
             
-            newFeature(systemImage: "checklist", title: "Polls fixes", text: "A few issues with polls have been fixed")
+            newFeature(systemImage: "number", title: "Read hashtags", text: "You can now view posts using a specific hashtag in the Discovery page.")
         }
         .frame(height: 500)
     }

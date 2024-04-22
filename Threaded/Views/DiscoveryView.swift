@@ -93,9 +93,10 @@ struct DiscoveryView: View {
         }
         .environment(\.openURL, OpenURLAction { url in
             // Open internal URL.
+            return .systemAction
 //            guard preferences.browserType == .inApp else { return .systemAction }
-            let handled = navigator.handle(url: url)
-            return handled
+//            let handled = navigator.handle(url: url)
+//            return handled
         })
         .environmentObject(navigator)
         .task {
