@@ -122,11 +122,57 @@ struct TimelineView: View {
                             .ignoresSafeArea()
                         
                         VStack {
-                            Image("HeroIcon")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 50)
-                                .padding(.bottom)
+                            if showHero {
+                                Button {
+                                    withAnimation(.easeInOut) {
+                                        showPicker.toggle()
+                                    }
+                                } label: {
+                                    Image("HeroIcon")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 30)
+                                        .padding(.bottom)
+                                }
+                            }
+                            
+                            if showPicker {
+                                ViewThatFits {
+                                    HStack {
+                                        ForEach(timelines, id: \.self) { t in
+                                            Button {
+                                                Task {
+                                                    await reloadTimeline(t)
+                                                }
+                                            } label: {
+                                                Text(t.localizedTitle())
+                                                    .padding(.horizontal)
+                                            }
+                                            .buttonStyle(LargeButton(filled: t == filter, height: 7.5))
+                                            .disabled(t == filter)
+                                        }
+                                    }
+                                    
+                                    ScrollView(.horizontal) {
+                                        HStack {
+                                            ForEach(timelines, id: \.self) { t in
+                                                Button {
+                                                    Task {
+                                                        await reloadTimeline(t)
+                                                    }
+                                                } label: {
+                                                    Text(t.localizedTitle())
+                                                        .padding(.horizontal)
+                                                }
+                                                .buttonStyle(LargeButton(filled: t == filter, height: 7.5))
+                                                .disabled(t == filter)
+                                            }
+                                        }
+                                    }
+                                    .padding(.vertical)
+                                    .scrollIndicators(.hidden)
+                                }
+                            }
                             
                             ContentUnavailableView {
                                 Text("timeline.empty")
