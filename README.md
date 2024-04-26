@@ -16,6 +16,9 @@ Join the Matrix Space to get support, with full security: [Join #threadedapp:mat
 
 ## Credits
 
+> [!NOTE]
+> The in-app "Credits" section will be updated more precisely on full release of the app.
+
 - [Lumaa](https://lumaa.fr/) - Developer
 - [@Damon](https://mozilla.social/@Damon) - Discord admin
 - [IceCubesApp](https://github.com/dimillian/IceCubesApp) by [@Dimillian](https://github.com/dimillian)
