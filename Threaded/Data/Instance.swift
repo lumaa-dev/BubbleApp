@@ -3,7 +3,7 @@
 import Foundation
 
 public struct Instance: Codable, Sendable {
-    static let blocklistUrl: URL? = URL(string: "https://codeberg.org/oliphant/blocklists/raw/branch/main/blocklists/_unified_tier2_blocklist.csv")
+    static let blocklistUrl: URL? = URL(string: "https://codeberg.org/oliphant/blocklists/raw/branch/main/blocklists/_unified_tier0_blocklist.csv")
     
     @MainActor
     static func getBlocklist() -> [String] {

@@ -19,7 +19,7 @@ Join the Matrix Space to get support, with full security: [Join #threadedapp:mat
 - [Lumaa](https://lumaa.fr/) - Developer
 - [@Damon](https://mozilla.social/@Damon) - Discord admin
 - [IceCubesApp](https://github.com/dimillian/IceCubesApp) by [@Dimillian](https://github.com/dimillian)
-- [Tier 2 Instance Blocklist](https://codeberg.org/oliphant/blocklists/raw/branch/main/blocklists/_unified_tier2_blocklist.csv)
+- [Instance Blocklist](https://codeberg.org/oliphant/blocklists/raw/branch/main/blocklists/_unified_tier0_blocklist.csv)
 
 ## Packages
 - [SwiftSoup](https://github.com/scinfu/SwiftSoup)
