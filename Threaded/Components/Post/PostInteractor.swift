@@ -15,7 +15,7 @@ struct PostInteractor: View {
     var body: some View {
         ViewThatFits {
             HStack(spacing: 13) {
-                asyncActionButton(isLiked ? "heart.fill" : "heart") {
+                asyncActionButton(isLiked ? "heart.fill" : "heart", color: isLiked ? Color.pink : Color(uiColor: UIColor.label)) {
                     do {
                         HapticManager.playHaptics(haptics: Haptic.tap)
                         try await likePost()
@@ -57,7 +57,7 @@ struct PostInteractor: View {
             }
             
             HStack(spacing: 13) {
-                asyncActionButton(isLiked ? "heart.fill" : "heart") {
+                asyncActionButton(isLiked ? "heart.fill" : "heart", color: isLiked ? Color.pink : Color(uiColor: UIColor.label)) {
                     do {
                         HapticManager.playHaptics(haptics: Haptic.tap)
                         try await likePost()
@@ -151,6 +151,11 @@ struct PostInteractor: View {
     
     @ViewBuilder
     func asyncActionButton(_ image: String, action: @escaping () async -> Void) -> some View {
+        asyncActionButton(image, color: Color(uiColor: UIColor.label), action: action)
+    }
+    
+    @ViewBuilder
+    func asyncActionButton(_ image: String, color: Color, action: @escaping () async -> Void) -> some View {
         Button {
             Task {
                 await action()
@@ -158,8 +163,9 @@ struct PostInteractor: View {
         } label: {
             Image(systemName: image)
                 .font(.system(size: 22))
+                .contentTransition(.symbolEffect(.replace.downUp.wholeSymbol))
         }
-        .tint(Color(uiColor: UIColor.label))
+        .tint(color)
         .contentShape(Rectangle())
     }
 }
