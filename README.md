@@ -49,6 +49,6 @@ Join the Matrix Space to get support, with full security: [Join #threadedapp:mat
 
 - [x] Share posts as [images](https://developer.apple.com/documentation/swiftui/imagerenderer) and copy/share text to clipboard
 
-- [ ] A proper messaging user interface
+- [ ] A proper messaging user interface - Later
 
 - [x] [In-app purchases](https://mastodon.online/@Threaded/111813166173390719) and/or subscriptions
