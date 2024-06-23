@@ -118,7 +118,7 @@ struct ShopView: View {
     }
     
     @ViewBuilder
-    private func feature(_ title: LocalizedStringKey, description: LocalizedStringKey = LocalizedStringKey(stringLiteral: ""), systemImage: String) -> some View {
+    private func feature(_ title: LocalizedStringKey, description: LocalizedStringKey = LocalizedStringKey(String("")), systemImage: String) -> some View {
         HStack(alignment: .center) {
             Image(systemName: systemImage)
                 .resizable()
