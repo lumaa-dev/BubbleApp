@@ -1,10 +1,17 @@
 //Made by Lumaa
 
+/// An available app on the App Store
+protocol DownloadableApp {
+    static var name: String { get }
+    static var `default`: String { get }
+}
+
 /// All other Mastodon clients' URIs found
 final class AltClients {
     
     // - Official iOS Mastodon client by Mastodon
-    struct OfficialMastodon {
+    struct OfficialMastodon: DownloadableApp {
+        static let name = "Mastodon"
         static let `default` = "mastodon://"
         
         static let post = "\(Self.default)post"
@@ -21,10 +28,12 @@ final class AltClients {
         static func profile(acct: String) -> String {
             return "\(Self.default)status/\(acct)"
         }
+        
     }
     
     // - IcesCubesApp by Dimillian, open-source
-    struct IceCubesApp {
+    struct IceCubesApp: DownloadableApp {
+        static let name = "Ice Cubes"
         static let `default` = "icecubesapp://"
         
         static func profile(server: String, username: String) -> String {
@@ -48,9 +57,10 @@ final class AltClients {
     }
     
     // - Ivory by Tapbots
-    struct IvoryApp {
+    struct IvoryApp: DownloadableApp {
         // official URL Schemes: https://tapbots.com/support/ivory/tips/urlschemes
         
+        static let name = "Ivory"
         static let `default` = "ivory://"
         
         static func profile(account: Account) -> String {
@@ -68,7 +78,8 @@ final class AltClients {
     }
     
     /// Threads by Meta Platforms only allows connections from inside their personal protocol just yet
-    struct ThreadsApp {
+    struct ThreadsApp: DownloadableApp {
+        static let name = "Threads"
         static let `default` = "barcelona://"
         
         static func profile(_ username: String) -> String {
@@ -85,7 +96,8 @@ final class AltClients {
     }
     
     /// X by X Corp. only allows connections from inside their personal protocol
-    struct XApp {
+    struct XApp: DownloadableApp {
+        static let name = "X (formerly Twitter)"
         static let `default` = "twitter://"
         
         static func createPost(_ text: String) -> String {
