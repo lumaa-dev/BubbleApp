@@ -32,8 +32,14 @@ final class AltClients {
         }
         
         static func profile(account: Account) -> String {
-            let url = account.url?.absoluteString.replacingOccurrences(of: "https://", with: Self.default)
-            return url ?? Self.default
+            let username = account.username
+            let server = account.acct.split(separator: "@")[1]
+            
+            return Self.profile(server: String(server), username: username)
+        }
+        
+        static func status(_ statusUrl: String) -> String {
+            return Self.default + "\(statusUrl.replacingOccurrences(of: "https://", with: ""))"
         }
         
         static func status(_ status: Status) -> String {
@@ -43,8 +49,48 @@ final class AltClients {
     
     // - Ivory by Tapbots
     struct IvoryApp {
+        // official URL Schemes: https://tapbots.com/support/ivory/tips/urlschemes
+        
         static let `default` = "ivory://"
         
-        // Others found don't work? Maybe because of demo
+        static func profile(account: Account) -> String {
+            return "\(Self.default)acct/user_profile/\(account.acct)"
+        }
+        
+        static func profile(acct: String) -> String {
+            return "\(Self.default)acct/user_profile/\(acct)"
+        }
+        
+        static func createPost(_ text: String) -> String {
+            let compose = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            return "\(Self.default)acct/post?text=\(compose)"
+        }
+    }
+    
+    /// Threads by Meta Platforms only allows connections from inside their personal protocol just yet
+    struct ThreadsApp {
+        static let `default` = "barcelona://"
+        
+        static func profile(_ username: String) -> String {
+            return "\(Self.default)user?username=\(username)"
+        }
+        
+        static let settings = "\(Self.default)settings"
+        static let search = "\(Self.default)search"
+        
+        static func createPost(_ text: String) -> String {
+            let compose = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            return "\(Self.default)create?text=\(compose)"
+        }
+    }
+    
+    /// X by X Corp. only allows connections from inside their personal protocol
+    struct XApp {
+        static let `default` = "twitter://"
+        
+        static func createPost(_ text: String) -> String {
+            let compose = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            return "\(Self.default)post?message=\(compose)"
+        }
     }
 }
