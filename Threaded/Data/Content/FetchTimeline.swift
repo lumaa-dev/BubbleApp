@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct FetchTimeline {
+class FetchTimeline {
     var client: Client?
     public private(set) var datasource: [Status] = []
     public var statusesState: LoadingState = .loading
@@ -17,7 +17,7 @@ struct FetchTimeline {
         self.client = nil
     }
     
-    public mutating func fetch(client: Client) async -> [Status] {
+    public func fetch(client: Client) async -> [Status] {
         self.client = client
         self.statusesState = .loading
         self.datasource = await fetchNewestStatuses()
@@ -25,7 +25,7 @@ struct FetchTimeline {
         return self.datasource
     }
     
-    public mutating func addStatuses(lastStatusIndex: Int) async -> [Status] {
+    public func addStatuses(lastStatusIndex: Int) async -> [Status] {
 //        print("i: \(lastStatusIndex)\ndatasource-6: \(self.datasource.count - 6)")
         guard client != nil && lastStatusIndex >= self.datasource.count - 6 else { return self.datasource }
         
@@ -39,7 +39,7 @@ struct FetchTimeline {
         return self.datasource
     }
     
-    private mutating func fetchNewestStatuses(lastStatusId: String? = nil) async -> [Status] {
+    private func fetchNewestStatuses(lastStatusId: String? = nil) async -> [Status] {
         guard client != nil else { return [] }
         do {
             let statuses: [Status] = try await client!.get(endpoint: timeline.endpoint(sinceId: nil, maxId: lastStatusId, minId: nil, offset: 0))
@@ -55,7 +55,7 @@ struct FetchTimeline {
         return []
     }
     
-    mutating func setTimelineFilter(_ filter: TimelineFilter) {
+    func setTimelineFilter(_ filter: TimelineFilter) {
         self.timeline = filter
     }
     
