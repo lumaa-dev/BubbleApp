@@ -225,6 +225,12 @@ extension SettingsView {
                         }
                     }
                     .contextMenu {
+                        Button {
+                            app.saveAsCurrent()
+                        } label: {
+                            Label("settings.account-switcher.default", systemImage: "person.crop.circle.dashed")
+                        }
+                        
                         if !currentAccount {
                             Button(role: .destructive) {
                                 modelContext.delete(self.logged)
