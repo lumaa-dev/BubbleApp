@@ -60,7 +60,6 @@
 		B9B469CB2B9A816D00AD5585 /* LoggedAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98627302B86F23500844245 /* LoggedAccounts.swift */; };
 		B9B469CD2B9A823600AD5585 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B9B469CC2B9A823600AD5585 /* Localizable.xcstrings */; };
 		B9B469CF2B9A82ED00AD5585 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B9B469CE2B9A82ED00AD5585 /* KeychainSwift */; };
-		B9B469D12B9A82FD00AD5585 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B469D02B9A82FD00AD5585 /* SwiftUI.framework */; };
 		B9B469D42B9A871C00AD5585 /* WatchConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469D32B9A871C00AD5585 /* WatchConnectivity.swift */; };
 		B9B469D52B9A871C00AD5585 /* WatchConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469D32B9A871C00AD5585 /* WatchConnectivity.swift */; };
 		B9B469D72B9A8B0700AD5585 /* GivenAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469D62B9A8B0700AD5585 /* GivenAccount.swift */; };
@@ -229,7 +228,6 @@
 		B9B469BD2B9A7E6B00AD5585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9B469C02B9A7E6B00AD5585 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B9B469CC2B9A823600AD5585 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		B9B469D02B9A82FD00AD5585 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS10.4.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
 		B9B469D22B9A838500AD5585 /* ThreadedWatch Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "ThreadedWatch Watch App.entitlements"; sourceTree = "<group>"; };
 		B9B469D32B9A871C00AD5585 /* WatchConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivity.swift; sourceTree = "<group>"; };
 		B9B469D62B9A8B0700AD5585 /* GivenAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GivenAccount.swift; sourceTree = "<group>"; };
@@ -308,7 +306,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9B469D12B9A82FD00AD5585 /* SwiftUI.framework in Frameworks */,
 				B9B469CF2B9A82ED00AD5585 /* KeychainSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,7 +573,6 @@
 		B9FB94A82B2F009F00D81C07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B9B469D02B9A82FD00AD5585 /* SwiftUI.framework */,
 				B9DC692C2B79362700E625B9 /* StoreKit.framework */,
 				B9FB94A92B2F009F00D81C07 /* AuthenticationServices.framework */,
 				B9C20D0A2B921C78004DC9B3 /* WidgetKit.framework */,
