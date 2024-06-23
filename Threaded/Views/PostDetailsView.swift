@@ -176,7 +176,7 @@ struct PostDetailsView: View {
                 }
                 
                 if detailedStatus.repliesCount > 0 && (detailedStatus.favouritesCount > 0 || isLiked) {
-                    Text("•")
+                    Text(verbatim: "•")
                         .foregroundStyle(.gray)
                 }
                 
@@ -201,7 +201,7 @@ struct PostDetailsView: View {
                 }
                 
                 if detailedStatus.reblog!.repliesCount > 0 && (detailedStatus.reblog!.favouritesCount > 0 || isLiked) {
-                    Text("•")
+                    Text(verbatim: "•")
                         .foregroundStyle(.gray)
                 }
                 

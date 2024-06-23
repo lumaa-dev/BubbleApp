@@ -231,7 +231,7 @@ struct CompactPostView: View {
             }
             
             if status.repliesCount > 0 && (status.favouritesCount > 0 || isLiked) {
-                Text("•")
+                Text(verbatim: "•")
                     .foregroundStyle(.gray)
             }
             
