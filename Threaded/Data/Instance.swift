@@ -6,7 +6,7 @@ public struct Instance: Codable, Sendable {
     static let blocklistUrl: URL? = URL(string: "https://codeberg.org/oliphant/blocklists/raw/branch/main/blocklists/_unified_tier0_blocklist.csv")
     
     @MainActor
-    static func getBlocklist() -> [String] {
+    static func getBlocklist() async -> [String] {
         var final: [String] = []
         //locate the file you want to use
         guard let filelink = Instance.blocklistUrl else {
@@ -14,16 +14,17 @@ public struct Instance: Codable, Sendable {
         }
         
         //convert that file into one long string
-        var data = ""
+        var string = ""
         do {
-            data = try String(contentsOf: filelink)
+            let data = try await URLSession.shared.data(from: filelink).0
+            string = String(data: data, encoding: .utf8) ?? ""
         } catch {
             print(error)
             return []
         }
         
         //now split that string into an array of "rows" of data.  Each row is a string.
-        var rows = data.components(separatedBy: "\n")
+        var rows = string.components(separatedBy: "\n")
         
         //if you have a header row, remove it here
         rows.removeFirst()
