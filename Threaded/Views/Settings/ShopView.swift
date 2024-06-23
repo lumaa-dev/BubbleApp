@@ -11,13 +11,14 @@ struct ShopView: View {
     @State private var showSub: Bool = false
     @State private var purchaseError: Bool = false
     
-    private var canPay: Bool {
-        #if DEBUG
-        return true
-        #else
-        return false
-        #endif
-    }
+//    private var canPay: Bool {
+//        #if DEBUG
+//        return true
+//        #else
+//        return false
+//        #endif
+//    }
+    private var canPlay: Bool = false
     
     var body: some View {
         VStack {
