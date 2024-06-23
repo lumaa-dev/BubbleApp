@@ -7,9 +7,9 @@
 
 Threaded is free, made in SwiftUI, [#OpenSource](https://github.com/lumaa-dev/ThreadedApp), and doesn't violate [#YourPrivacy](https://apps.lumaa.fr/legal/privacy). Follow the [#ThreadedAccount](https://mastodon.online/@Threaded) on Mastodon, for progress, updates, polls, and more...
 
-Threaded also includes its own premium service, available as a subscription and lifetime payment, called Threaded+ (or Plus for short). Plus only adds additional features to Threaded, you don't need a subscription to like, post, bookmark, or use any primary Mastodon feature.
+Threaded **will** also includes its own premium service, available as a subscription and lifetime payment, called Threaded+ (or Plus for short). Plus only adds additional features to Threaded, you don't need a subscription to like, post, bookmark, or use any primary Mastodon feature. Currently, all available Threaded+ features are free, until further notice.
 
-With Threaded+, you can have a better Content Filter, you can save attachments, you get exclusive sneak peeks to Threaded's next updates, and other premium features! Prices revealed later this year.
+With Threaded+, you can have a better Content Filter, you can save attachments, you get exclusive sneak peeks to Threaded's next updates, and other premium features! 
 
 Join the Threaded Discord server to receive help, talk about the Fediverse, and many other things: [Join Threaded](https://discord.gg/MaHcRbkX46)\
 Join the Matrix Space to get support, with full security: [Join #threadedapp:matrix.org](https://matrix.to/#/#threadedapp:matrix.org)
