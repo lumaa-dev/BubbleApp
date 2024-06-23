@@ -21,7 +21,7 @@ struct PostPoll: View {
                 let index = poll.options.firstIndex(where: { $0.id == option.id })
                 let isMostVoted: Bool = self.isMostVoted(option: option)
                 
-                let clamped: Double = Double(option.votesCount ?? 0) / Double(poll.safeVotersCount)
+                let clamped: Double = Double(option.votesCount ?? 0) / max(Double(poll.safeVotersCount), 1.0)
                 
                 Button {
                     if !submitted && !poll.expired {
