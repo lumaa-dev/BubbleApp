@@ -103,7 +103,7 @@ struct AddInstanceView: View {
                 verifying = true
             }
             
-            blockList = Instance.getBlocklist()
+            blockList = await Instance.getBlocklist()
             
             withAnimation {
                 verifying = false
