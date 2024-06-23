@@ -70,7 +70,9 @@ public class Navigator: ObservableObject {
     }
 }
 
-public class UniversalNavigator: Navigator {}
+public class UniversalNavigator: Navigator {
+    public var tabNavigator: Navigator?
+}
 
 public enum TabDestination: Identifiable {
     case timeline
