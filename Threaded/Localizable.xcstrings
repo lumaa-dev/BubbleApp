@@ -2544,6 +2544,22 @@
         }
       }
     },
+    "status.cross-post.alts" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post on other app"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publier sur une autre app"
+          }
+        }
+      }
+    },
     "status.editing" : {
       "localizations" : {
         "en" : {
