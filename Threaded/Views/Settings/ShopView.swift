@@ -18,7 +18,7 @@ struct ShopView: View {
 //        return false
 //        #endif
 //    }
-    private var canPlay: Bool = false
+    private var canPay: Bool = false
     
     var body: some View {
         VStack {
