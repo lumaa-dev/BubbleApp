@@ -51,127 +51,135 @@ struct SupportView: View {
     }
     
     var discordSupport: some View {
-        VStack(alignment: .center) {
-            Image("DiscordMark")
-                .mark()
-            
-            Text("support.discord")
-                .font(.title.bold())
-            
-            Text("support.discord.description")
-                .padding(.horizontal)
-                .lineLimit(3, reservesSpace: true)
-            
-            Button {
-                let discordUrl = URL(string: "https://discord.gg/MaHcRbkX46")
-                openURL(discordUrl!)
-            } label: {
-                Text("support.discord.join")
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
+        ZStack {
+            VStack(alignment: .center) {
+                Image("DiscordMark")
+                    .mark()
+                
+                Text("support.discord")
+                    .font(.title.bold())
+                
+                Text("support.discord.description")
+                    .padding(.horizontal)
+                    .lineLimit(3, reservesSpace: true)
+                
+                Button {
+                    let discordUrl = URL(string: "https://discord.gg/MaHcRbkX46")
+                    openURL(discordUrl!)
+                } label: {
+                    Text("support.discord.join")
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                }
+                .zIndex(10.0)
+                .buttonStyle(.borderedProminent)
+                .tint(Color.blurple)
+                .padding(.vertical)
             }
-            .zIndex(10.0)
-            .buttonStyle(.borderedProminent)
-            .tint(Color.blurple)
-            .padding(.vertical)
+            .boxify(appDelegate.windowWidth - 50, bgColor: Color.blurple)
         }
-        .boxify(appDelegate.windowWidth - 50, bgColor: Color.blurple)
     }
     
     var matrixSupport: some View {
-        VStack(alignment: .center) {
-            Image("ElementMark")
-                .mark()
-            
-            Text("support.matrix")
-                .font(.title.bold())
-            
-            Text("support.matrix.description")
-                .padding(.horizontal)
-                .lineLimit(3, reservesSpace: true)
-            
-            Button {
-                let matrixUrl = URL(string: "https://matrix.to/#/#threadedapp:matrix.org")
-                openURL(matrixUrl!)
-            } label: {
-                Text("support.matrix.join")
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
+        ZStack {
+            VStack(alignment: .center) {
+                Image("ElementMark")
+                    .mark()
+                
+                Text("support.matrix")
+                    .font(.title.bold())
+                
+                Text("support.matrix.description")
+                    .padding(.horizontal)
+                    .lineLimit(3, reservesSpace: true)
+                
+                Button {
+                    let matrixUrl = URL(string: "https://matrix.to/#/#threadedapp:matrix.org")
+                    openURL(matrixUrl!)
+                } label: {
+                    Text("support.matrix.join")
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                }
+                .zIndex(10.0)
+                .buttonStyle(.borderedProminent)
+                .tint(Color.mountainMeadow)
+                .padding(.vertical)
             }
-            .zIndex(10.0)
-            .buttonStyle(.borderedProminent)
-            .tint(Color.mountainMeadow)
-            .padding(.vertical)
+            .boxify(appDelegate.windowWidth - 50,bgColor: Color.mountainMeadow)
         }
-        .boxify(appDelegate.windowWidth - 50,bgColor: Color.mountainMeadow)
     }
     
     var mentionAccount: some View {
-        VStack(alignment: .center) {
-            Image(systemName: "at")
-                .mark()
-                .foregroundStyle(Color(uiColor: UIColor.label))
-            
-            Text("support.mention")
-                .font(.title.bold())
-            
-            Text("support.mention.description")
-                .padding(.horizontal)
-                .lineLimit(3, reservesSpace: true)
-            
-            Button {
-                uniNav.presentedSheet = .post(content: "@Threaded@mastodon.online", replyId: nil, editId: nil)
-            } label: {
-                Text("support.mention.post")
-                    .foregroundStyle(Color(uiColor: UIColor.systemBackground))
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
+        ZStack {
+            VStack(alignment: .center) {
+                Image(systemName: "at")
+                    .mark()
+                    .foregroundStyle(Color(uiColor: UIColor.label))
+                
+                Text("support.mention")
+                    .font(.title.bold())
+                
+                Text("support.mention.description")
+                    .padding(.horizontal)
+                    .lineLimit(3, reservesSpace: true)
+                
+                Button {
+                    uniNav.presentedSheet = .post(content: "@Threaded@mastodon.online", replyId: nil, editId: nil)
+                } label: {
+                    Text("support.mention.post")
+                        .foregroundStyle(Color(uiColor: UIColor.systemBackground))
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                }
+                .zIndex(10.0)
+                .buttonStyle(.borderedProminent)
+                .tint(Color(uiColor: UIColor.label))
+                .padding(.vertical)
             }
-            .zIndex(10.0)
-            .buttonStyle(.borderedProminent)
-            .tint(Color(uiColor: UIColor.label))
-            .padding(.vertical)
+            .boxify(appDelegate.windowWidth - 50, bgColor: Color(uiColor: UIColor.label))
         }
-        .boxify(appDelegate.windowWidth - 50, bgColor: Color(uiColor: UIColor.label))
     }
     
     var mailApp: some View {
-        VStack(alignment: .center) {
-            Image(systemName: "envelope.fill")
-                .mark()
-                .foregroundStyle(Color.blue)
-            
-            Text("support.email")
-                .font(.title.bold())
-            
-            Text("support.email.description")
-                .padding(.horizontal)
-                .lineLimit(3, reservesSpace: true)
-            
-            Button {
-                mailComposer.toggle()
-            } label: {
-                Text("support.mail.send")
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
-            }
-            .zIndex(10.0)
-            .disabled(!MFMailComposeViewController.canSendMail())
-            .buttonStyle(.borderedProminent)
-            .tint(Color.blue)
-            .padding(.vertical)
-            .overlay(alignment: .bottom) {
-                if !MFMailComposeViewController.canSendMail() {
-                    Text("support.mail.no-mail")
-                        .font(.caption)
-                        .foregroundStyle(Color.gray)
-                        .frame(width: 300)
-                        .offset(y: 15.0)
+        ZStack {
+            VStack(alignment: .center) {
+                Image(systemName: "envelope.fill")
+                    .mark()
+                    .foregroundStyle(Color.blue)
+                
+                Text("support.email")
+                    .font(.title.bold())
+                
+                Text("support.email.description")
+                    .padding(.horizontal)
+                    .lineLimit(3, reservesSpace: true)
+                
+                Button {
+                    mailComposer.toggle()
+                } label: {
+                    Text("support.mail.send")
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
                 }
+                .zIndex(10.0)
+                .disabled(!MFMailComposeViewController.canSendMail())
+                .buttonStyle(.borderedProminent)
+                .tint(Color.blue)
+                .padding(.vertical)
+                .overlay(alignment: .bottom) {
+                    if !MFMailComposeViewController.canSendMail() {
+                        Text("support.mail.no-mail")
+                            .font(.caption)
+                            .foregroundStyle(Color.gray)
+                            .frame(width: 300)
+                            .offset(y: 15.0)
+                    }
+                }
+                
             }
-            
+            .boxify(appDelegate.windowWidth - 50, bgColor: Color.blue)
         }
-        .boxify(appDelegate.windowWidth - 50, bgColor: Color.blue)
     }
 }
 
