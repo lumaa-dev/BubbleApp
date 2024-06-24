@@ -115,36 +115,6 @@ struct PostingView: View {
         .safeAreaInset(edge: .bottom, alignment: .leading) {
             VStack(alignment: .leading) {
                 HStack {
-                    Picker("status.posting.visibility", selection: $visibility) {
-                        ForEach(Visibility.allCases, id: \.self) { item in
-                            HStack(alignment: .firstTextBaseline) {
-                                switch (item) {
-                                    case .pub:
-                                        Label("status.posting.visibility.public", systemImage: "text.magnifyingglass")
-                                            .foregroundStyle(Color.gray)
-                                            .multilineTextAlignment(.leading)
-                                    case .unlisted:
-                                        Label("status.posting.visibility.unlisted", systemImage: "magnifyingglass")
-                                            .foregroundStyle(Color.gray)
-                                            .multilineTextAlignment(.leading)
-                                    case .direct:
-                                        Label("status.posting.visibility.direct", systemImage: "paperplane")
-                                            .foregroundStyle(Color.gray)
-                                            .multilineTextAlignment(.leading)
-                                    case .priv:
-                                        Label("status.posting.visibility.private", systemImage: "lock.fill")
-                                            .foregroundStyle(Color.gray)
-                                            .multilineTextAlignment(.leading)
-                                }
-                            }
-                        }
-                    }
-                    .labelsHidden()
-                    .pickerStyle(.menu)
-                    .foregroundStyle(Color.gray)
-                    .frame(width: 200, alignment: .leading)
-                    .multilineTextAlignment(.leading)
-                    
                     Spacer()
                     
                     Button {
@@ -178,6 +148,10 @@ struct PostingView: View {
                     Text("status.posting.cancel")
                 }
             }
+            
+            ToolbarItem(placement: .confirmationAction) {
+                privacyPicker
+            }
         }
         .onAppear {
             self.pref = try! UserPreferences.loadAsCurrent()
@@ -189,6 +163,36 @@ struct PostingView: View {
                 viewModel.append(text: initialString) // editing doesn't need quick typing
             }
         }
+    }
+    
+    var privacyPicker: some View {
+        Picker("status.posting.visibility", selection: $visibility) {
+            ForEach(Visibility.allCases, id: \.self) { item in
+                HStack(alignment: .firstTextBaseline) {
+                    switch (item) {
+                        case .pub:
+                            Label("status.posting.visibility.public", systemImage: "text.magnifyingglass")
+                                .foregroundStyle(Color.gray)
+                                .multilineTextAlignment(.leading)
+                        case .unlisted:
+                            Label("status.posting.visibility.unlisted", systemImage: "magnifyingglass")
+                                .foregroundStyle(Color.gray)
+                                .multilineTextAlignment(.leading)
+                        case .direct:
+                            Label("status.posting.visibility.direct", systemImage: "paperplane")
+                                .foregroundStyle(Color.gray)
+                                .multilineTextAlignment(.leading)
+                        case .priv:
+                            Label("status.posting.visibility.private", systemImage: "lock.fill")
+                                .foregroundStyle(Color.gray)
+                                .multilineTextAlignment(.leading)
+                    }
+                }
+            }
+        }
+        .labelsHidden()
+        .pickerStyle(.menu)
+        .foregroundStyle(Color.gray)
     }
     
     private func postText() {
@@ -815,7 +819,7 @@ extension PostingView {
                         }
                     }
                     .tint(tasking ? Color(uiColor: UIColor.label) : Color.blue)
-                    .disabled(tasking)
+                    .disabled(true)
                 }
                 .navigationTitle(Text("posting.alt.header"))
                 .navigationBarTitleDisplayMode(.inline)
