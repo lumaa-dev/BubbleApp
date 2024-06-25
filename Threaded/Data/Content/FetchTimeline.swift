@@ -39,10 +39,11 @@ class FetchTimeline {
         return self.datasource
     }
     
-    private func fetchNewestStatuses(lastStatusId: String? = nil) async -> [Status] {
+    private func fetchNewestStatuses(lastStatusId: String? = nil, filter: PostFilter? = nil) async -> [Status] {
         guard client != nil else { return [] }
         do {
-            let statuses: [Status] = try await client!.get(endpoint: timeline.endpoint(sinceId: nil, maxId: lastStatusId, minId: nil, offset: 0))
+            var statuses: [Status] = try await client!.get(endpoint: timeline.endpoint(sinceId: nil, maxId: lastStatusId, minId: nil, offset: 0))
+            statuses = applyContentFilter(statuses, filter: filter)
             if lastStatusId == nil {
                 self.datasource = statuses
             }
@@ -57,6 +58,34 @@ class FetchTimeline {
     
     func setTimelineFilter(_ filter: TimelineFilter) {
         self.timeline = filter
+    }
+    
+    func useContentFilter(_ filter: PostFilter) async -> [Status] {
+        self.datasource = []
+        self.statusesState = .loading
+        return await self.fetchNewestStatuses(lastStatusId: nil, filter: filter)
+    }
+    
+    func applyContentFilter(_ statuses: [Status], filter: PostFilter? = nil) -> [Status] {
+        guard let postFilter = filter else { return statuses }
+        var filteredStatuses: [Status] = statuses
+        let contentFilter: any PostFilter = postFilter
+        
+        for post in statuses {
+            let i = statuses.firstIndex(of: post) ?? -1
+            
+            _ = contentFilter.filter(post, type: .censor) { sensitive in
+                post.content.asRawText = post.content.asRawText.replacingOccurrences(of: sensitive, with: "***")
+                post.content.asMarkdown = post.content.asMarkdown.replacingOccurrences(of: sensitive, with: "***")
+                post.content.asSafeMarkdownAttributedString = post.content.asSafeMarkdownAttributedString.replacing(sensitive, with: "***")
+                
+                filteredStatuses[i] = post
+                
+                print("Edited \(post.account.acct)'s post")
+            }
+        }
+        
+        return filteredStatuses
     }
     
     func getStatuses() -> [Status] {

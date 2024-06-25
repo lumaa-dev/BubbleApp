@@ -12,7 +12,7 @@ public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable
     }
     
     public let id: String
-    public let content: HTMLString
+    public var content: HTMLString
     public let account: Account
     public let createdAt: ServerDate
     public let editedAt: ServerDate?

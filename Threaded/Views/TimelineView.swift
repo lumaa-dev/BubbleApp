@@ -98,6 +98,8 @@ struct TimelineView: View {
                     }
                     .refreshable {
                         if let client = accountManager.getClient() {
+                            statuses = []
+                            
                             Task {
                                 loadingStatuses = true
                                 statuses = await timelineModel.fetch(client: client)
@@ -111,6 +113,21 @@ struct TimelineView: View {
                             loadingStatuses = true
                             statuses = await timelineModel.addStatuses(lastStatusIndex: new)
                             loadingStatuses = false
+                        }
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .primaryAction) {
+                            Button {
+                                statuses = []
+                                
+                                Task {
+                                    loadingStatuses = true
+                                    statuses = await self.timelineModel.useContentFilter(ContentFilter.WordFilter(categoryName: "Test", words: ["is"]))
+                                    loadingStatuses = false
+                                }
+                            } label: {
+                                Image(systemName: "line.3.horizontal.decrease.circle")
+                            }
                         }
                     }
                     .padding(.top)
