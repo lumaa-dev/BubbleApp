@@ -11,14 +11,13 @@ struct ShopView: View {
     @State private var showSub: Bool = false
     @State private var purchaseError: Bool = false
     
-//    private var canPay: Bool {
-//        #if DEBUG
-//        return true
-//        #else
-//        return false
-//        #endif
-//    }
-    private var canPay: Bool = false
+    private var canPay: Bool {
+        #if DEBUG || targetEnvironment(simulator)
+        return true
+        #else
+        return false
+        #endif
+    }
     
     var body: some View {
         VStack {
@@ -49,10 +48,10 @@ struct ShopView: View {
                 .overlay(alignment: .topTrailing) {
                     Text("shop.best")
                         .foregroundStyle(Color.white)
-                        .font(.caption.smallCaps())
+                        .font(.title2.bold())
                         .lineLimit(1)
                         .minimumScaleFactor(0.1)
-                        .padding(10)
+                        .padding(4.5)
                         .background(Capsule().fill(Color.red))
                         .offset(x: 20.0, y: -25.0)
                         .rotationEffect(.degrees(25.0))
