@@ -39,6 +39,14 @@ struct ThreadedApp: App {
     }
 }
 
+public extension View {
+    @ViewBuilder
+    func modelData() -> some View {
+        self
+            .modelContainer(for: [LoggedAccount.self, ContentFilter.WordFilter.self])
+    }
+}
+
 extension AppInfo {
     static var appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
 }

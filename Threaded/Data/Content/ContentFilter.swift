@@ -2,6 +2,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 /// A content filter designed for posts and its author
 protocol PostFilter {
@@ -59,6 +60,9 @@ extension PostFilter {
 }
 
 class ContentFilter {
+    static let defaultFilter: ContentFilter.WordFilter = .init(categoryName: "Default", words: [])
+    
+    @Model
     class WordFilter: PostFilter {
         let categoryName: String
         var content: [String]

@@ -25,14 +25,6 @@ class LoggedAccount {
     }
 }
 
-public extension View {
-    @ViewBuilder
-    func modelData() -> some View {
-        self
-            .modelContainer(for: LoggedAccount.self)
-    }
-}
-
 public struct AppAccount: Codable, Identifiable, Hashable {
     public let server: String
     public var accountName: String?
