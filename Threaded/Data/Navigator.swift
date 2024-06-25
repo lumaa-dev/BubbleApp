@@ -71,6 +71,7 @@ public class Navigator: ObservableObject {
 }
 
 public class UniversalNavigator: Navigator {
+    static var shared: UniversalNavigator = UniversalNavigator()
     public var tabNavigator: Navigator?
 }
 

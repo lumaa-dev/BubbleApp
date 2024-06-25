@@ -8,7 +8,7 @@ struct ContentView: View {
     
     private var huggingFace: HuggingFace = HuggingFace()
     @State private var preferences: UserPreferences = .defaultPreferences
-    @StateObject private var uniNavigator = UniversalNavigator()
+    @StateObject private var uniNavigator = UniversalNavigator.shared
     @StateObject private var accountManager: AccountManager = AccountManager.shared
     
     var body: some View {
