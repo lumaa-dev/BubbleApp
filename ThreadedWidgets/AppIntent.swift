@@ -5,6 +5,8 @@ import SwiftData
 import WidgetKit
 import AppIntents
 
+// MARK: - Account Intents
+
 /// Widgets that require to select only an account will use this `ConfigurationIntent`
 struct AccountAppIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "widget.follow-count"
