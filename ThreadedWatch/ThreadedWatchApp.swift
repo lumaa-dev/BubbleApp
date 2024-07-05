@@ -11,3 +11,10 @@ struct ThreadedWatch_Watch_AppApp: App {
         }
     }
 }
+
+extension View {
+    func modelData() -> some View {
+        self
+            .modelContainer(for: LoggedAccount.self)
+    }
+}

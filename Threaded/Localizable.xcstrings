@@ -1984,6 +1984,102 @@
         }
       }
     },
+    "settings.content-filter.allow" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable Content Filter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activer le Filtre de Contenu"
+          }
+        }
+      }
+    },
+    "settings.content-filter.auto" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto start Content Filter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Démarrage auto du Filtre de Contenu"
+          }
+        }
+      }
+    },
+    "settings.content-filter.new-word" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sensitive Word"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot sensible"
+          }
+        }
+      }
+    },
+    "settings.content-filter.type" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter type"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type de filtre"
+          }
+        }
+      }
+    },
+    "settings.content-filter.words" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sensitive Words"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mots sensibles"
+          }
+        }
+      }
+    },
+    "settings.content-filter.words.footer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sensitive Words are the words that will be filtered by the Content Filter, the Content Filter will detect your words even if they’re in the middle of a word like “annoy” will filter “annoying”."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les mots sensibles sont des mots qui sont filtrés par le Filtre de Contenu, le Filtre de Contenu détectera tous les mots même si ils sont au milieu d’un mot comme “sacre” filtrera “sacre-bleu”."
+          }
+        }
+      }
+    },
     "settings.done" : {
       "localizations" : {
         "en" : {
@@ -2044,6 +2140,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vidé !"
+          }
+        }
+      }
+    },
+    "settings.privacy.filter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Content Filter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtre de Contenu"
           }
         }
       }
@@ -2540,6 +2652,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Plus aimer"
+          }
+        }
+      }
+    },
+    "status.content-filter.censor" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Censor"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Censurer"
+          }
+        }
+      }
+    },
+    "status.content-filter.remove" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer"
           }
         }
       }

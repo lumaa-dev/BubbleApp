@@ -30,6 +30,7 @@ Join the Matrix Space to get support, with full security: [Join #threadedapp:mat
 - [EmojiText](https://github.com/divadretlaw/EmojiText)
 - [KeychainSwift](https://github.com/evgenyneu/keychain-swift)
 - [RevenueCat](https://www.revenuecat.com/)
+- A derivative of [ProboscisKit](https://github.com/lumaa-dev/ProboscisKit)
 
 ## To-do list
 

@@ -19,6 +19,13 @@ struct PrivacyView: View {
             }
             .listRowThreaded()
             
+            Button {
+                navigator.navigate(to: .filter)
+            } label: {
+                Label("settings.privacy.filter", systemImage: "line.3.horizontal.decrease.circle")
+            }
+            .listRowThreaded()
+            
             Spacer()
                 .frame(height: 30)
                 .listRowThreaded()

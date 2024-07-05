@@ -1,6 +1,7 @@
 //Made by Lumaa
 
 import SwiftUI
+import SwiftData
 
 struct TimelineView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
@@ -12,6 +13,9 @@ struct TimelineView: View {
     @State private var loadingStatuses: Bool = false
     @State private var statuses: [Status]?
     @State private var lastSeen: Int?
+    
+    @Query private var filters: [ModelFilter]
+    @State private var wordsFilter: ContentFilter.WordFilter = ContentFilter.defaultFilter
     
     @State var filter: TimelineFilter = .home
     @State var showHero: Bool = true
@@ -64,6 +68,7 @@ struct TimelineView: View {
                                         .disabled(t == filter)
                                     }
                                 }
+                                .padding(.horizontal, 7.5)
                                 
                                 ScrollView(.horizontal) {
                                     HStack {
@@ -80,6 +85,7 @@ struct TimelineView: View {
                                             .disabled(t == filter)
                                         }
                                     }
+                                    .padding(.horizontal, 7.5)
                                 }
                                 .padding(.vertical)
                                 .scrollIndicators(.hidden)
@@ -98,7 +104,7 @@ struct TimelineView: View {
                     }
                     .refreshable {
                         if let client = accountManager.getClient() {
-                            statuses = []
+                            statuses = nil
                             
                             Task {
                                 loadingStatuses = true
@@ -116,17 +122,21 @@ struct TimelineView: View {
                         }
                     }
                     .toolbar {
-                        ToolbarItem(placement: .primaryAction) {
-                            Button {
-                                statuses = []
-                                
-                                Task {
-                                    loadingStatuses = true
-                                    statuses = await self.timelineModel.useContentFilter(ContentFilter.WordFilter(categoryName: "Test", words: ["is"]))
-                                    loadingStatuses = false
+                        if UserDefaults.standard.bool(forKey: "allowFilter") {
+                            ToolbarItem(placement: .primaryAction) {
+                                Button {
+                                    statuses = nil
+                                    
+                                    Task {
+                                        loadingStatuses = true
+                                        statuses = await self.timelineModel.toggleContentFilter(filter: wordsFilter)
+                                        loadingStatuses = false
+                                    }
+                                } label: {
+                                    Image(systemName: self.timelineModel.filtering ? "line.3.horizontal.decrease.circle.fill" :"line.3.horizontal.decrease.circle")
+                                        .symbolEffect(.pulse.wholeSymbol, isActive: self.timelineModel.filtering)
                                 }
-                            } label: {
-                                Image(systemName: "line.3.horizontal.decrease.circle")
+                                .tint(Color(uiColor: UIColor.label))
                             }
                         }
                     }
@@ -163,12 +173,14 @@ struct TimelineView: View {
                                                 }
                                             } label: {
                                                 Text(t.localizedTitle())
-                                                    .padding(.horizontal)
+                                                    .frame(width: 20)
+                                                    .lineLimit(1)
                                             }
                                             .buttonStyle(LargeButton(filled: t == filter, height: 7.5))
                                             .disabled(t == filter)
                                         }
                                     }
+                                    .padding(.horizontal, 7.5)
                                     
                                     ScrollView(.horizontal) {
                                         HStack {
@@ -185,6 +197,7 @@ struct TimelineView: View {
                                                 .disabled(t == filter)
                                             }
                                         }
+                                        .padding(.horizontal, 7.5)
                                     }
                                     .padding(.vertical)
                                     .scrollIndicators(.hidden)
@@ -209,9 +222,17 @@ struct TimelineView: View {
                     Color.appBackground
                         .ignoresSafeArea()
                         .onAppear {
+                            if UserDefaults.standard.bool(forKey: "allowFilter") {
+                                self.wordsFilter = filters.compactMap({ ContentFilter.WordFilter(model: $0) }).first ?? ContentFilter.defaultFilter
+                            }
+                            
                             if let client = accountManager.getClient() {
                                 Task {
                                     statuses = await timelineModel.fetch(client: client)
+                                    
+                                    if UserDefaults.standard.bool(forKey: "autoOnFilter") {
+                                        statuses = await self.timelineModel.useContentFilter(wordsFilter)
+                                    }
                                 }
                             }
                         }
@@ -244,6 +265,10 @@ struct TimelineView: View {
             loadingStatuses = true
             statuses = await timelineModel.fetch(client: client)
             lastSeen = nil
+            
+            if timelineModel.filtering {
+                statuses = await self.timelineModel.useContentFilter(wordsFilter)
+            }
             loadingStatuses = false
         }
     }

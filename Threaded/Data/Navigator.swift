@@ -105,6 +105,7 @@ public enum SheetDestination: Identifiable {
     case safari(url: URL)
     case shareImage(image: UIImage, status: Status)
     case update
+    case filter
     
     public var id: String {
         switch self {
@@ -125,6 +126,8 @@ public enum SheetDestination: Identifiable {
                 return "shareImage"
             case .update:
                 return "update"
+            case .filter:
+                return "contentfilter"
         }
     }
     
@@ -147,6 +150,8 @@ public enum SheetDestination: Identifiable {
                 return false
             case .update:
                 return false
+            case .filter:
+                return false
         }
     }
 }
@@ -158,6 +163,7 @@ public enum RouterDestination: Hashable {
     case about
     case privacy
     case restricted
+    case filter
     
     case account(acc: Account)
     case post(status: Status)
@@ -166,7 +172,7 @@ public enum RouterDestination: Hashable {
 }
 
 extension RouterDestination {
-    static let allSettings: [RouterDestination] = [.settings, .support, .about, .appearence, .privacy, .restricted]
+    static let allSettings: [RouterDestination] = [.settings, .support, .about, .appearence, .privacy, .restricted, .filter]
 }
 
 extension View {
@@ -193,6 +199,8 @@ extension View {
                     RestrictedView()
                 case .timeline(let timeline):
                     PostsView(filter: timeline)
+                case .filter:
+                    FilterView()
             }
         }
     }
