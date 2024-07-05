@@ -12,7 +12,9 @@ struct ThreadedApp: App {
             #if DEBUG
             Purchases.logLevel = .debug
             #endif
-            Purchases.configure(withAPIKey: apiKey, appUserID: deviceId)
+            if #available(iOS 18.0, *) {
+                Purchases.configure(withAPIKey: apiKey, appUserID: deviceId)
+            }
         }
     }
     
