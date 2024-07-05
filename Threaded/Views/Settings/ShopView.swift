@@ -12,11 +12,11 @@ struct ShopView: View {
     @State private var purchaseError: Bool = false
     
     private var canPay: Bool {
-        #if DEBUG || targetEnvironment(simulator)
-        return true
-        #else
+//        #if DEBUG || targetEnvironment(simulator)
+//        return true
+//        #else
         return false
-        #endif
+//        #endif
     }
     
     var body: some View {
