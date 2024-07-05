@@ -10,12 +10,21 @@ struct AboutView: View {
     var body: some View {
         List {
             Section(footer: Text("about.version-\(AppInfo.appVersion)")) {
-                NavigationLink {
-                    aboutApp
-                } label: {
-                    Text("about.app")
+                Section {
+                    NavigationLink {
+                        aboutApp
+                    } label: {
+                        Text("about.app")
+                    }
+                    .listRowThreaded()
+                    
+                    Button {
+                        UIApplication.shared.open(URL(string: "https://lumaa.fr/?utm_source=ThreadedApp")!)
+                    } label: {
+                        Text("about.lumaa")
+                    }
+                    .listRowThreaded()
                 }
-                .listRowThreaded()
                 
                 Toggle("setting.experimental.activate", isOn: $userPreferences.showExperimental)
                     .listRowThreaded()

@@ -9,7 +9,8 @@
             "value" : "@%@"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "#%@" : {
       "localizations" : {
@@ -19,7 +20,8 @@
             "value" : "#%@"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "%@" : {
       "localizations" : {
@@ -29,7 +31,8 @@
             "value" : "%@"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "%lld" : {
       "localizations" : {
@@ -39,7 +42,8 @@
             "value" : "%lld"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "about" : {
       "localizations" : {
@@ -94,13 +98,29 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Threaded uses third-party open-source libraries and code:\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)\n- [Nuke](https://github.com/kean/Nuke)\n- [EmojiText](https://github.com/divadretlaw/EmojiText)\n- [KeychainSwift](https://github.com/evgenyneu/keychain-swift)"
+            "value" : "Threaded uses third-party open-source libraries and code:\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)\n- [Nuke](https://github.com/kean/Nuke)\n- [EmojiText](https://github.com/divadretlaw/EmojiText)\n- [KeychainSwift](https://github.com/evgenyneu/keychain-swift)\n\nSpecial thanks to:\n- [@damon@social.wedistribute.org](https://social.wedistribute.org/@damon)\n- Beezus\n- Beta testers on TestFlight"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Threaded uses third-party open-source libraries and code:\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)\n- [Nuke](https://github.com/kean/Nuke)\n- [EmojiText](https://github.com/divadretlaw/EmojiText)\n- [KeychainSwift](https://github.com/evgenyneu/keychain-swift)"
+            "value" : "Threaded uses third-party open-source libraries and code:\n- A derivative of [ProboscisKit](https://github.com/lumaa-dev/ProboscisKit)\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)\n- [Nuke](https://github.com/kean/Nuke)\n- [EmojiText](https://github.com/divadretlaw/EmojiText)\n- [KeychainSwift](https://github.com/evgenyneu/keychain-swift)\n- [RevenueCat](https://www.revenuecat.com)"
+          }
+        }
+      }
+    },
+    "about.lumaa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn more about Lumaa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En savoir plus sur Lumaa"
           }
         }
       }
@@ -793,6 +813,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Restaurer la position"
+          }
+        }
+      }
+    },
+    "beta.feature" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This feature is currently unstable, use it with caution."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette fonctionnalité est actuellement instable, utilisez là avec précaution."
           }
         }
       }
@@ -2586,7 +2622,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Pour 19.99€ par ans, renouvellement automatique"
           }
         }
@@ -3836,6 +3872,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Quoi de neuf ?"
+          }
+        }
+      }
+    },
+    "warning.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attention !"
           }
         }
       }

@@ -91,6 +91,7 @@
 		B9C20D3D2B9229EC004DC9B3 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB94872B2E223E00D81C07 /* Emoji.swift */; };
 		B9C20D562B922DAC004DC9B3 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B9C20D552B922DAC004DC9B3 /* KeychainSwift */; };
 		B9C20D612B949AD7004DC9B3 /* Redeclarations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D602B949AD7004DC9B3 /* Redeclarations.swift */; };
+		B9C7F46C2C387D3B009C36DC /* WarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7F46B2C387D3B009C36DC /* WarningView.swift */; };
 		B9CC45B82B40A2D6001E4FA5 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CC45B72B40A2D6001E4FA5 /* AboutView.swift */; };
 		B9CFC43B2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9CFC43A2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard */; };
 		B9D365612B79A1BE004C1255 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D365602B79A1BE004C1255 /* MailView.swift */; };
@@ -256,6 +257,7 @@
 		B9C20D582B923CDD004DC9B3 /* ThreadedWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThreadedWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		B9C20D592B923D53004DC9B3 /* Threaded.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Threaded.entitlements; sourceTree = "<group>"; };
 		B9C20D602B949AD7004DC9B3 /* Redeclarations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Redeclarations.swift; sourceTree = "<group>"; };
+		B9C7F46B2C387D3B009C36DC /* WarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
 		B9CC45B72B40A2D6001E4FA5 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		B9CC45B92B40AA1E001E4FA5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B9CFC43A2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchStoryboard.storyboard; sourceTree = "<group>"; };
@@ -556,6 +558,7 @@
 				B9DC69282B78D9A500E625B9 /* SearchResultView.swift */,
 				B9B469DA2B9B2EDB00AD5585 /* ComingSoonView.swift */,
 				B9D365602B79A1BE004C1255 /* MailView.swift */,
+				B9C7F46B2C387D3B009C36DC /* WarningView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -896,6 +899,7 @@
 				B999DE5E2B76F9D100509868 /* Message.swift in Sources */,
 				B915C4422B6F908C00042DDB /* ProfileView.swift in Sources */,
 				B9FB94702B2DF3CD00D81C07 /* Navigator.swift in Sources */,
+				B9C7F46C2C387D3B009C36DC /* WarningView.swift in Sources */,
 				B9EBE8562B47256900FB594D /* PostAttachment.swift in Sources */,
 				B9EBE8582B474FD600FB594D /* AppDelegate.swift in Sources */,
 				B93B677C2B433A6E000892E9 /* PostingView.swift in Sources */,

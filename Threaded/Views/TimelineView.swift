@@ -133,7 +133,7 @@ struct TimelineView: View {
                                         loadingStatuses = false
                                     }
                                 } label: {
-                                    Image(systemName: self.timelineModel.filtering ? "line.3.horizontal.decrease.circle.fill" :"line.3.horizontal.decrease.circle")
+                                    Image(systemName: self.timelineModel.filtering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
                                         .symbolEffect(.pulse.wholeSymbol, isActive: self.timelineModel.filtering)
                                 }
                                 .tint(Color(uiColor: UIColor.label))

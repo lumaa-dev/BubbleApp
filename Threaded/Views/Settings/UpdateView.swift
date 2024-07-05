@@ -36,12 +36,12 @@ struct UpdateView: View {
     }
     
     var features: some View {
-        VStack(spacing: 40) {
-            newFeature(systemImage: "network", title: "Timeline Selector", text: "By tapping on the Threaded logo, you'll be able to select a timeine.")
+        VStack(spacing: 60) {
+            newFeature(systemImage: "line.3.horizontal.decrease.circle", title: "Content Filter", text: "Keep words out of your feeds in the app's settings, Privacy, then Content Filter")
             
-            newFeature(systemImage: "info.circle", title: "\"About Threaded\" redesign", text: "This informational view has been majorly changed!")
+            newFeature(systemImage: "paperplane", title: "Smarter posting!", text: "You can crosspost your posts in other apps like X, Ice Cubes, and others.")
             
-            newFeature(systemImage: "number", title: "Read hashtags", text: "You can now view posts using a specific hashtag in the Discovery page.")
+            newFeature(systemImage: "plus.app", title: "App Store", text: "Coming soon, in your closest Home Screen page's App Store...")
         }
         .frame(height: 500)
     }

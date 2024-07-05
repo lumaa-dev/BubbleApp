@@ -99,12 +99,12 @@ struct SettingsView: View {
                 }
                 .listRowThreaded()
                 
-                Button {
-                    navigator.navigate(to: .appearence)
-                } label: {
-                    Label("setting.appearence", systemImage: "rectangle.3.group")
-                }
-                .listRowThreaded()
+//                Button {
+//                    navigator.navigate(to: .appearence)
+//                } label: {
+//                    Label("setting.appearence", systemImage: "rectangle.3.group")
+//                }
+//                .listRowThreaded()
                 
                 Button {
                     if loggedAccounts.count <= 1 {

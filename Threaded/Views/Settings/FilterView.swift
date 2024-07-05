@@ -20,6 +20,12 @@ struct FilterView: View {
     
     var body: some View {
         List {
+            Section {
+                WarningView(description: "beta.feature")
+                    .listRowInsets(.none)
+            }
+            .listRowBackground(Color.yellow.opacity(0.25))
+            
             Toggle(isOn: $allowFilter.animation(.spring)) {
                 Text("settings.content-filter.allow")
             }
