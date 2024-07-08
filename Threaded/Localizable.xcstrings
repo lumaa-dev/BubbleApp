@@ -104,7 +104,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Threaded uses third-party open-source libraries and code:\n- A derivative of [ProboscisKit](https://github.com/lumaa-dev/ProboscisKit)\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)\n- [Nuke](https://github.com/kean/Nuke)\n- [EmojiText](https://github.com/divadretlaw/EmojiText)\n- [KeychainSwift](https://github.com/evgenyneu/keychain-swift)\n- [RevenueCat](https://www.revenuecat.com)"
+            "value" : "Threaded uses third-party open-source libraries and code:\n- [IceCubesApp](https://github.com/dimillian/IceCubesApp)\n- [SwiftSoup](https://github.com/scinfu/SwiftSoup)\n- [Nuke](https://github.com/kean/Nuke)\n- [EmojiText](https://github.com/divadretlaw/EmojiText)\n- [KeychainSwift](https://github.com/evgenyneu/keychain-swift)\n\nSpecial thanks to:\n- [@damon@social.wedistribute.org](https://social.wedistribute.org/@damon)\n- Beezus\n- Beta testers on TestFlight"
           }
         }
       }
