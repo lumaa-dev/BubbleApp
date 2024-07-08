@@ -98,10 +98,13 @@ struct ContentView: View {
     }
     
     func showNew() {
-        let lastVersion = UserDefaults.standard.string(forKey: "lastVersion")
-        if lastVersion == nil || lastVersion != AppInfo.appVersion {
+        if let lastVersion = UserDefaults.standard.string(forKey: "lastVersion") {
+            if lastVersion != AppInfo.appVersion {
+                UserDefaults.standard.setValue(AppInfo.appVersion, forKey: "lastVersion")
+                uniNavigator.presentedSheet = .update
+            }
+        } else {
             UserDefaults.standard.setValue(AppInfo.appVersion, forKey: "lastVersion")
-            uniNavigator.presentedSheet = .update
         }
     }
     
