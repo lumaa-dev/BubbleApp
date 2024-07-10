@@ -31,5 +31,5 @@ Join the Matrix Space to get support, with full security: [Join #threadedapp:mat
 
 ## More
 Threaded is not related or affiliated with Meta Platforms.\
-[Privacy Policy](https://apps.lumaa.fr/legal/privacy?utm_source=ThreadedGit)\
+[Privacy Policy](https://apps.lumaa.fr/legal/privacy?app=threaded&utm_source=ThreadedGit)\
 [About Threaded](https://apps.lumaa.fr/app/threaded)
