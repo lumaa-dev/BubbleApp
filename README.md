@@ -1,5 +1,7 @@
 # [Threaded](https://apps.lumaa.fr/app/threaded)
 
+<a href="https://apps.apple.com/app/threaded/id6477757490"><img src="https://apps.lumaa.fr/assets/images/en_app_store_black_badge.svg" alt="Install Threaded now" width=200></a>
+
 [Threaded](https://apps.lumaa.fr/app/threaded) is a very simple [#Mastodon](https://joinmastodon.org) client, that is meant to look like the newest social media [#Threads](https://threads.net/) made by Meta Platforms. It integrates perfectly with your Mastodon account, and matches the Threads vibe, while having Mastodon-only features.
 
 Threaded is free, made in SwiftUI, [#OpenSource](https://github.com/lumaa-dev/ThreadedApp), and doesn't violate [#YourPrivacy](https://apps.lumaa.fr/legal/privacy?app=threaded). Follow the [#ThreadedAccount](https://mastodon.online/@Threaded) on Mastodon, for progress, updates, polls, and more...
@@ -31,5 +33,5 @@ Join the Matrix Space to get support, with full security: [Join #threadedapp:mat
 
 ## More
 Threaded is not related or affiliated with Meta Platforms.\
-[Privacy Policy](https://apps.lumaa.fr/legal/privacy?utm_source=ThreadedGit)\
+[Privacy Policy](https://apps.lumaa.fr/legal/privacy?app=threaded&utm_source=ThreadedGit)\
 [About Threaded](https://apps.lumaa.fr/app/threaded)
