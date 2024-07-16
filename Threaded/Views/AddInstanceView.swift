@@ -143,9 +143,14 @@ struct AddInstanceView: View {
             verifyError = false
         }
         
-        let cleanInstance = instanceUrl
-            .replacingOccurrences(of: "http://", with: "")
-            .replacingOccurrences(of: "https://", with: "")
+        var cleanInstance = self.instanceUrl
+        if instanceUrl.contains("@") {
+            cleanInstance = String(instanceUrl.split(separator: "@")[1]) // instance
+        } else {
+            cleanInstance = instanceUrl
+                .replacingOccurrences(of: "http://", with: "")
+                .replacingOccurrences(of: "https://", with: "")
+        }
         
         if !isInstanceSafe() {
             if responsability == false && agreedResponsability == false {
