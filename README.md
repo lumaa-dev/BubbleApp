@@ -1,6 +1,7 @@
 # [Threaded](https://apps.lumaa.fr/app/threaded)
 
 <a href="https://apps.apple.com/app/threaded/id6477757490"><img src="https://apps.lumaa.fr/assets/images/en_app_store_black_badge.svg" alt="Install Threaded now" width=200></a>
+<img src="./README_data/Display-banner.png" width=500 align="right">
 
 [Threaded](https://apps.lumaa.fr/app/threaded) is a very simple [#Mastodon](https://joinmastodon.org) client, that is meant to look like the newest social media [#Threads](https://threads.net/) made by Meta Platforms. It integrates perfectly with your Mastodon account, and matches the Threads vibe, while having Mastodon-only features.
 
