@@ -11,6 +11,7 @@ Threaded **will** also includes its own premium service, available as a subscrip
 
 With Threaded+, you can have a better Content Filter, you can save attachments, you get exclusive sneak peeks to Threaded's next updates, and other premium features! 
 
+Use the **#Threaded** and **@Threaded@mastodon.online** on [Mastodon](https://mastodonshare.com/?text=@Threaded@mastodon.online+%2523Threaded)\
 Join the Threaded Discord server to receive help, talk about the Fediverse, and many other things: [Join Threaded](https://discord.gg/MaHcRbkX46)\
 Join the Matrix Space to get support, with full security: [Join #threadedapp:matrix.org](https://matrix.to/#/#threadedapp:matrix.org)
 
