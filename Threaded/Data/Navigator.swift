@@ -102,6 +102,7 @@ public enum SheetDestination: Identifiable {
     
     case mastodonLogin(logged: Binding<Bool>)
     case post(content: String = "", replyId: String? = nil, editId: String? = nil)
+    case profEdit
     case safari(url: URL)
     case shareImage(image: UIImage, status: Status)
     case update
@@ -120,6 +121,8 @@ public enum SheetDestination: Identifiable {
                 return "login"
             case .post:
                 return "post"
+            case .profEdit:
+                return "profileEdit"
             case .safari:
                 return "safari"
             case .shareImage:
@@ -144,6 +147,8 @@ public enum SheetDestination: Identifiable {
                 return false
             case .post:
                 return false
+            case .profEdit:
+                return false
             case .safari:
                 return false
             case .shareImage:
@@ -160,6 +165,7 @@ public enum RouterDestination: Hashable {
     case settings
     case support
     case appearence
+    case appicon
     case about
     case privacy
     case restricted
@@ -172,7 +178,7 @@ public enum RouterDestination: Hashable {
 }
 
 extension RouterDestination {
-    static let allSettings: [RouterDestination] = [.settings, .support, .about, .appearence, .privacy, .restricted, .filter]
+    static let allSettings: [RouterDestination] = [.settings, .support, .about, .appearence, .privacy, .restricted, .filter, .appicon]
 }
 
 extension View {
@@ -185,6 +191,8 @@ extension View {
                     SupportView()
                 case .appearence:
                     AppearenceView()
+                case .appicon:
+                    IconView()
                 case .account(let acc):
                     ProfileView(account: acc)
                 case .post(let status):
@@ -240,6 +248,8 @@ extension View {
                         PostingView(initialString: content, replyId: replyId, editId: editId)
                             .tint(Color(uiColor: UIColor.label))
                     }
+                case .profEdit:
+                    EditProfileView()
                 case let .mastodonLogin(logged):
                     AddInstanceView(logged: logged)
                         .tint(Color.accentColor)

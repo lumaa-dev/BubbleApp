@@ -73,6 +73,13 @@ struct SettingsView: View {
                 .listRowThreaded()
                 
                 Button {
+                    navigator.navigate(to: .appicon)
+                } label: {
+                    Label("setting.app-icon", systemImage: "app.dashed")
+                }
+                .listRowThreaded()
+                
+                Button {
                     navigator.navigate(to: .privacy)
                 } label: {
                     Label("privacy", systemImage: "lock")

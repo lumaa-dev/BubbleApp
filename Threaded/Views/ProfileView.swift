@@ -55,6 +55,7 @@ struct ProfileView: View {
                                                         accountMuted = false
                                                         HapticManager.playHaptics(haptics: Haptic.success)
                                                     } catch {
+                                                        HapticManager.playHaptics(haptics: Haptic.error)
                                                         print(error)
                                                     }
                                                 }
@@ -73,6 +74,7 @@ struct ProfileView: View {
                                                                 accountMuted = true
                                                                 HapticManager.playHaptics(haptics: Haptic.success)
                                                             } catch {
+                                                                HapticManager.playHaptics(haptics: Haptic.error)
                                                                 print(error)
                                                             }
                                                         }
@@ -95,6 +97,7 @@ struct ProfileView: View {
                                                     accountBlocked.toggle()
                                                     HapticManager.playHaptics(haptics: Haptic.success)
                                                 } catch {
+                                                    HapticManager.playHaptics(haptics: Haptic.error)
                                                     print(error)
                                                 }
                                             }
@@ -228,6 +231,20 @@ struct ProfileView: View {
                             .buttonStyle(LargeButton(filled: false, height: 10))
                         }
                     }
+                    
+                    if isCurrent {
+                        Button {
+                            uniNav.presentedSheet = .profEdit
+                        } label: {
+                            HStack {
+                                Spacer()
+                                Text("account.edit")
+                                    .font(.callout)
+                                Spacer()
+                            }
+                        }
+                        .buttonStyle(LargeButton(filled: true, height: 10))
+                    }
                 }
                 .padding(.horizontal)
                 
@@ -244,6 +261,12 @@ struct ProfileView: View {
             .padding(.horizontal)
         }
     }
+    
+//    var fields: some View {
+//        VStack(alignment: .leading) {
+//            
+//        }
+//    }
     
     var statusesList: some View {
         LazyVStack {
@@ -309,14 +332,18 @@ struct ProfileView: View {
     
     func reloadUser() async {
         if let client = accountManager.getClient() {
-            let userAcc = accountManager.getAccount()
-            if let ref: Account = try? await client.get(endpoint: Accounts.accounts(id: isCurrent && userAcc != nil ? userAcc!.id : account.id)) {
+            var accId: String = account.id
+            if isCurrent, let acc = accountManager.getAccount() {
+                accId = acc.id
+            }
+            
+            if let ref: Account = try? await client.get(endpoint: Accounts.accounts(id: accId)) {
                 account = ref
                 
                 await updateRelationship()
                 loadingStatuses = true
-                statuses = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
-                statusesPinned = try? await client.get(endpoint: Accounts.statuses(id: account.id, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
+                statuses = try? await client.get(endpoint: Accounts.statuses(id: accId, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
+                statusesPinned = try? await client.get(endpoint: Accounts.statuses(id: accId, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
                 loadingStatuses = false
             }
         }

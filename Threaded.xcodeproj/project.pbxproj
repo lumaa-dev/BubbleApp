@@ -136,6 +136,8 @@
 		B9FB94B02B2F009F00D81C07 /* AuthenticationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9FB94AE2B2F009F00D81C07 /* AuthenticationViewController.xib */; };
 		B9FB94B42B2F009F00D81C07 /* ThreadedAuthService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B9FB94A72B2F009F00D81C07 /* ThreadedAuthService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B9FB94BC2B2F035500D81C07 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB94BB2B2F035500D81C07 /* Tag.swift */; };
+		B9FD18982C55108F00A74A71 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FD18972C55108F00A74A71 /* EditProfileView.swift */; };
+		B9FD189A2C57DE9200A74A71 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FD18992C57DE9200A74A71 /* IconView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -305,6 +307,8 @@
 		B9FB94AF2B2F009F00D81C07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AuthenticationViewController.xib; sourceTree = "<group>"; };
 		B9FB94B12B2F009F00D81C07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9FB94BB2B2F035500D81C07 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		B9FD18972C55108F00A74A71 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		B9FD18992C57DE9200A74A71 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -529,6 +533,8 @@
 				B93ADFCA2B7625CD00FF9172 /* DiscoveryView.swift */,
 				B9D9C6C22B6A576C00C26A41 /* NotificationsView.swift */,
 				B999DE5B2B76F8CB00509868 /* ContactsView.swift */,
+				B915C4412B6F908C00042DDB /* ProfileView.swift */,
+				B9FD18972C55108F00A74A71 /* EditProfileView.swift */,
 				B97BCE252B3DE5A10044756D /* AccountView.swift */,
 				B98BC7462B46CE6300595441 /* PostDetailsView.swift */,
 				B93B677B2B433A6E000892E9 /* PostingView.swift */,
@@ -551,7 +557,6 @@
 				B9BED5192B5D662D00C9B715 /* ShareSheetController.swift */,
 				B9D9C6C42B6A587700C26A41 /* NotificationRow.swift */,
 				B999DE5F2B76FB3E00509868 /* ContactRow.swift */,
-				B915C4412B6F908C00042DDB /* ProfileView.swift */,
 				B9D9C6C62B6A590F00C26A41 /* ProfilePicture.swift */,
 				B9FA6E762B82788A00D63E30 /* AccountRow.swift */,
 				B97491E22B6E96700098BC48 /* SymbolWidth.swift */,
@@ -575,6 +580,7 @@
 				B9B469B12B9A6E8300AD5585 /* PrivacyView.swift */,
 				B934EA232BAB5E7F001F4345 /* RestrictedView.swift */,
 				B93126EF2C2AEB8300BF16E9 /* FilterView.swift */,
+				B9FD18992C57DE9200A74A71 /* IconView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -885,6 +891,7 @@
 				B9FB94BC2B2F035500D81C07 /* Tag.swift in Sources */,
 				B9029FC42B8125CE00AA9B68 /* HuggingFace.swift in Sources */,
 				B9BED51A2B5D662D00C9B715 /* ShareSheetController.swift in Sources */,
+				B9FD189A2C57DE9200A74A71 /* IconView.swift in Sources */,
 				B964F8062B9B78F4005C193D /* PostPoll.swift in Sources */,
 				B93757112B7FB8D400652F91 /* AltClients.swift in Sources */,
 				B9BED5162B5D5E6500C9B715 /* PostInteractor.swift in Sources */,
@@ -902,6 +909,7 @@
 				B9C7F46C2C387D3B009C36DC /* WarningView.swift in Sources */,
 				B9EBE8562B47256900FB594D /* PostAttachment.swift in Sources */,
 				B9EBE8582B474FD600FB594D /* AppDelegate.swift in Sources */,
+				B9FD18982C55108F00A74A71 /* EditProfileView.swift in Sources */,
 				B93B677C2B433A6E000892E9 /* PostingView.swift in Sources */,
 				B97BCE262B3DE5A10044756D /* AccountView.swift in Sources */,
 				B98627312B86F23500844245 /* LoggedAccounts.swift in Sources */,
@@ -1216,8 +1224,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "PurpleIcon DefaultIcon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Threaded/Threaded.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1256,8 +1266,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "PurpleIcon DefaultIcon";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Threaded/Threaded.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

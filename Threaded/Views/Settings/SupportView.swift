@@ -22,13 +22,13 @@ struct SupportView: View {
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
+                        mentionAccount
+                            .listRowThreaded()
+                        
                         discordSupport
                             .listRowThreaded()
                         
                         matrixSupport
-                            .listRowThreaded()
-                        
-                        mentionAccount
                             .listRowThreaded()
                         
                         mailApp
