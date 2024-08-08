@@ -218,6 +218,7 @@ struct PostingView: View {
                 
                 postingStatus = false
                 HapticManager.playHaptics(haptics: Haptic.success)
+                NotificationCenter.default.post(name: NSNotification.Name("close"), object: nil)
                 dismiss()
                 
                 if isEdit {
@@ -790,36 +791,7 @@ extension PostingView {
                         .labelsHidden()
                         .keyboardType(.asciiCapable)
                         .focused($altFocused)
-                    
-                    Button {
-                        tasking = true
-                        let img = container.image
-                        if img == nil, let media = container.mediaAttachment {
-                            guard media.supportedType == .image else { return }
-                            downloadImage(from: media.url ?? URL.placeholder) { image in
-                                if let uiimage = image {
-                                    alt = huggingFace.altGeneration(image: uiimage) ?? ""
-                                    tasking = false
-                                } else {
-                                    print("Couldn't download image")
-                                }
-                            }
-                        } else {
-                            alt = huggingFace.altGeneration(image: img!) ?? ""
-                            tasking = false
-                        }
-                    } label: {
-                        if !tasking {
-                            Label("posting.alt.generate", systemImage: "printer")
-                                .foregroundStyle(Color.blue)
-                        } else {
-                            ProgressView()
-                                .progressViewStyle(.circular)
-                                .foregroundStyle(Color(uiColor: UIColor.label))
-                        }
-                    }
-                    .tint(tasking ? Color(uiColor: UIColor.label) : Color.blue)
-                    .disabled(true)
+                        .frame(maxHeight: 200)
                 }
                 .navigationTitle(Text("posting.alt.header"))
                 .navigationBarTitleDisplayMode(.inline)
