@@ -191,6 +191,11 @@ struct ProfileView: View {
                         .multilineTextAlignment(.leading)
                         .padding(.vertical, 5)
                     
+                    if account.fields.count > 0 {
+                        fields
+                            .padding(.vertical)
+                    }
+                    
                     let followCount = (account.followersCount ?? 0 - (initialFollowing ? 1 : 0)) + (isFollowing ? 1 : 0)
                     Text("account.followers-\(followCount)")
                         .foregroundStyle(Color.gray)
@@ -262,11 +267,34 @@ struct ProfileView: View {
         }
     }
     
-//    var fields: some View {
-//        VStack(alignment: .leading) {
-//            
-//        }
-//    }
+    var fields: some View {
+        VStack(alignment: .leading, spacing: 7.5) {
+            ForEach(account.fields) { field in
+                HStack {
+                    if field.verifiedAt == nil {
+                        Text(field.name)
+                            .lineLimit(1)
+                    } else {
+                        Label(field.name, systemImage: "checkmark.seal.fill")
+                            .lineLimit(1)
+                    }
+                    
+                    Spacer()
+                    
+                    TextEmoji(field.value, emojis: account.emojis)
+                }
+                .onTapGesture {
+                    if let url = URL(string: field.value.asRawText), UIApplication.shared.canOpenURL(url) {
+                        HapticManager.playHaptics(haptics: Haptic.success)
+                        UIApplication.shared.open(url)
+                    } else {
+                        HapticManager.playHaptics(haptics: Haptic.error)
+                    }
+                }
+                .foregroundStyle(field.verifiedAt == nil ? Color.gray : Color.green)
+            }
+        }
+    }
     
     var statusesList: some View {
         LazyVStack {
