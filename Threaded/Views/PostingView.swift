@@ -793,6 +793,13 @@ extension PostingView {
                         .focused($altFocused)
                         .frame(maxHeight: 200)
                 }
+                .onAppear {
+                    if let mediaAttachment = container.mediaAttachment {
+                        if let past = mediaAttachment.description, !past.isEmpty {
+                            alt = past
+                        }
+                    }
+                }
                 .navigationTitle(Text("posting.alt.header"))
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
@@ -813,6 +820,7 @@ extension PostingView {
                                         dismiss()
                                     }
                                 }
+                                HapticManager.playHaptics(haptics: Haptic.success)
                             }
                         } label: {
                             if applying {
