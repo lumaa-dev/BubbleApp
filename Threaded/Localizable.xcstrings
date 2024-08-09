@@ -1733,22 +1733,6 @@
         }
       }
     },
-    "posting.alt.generate" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Generate using an AI"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Générer en utilisant une IA"
-          }
-        }
-      }
-    },
     "posting.alt.header" : {
       "localizations" : {
         "en" : {
@@ -1961,7 +1945,20 @@
       }
     },
     "setting.app-icon.unknown" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown Icon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icône inconnue"
+          }
+        }
+      }
     },
     "setting.appearence" : {
       "localizations" : {
