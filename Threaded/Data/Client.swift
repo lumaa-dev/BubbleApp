@@ -275,3 +275,9 @@ public final class Client: Equatable, Identifiable, Hashable {
 }
 
 extension Client: Sendable {}
+
+extension CGFloat {
+    static func getFontSize(from font: UIFont.TextStyle) -> CGFloat {
+        return UIFont.preferredFont(forTextStyle: font).pointSize
+    }
+}

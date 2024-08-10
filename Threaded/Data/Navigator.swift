@@ -20,6 +20,10 @@ public class Navigator: ObservableObject {
     }
     private var currentTab: TabDestination = .timeline
 
+    public var inSettings: Bool {
+        self.path.contains(RouterDestination.allSettings)
+    }
+
     public private(set) var memorizedNav: [TabDestination : [RouterDestination]] = [:]
     public var showTabbar: Bool {
         get {

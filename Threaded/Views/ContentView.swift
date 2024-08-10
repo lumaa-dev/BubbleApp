@@ -44,10 +44,15 @@ struct ContentView: View {
             TabsView(postButton: {
                     uniNavigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
             }, retapAction: {
-                Navigator.shared.path = []
+                navigator.path = []
+//                Navigator.shared.showTabbar.toggle()
             })
             .safeAreaPadding(.vertical, 10)
             .zIndex(10)
+            .offset(
+                y: navigator.showTabbar ? 0 : CGFloat
+                    .getFontSize(from: .extraLargeTitle) * 7.5
+            )
         }
         .withSheets(sheetDestination: $uniNavigator.presentedSheet)
         .withCovers(sheetDestination: $uniNavigator.presentedCover)
@@ -57,6 +62,11 @@ struct ContentView: View {
         .environment(huggingFace)
         .environmentObject(preferences)
         .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: navigator.path) { _, newValue in
+            guard !newValue.isEmpty else { navigator.showTabbar = true; return }
+            navigator.showTabbar = newValue
+                .filter({ $0 == RouterDestination.settings }).first == nil
+        }
         .onAppear {
             showNew()
             
