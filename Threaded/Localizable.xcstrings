@@ -209,6 +209,9 @@
         }
       }
     },
+    "account" : {
+
+    },
     "account.block" : {
       "localizations" : {
         "en" : {
@@ -1541,6 +1544,12 @@
         }
       }
     },
+    "intent.open.composer" : {
+
+    },
+    "intent.open.composer.description" : {
+
+    },
     "login.instance.unsafe" : {
       "localizations" : {
         "en" : {
@@ -2425,6 +2434,7 @@
       }
     },
     "settings.account-switcher.send-to-watch" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4439,6 +4449,24 @@
           }
         }
       }
+    },
+    "widget.follow-count" : {
+
+    },
+    "widget.follow-count.description" : {
+
+    },
+    "widget.follow-goal" : {
+
+    },
+    "widget.follow-goal.description" : {
+
+    },
+    "widget.select-account" : {
+
+    },
+    "widget.set-goal" : {
+
     }
   },
   "version" : "1.0"

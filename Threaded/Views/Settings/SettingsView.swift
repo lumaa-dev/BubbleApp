@@ -172,7 +172,7 @@ extension SettingsView {
         var logged: LoggedAccount
         var app: AppAccount
         
-        private let connectivity: SessionDelegator = .init()
+//        private let connectivity: SessionDelegator = .init()
         
         @State private var account: Account? = nil
         @State private var error: Bool = false
@@ -256,23 +256,23 @@ extension SettingsView {
                         
                         Divider()
                         
-                        if connectivity.isWorking {
-                            Button {
-                                // double check in case states change in between
-                                if connectivity.isWorking {
-                                    let message = GivenAccount(acct: app.accountName!, bearerToken: app.oauthToken?.accessToken ?? "")
-                                    connectivity.session.sendMessageData(message.turnToMessage(), replyHandler: { data in
-                                        let str = String(data: data, encoding: .utf8)
-                                        print(str ?? "No data?")
-                                        HapticManager.playHaptics(haptics: Haptic.success)
-                                    })
-                                } else {
-                                    print("No Watch?")
-                                }
-                            } label: {
-                                Label("settings.account-switcher.send-to-watch", systemImage: "applewatch.and.arrow.forward")
-                            }
-                        }
+//                        if connectivity.isWorking {
+//                            Button {
+//                                // double check in case states change in between
+//                                if connectivity.isWorking {
+//                                    let message = GivenAccount(acct: app.accountName!, bearerToken: app.oauthToken?.accessToken ?? "")
+//                                    connectivity.session.sendMessageData(message.turnToMessage(), replyHandler: { data in
+//                                        let str = String(data: data, encoding: .utf8)
+//                                        print(str ?? "No data?")
+//                                        HapticManager.playHaptics(haptics: Haptic.success)
+//                                    })
+//                                } else {
+//                                    print("No Watch?")
+//                                }
+//                            } label: {
+//                                Label("settings.account-switcher.send-to-watch", systemImage: "applewatch.and.arrow.forward")
+//                            }
+//                        }
                     }
                 } else {
                     Circle()
@@ -305,7 +305,7 @@ extension SettingsView {
             .task {
                 account = await findAccount(acct: app.accountName!)
                 
-                connectivity.initialize()
+//                connectivity.initialize()
             }
         }
         

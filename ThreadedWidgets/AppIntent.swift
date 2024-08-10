@@ -103,3 +103,21 @@ struct AccountQuery: EntityQuery {
         try? await suggestedEntities().first
     }
 }
+
+// MARK: - Post Intents
+
+struct OpenComposerIntent: AppIntent {
+    static var title: LocalizedStringResource = "intent.open.composer"
+    static var description: IntentDescription? = IntentDescription("intent.open.composer.description")
+
+    static var isDiscoverable: Bool = true
+    static var openAppWhenRun: Bool = true
+
+    static var authenticationPolicy: IntentAuthenticationPolicy = .requiresAuthentication
+
+    func perform() async throws -> some IntentResult {
+        UniversalNavigator.static.presentedSheet =
+            .post(content: "", replyId: nil, editId: nil)
+        return .result()
+    }
+}

@@ -772,7 +772,7 @@ extension PostingView {
     
     struct AltTextView: View {
         @Environment(AccountManager.self) private var accountManager: AccountManager
-        @Environment(HuggingFace.self) private var huggingFace: HuggingFace
+//        @Environment(HuggingFace.self) private var huggingFace: HuggingFace
         @Environment(\.dismiss) private var dismiss
         
         var container: MediaContainer

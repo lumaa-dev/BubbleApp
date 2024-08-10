@@ -8,7 +8,9 @@ struct IconView: View {
             ForEach(AppIcons.allCases, id: \.self) { icon in
                 Button {
                     HapticManager.playHaptics(haptics: Haptic.tap)
+                    #if NS_EXTENSION_UNAVAILABLE
                     changeAppIcon(to: icon.assetName)
+                    #endif
                 } label: {
                     HStack {
                         Image(icon.assetName)
@@ -28,7 +30,8 @@ struct IconView: View {
         .navigationBarTitleDisplayMode(.inline)
         .listThreaded()
     }
-    
+
+    #if NS_EXTENSION_UNAVAILABLE
     private func changeAppIcon(to iconName: String) {
         UIApplication.shared.setAlternateIconName(iconName) { error in
             if let error = error {
@@ -37,6 +40,7 @@ struct IconView: View {
             }
         }
     }
+    #endif
 }
 
 private enum AppIcons: CaseIterable {
@@ -111,8 +115,4 @@ private enum AppIcons: CaseIterable {
                 String(localized: "setting.app-icon.unknown")
         }
     }
-}
-
-#Preview {
-    IconView()
 }

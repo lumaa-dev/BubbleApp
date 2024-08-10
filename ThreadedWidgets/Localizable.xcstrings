@@ -4,6 +4,45 @@
     "@%@" : {
 
     },
+    "#%@" : {
+
+    },
+    "%@" : {
+
+    },
+    "%lld" : {
+
+    },
+    "about" : {
+
+    },
+    "about.app" : {
+
+    },
+    "about.app.details" : {
+
+    },
+    "about.app.third-party" : {
+
+    },
+    "about.lumaa" : {
+
+    },
+    "about.version-%@" : {
+
+    },
+    "accessibility.media.supported-type.audio.label" : {
+      "comment" : "A localized description of SupportedType.audio"
+    },
+    "accessibility.media.supported-type.gifv.label" : {
+      "comment" : "A localized description of SupportedType.gifv"
+    },
+    "accessibility.media.supported-type.image.label" : {
+      "comment" : "A localized description of SupportedType.image"
+    },
+    "accessibility.media.supported-type.video.label" : {
+      "comment" : "A localized description of SupportedType.video"
+    },
     "account" : {
       "localizations" : {
         "en" : {
@@ -13,6 +52,760 @@
           }
         }
       }
+    },
+    "account.block" : {
+
+    },
+    "account.edit" : {
+
+    },
+    "account.edit.apply" : {
+
+    },
+    "account.edit.bio" : {
+
+    },
+    "account.edit.bot" : {
+
+    },
+    "account.edit.cancel" : {
+
+    },
+    "account.edit.discoverable" : {
+
+    },
+    "account.edit.display" : {
+
+    },
+    "account.edit.field.name" : {
+
+    },
+    "account.edit.field.value" : {
+
+    },
+    "account.edit.fields" : {
+
+    },
+    "account.edit.fields.add" : {
+
+    },
+    "account.edit.info" : {
+
+    },
+    "account.edit.private" : {
+
+    },
+    "account.edit.properties" : {
+
+    },
+    "account.edit.sensitive" : {
+
+    },
+    "account.follow" : {
+
+    },
+    "account.follow-back" : {
+
+    },
+    "account.followers-%lld" : {
+
+    },
+    "account.mention" : {
+
+    },
+    "account.mute" : {
+
+    },
+    "account.no-statuses" : {
+
+    },
+    "account.unblock" : {
+
+    },
+    "account.unfollow" : {
+
+    },
+    "account.unmute" : {
+
+    },
+    "account.view" : {
+
+    },
+    "accounts.developer" : {
+
+    },
+    "accounts.official" : {
+
+    },
+    "activity" : {
+
+    },
+    "activity.favorite.%@" : {
+
+    },
+    "activity.followed.%@" : {
+
+    },
+    "activity.group.%@-%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "activity.group.%1$@-%2$lld"
+          }
+        }
+      }
+    },
+    "activity.mentionned.%@" : {
+
+    },
+    "activity.messages" : {
+
+    },
+    "activity.messages.read" : {
+
+    },
+    "activity.no-notifications" : {
+
+    },
+    "activity.poll.%@" : {
+
+    },
+    "activity.reblogged.%@" : {
+
+    },
+    "activity.status.%@" : {
+
+    },
+    "activity.status.attachments-%lld" : {
+
+    },
+    "activity.tip.messages.desc" : {
+
+    },
+    "activity.tip.messages.title" : {
+
+    },
+    "activity.unknown" : {
+
+    },
+    "activity.update.%@" : {
+
+    },
+    "attachment.alt.action" : {
+
+    },
+    "attachment.close" : {
+
+    },
+    "attachment.next-image" : {
+
+    },
+    "attachment.no-attachments" : {
+
+    },
+    "attachment.previous-image" : {
+
+    },
+    "attachment.reset-move" : {
+
+    },
+    "beta.feature" : {
+
+    },
+    "coming-soon" : {
+
+    },
+    "discovery" : {
+
+    },
+    "discovery.app" : {
+
+    },
+    "discovery.results.posts" : {
+
+    },
+    "discovery.results.tags" : {
+
+    },
+    "discovery.results.users" : {
+
+    },
+    "discovery.search.posts" : {
+
+    },
+    "discovery.search.prompt" : {
+
+    },
+    "discovery.search.tags" : {
+
+    },
+    "discovery.search.users" : {
+
+    },
+    "discovery.suggested.users" : {
+
+    },
+    "discovery.trending.posts" : {
+
+    },
+    "discovery.trending.tags" : {
+
+    },
+    "duration.fiveMinutes" : {
+
+    },
+    "duration.infinite" : {
+
+    },
+    "duration.oneDay" : {
+
+    },
+    "duration.oneHour" : {
+
+    },
+    "duration.sevenDays" : {
+
+    },
+    "duration.sixHours" : {
+
+    },
+    "duration.thirtyMinutes" : {
+
+    },
+    "duration.threeDays" : {
+
+    },
+    "duration.twelveHours" : {
+
+    },
+    "error.loading-image" : {
+
+    },
+    "experimental" : {
+
+    },
+    "general.report.confirm" : {
+
+    },
+    "general.report.confirm.cancel" : {
+
+    },
+    "general.report.confirm.message" : {
+
+    },
+    "general.report.confirm.ok" : {
+
+    },
+    "Hello, World!" : {
+
+    },
+    "instance.rules" : {
+
+    },
+    "intent.open.composer" : {
+
+    },
+    "intent.open.composer.description" : {
+
+    },
+    "login.instance.unsafe" : {
+
+    },
+    "login.instance.unsafe.agree" : {
+
+    },
+    "login.instance.unsafe.description" : {
+
+    },
+    "login.instance.unsafe.disagree" : {
+
+    },
+    "login.mastodon" : {
+
+    },
+    "login.mastodon.footer" : {
+
+    },
+    "login.mastodon.instance" : {
+
+    },
+    "login.mastodon.login" : {
+
+    },
+    "login.mastodon.verify" : {
+
+    },
+    "login.mastodon.verify-error" : {
+
+    },
+    "login.no-account" : {
+
+    },
+    "login.no-account.footer" : {
+
+    },
+    "login.title" : {
+
+    },
+    "logout" : {
+
+    },
+    "posting.alt.apply" : {
+
+    },
+    "posting.alt.cancel" : {
+
+    },
+    "posting.alt.header" : {
+
+    },
+    "posting.alt.prompt" : {
+
+    },
+    "privacy" : {
+
+    },
+    "restricted.no-restricted" : {
+
+    },
+    "restricted.no-restricted.description" : {
+
+    },
+    "setting.app-icon" : {
+
+    },
+    "setting.app-icon.blue" : {
+
+    },
+    "setting.app-icon.default" : {
+
+    },
+    "setting.app-icon.pink" : {
+
+    },
+    "setting.app-icon.pride" : {
+
+    },
+    "setting.app-icon.purple" : {
+
+    },
+    "setting.app-icon.red" : {
+
+    },
+    "setting.app-icon.unknown" : {
+
+    },
+    "setting.app-icon.yellow" : {
+
+    },
+    "setting.appearence" : {
+
+    },
+    "setting.appearence.browser" : {
+
+    },
+    "setting.appearence.browser.in-app" : {
+
+    },
+    "setting.appearence.browser.out-app" : {
+
+    },
+    "setting.appearence.displayed-name" : {
+
+    },
+    "setting.appearence.displayed-name.both" : {
+
+    },
+    "setting.appearence.displayed-name.display-name" : {
+
+    },
+    "setting.appearence.displayed-name.username" : {
+
+    },
+    "setting.appearence.pfp-shape" : {
+
+    },
+    "setting.appearence.pfp-shape.circle" : {
+
+    },
+    "setting.appearence.pfp-shape.rounded" : {
+
+    },
+    "setting.appearence.reply-symbols" : {
+
+    },
+    "setting.experimental.activate" : {
+
+    },
+    "setting.privacy.default-visibility" : {
+
+    },
+    "setting.support" : {
+
+    },
+    "settings" : {
+
+    },
+    "settings.account-switcher.add" : {
+
+    },
+    "settings.account-switcher.current" : {
+
+    },
+    "settings.account-switcher.default" : {
+
+    },
+    "settings.account-switcher.log" : {
+
+    },
+    "settings.account-switcher.relog" : {
+
+    },
+    "settings.account-switcher.remove" : {
+
+    },
+    "settings.cancel" : {
+
+    },
+    "settings.content-filter.allow" : {
+
+    },
+    "settings.content-filter.auto" : {
+
+    },
+    "settings.content-filter.new-word" : {
+
+    },
+    "settings.content-filter.type" : {
+
+    },
+    "settings.content-filter.words" : {
+
+    },
+    "settings.content-filter.words.footer" : {
+
+    },
+    "settings.done" : {
+
+    },
+    "settings.privacy.clear" : {
+
+    },
+    "settings.privacy.clear-cache" : {
+
+    },
+    "settings.privacy.cleared" : {
+
+    },
+    "settings.privacy.filter" : {
+
+    },
+    "settings.privacy.restricted" : {
+
+    },
+    "settings.restart-app" : {
+
+    },
+    "shop.best" : {
+
+    },
+    "shop.features" : {
+
+    },
+    "shop.features.analytics" : {
+
+    },
+    "shop.features.analytics.description" : {
+
+    },
+    "shop.features.content-filter" : {
+
+    },
+    "shop.features.content-filter.description" : {
+
+    },
+    "shop.features.download-atchmnt" : {
+
+    },
+    "shop.features.download-atchmnt.description" : {
+
+    },
+    "shop.features.drafts" : {
+
+    },
+    "shop.features.drafts.description" : {
+
+    },
+    "shop.features.experimental" : {
+
+    },
+    "shop.features.experimental.description" : {
+
+    },
+    "shop.features.more-accounts" : {
+
+    },
+    "shop.features.more-accounts.description" : {
+
+    },
+    "shop.features.vip" : {
+
+    },
+    "shop.features.vip.description" : {
+
+    },
+    "shop.threaded-plus.dismiss" : {
+
+    },
+    "shop.threaded-plus.lifetime" : {
+
+    },
+    "shop.threaded-plus.monthly" : {
+
+    },
+    "shop.threaded-plus.monthly.price" : {
+
+    },
+    "shop.threaded-plus.subscribe" : {
+
+    },
+    "shop.threaded-plus.subscription" : {
+
+    },
+    "shop.threaded-plus.subscription.description" : {
+
+    },
+    "shop.threaded-plus.yearly" : {
+
+    },
+    "shop.threaded-plus.yearly.price" : {
+
+    },
+    "status.action.bookmark" : {
+
+    },
+    "status.action.like" : {
+
+    },
+    "status.action.unbookmark" : {
+
+    },
+    "status.action.unlike" : {
+
+    },
+    "status.content-filter.censor" : {
+
+    },
+    "status.content-filter.remove" : {
+
+    },
+    "status.cross-post.alts" : {
+
+    },
+    "status.editing" : {
+
+    },
+    "status.favourites-%lld" : {
+
+    },
+    "status.menu.copy-text" : {
+
+    },
+    "status.menu.delete" : {
+
+    },
+    "status.menu.edit" : {
+
+    },
+    "status.menu.report" : {
+
+    },
+    "status.menu.share" : {
+
+    },
+    "status.menu.share-image" : {
+
+    },
+    "status.menu.share-link" : {
+
+    },
+    "status.pinned" : {
+
+    },
+    "status.poll.expired" : {
+
+    },
+    "status.poll.expires-in.%@" : {
+
+    },
+    "status.poll.hide-results" : {
+
+    },
+    "status.poll.show-results" : {
+
+    },
+    "status.poll.submit" : {
+
+    },
+    "status.poll.voters.%lld" : {
+
+    },
+    "status.posting" : {
+
+    },
+    "status.posting.cancel" : {
+
+    },
+    "status.posting.no-emojis" : {
+
+    },
+    "status.posting.placeholder" : {
+
+    },
+    "status.posting.poll.disable-multi" : {
+
+    },
+    "status.posting.poll.enable-multi" : {
+
+    },
+    "status.posting.poll.expiry" : {
+
+    },
+    "status.posting.poll.option-%lld" : {
+
+    },
+    "status.posting.post" : {
+
+    },
+    "status.posting.visibility" : {
+
+    },
+    "status.posting.visibility.direct" : {
+
+    },
+    "status.posting.visibility.private" : {
+
+    },
+    "status.posting.visibility.public" : {
+
+    },
+    "status.posting.visibility.unlisted" : {
+
+    },
+    "status.replied-to.%@" : {
+
+    },
+    "status.replies-%lld" : {
+
+    },
+    "status.report" : {
+
+    },
+    "status.report.cancel" : {
+
+    },
+    "status.report.comment" : {
+
+    },
+    "status.report.preview" : {
+
+    },
+    "status.report.preview.footer" : {
+
+    },
+    "status.report.title" : {
+
+    },
+    "status.reposted-by.%@" : {
+
+    },
+    "support" : {
+
+    },
+    "support.discord" : {
+
+    },
+    "support.discord.description" : {
+
+    },
+    "support.discord.join" : {
+
+    },
+    "support.email" : {
+
+    },
+    "support.email.description" : {
+
+    },
+    "support.mail.no-mail" : {
+
+    },
+    "support.mail.send" : {
+
+    },
+    "support.mail.subject" : {
+
+    },
+    "support.matrix" : {
+
+    },
+    "support.matrix.description" : {
+
+    },
+    "support.matrix.join" : {
+
+    },
+    "support.mention" : {
+
+    },
+    "support.mention.description" : {
+
+    },
+    "support.mention.post" : {
+
+    },
+    "support.platform" : {
+
+    },
+    "tag.posts-%lld" : {
+
+    },
+    "tag.read" : {
+
+    },
+    "timeline.empty" : {
+
+    },
+    "timeline.empty.description" : {
+
+    },
+    "timeline.federated" : {
+
+    },
+    "timeline.home" : {
+
+    },
+    "timeline.latest" : {
+
+    },
+    "timeline.local" : {
+
+    },
+    "timeline.trending" : {
+
+    },
+    "tos.description" : {
+
+    },
+    "update.hide" : {
+
+    },
+    "update.title" : {
+
+    },
+    "warning.title" : {
+
     },
     "widget.follow-count" : {
       "localizations" : {

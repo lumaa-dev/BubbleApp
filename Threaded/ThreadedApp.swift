@@ -48,7 +48,3 @@ public extension View {
             .modelContainer(for: [LoggedAccount.self, ModelFilter.self])
     }
 }
-
-extension AppInfo {
-    static var appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
-}

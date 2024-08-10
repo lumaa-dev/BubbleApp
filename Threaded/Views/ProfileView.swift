@@ -6,6 +6,7 @@ struct ProfileView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
     @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
     @Environment(AppDelegate.self) private var appDelegate: AppDelegate
+    @Environment(\.openURL) private var openURL: OpenURLAction
     @EnvironmentObject private var navigator: Navigator
     
     @Namespace var accountAnims
@@ -284,9 +285,9 @@ struct ProfileView: View {
                     TextEmoji(field.value, emojis: account.emojis)
                 }
                 .onTapGesture {
-                    if let url = URL(string: field.value.asRawText), UIApplication.shared.canOpenURL(url) {
+                    if let url = URL(string: field.value.asRawText) {
                         HapticManager.playHaptics(haptics: Haptic.success)
-                        UIApplication.shared.open(url)
+                        openURL(url)
                     } else {
                         HapticManager.playHaptics(haptics: Haptic.error)
                     }

@@ -48,8 +48,8 @@ struct PostCardView: View {
                 .stroke(.gray.opacity(0.3), lineWidth: 1)
         )
         .onTapGesture {
-            if UIApplication.shared.canOpenURL(URL(string: card.url)!) {
-                openURL(URL(string: card.url)!)
+            if let url = URL(string: card.url) {
+                openURL(url)
             }
         }
     }

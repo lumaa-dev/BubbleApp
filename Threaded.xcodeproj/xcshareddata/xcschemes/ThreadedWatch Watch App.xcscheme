@@ -85,6 +85,15 @@
             ReferencedContainer = "container:Threaded.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B9B469B62B9A7E6800AD5585"
+            BuildableName = "Threaded.app"
+            BlueprintName = "ThreadedWatch Watch App"
+            ReferencedContainer = "container:Threaded.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
