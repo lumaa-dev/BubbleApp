@@ -5,17 +5,67 @@ import SwiftUI
 
 @Observable
 public class Navigator: ObservableObject {
+    public static var shared: Navigator = Navigator()
+
     public var path: [RouterDestination] = []
     public var presentedSheet: SheetDestination?
     public var presentedCover: SheetDestination?
-    public var selectedTab: TabDestination = .timeline
-    
+    public var selectedTab: TabDestination {
+        set {
+            change(to: newValue)
+        }
+        get {
+            return self.currentTab
+        }
+    }
+    private var currentTab: TabDestination = .timeline
+
+    public private(set) var memorizedNav: [TabDestination : [RouterDestination]] = [:]
+    public var showTabbar: Bool {
+        get {
+            self.visiTabbar
+        }
+        set {
+            withAnimation(.spring) {
+                self.visiTabbar = newValue
+            }
+        }
+    }
+    private var visiTabbar: Bool = true
+
     public var client: Client?
     
     public func navigate(to: RouterDestination) {
         path.append(to)
     }
-    
+
+    /// Changes the current tab from the current ``Navigator`` class
+    func change(to tab: TabDestination) {
+        savePath()
+
+        withAnimation(.spring) {
+            loadPath(from: tab)
+        }
+    }
+
+    private func savePath() {
+        let lastTab: TabDestination = self.currentTab
+        let lastPath: [RouterDestination] = self.path
+
+        memorizedNav.updateValue(lastPath, forKey: lastTab)
+    }
+
+    private func loadPath(from tab: TabDestination) {
+        if let (newTab, newPath) = memorizedNav.first(where: { $0.key == tab }).map({ [$0.key : $0.value] })?.first {
+            self.currentTab = newTab
+            self.path = newPath
+        } else {
+            print("Couldn't find Navigator data from \(tab.id), created new ones")
+            self.currentTab = tab
+            self.path = []
+        }
+    }
+
     public func handle(url: URL) -> OpenURLAction.Result {
         guard let client = self.client else { return .systemAction }
         let path: String = url.absoluteString.replacingOccurrences(of: AppInfo.scheme, with: "") // remove all path
@@ -64,15 +114,16 @@ public class Navigator: ObservableObject {
         }
         return OpenURLAction.Result.handled
     }
-    
+
+    /// This only applies on the current path, not the saved ones in ``memorizedNav``
     public func removeSettingsOfPath() {
         self.path = self.path.filter({ !RouterDestination.allSettings.contains($0) })
     }
 }
 
+/// This can be used for universal ``SheetDestination``s
 public class UniversalNavigator: Navigator {
-    static var shared: UniversalNavigator = UniversalNavigator()
-    public var tabNavigator: Navigator?
+    public static var `static`: UniversalNavigator = UniversalNavigator()
 }
 
 public enum TabDestination: Identifiable {

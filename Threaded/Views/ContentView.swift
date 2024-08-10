@@ -8,12 +8,13 @@ struct ContentView: View {
     
     private var huggingFace: HuggingFace = HuggingFace()
     @State private var preferences: UserPreferences = .defaultPreferences
-    @StateObject private var uniNavigator = UniversalNavigator.shared
+    @State private var navigator: Navigator = .shared
+    @StateObject private var uniNavigator = UniversalNavigator.static
     @StateObject private var accountManager: AccountManager = AccountManager.shared
     
     var body: some View {
         ZStack {
-            TabView(selection: $uniNavigator.selectedTab, content: {
+            TabView(selection: $navigator.selectedTab, content: {
                 if accountManager.getAccount() != nil {
                     TimelineView(timelineModel: FetchTimeline(client: accountManager.forceClient()))
                         .background(Color.appBackground)
@@ -40,8 +41,10 @@ struct ContentView: View {
         }
         .frame(maxWidth: appDelegate.windowWidth)
         .overlay(alignment: .bottom) {
-            TabsView(selectedTab: $uniNavigator.selectedTab, postButton: {
+            TabsView(postButton: {
                     uniNavigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
+            }, retapAction: {
+                Navigator.shared.path = []
             })
             .safeAreaPadding(.vertical, 10)
             .zIndex(10)

@@ -3,8 +3,8 @@
 import SwiftUI
 
 struct TabsView: View {
-    @Binding var selectedTab: TabDestination
-    
+    @State var selectedTab: TabDestination = Navigator.shared.selectedTab
+
     var postButton: () -> Void = {}
     var tapAction: () -> Void = {}
     var retapAction: () -> Void = {}
@@ -92,6 +92,9 @@ struct TabsView: View {
         }
         .padding(.horizontal, 30)
         .background(Color.appBackground)
+        .onChange(of: selectedTab) { _, newValue in
+            Navigator.shared.selectedTab = newValue
+        }
     }
 }
 
