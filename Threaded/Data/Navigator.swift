@@ -107,7 +107,10 @@ public enum SheetDestination: Identifiable {
     case shareImage(image: UIImage, status: Status)
     case update
     case filter
-    
+
+    case reportStatus(status: Status)
+//    case reportUser
+
     public var id: String {
         switch self {
             case .welcome:
@@ -131,6 +134,9 @@ public enum SheetDestination: Identifiable {
                 return "update"
             case .filter:
                 return "contentfilter"
+
+            case .reportStatus:
+                return "reportStatus"
         }
     }
     
@@ -156,6 +162,9 @@ public enum SheetDestination: Identifiable {
             case .update:
                 return false
             case .filter:
+                return false
+
+            case .reportStatus:
                 return false
         }
     }
@@ -260,6 +269,8 @@ extension View {
                     ShareSheet(image: image, status: status)
                 case .update:
                     UpdateView()
+                case let .reportStatus(status):
+                    ReportStatusView(status: status)
                 default:
                     EmptySheetView(destId: destination.id)
             }

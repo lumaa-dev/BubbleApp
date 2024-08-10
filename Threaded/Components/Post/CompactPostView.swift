@@ -36,6 +36,10 @@ struct CompactPostView: View {
             }
         }
         .withCovers(sheetDestination: $navigator.presentedCover)
+        .containerShape(Rectangle())
+        .contextMenu {
+            PostMenu(status: status)
+        }
         .onAppear {
             do {
                 preferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
@@ -136,27 +140,7 @@ struct CompactPostView: View {
                             PostCardView(card: status.card!)
                         }
                         
-                        if !status.mediaAttachments.isEmpty {
-                            if status.mediaAttachments.count > 1 {
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(alignment: .firstTextBaseline, spacing: 5) {
-                                        ForEach(status.mediaAttachments) { attachment in
-                                            PostAttachment(attachment: attachment, isFeatured: false, isImaging: imaging)
-                                                .blur(radius: status.sensitive ? 15.0 : 0)
-                                                .onTapGesture {
-                                                    navigator.presentedCover = .media(attachments: status.mediaAttachments, selected: attachment)
-                                                }
-                                        }
-                                    }
-                                }
-                                .scrollClipDisabled()
-                            } else {
-                                PostAttachment(attachment: status.mediaAttachments.first!, isImaging: imaging)
-                                    .onTapGesture {
-                                        navigator.presentedCover = .media(attachments: status.mediaAttachments, selected: status.mediaAttachments[0])
-                                    }
-                            }
-                        }
+                    attachmnts
 //                    }
                     
                     if hasQuote && !quoted {
@@ -183,7 +167,32 @@ struct CompactPostView: View {
 //            }
         }
     }
-    
+
+    @ViewBuilder
+    var attachmnts: some View {
+        if !status.mediaAttachments.isEmpty {
+            if status.mediaAttachments.count > 1 {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(alignment: .firstTextBaseline, spacing: 5) {
+                        ForEach(status.mediaAttachments) { attachment in
+                            PostAttachment(attachment: attachment, isFeatured: false, isImaging: imaging)
+                                .blur(radius: status.sensitive ? 15.0 : 0)
+                                .onTapGesture {
+                                    navigator.presentedCover = .media(attachments: status.mediaAttachments, selected: attachment)
+                                }
+                        }
+                    }
+                }
+                .scrollClipDisabled()
+            } else {
+                PostAttachment(attachment: status.mediaAttachments.first!, isImaging: imaging)
+                    .onTapGesture {
+                        navigator.presentedCover = .media(attachments: status.mediaAttachments, selected: status.mediaAttachments[0])
+                    }
+            }
+        }
+    }
+
     var notices: some View {
         ZStack {
             if pinned {

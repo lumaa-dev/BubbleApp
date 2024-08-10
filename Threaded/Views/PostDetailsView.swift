@@ -73,8 +73,16 @@ struct PostDetailsView: View {
                     }
                 
                 Spacer()
-                
-                PostMenu(status: status)
+
+                Menu {
+                    PostMenu(status: status)
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundStyle(Color.white.opacity(0.3))
+                        .font(.body)
+                        .contentShape(Rectangle())
+                        .padding(7.5)
+                }
                     .padding([.trailing, .top])
             }
             
