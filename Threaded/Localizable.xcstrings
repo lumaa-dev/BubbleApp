@@ -1976,6 +1976,22 @@
         }
       }
     },
+    "setting.app-icon.pink" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pink"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rose"
+          }
+        }
+      }
+    },
     "setting.app-icon.pride" : {
       "localizations" : {
         "en" : {
@@ -2008,6 +2024,22 @@
         }
       }
     },
+    "setting.app-icon.red" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rouge"
+          }
+        }
+      }
+    },
     "setting.app-icon.unknown" : {
       "localizations" : {
         "en" : {
@@ -2020,6 +2052,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Icône inconnue"
+          }
+        }
+      }
+    },
+    "setting.app-icon.yellow" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yellow"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jaune"
           }
         }
       }
