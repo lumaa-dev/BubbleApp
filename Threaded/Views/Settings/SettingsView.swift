@@ -151,6 +151,14 @@ struct SettingsView: View {
         .listThreaded()
         .navigationTitle("settings")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            navigator.showTabbar = false
+        }
+        .onChange(of: navigator.path) { _, newValue in
+            guard !newValue.isEmpty else { navigator.showTabbar = true; return }
+            navigator.showTabbar = newValue
+                .filter({ $0 == RouterDestination.settings }).first == nil
+        }
     }
 }
 

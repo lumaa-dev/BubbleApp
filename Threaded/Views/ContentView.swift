@@ -62,11 +62,6 @@ struct ContentView: View {
         .environment(huggingFace)
         .environmentObject(preferences)
         .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: navigator.path) { _, newValue in
-            guard !newValue.isEmpty else { navigator.showTabbar = true; return }
-            navigator.showTabbar = newValue
-                .filter({ $0 == RouterDestination.settings }).first == nil
-        }
         .onAppear {
             showNew()
             
