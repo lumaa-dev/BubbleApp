@@ -31,17 +31,19 @@ struct UpdateView: View {
                         .frame(minWidth: 250)
                 }
                 .buttonStyle(LargeButton(filled: true))
+
+                Spacer()
             }
         }
     }
     
     var features: some View {
         VStack(spacing: 60) {
-            newFeature(systemImage: "line.3.horizontal.decrease.circle", title: "Content Filter", text: "Keep words out of your feeds in the app's settings, Privacy, then Content Filter")
-            
-            newFeature(systemImage: "paperplane", title: "Smarter posting!", text: "You can crosspost your posts in other apps like X, Ice Cubes, and others.")
-            
-            newFeature(systemImage: "plus.app", title: "App Store", text: "Coming soon, in your closest Home Screen page's App Store...")
+            newFeature(systemImage: "hand.raised", title: "Report content", text: "You can now report posts by tap and holding a post")
+
+            newFeature(systemImage: "link.badge.plus", title: "Corn fields, link fields...", text: "You can now see, read, and tap on profile fields.")
+
+            newFeature(systemImage: "text.below.photo", title: "ALTernative", text: "When writing a post, you can now edit an ALT text.")
         }
         .frame(height: 500)
     }
