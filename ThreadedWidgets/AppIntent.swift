@@ -113,7 +113,7 @@ struct OpenComposerIntent: AppIntent {
     static var isDiscoverable: Bool = true
     static var openAppWhenRun: Bool = true
 
-    static var authenticationPolicy: IntentAuthenticationPolicy = .requiresAuthentication
+    static var authenticationPolicy: IntentAuthenticationPolicy = .requiresLocalDeviceAuthentication
 
     func perform() async throws -> some IntentResult {
         UniversalNavigator.static.presentedSheet =

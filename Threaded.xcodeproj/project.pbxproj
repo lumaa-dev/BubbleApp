@@ -43,6 +43,9 @@
 		B98BC7492B46CEDA00595441 /* AppearenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98BC7482B46CEDA00595441 /* AppearenceView.swift */; };
 		B98BC74B2B46CF0400595441 /* ThreadedStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98BC74A2B46CF0400595441 /* ThreadedStyle.swift */; };
 		B98BC74D2B46CFCE00595441 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98BC74C2B46CFCE00595441 /* UserPreferences.swift */; };
+		B98DD8D62C681FDA009F40DD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B9FB948F2B2E2B0E00D81C07 /* Localizable.xcstrings */; };
+		B98DD8D82C6821F7009F40DD /* CreatePostControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98DD8D72C6821F7009F40DD /* CreatePostControl.swift */; };
+		B98DD8D92C6821F7009F40DD /* CreatePostControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98DD8D72C6821F7009F40DD /* CreatePostControl.swift */; };
 		B98F47962B645DF40092000F /* EmojiSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98F47952B645DF40092000F /* EmojiSelector.swift */; };
 		B98F47982B64670F0092000F /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98F47972B64670F0092000F /* ShopView.swift */; };
 		B98F479A2B653CAE0092000F /* Compressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98F47992B653CAE0092000F /* Compressor.swift */; };
@@ -138,6 +141,9 @@
 		B9A80E932C67C7C300DE3D88 /* ReceiptParser in Frameworks */ = {isa = PBXBuildFile; productRef = B9A80E922C67C7C300DE3D88 /* ReceiptParser */; };
 		B9A80E952C67C7C300DE3D88 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = B9A80E942C67C7C300DE3D88 /* RevenueCat */; };
 		B9A80E972C67C7C300DE3D88 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = B9A80E962C67C7C300DE3D88 /* RevenueCatUI */; };
+		B9A80E9A2C67D56900DE3D88 /* FollowCountWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D112B921C78004DC9B3 /* FollowCountWidget.swift */; };
+		B9A80E9B2C67D56900DE3D88 /* FollowGoalWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */; };
+		B9A80E9C2C67D56900DE3D88 /* CreatePostWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A80DDD2C67BFF800DE3D88 /* CreatePostWidget.swift */; };
 		B9A8DABA2BB7364300A890CC /* PostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A8DAB92BB7364300A890CC /* PostsView.swift */; };
 		B9B469B02B9A275F00AD5585 /* FollowGoalWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */; };
 		B9B469B22B9A6E8300AD5585 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469B12B9A6E8300AD5585 /* PrivacyView.swift */; };
@@ -158,7 +164,6 @@
 		B9C20D142B921C78004DC9B3 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D132B921C78004DC9B3 /* AppIntent.swift */; };
 		B9C20D162B921C7B004DC9B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9C20D152B921C7B004DC9B3 /* Assets.xcassets */; };
 		B9C20D1A2B921C7B004DC9B3 /* ThreadedWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B9C20D092B921C78004DC9B3 /* ThreadedWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B9C20D1F2B921E81004DC9B3 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B9C20D1E2B921E81004DC9B3 /* Localizable.xcstrings */; };
 		B9C20D342B9229EC004DC9B3 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB949A2B2EF09A00D81C07 /* Client.swift */; };
 		B9C20D372B9229EC004DC9B3 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB94A12B2EF24A00D81C07 /* AppInfo.swift */; };
 		B9C20D3D2B9229EC004DC9B3 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB94872B2E223E00D81C07 /* Emoji.swift */; };
@@ -283,6 +288,7 @@
 		B98BC7482B46CEDA00595441 /* AppearenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearenceView.swift; sourceTree = "<group>"; };
 		B98BC74A2B46CF0400595441 /* ThreadedStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadedStyle.swift; sourceTree = "<group>"; };
 		B98BC74C2B46CFCE00595441 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		B98DD8D72C6821F7009F40DD /* CreatePostControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostControl.swift; sourceTree = "<group>"; };
 		B98F47952B645DF40092000F /* EmojiSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSelector.swift; sourceTree = "<group>"; };
 		B98F47972B64670F0092000F /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
 		B98F47992B653CAE0092000F /* Compressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compressor.swift; sourceTree = "<group>"; };
@@ -312,7 +318,6 @@
 		B9C20D132B921C78004DC9B3 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		B9C20D152B921C7B004DC9B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9C20D172B921C7B004DC9B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B9C20D1E2B921E81004DC9B3 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		B9C20D582B923CDD004DC9B3 /* ThreadedWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ThreadedWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		B9C20D592B923D53004DC9B3 /* Threaded.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Threaded.entitlements; sourceTree = "<group>"; };
 		B9C7F46B2C387D3B009C36DC /* WarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
@@ -455,9 +460,9 @@
 				B9C20D112B921C78004DC9B3 /* FollowCountWidget.swift */,
 				B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */,
 				B9A80DDD2C67BFF800DE3D88 /* CreatePostWidget.swift */,
+				B98DD8D72C6821F7009F40DD /* CreatePostControl.swift */,
 				B9C20D132B921C78004DC9B3 /* AppIntent.swift */,
 				B9C20D152B921C7B004DC9B3 /* Assets.xcassets */,
-				B9C20D1E2B921E81004DC9B3 /* Localizable.xcstrings */,
 				B9C20D172B921C7B004DC9B3 /* Info.plist */,
 			);
 			path = ThreadedWidgets;
@@ -787,7 +792,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9C20D1F2B921E81004DC9B3 /* Localizable.xcstrings in Resources */,
+				B98DD8D62C681FDA009F40DD /* Localizable.xcstrings in Resources */,
 				B9C20D162B921C7B004DC9B3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -876,6 +881,7 @@
 				B9A80E0B2C67C4A600DE3D88 /* AccountRow.swift in Sources */,
 				B9A80E0C2C67C4A600DE3D88 /* ComingSoonView.swift in Sources */,
 				B9A80E0D2C67C4A600DE3D88 /* OnlineImage.swift in Sources */,
+				B98DD8D92C6821F7009F40DD /* CreatePostControl.swift in Sources */,
 				B9A80E0E2C67C4A600DE3D88 /* DynamicTextEditor.swift in Sources */,
 				B9A80E6F2C67C62800DE3D88 /* Message.swift in Sources */,
 				B9A80E0F2C67C4A600DE3D88 /* ContactRow.swift in Sources */,
@@ -948,6 +954,7 @@
 				B93ADFCB2B7625CD00FF9172 /* DiscoveryView.swift in Sources */,
 				B9D9C6C72B6A590F00C26A41 /* ProfilePicture.swift in Sources */,
 				B9842C102B2F228C00D9F3C1 /* Status.swift in Sources */,
+				B98DD8D82C6821F7009F40DD /* CreatePostControl.swift in Sources */,
 				B9D9C6C32B6A576C00C26A41 /* NotificationsView.swift in Sources */,
 				B9FA6E772B82788A00D63E30 /* AccountRow.swift in Sources */,
 				B934EA242BAB5E7F001F4345 /* RestrictedView.swift in Sources */,
@@ -973,6 +980,9 @@
 				B999DE5E2B76F9D100509868 /* Message.swift in Sources */,
 				B915C4422B6F908C00042DDB /* ProfileView.swift in Sources */,
 				B9FB94702B2DF3CD00D81C07 /* Navigator.swift in Sources */,
+				B9A80E9A2C67D56900DE3D88 /* FollowCountWidget.swift in Sources */,
+				B9A80E9B2C67D56900DE3D88 /* FollowGoalWidget.swift in Sources */,
+				B9A80E9C2C67D56900DE3D88 /* CreatePostWidget.swift in Sources */,
 				B9C7F46C2C387D3B009C36DC /* WarningView.swift in Sources */,
 				B9EBE8562B47256900FB594D /* PostAttachment.swift in Sources */,
 				B9EBE8582B474FD600FB594D /* AppDelegate.swift in Sources */,
@@ -1055,13 +1065,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded.ThreadedWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,4";
+				TARGETED_DEVICE_FAMILY = 1;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
@@ -1089,13 +1099,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded.ThreadedWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,4";
+				TARGETED_DEVICE_FAMILY = 1;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
@@ -1160,6 +1170,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
@@ -1218,6 +1229,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
