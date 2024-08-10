@@ -41,22 +41,33 @@ struct IconView: View {
 
 private enum AppIcons: CaseIterable {
     case `default`
-    case purple
+    case red
+    case yellow
     case blue
+    case purple
+    case pink
     case twitter
     case pride
     case async
     case brat
     case artisticly
-    
+//    later for Plus
+//    case stone
+
     var assetName: String {
         switch self {
             case .default:
                 "DefaultIcon"
-            case .purple:
-                "PurpleIcon"
+            case .red:
+                "RedIcon"
+            case .yellow:
+                "YellowIcon"
             case .blue:
                 "BlueIcon"
+            case .purple:
+                "PurpleIcon"
+            case .pink:
+                "PinkIcon"
             case .twitter:
                 "TwitterIcon"
             case .pride:
@@ -76,10 +87,16 @@ private enum AppIcons: CaseIterable {
         switch self {
             case .default:
                 String(localized: "setting.app-icon.default")
-            case .purple:
-                String(localized: "setting.app-icon.purple")
+            case .red:
+                String(localized: "setting.app-icon.red")
+            case .yellow:
+                String(localized: "setting.app-icon.yellow")
             case .blue:
                 String(localized: "setting.app-icon.blue")
+            case .purple:
+                String(localized: "setting.app-icon.purple")
+            case .pink:
+                String(localized: "setting.app-icon.pink")
             case .twitter:
                 "Twitter"
             case .pride:
