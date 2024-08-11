@@ -6,7 +6,7 @@ import TipKit
 struct NotificationsView: View {
     @Environment(AccountManager.self) private var accountManager
     
-    @State private var navigator: Navigator = Navigator()
+    @State private var navigator: Navigator = Navigator.shared
     @State private var notifications: [GroupedNotification] = []
     @State private var loadingNotifs: Bool = true
     @State private var lastId: Int? = nil

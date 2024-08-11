@@ -194,7 +194,8 @@ struct PostingView: View {
         .pickerStyle(.menu)
         .foregroundStyle(Color.gray)
     }
-    
+
+    // MARK: Post function
     private func postText() {
         Task {
             if let client = accountManager.getClient() {
@@ -772,7 +773,7 @@ extension PostingView {
     
     struct AltTextView: View {
         @Environment(AccountManager.self) private var accountManager: AccountManager
-        @Environment(HuggingFace.self) private var huggingFace: HuggingFace
+//        @Environment(HuggingFace.self) private var huggingFace: HuggingFace
         @Environment(\.dismiss) private var dismiss
         
         var container: MediaContainer

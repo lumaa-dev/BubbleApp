@@ -6,14 +6,15 @@ import SwiftUI
 struct ContentView: View {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
-    private var huggingFace: HuggingFace = HuggingFace()
+//    private var huggingFace: HuggingFace = HuggingFace()
     @State private var preferences: UserPreferences = .defaultPreferences
-    @StateObject private var uniNavigator = UniversalNavigator.shared
+    @State private var navigator: Navigator = .shared
+    @StateObject private var uniNavigator = UniversalNavigator.static
     @StateObject private var accountManager: AccountManager = AccountManager.shared
     
     var body: some View {
         ZStack {
-            TabView(selection: $uniNavigator.selectedTab, content: {
+            TabView(selection: $navigator.selectedTab, content: {
                 if accountManager.getAccount() != nil {
                     TimelineView(timelineModel: FetchTimeline(client: accountManager.forceClient()))
                         .background(Color.appBackground)
@@ -40,18 +41,25 @@ struct ContentView: View {
         }
         .frame(maxWidth: appDelegate.windowWidth)
         .overlay(alignment: .bottom) {
-            TabsView(selectedTab: $uniNavigator.selectedTab, postButton: {
+            TabsView(canTap: $navigator.showTabbar, postButton: {
                     uniNavigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
+            }, retapAction: {
+                navigator.path = []
+//                Navigator.shared.showTabbar.toggle()
             })
             .safeAreaPadding(.vertical, 10)
             .zIndex(10)
+            .offset(
+                y: navigator.showTabbar ? 0 : CGFloat
+                    .getFontSize(from: .extraLargeTitle) * 7.5
+            )
+            .allowsHitTesting(navigator.showTabbar)
         }
         .withSheets(sheetDestination: $uniNavigator.presentedSheet)
         .withCovers(sheetDestination: $uniNavigator.presentedCover)
         .environment(uniNavigator)
         .environment(accountManager)
         .environment(appDelegate)
-        .environment(huggingFace)
         .environmentObject(preferences)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
@@ -69,8 +77,6 @@ struct ContentView: View {
                     await recognizeAccount()
                 }
             }
-            
-            _ = HuggingFace.getToken()
         }
         .onOpenURL(perform: { url in
             guard preferences.browserType == .inApp else { return }

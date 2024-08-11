@@ -3,15 +3,19 @@
 import SwiftUI
 
 struct TabsView: View {
-    @Binding var selectedTab: TabDestination
-    
+    @State var selectedTab: TabDestination = Navigator.shared.selectedTab
+
+    var canTap: Binding<Bool> = .constant(true)
+
     var postButton: () -> Void = {}
     var tapAction: () -> Void = {}
     var retapAction: () -> Void = {}
-    
+
     var body: some View {
         HStack(alignment: .center) {
             Button {
+                guard canTap.wrappedValue else { return }
+
                 if selectedTab == .timeline {
                     retapAction()
                 } else {
@@ -25,11 +29,14 @@ struct TabsView: View {
                     Tabs.timeline.image
                 }
             }
+            .disabled(!canTap.wrappedValue)
             .buttonStyle(NoTapAnimationStyle())
             
             Spacer()
             
             Button {
+                guard canTap.wrappedValue else { return }
+
                 if selectedTab == .search {
                     retapAction()
                 } else {
@@ -43,20 +50,26 @@ struct TabsView: View {
                     Tabs.search.image
                 }
             }
+            .disabled(!canTap.wrappedValue)
             .buttonStyle(NoTapAnimationStyle())
             
             Spacer()
             
             Button {
+                guard canTap.wrappedValue else { return }
+
                 postButton()
             } label: {
                 Tabs.post.image
             }
+            .disabled(!canTap.wrappedValue)
             .buttonStyle(NoTapAnimationStyle())
             
             Spacer()
             
             Button {
+                guard canTap.wrappedValue else { return }
+
                 if selectedTab == .activity {
                     retapAction()
                 } else {
@@ -70,11 +83,14 @@ struct TabsView: View {
                     Tabs.activity.image
                 }
             }
+            .disabled(!canTap.wrappedValue)
             .buttonStyle(NoTapAnimationStyle())
             
             Spacer()
             
             Button {
+                guard canTap.wrappedValue else { return }
+
                 if selectedTab == .profile {
                     retapAction()
                 } else {
@@ -88,10 +104,14 @@ struct TabsView: View {
                     Tabs.profile.image
                 }
             }
+            .disabled(!canTap.wrappedValue)
             .buttonStyle(NoTapAnimationStyle())
         }
         .padding(.horizontal, 30)
         .background(Color.appBackground)
+        .onChange(of: selectedTab) { _, newValue in
+            Navigator.shared.selectedTab = newValue
+        }
     }
 }
 

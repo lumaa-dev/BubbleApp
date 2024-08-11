@@ -5,7 +5,7 @@ import SwiftData
 
 struct TimelineView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    @State var navigator: Navigator = Navigator()
+    @State var navigator: Navigator = Navigator.shared
     
     @State private var showPicker: Bool = false
     @State private var timelines: [TimelineFilter] = [.home, .trending, .local, .federated]

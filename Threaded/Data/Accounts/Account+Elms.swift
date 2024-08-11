@@ -2,6 +2,7 @@
 
 import Foundation
 
+/// Mastodon visibility strings
 public enum Visibility: String, Codable, CaseIterable, Hashable, Equatable, Sendable {
     case pub = "public"
     case unlisted

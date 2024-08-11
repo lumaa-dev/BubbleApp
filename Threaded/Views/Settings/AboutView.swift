@@ -4,6 +4,7 @@ import SwiftUI
 
 struct AboutView: View {
     @Environment(AppDelegate.self) private var appDelegate: AppDelegate
+    @Environment(\.openURL) private var openURL: OpenURLAction
     @EnvironmentObject private var navigator: Navigator
     @ObservedObject private var userPreferences: UserPreferences = .defaultPreferences
     
@@ -19,7 +20,9 @@ struct AboutView: View {
                     .listRowThreaded()
                     
                     Button {
-                        UIApplication.shared.open(URL(string: "https://lumaa.fr/?utm_source=ThreadedApp")!)
+                        if let url = URL(string: "https://lumaa.fr/?utm_source=ThreadedApp") {
+                            openURL(url)
+                        }
                     } label: {
                         Text("about.lumaa")
                     }

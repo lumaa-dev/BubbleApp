@@ -7,7 +7,8 @@ import RevenueCat
 @main
 struct ThreadedApp: App {
     init() {
-        guard let plist = AppDelegate.readSecret() else { return }
+        guard let plist = AppDelegate.readSecret() else { fatalError("Missing Secret.plist file") }
+
         if let apiKey = plist["RevenueCat_public"], let deviceId = UIDevice.current.identifierForVendor?.uuidString {
             #if DEBUG
             Purchases.logLevel = .debug
@@ -16,6 +17,8 @@ struct ThreadedApp: App {
                 Purchases.configure(withAPIKey: apiKey, appUserID: deviceId)
             }
         }
+
+        ThreadedShortcuts.updateAppShortcutParameters()
     }
     
     var body: some Scene {
@@ -47,8 +50,4 @@ public extension View {
         self
             .modelContainer(for: [LoggedAccount.self, ModelFilter.self])
     }
-}
-
-extension AppInfo {
-    static var appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
 }

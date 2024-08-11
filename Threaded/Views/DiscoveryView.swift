@@ -5,8 +5,8 @@ import SwiftUI
 struct DiscoveryView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
     
-    @State private var navigator: Navigator = Navigator()
-    
+    @State private var navigator: Navigator = Navigator.shared
+
     @State private var searchQuery: String = ""
     @State private var results: [String : SearchResults] = [:]
     @State private var querying: Bool = false

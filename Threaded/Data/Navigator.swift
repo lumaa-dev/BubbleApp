@@ -5,74 +5,80 @@ import SwiftUI
 
 @Observable
 public class Navigator: ObservableObject {
+    public static var shared: Navigator = Navigator()
+
     public var path: [RouterDestination] = []
     public var presentedSheet: SheetDestination?
     public var presentedCover: SheetDestination?
-    public var selectedTab: TabDestination = .timeline
-    
+    public var selectedTab: TabDestination {
+        set {
+            change(to: newValue)
+        }
+        get {
+            return self.currentTab
+        }
+    }
+    private var currentTab: TabDestination = .timeline
+
+    public var inSettings: Bool {
+        self.path.contains(RouterDestination.allSettings)
+    }
+
+    public private(set) var memorizedNav: [TabDestination : [RouterDestination]] = [:]
+    public var showTabbar: Bool {
+        get {
+            self.visiTabbar
+        }
+        set {
+            withAnimation(.spring) {
+                self.visiTabbar = newValue
+            }
+        }
+    }
+    private var visiTabbar: Bool = true
+
     public var client: Client?
     
     public func navigate(to: RouterDestination) {
         path.append(to)
     }
-    
-    public func handle(url: URL) -> OpenURLAction.Result {
-        guard let client = self.client else { return .systemAction }
-        let path: String = url.absoluteString.replacingOccurrences(of: AppInfo.scheme, with: "") // remove all path
-        let urlPath: URL = URL(string: path)!
-        
-        let server: String = urlPath.host() ?? client.server
-        let lastIndex = urlPath.pathComponents.count - 1
-        
-        let actionType = urlPath.pathComponents[lastIndex - 1]
-        
-        if client.isAuth && client.hasConnection(with: url) {
-            if urlPath.lastPathComponent.starts(with: "@") {
-                Task {
-                    do {
-                        print("\(urlPath.lastPathComponent)@\(server.replacingOccurrences(of: "www.", with: ""))")
-                        let search: SearchResults = try await client.get(endpoint: Search.search(query: "\(urlPath.lastPathComponent)@\(server.replacingOccurrences(of: "www.", with: ""))", type: "accounts", offset: nil, following: nil), forceVersion: .v2)
-                        print(search)
-                        let acc: Account = search.accounts.first ?? .placeholder()
-                        self.navigate(to: .account(acc: acc))
-                    } catch {
-                        print(error)
-                    }
-                }
-                return OpenURLAction.Result.handled
-            } else {
-                self.presentedSheet = .safari(url: url)
-            }
-        } else {
-            Task {
-                do {
-                    let connections: [String] = try await client.get(endpoint: Instances.peers)
-                    client.addConnections(connections)
-                    
-                    
-                    if client.hasConnection(with: url) {
-                        _ = self.handle(url: url)
-                    } else {
-                        self.presentedSheet = .safari(url: url)
-                    }
-                } catch {
-                    self.presentedSheet = .safari(url: url)
-                }
-            }
-            
-            return OpenURLAction.Result.handled
+
+    /// Changes the current tab from the current ``Navigator`` class
+    func change(to tab: TabDestination) {
+        savePath()
+
+        withAnimation(.spring) {
+            loadPath(from: tab)
         }
-        return OpenURLAction.Result.handled
     }
-    
+
+    private func savePath() {
+        let lastTab: TabDestination = self.currentTab
+        let lastPath: [RouterDestination] = self.path
+
+        memorizedNav.updateValue(lastPath, forKey: lastTab)
+    }
+
+    private func loadPath(from tab: TabDestination) {
+        if let (newTab, newPath) = memorizedNav.first(where: { $0.key == tab }).map({ [$0.key : $0.value] })?.first {
+            self.currentTab = newTab
+            self.path = newPath
+        } else {
+            print("Couldn't find Navigator data from \(tab.id), created new ones")
+            self.currentTab = tab
+            self.path = []
+        }
+    }
+
+    /// This only applies on the current path, not the saved ones in ``memorizedNav``
     public func removeSettingsOfPath() {
         self.path = self.path.filter({ !RouterDestination.allSettings.contains($0) })
     }
 }
 
+/// This can be used for universal ``SheetDestination``s
 public class UniversalNavigator: Navigator {
-    static var shared: UniversalNavigator = UniversalNavigator()
-    public var tabNavigator: Navigator?
+    public static var `static`: UniversalNavigator = UniversalNavigator()
 }
 
 public enum TabDestination: Identifiable {

@@ -209,6 +209,22 @@
         }
       }
     },
+    "account" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compte"
+          }
+        }
+      }
+    },
     "account.block" : {
       "localizations" : {
         "en" : {
@@ -1093,6 +1109,38 @@
         }
       }
     },
+    "control.open.composer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouvelle publication"
+          }
+        }
+      }
+    },
+    "control.open.composer.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a new post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer une nouvelle publication"
+          }
+        }
+      }
+    },
     "discovery" : {
       "localizations" : {
         "en" : {
@@ -1537,6 +1585,150 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Règles"
+          }
+        }
+      }
+    },
+    "intent.open.composer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start a new post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Démarrer une nouvelle publication"
+          }
+        }
+      }
+    },
+    "intent.open.composer.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens the Threaded app with the post composer "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvre l’application Threaded avec le compositeur de publications"
+          }
+        }
+      }
+    },
+    "intent.publish.any.issue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There was an issue while posting."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il y a eu un soucis lors de la publication."
+          }
+        }
+      }
+    },
+    "intent.publish.any.visibility-dialog" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How visible do you want your post to be?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quelle visibilité voulez-vous que cette publication ai ?"
+          }
+        }
+      }
+    },
+    "intent.publish.text" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publish a text-based post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publier du texte dans une publication"
+          }
+        }
+      }
+    },
+    "intent.publish.text.account-dialog" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select the account the post will be published on"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionnez le compte sur lequel la publication sera publiée"
+          }
+        }
+      }
+    },
+    "intent.publish.text.content-dialog" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write the content of your post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Écrivez le contenu de votre publication"
+          }
+        }
+      }
+    },
+    "intent.publish.text.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publish a text-based post on Mastodon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publie du texte dans une publication sur Mastodon"
+          }
+        }
+      }
+    },
+    "intent.publish.text.summary-${content}" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post \"${content}\""
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publier « ${content} »"
           }
         }
       }
@@ -2425,6 +2617,7 @@
       }
     },
     "settings.account-switcher.send-to-watch" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2438,7 +2631,8 @@
             "value" : "Envoyer vers l'Apple Watch"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "settings.cancel" : {
       "localizations" : {
@@ -4436,6 +4630,151 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Attention !"
+          }
+        }
+      }
+    },
+    "widget.composer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quick Post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publication Rapide"
+          }
+        }
+      }
+    },
+    "widget.follow-count" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow Count"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compteur de Followers"
+          }
+        }
+      }
+    },
+    "widget.follow-count.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep track of your follower count"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Garder trace de votre nombre de followers"
+          }
+        }
+      }
+    },
+    "widget.follow-goal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow Goal"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objectif de Followers"
+          }
+        }
+      }
+    },
+    "widget.follow-goal.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep track of your follower count and set a goal for it"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gardez trace de votre nombre de followers et faites en un objectif"
+          }
+        }
+      }
+    },
+    "widget.followers" : {
+      "comment" : "Lowercase, shown in the \"Follow Count\" widget",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "followers"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "followers"
+          }
+        }
+      }
+    },
+    "widget.open.composer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a new post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créez une nouvelle publication"
+          }
+        }
+      }
+    },
+    "widget.select-account" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select an account"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionnez un compte"
+          }
+        }
+      }
+    },
+    "widget.set-goal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follower goal"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objectif de follower"
           }
         }
       }

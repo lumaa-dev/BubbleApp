@@ -5,7 +5,7 @@ import SwiftUI
 struct AccountView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
     
-    @State private var navigator: Navigator = Navigator()
+    @State private var navigator: Navigator = Navigator.shared
     @State public var account: Account
     
     var body: some View {
