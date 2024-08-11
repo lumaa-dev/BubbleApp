@@ -1621,6 +1621,118 @@
         }
       }
     },
+    "intent.publish.any.issue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There was an issue while posting."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il y a eu un soucis lors de la publication."
+          }
+        }
+      }
+    },
+    "intent.publish.any.visibility-dialog" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How visible do you want your post to be?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quelle visibilité voulez-vous que cette publication ai ?"
+          }
+        }
+      }
+    },
+    "intent.publish.text" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publish a text-based post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publier du texte dans une publication"
+          }
+        }
+      }
+    },
+    "intent.publish.text.account-dialog" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select the account the post will be published on"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionnez le compte sur lequel la publication sera publiée"
+          }
+        }
+      }
+    },
+    "intent.publish.text.content-dialog" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write the content of your post"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Écrivez le contenu de votre publication"
+          }
+        }
+      }
+    },
+    "intent.publish.text.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publish a text-based post on Mastodon"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publie du texte dans une publication sur Mastodon"
+          }
+        }
+      }
+    },
+    "intent.publish.text.summary-${content}" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post \"${content}\""
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publier « ${content} »"
+          }
+        }
+      }
+    },
     "login.instance.unsafe" : {
       "localizations" : {
         "en" : {
@@ -2519,7 +2631,8 @@
             "value" : "Envoyer vers l'Apple Watch"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "settings.cancel" : {
       "localizations" : {
@@ -4602,6 +4715,7 @@
       }
     },
     "widget.followers" : {
+      "comment" : "Lowercase, shown in the \"Follow Count\" widget",
       "localizations" : {
         "en" : {
           "stringUnit" : {

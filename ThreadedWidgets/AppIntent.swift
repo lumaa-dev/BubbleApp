@@ -5,6 +5,23 @@ import SwiftData
 import WidgetKit
 import AppIntents
 
+// MARK: - Shortcuts
+
+struct ThreadedShortcuts: AppShortcutsProvider {
+    static var appShortcuts: [AppShortcut] = [
+        .init(
+            intent: OpenComposerIntent(),
+            phrases: [
+                "Start a \(.applicationName) post",
+                "Post on \(.applicationName)"
+            ],
+            shortTitle: "status.posting",
+            systemImageName: "square.and.pencil"
+        )
+    ]
+    static var shortcutTileColor: ShortcutTileColor = .grayBlue
+}
+
 // MARK: - Account Intents
 
 /// Widgets that require to select only an account will use this `ConfigurationIntent`
@@ -31,6 +48,7 @@ struct AccountEntity: AppEntity {
     let client: Client
     let id: String
     let username: String
+    let server: String
     /// Bearer token
     let token: OauthToken
     
@@ -42,14 +60,16 @@ struct AccountEntity: AppEntity {
     }
     
     init(acct: String, username: String, token: OauthToken) {
-        self.client = Client(server: String(acct.split(separator: "@")[1]), version: .v2, oauthToken: token)
+        self.server = String(acct.split(separator: "@")[1])
+        self.client = Client(server: self.server, version: .v2, oauthToken: token)
         self.id = acct
         self.username = username
         self.token = token
     }
     
     init(loggedAccount: LoggedAccount) {
-        self.client = Client(server: String(loggedAccount.acct.split(separator: "@")[1]), version: .v2, oauthToken: loggedAccount.token)
+        self.server = loggedAccount.app?.server ?? ""
+        self.client = Client(server: self.server, version: .v2, oauthToken: loggedAccount.token)
         self.id = loggedAccount.acct
         self.username = String(loggedAccount.acct.split(separator: "@")[0])
         self.token = loggedAccount.token
@@ -106,6 +126,22 @@ struct AccountQuery: EntityQuery {
 
 // MARK: - Post Intents
 
+extension Visibility: AppEnum {
+    public static var caseDisplayRepresentations: [Visibility : DisplayRepresentation] {
+        [
+            .pub : DisplayRepresentation(title: "status.posting.visibility.public"),
+            .priv : DisplayRepresentation(title: "status.posting.visibility.private"),
+            .unlisted : DisplayRepresentation(title: "status.posting.visibility.unlisted"),
+            .direct : DisplayRepresentation(title: "status.posting.visibility.direct")
+        ]
+
+    }
+
+    public static var typeDisplayRepresentation: TypeDisplayRepresentation {
+        TypeDisplayRepresentation(name: "status.posting.visibility")
+    }
+}
+
 struct OpenComposerIntent: AppIntent {
     static var title: LocalizedStringResource = "intent.open.composer"
     static var description: IntentDescription? = IntentDescription("intent.open.composer.description")
@@ -119,5 +155,88 @@ struct OpenComposerIntent: AppIntent {
         UniversalNavigator.static.presentedSheet =
             .post(content: "", replyId: nil, editId: nil)
         return .result()
+    }
+}
+
+struct PublishTextIntent: AppIntent {
+    static var title: LocalizedStringResource = "intent.publish.text"
+    static var description: IntentDescription? = IntentDescription("intent.publish.text.description")
+
+    static var isDiscoverable: Bool = true
+    static var openAppWhenRun: Bool = false
+
+    static var authenticationPolicy: IntentAuthenticationPolicy = .requiresLocalDeviceAuthentication
+
+    @Parameter(title: "account", requestDisambiguationDialog: IntentDialog("intent.publish.text.account-dialog"))
+    var account: AccountEntity?
+
+    @Parameter(title: "status.posting.placeholder", requestValueDialog: IntentDialog("intent.publish.text.content-dialog"))
+    var content: String
+
+    @Parameter(title: "status.posting.visibility", requestDisambiguationDialog: IntentDialog("intent.publish.any.visibility-dialog"))
+    var visibility: Visibility
+
+    static var parameterSummary: any ParameterSummary {
+        Summary("intent.publish.text.summary-\(\.$content)") {
+            \.$account
+            \.$visibility
+        }
+    }
+
+    func perform() async throws -> some IntentResult & ShowsSnippetView & ReturnsValue<String> {
+        if let client = account?.client, !client.server.isEmpty {
+            let data: StatusData = .init(
+                status: self.content,
+                visibility: self.visibility
+            )
+
+            // posting requires v1
+            if let res = try? await client.post(endpoint: Statuses.postStatus(json: data), forceVersion: .v1), res.statusCode == 200 {
+                return .result(
+                    value: self.content,
+                    view: Self.StatusSuccess(acc: account!, json: data)
+                )
+            }
+        }
+        return await .result(value: "", view: IssueView())
+    }
+
+    private struct IssueView: View {
+        var body: some View {
+            Label("intent.publish.any.issue", systemImage: "exclamationmark.triangle.fill")
+                .foregroundStyle(Color.red)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                .padding()
+                .background(Color.black)
+                .clipShape(Capsule())
+                .padding(.horizontal)
+        }
+    }
+
+    private struct StatusSuccess: View {
+        var acc: AccountEntity
+        var json: StatusData
+
+        var body: some View {
+            HStack {
+                VStack(alignment: .leading, spacing: 7.5) {
+                    Text("@\(acc.username)")
+                        .foregroundStyle(Color.white)
+                        .bold()
+
+                    Text(json.status)
+                        .foregroundStyle(Color.white)
+                        .lineLimit(2)
+                }
+
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.vertical)
+            .padding(.horizontal, 25)
+            .background(Color.black)
+            .clipShape(Capsule())
+            .padding(.horizontal)
+        }
     }
 }
