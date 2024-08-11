@@ -194,7 +194,8 @@ struct PostingView: View {
         .pickerStyle(.menu)
         .foregroundStyle(Color.gray)
     }
-    
+
+    // MARK: Post function
     private func postText() {
         Task {
             if let client = accountManager.getClient() {
