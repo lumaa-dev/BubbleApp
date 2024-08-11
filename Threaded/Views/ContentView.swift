@@ -41,7 +41,7 @@ struct ContentView: View {
         }
         .frame(maxWidth: appDelegate.windowWidth)
         .overlay(alignment: .bottom) {
-            TabsView(postButton: {
+            TabsView(canTap: $navigator.showTabbar, postButton: {
                     uniNavigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
             }, retapAction: {
                 navigator.path = []
@@ -53,6 +53,7 @@ struct ContentView: View {
                 y: navigator.showTabbar ? 0 : CGFloat
                     .getFontSize(from: .extraLargeTitle) * 7.5
             )
+            .allowsHitTesting(navigator.showTabbar)
         }
         .withSheets(sheetDestination: $uniNavigator.presentedSheet)
         .withCovers(sheetDestination: $uniNavigator.presentedCover)
