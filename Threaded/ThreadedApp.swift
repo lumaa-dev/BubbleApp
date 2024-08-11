@@ -18,7 +18,7 @@ struct ThreadedApp: App {
             }
         }
 
-        ThreadedShortcuts.updateAppShortcutParameters()
+        ThreadedShortcuts.updateAppShortcutParameters() //might not work?
     }
     
     var body: some Scene {
