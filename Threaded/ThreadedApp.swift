@@ -31,7 +31,7 @@ struct ThreadedApp: App {
                 .task {
                     #if DEBUG
                     Tips.showAllTipsForTesting()
-                    UserDefaults.standard.removeObject(forKey: "lastVersion")
+                    UserDefaults.standard.set("ABC", forKey: "lastVersion")
                     #endif
                     
                     try? Tips.configure([

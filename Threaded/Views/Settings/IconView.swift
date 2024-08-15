@@ -8,7 +8,7 @@ struct IconView: View {
             ForEach(AppIcons.allCases, id: \.self) { icon in
                 Button {
                     HapticManager.playHaptics(haptics: Haptic.tap)
-                    #if NS_EXTENSION_UNAVAILABLE
+                    #if !WIDGET
                     changeAppIcon(to: icon.assetName)
                     #endif
                 } label: {

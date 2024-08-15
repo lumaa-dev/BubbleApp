@@ -13,7 +13,8 @@ struct ThreadedShortcuts: AppShortcutsProvider {
             intent: OpenComposerIntent(),
             phrases: [
                 "Start a \(.applicationName) post",
-                "Post on \(.applicationName)"
+                "Post on \(.applicationName)",
+                "Post on Mastodon"
             ],
             shortTitle: "status.posting",
             systemImageName: "square.and.pencil"
@@ -235,7 +236,7 @@ struct PublishTextIntent: AppIntent {
             .padding(.vertical)
             .padding(.horizontal, 25)
             .background(Color.black)
-            .clipShape(Capsule())
+            .clipShape(RoundedRectangle(cornerRadius: 19.0))
             .padding(.horizontal)
         }
     }
