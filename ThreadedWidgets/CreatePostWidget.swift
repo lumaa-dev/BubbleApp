@@ -16,6 +16,10 @@ struct CreatePostWidget: Widget {
         .configurationDisplayName("widget.open.composer")
         .description("widget.open.composer")
         .supportedFamilies([.systemSmall])
+        .disfavoredLocations(
+            [.standBy, .iPhoneWidgetsOnMac],
+            for: [.systemSmall]
+        )
     }
 
     struct WidgetView: View {
