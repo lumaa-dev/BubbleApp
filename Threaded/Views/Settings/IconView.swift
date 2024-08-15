@@ -31,7 +31,7 @@ struct IconView: View {
         .listThreaded()
     }
 
-    #if NS_EXTENSION_UNAVAILABLE
+    #if !WIDGET
     private func changeAppIcon(to iconName: String) {
         UIApplication.shared.setAlternateIconName(iconName) { error in
             if let error = error {
@@ -41,6 +41,7 @@ struct IconView: View {
         }
     }
     #endif
+
 }
 
 private enum AppIcons: CaseIterable {
