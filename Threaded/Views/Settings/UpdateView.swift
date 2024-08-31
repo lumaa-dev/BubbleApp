@@ -39,16 +39,23 @@ struct UpdateView: View {
     
     var features: some View {
         VStack(spacing: 60) {
-            newFeature(systemImage: "hand.raised", title: "Report content", text: "You can now report posts by tap and holding a post")
+            newFeature(systemImage: "plus.square.dashed", title: "Drafts", text: "Keep a list of your thought-of future posts")
 
-            newFeature(systemImage: "link.badge.plus", title: "Corn fields, link fields...", text: "You can now see, read, and tap on profile fields.")
+            newFeature(systemImage: "sparkles.rectangle.stack", title: "Siri Shortcuts", text: "Actions make posts now")
 
-            newFeature(systemImage: "text.below.photo", title: "ALTernative", text: "When writing a post, you can now edit an ALT text.")
+            newFeature(systemImage: widgetIcon, title: "New widgets", text: "Check them in the Control Center! And other places...")
         }
         .frame(height: 500)
     }
-    
-    
+
+    private var widgetIcon: String {
+        if #available(iOS 18.0, *) {
+            return "widget.small.badge.plus"
+        } else {
+            return "paintbrush"
+        }
+    }
+
     @ViewBuilder
     private func newFeature(systemImage: String, title: String, text: String) -> some View {
         ViewThatFits {
