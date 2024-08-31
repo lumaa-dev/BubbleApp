@@ -2488,6 +2488,22 @@
         }
       }
     },
+    "setting.review" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write a review"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Écrivez un avis"
+          }
+        }
+      }
+    },
     "setting.support" : {
       "localizations" : {
         "en" : {

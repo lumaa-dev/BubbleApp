@@ -5,6 +5,7 @@ import SwiftData
 import WatchConnectivity
 
 struct SettingsView: View {
+    @Environment(\.openURL) private var openURL: OpenURLAction
     @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
     
     @Query private var loggedAccounts: [LoggedAccount]
@@ -98,7 +99,14 @@ struct SettingsView: View {
                     }
                 }
                 .listRowThreaded()
-                
+
+                Button {
+                    openURL(URL(string: "https://apps.apple.com/app/id6477757490?action=write-review")!)
+                } label: {
+                    Label("setting.review", systemImage: "star.fill")
+                }
+                .listRowThreaded()
+
                 Button {
                     navigator.navigate(to: .support)
                 } label: {
