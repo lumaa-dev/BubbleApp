@@ -48,6 +48,6 @@ public extension View {
     @ViewBuilder
     func modelData() -> some View {
         self
-            .modelContainer(for: [LoggedAccount.self, ModelFilter.self])
+            .modelContainer(for: [LoggedAccount.self, ModelFilter.self, StatusDraft.self])
     }
 }

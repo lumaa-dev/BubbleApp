@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		B9029FC22B81259400AA9B68 /* Secret.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9029FC12B81259400AA9B68 /* Secret.plist */; };
 		B9029FC42B8125CE00AA9B68 /* HuggingFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9029FC32B8125CE00AA9B68 /* HuggingFace.swift */; };
+		B90DEB1F2C822C2700D06121 /* StatusDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90DEB1E2C822C2700D06121 /* StatusDraft.swift */; };
+		B90DEB202C822C2700D06121 /* StatusDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90DEB1E2C822C2700D06121 /* StatusDraft.swift */; };
+		B90DEB222C822ED400D06121 /* PostDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90DEB212C822ED400D06121 /* PostDraftView.swift */; };
+		B90DEB232C822ED400D06121 /* PostDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90DEB212C822ED400D06121 /* PostDraftView.swift */; };
 		B915C4422B6F908C00042DDB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B915C4412B6F908C00042DDB /* ProfileView.swift */; };
 		B93126EA2C29C63100BF16E9 /* ContentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93126E92C29C63000BF16E9 /* ContentFilter.swift */; };
 		B93126F02C2AEB8300BF16E9 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93126EF2C2AEB8300BF16E9 /* FilterView.swift */; };
@@ -261,6 +265,8 @@
 /* Begin PBXFileReference section */
 		B9029FC12B81259400AA9B68 /* Secret.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
 		B9029FC32B8125CE00AA9B68 /* HuggingFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuggingFace.swift; sourceTree = "<group>"; };
+		B90DEB1E2C822C2700D06121 /* StatusDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusDraft.swift; sourceTree = "<group>"; };
+		B90DEB212C822ED400D06121 /* PostDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDraftView.swift; sourceTree = "<group>"; };
 		B915C4412B6F908C00042DDB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B93126E92C29C63000BF16E9 /* ContentFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFilter.swift; sourceTree = "<group>"; };
 		B93126EF2C2AEB8300BF16E9 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -433,6 +439,7 @@
 				B98F47992B653CAE0092000F /* Compressor.swift */,
 				B9BCC3172B90B3BC00211976 /* Tenor.swift */,
 				B93126E92C29C63000BF16E9 /* ContentFilter.swift */,
+				B90DEB1E2C822C2700D06121 /* StatusDraft.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -576,6 +583,7 @@
 				B97BCE252B3DE5A10044756D /* AccountView.swift */,
 				B98BC7462B46CE6300595441 /* PostDetailsView.swift */,
 				B93B677B2B433A6E000892E9 /* PostingView.swift */,
+				B90DEB212C822ED400D06121 /* PostDraftView.swift */,
 				B9F8FA152B5D3AC30044DAB4 /* SafariView.swift */,
 				B9A8DAB92BB7364300A890CC /* PostsView.swift */,
 				B9A80DD92C66DE1000DE3D88 /* ReportStatusView.swift */,
@@ -831,6 +839,8 @@
 				B9C20D122B921C78004DC9B3 /* FollowCountWidget.swift in Sources */,
 				B9A80DDE2C67BFF800DE3D88 /* CreatePostWidget.swift in Sources */,
 				B9C20D102B921C78004DC9B3 /* ThreadedWidgetsBundle.swift in Sources */,
+				B90DEB1F2C822C2700D06121 /* StatusDraft.swift in Sources */,
+				B90DEB232C822ED400D06121 /* PostDraftView.swift in Sources */,
 				B9A80DE02C67C2D000DE3D88 /* Navigator.swift in Sources */,
 				B9C20D142B921C78004DC9B3 /* AppIntent.swift in Sources */,
 				B9C20D372B9229EC004DC9B3 /* AppInfo.swift in Sources */,
@@ -994,6 +1004,8 @@
 				B9B63B272B449CDC00BBC82D /* SearchResults.swift in Sources */,
 				B9B63B252B44997400BBC82D /* QuotePostView.swift in Sources */,
 				B9BCC3182B90B3BC00211976 /* Tenor.swift in Sources */,
+				B90DEB202C822C2700D06121 /* StatusDraft.swift in Sources */,
+				B90DEB222C822ED400D06121 /* PostDraftView.swift in Sources */,
 				B9B469DB2B9B2EDB00AD5585 /* ComingSoonView.swift in Sources */,
 				B97BCE242B3DD8400044756D /* HapticManager.swift in Sources */,
 				B9B63B212B442D1500BBC82D /* DynamicTextEditor.swift in Sources */,

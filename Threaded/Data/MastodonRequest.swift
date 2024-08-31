@@ -605,6 +605,12 @@ public struct StatusData: Encodable, Sendable {
     }
 }
 
+extension StatusData.PollData.DefaultExpiry {
+    static func getFromInt(_ time: Int) -> Self? {
+        return Self.allCases.filter({ $0.rawValue == time }).first
+    }
+}
+
 public enum Trends: Endpoint {
     case tags
     case statuses(offset: Int?)

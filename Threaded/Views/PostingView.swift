@@ -1,15 +1,19 @@
 //Made by Lumaa
 
 import SwiftUI
+import SwiftData
 import UIKit
 import PhotosUI
 
 struct PostingView: View {
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.modelContext) private var modelContext: ModelContext
+    @Environment(\.dismiss) private var dismiss: DismissAction
+    @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @Environment(AccountManager.self) private var accountManager: AccountManager
     @Environment(AppDelegate.self) private var appDelegate: AppDelegate
-    
+
+    @Query private var drafts: [StatusDraft]
+
     public var initialString: String = ""
     public var replyId: String? = nil
     public var editId: String? = nil
@@ -30,11 +34,13 @@ struct PostingView: View {
     @State private var pollOptions: [String] = ["", ""]
     @State private var pollExpiry: StatusData.PollData.DefaultExpiry = .oneDay
     @State private var multiSelect: Bool = false
-    
-    
+
     @State private var selectingEmoji: Bool = false
     @State private var makingAlt: MediaContainer? = nil
-    
+
+    @State private var selectingDrafts: Bool = false
+    @State private var selectedDraft: StatusDraft? = nil
+
     @State private var loadingContent: Bool = false
     @State private var postingStatus: Bool = false
     
@@ -43,7 +49,24 @@ struct PostingView: View {
         self.replyId = replyId
         self.editId = editId
     }
-    
+
+    private func fromDraft(_ draft: StatusDraft) {
+        self.viewModel.postText = .init(string: draft.content)
+        self.viewModel.formatText()
+
+        if draft.hasPoll {
+            self.hasPoll = true
+            self.pollOptions = draft.pollOptions
+            self.multiSelect = draft.pollMulti
+            self.pollExpiry = StatusData.PollData.DefaultExpiry.getFromInt(draft.pollExpire) ?? .oneDay
+        } else {
+            self.hasPoll = false
+            self.pollOptions = ["", ""]
+            self.multiSelect = false
+            self.pollExpiry = .oneDay
+        }
+    }
+
     var body: some View {
         if accountManager.getAccount() != nil {
             posting
@@ -58,6 +81,13 @@ struct PostingView: View {
                     AltTextView(container: container, mediaContainers: $mediaContainers, mediaAttributes: $mediaAttributes)
                         .presentationDetents([.height(235), .medium])
                         .presentationDragIndicator(.visible)
+                }
+                .sheet(isPresented: $selectingDrafts) {
+                    if let selected = selectedDraft {
+                        self.fromDraft(selected)
+                    }
+                } content: {
+                    PostDraftView(selectedDraft: $selectedDraft)
                 }
         } else {
             loading
@@ -113,27 +143,29 @@ struct PostingView: View {
         .scrollIndicators(.hidden)
         .frame(maxHeight: appDelegate.windowHeight - 140)
         .safeAreaInset(edge: .bottom, alignment: .leading) {
-            VStack(alignment: .leading) {
-                HStack {
-                    Spacer()
-                    
-                    Button {
-                        postText()
-                    } label: {
-                        if postingStatus {
-                            ProgressView()
-                                .progressViewStyle(.circular)
-                                .foregroundStyle(Color.appBackground)
-                                .tint(Color.appBackground)
-                        } else {
-                            Text("status.posting.post")
-                        }
-                    }
-                    .disabled(postingStatus || viewModel.postText.length <= 0)
-                    .buttonStyle(LargeButton(filled: true, height: 7.5, disabled: postingStatus || viewModel.postText.length <= 0))
-                }
-               
+            //MARK: Buttons below
+            HStack(alignment: .center) {
                 editorButtons
+
+                Spacer()
+
+                postButtons
+                    .padding(.horizontal, 18)
+
+                Button {
+                    postText()
+                } label: {
+                    if postingStatus {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .foregroundStyle(Color.appBackground)
+                            .tint(Color.appBackground)
+                    } else {
+                        Text("status.posting.post")
+                    }
+                }
+                .disabled(postingStatus || viewModel.postText.length <= 0)
+                .buttonStyle(LargeButton(filled: true, height: 7.5, disabled: postingStatus || viewModel.postText.length <= 0))
             }
             .padding()
         }
@@ -538,7 +570,56 @@ struct PostingView: View {
             }
         }
     }
-    
+
+    var postButtons: some View {
+        //MARK: Post buttons
+        HStack(spacing: 18) {
+            actionMenu("plus.square.dashed") {
+                let addDisabled: Bool = self.drafts.count >= 3 && !AppDelegate.hasPlus()
+
+                Button {
+                    selectingDrafts.toggle()
+                } label: {
+                    Label("status.drafts.open", systemImage: "pencil.and.scribble")
+                }
+
+                if addDisabled {
+                    Divider()
+                }
+
+                Button {
+                    let newDraft: StatusDraft = .init(
+                        content: viewModel.postText.string,
+                        visibility: visibility
+                    )
+
+                    modelContext.insert(newDraft) // save draft
+                    self.fromDraft(.empty) // empty the current view
+
+                    HapticManager.playHaptics(haptics: Haptic.success)
+                } label: {
+                    Label("status.drafts.add", systemImage: "plus.circle.dashed")
+                }
+                .disabled(addDisabled || viewModel.postText.string.isEmpty)
+
+                if addDisabled {
+                    Text("status.drafts.plus")
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    func actionMenu(_ image: String, @ViewBuilder menu: () -> some View) -> some View {
+        Menu {
+            menu()
+        } label: {
+            Image(systemName: image)
+                .font(.callout)
+        }
+        .tint(Color.gray)
+    }
+
     @ViewBuilder
     func actionButton(_ image: String, action: @escaping () -> Void) -> some View {
         Button {

@@ -3370,6 +3370,46 @@
         }
       }
     },
+    "status.drafts.add" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to Drafts"
+          }
+        }
+      }
+    },
+    "status.drafts.empty" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have no drafts"
+          }
+        }
+      }
+    },
+    "status.drafts.open" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Drafts"
+          }
+        }
+      }
+    },
+    "status.drafts.plus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribe to Threaded+ to have more drafts"
+          }
+        }
+      }
+    },
     "status.editing" : {
       "localizations" : {
         "en" : {
