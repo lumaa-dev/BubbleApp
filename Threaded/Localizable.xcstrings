@@ -3377,6 +3377,12 @@
             "state" : "translated",
             "value" : "Add to Drafts"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter au brouillons"
+          }
         }
       }
     },
@@ -3386,6 +3392,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You have no drafts"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous n’avez pas de brouillons"
           }
         }
       }
@@ -3397,6 +3409,12 @@
             "state" : "translated",
             "value" : "Open Drafts"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir les brouillons"
+          }
         }
       }
     },
@@ -3406,6 +3424,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Subscribe to Threaded+ to have more drafts"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abonnez-vous à Threaded+ pour obtenir plus de brouillons"
           }
         }
       }
