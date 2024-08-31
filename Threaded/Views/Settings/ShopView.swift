@@ -12,11 +12,11 @@ struct ShopView: View {
     @State private var purchaseError: Bool = false
     
     private var canPay: Bool {
-//        #if DEBUG || targetEnvironment(simulator)
-//        return true
-//        #else
+        #if targetEnvironment(simulator)
+        return true
+        #else
         return false
-//        #endif
+        #endif
     }
     
     var body: some View {
@@ -177,7 +177,8 @@ extension ShopView {
                         } label: {
                             planSelector(.monthly, isSelected: selectedPlan == PlusPlan.monthly)
                         }
-                        
+                        .buttonStyle(.plain)
+
                         
                         Button {
                             guard selectedPlan != .yearly else { return }
@@ -187,7 +188,8 @@ extension ShopView {
                         } label: {
                             planSelector(.yearly, isSelected: selectedPlan == PlusPlan.yearly)
                         }
-                        
+                        .buttonStyle(.plain)
+
                         Spacer()
                         
                         Button {
