@@ -31,7 +31,20 @@ struct ProfileView: View {
     
     @State public var account: Account
     var isCurrent: Bool = false
-    
+
+    //MARK: Sub Club
+
+    /// Account ACCT ends with `sub.club`
+    private var isSubClub: Bool {
+        account.acct.split(separator: "@").last == "sub.club"
+    }
+    /// Account field that may contain `sub.club` user
+    private var hasSubClub: Account.Field? {
+        account.fields.filter({ $0.value.asRawText.contains(/(@)?[A-Za-z0-9_]+@sub\.club/) }).first
+    }
+    /// Subscribed to the Sub Club account
+    @State private var isSubscribed: Bool = false
+
     var body: some View {
         ZStack (alignment: .center) {
             if account != Account.placeholder() {
@@ -202,42 +215,67 @@ struct ProfileView: View {
                         .foregroundStyle(Color.gray)
                         .multilineTextAlignment(.leading)
                         .font(.callout)
-                    
-                    if canFollow != nil && (canFollow ?? true) == true {
-                        HStack (spacing: 5) {
+
+                    VStack {
+                        if let field = hasSubClub, (canFollow ?? true) == true {
                             Button {
-                                Task {
-                                    await followAccount()
+                                guard !isSubscribed, let extracted = field.extractSubclub(), let usrnme: Substring = extracted.split(separator: "@").first, let userAcc = accountManager.getAccount(), let cliAcc = accountManager.getClient() else {
+                                    return
                                 }
+
+                                let subclubUrl: URL = URL(
+                                    string: "https://sub.club/@\(usrnme)/subscribe?callback=threadedapp://subclub&id=@\(userAcc.username)@\(cliAcc.server)&theme=dark"
+                                )!
+                                print(subclubUrl.absoluteString)
+                                uniNav.presentedSheet = .safari(url: subclubUrl)
                             } label: {
                                 HStack {
                                     Spacer()
-                                    Text(isFollowing ? "account.unfollow" : accountFollows ? "account.follow-back" : "account.follow")
+                                    Text(isSubscribed ? "account.subsclub.subscribed" : "account.subclub.subscribe")
                                         .font(.callout)
                                     Spacer()
                                 }
                             }
-                            .buttonStyle(LargeButton(filled: true, height: 10))
-                            
-                            Button {
-                                if let server = account.acct.split(separator: "@").last {
-                                    uniNav.presentedSheet = .post(content: "@\(account.username)@\(server)")
-                                } else {
-                                    let client = accountManager.getClient()
-                                    uniNav.presentedSheet = .post(content: "@\(account.username)@\(client?.server ?? "???")")
+                            .buttonStyle(LargeButton(filled: true, filledColor: Color.subClub, height: 10))
+                            .disabled(isSubscribed)
+                        }
+
+                        if canFollow != nil && (canFollow ?? true) == true {
+                            HStack (spacing: 5) {
+                                Button {
+                                    Task {
+                                        await followAccount()
+                                    }
+                                } label: {
+                                    HStack {
+                                        Spacer()
+                                        Text(isFollowing ? "account.unfollow" : accountFollows ? "account.follow-back" : "account.follow")
+                                            .font(.callout)
+                                        Spacer()
+                                    }
                                 }
-                            } label: {
-                                HStack {
-                                    Spacer()
-                                    Text("account.mention")
-                                        .font(.callout)
-                                    Spacer()
+                                .buttonStyle(LargeButton(filled: true, height: 10))
+
+                                Button {
+                                    if let server = account.acct.split(separator: "@").last {
+                                        uniNav.presentedSheet = .post(content: "@\(account.username)@\(server)")
+                                    } else {
+                                        let client = accountManager.getClient()
+                                        uniNav.presentedSheet = .post(content: "@\(account.username)@\(client?.server ?? "???")")
+                                    }
+                                } label: {
+                                    HStack {
+                                        Spacer()
+                                        Text("account.mention")
+                                            .font(.callout)
+                                        Spacer()
+                                    }
                                 }
+                                .buttonStyle(LargeButton(filled: false, height: 10))
                             }
-                            .buttonStyle(LargeButton(filled: false, height: 10))
                         }
                     }
-                    
+
                     if isCurrent {
                         Button {
                             uniNav.presentedSheet = .profEdit
@@ -313,7 +351,7 @@ struct ProfileView: View {
                             }
                     }
                 } else {
-                    ContentUnavailableView("account.no-statuses", systemImage: "pencil.slash")
+                    ContentUnavailableView(account.locked ? "account.private" : "account.no-statuses", systemImage: account.locked ? "lock.fill" : "pencil.slash")
                 }
             } else {
                 ProgressView()
@@ -357,8 +395,6 @@ struct ProfileView: View {
         }
     }
     
-    
-    
     func reloadUser() async {
         if let client = accountManager.getClient() {
             var accId: String = account.id
@@ -368,8 +404,13 @@ struct ProfileView: View {
             
             if let ref: Account = try? await client.get(endpoint: Accounts.accounts(id: accId)) {
                 account = ref
-                
-                await updateRelationship()
+                if let subClubAcc = await getSubclubAccount() {
+                    await updateRelationship(with: [subClubAcc.id], subClubId: subClubAcc.id)
+                } else {
+                    await updateRelationship()
+                }
+
+
                 loadingStatuses = true
                 statuses = try? await client.get(endpoint: Accounts.statuses(id: accId, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
                 statusesPinned = try? await client.get(endpoint: Accounts.statuses(id: accId, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
@@ -378,24 +419,48 @@ struct ProfileView: View {
         }
     }
     
-    func updateRelationship() async {
+    func updateRelationship(with other: [String] = [], subClubId: String? = nil) async {
         if let client = accountManager.getClient() {
             if let currentAccount: Account = try? await client.get(endpoint: Accounts.verifyCredentials) {
                 canFollow = currentAccount.id != account.id
                 guard canFollow == true else { return }
-                if let relationship: [Relationship] = try? await client.get(endpoint: Accounts.relationships(ids: [account.id])) {
-                    let rel: Relationship = relationship.first!
+
+                var relsId: [String] = [account.id]
+                relsId.append(contentsOf: other)
+
+                if let relationship: [Relationship] = try? await client.get(endpoint: Accounts.relationships(ids: relsId)) {
+                    let rel: Relationship = relationship.first! // the searched up account
                     isFollowing = rel.following
                     accountFollows = rel.followedBy
                     accountMuted = rel.muting
                     accountBlocked = rel.blocking
+
+                    if let subClubId {
+                        guard let subClubRel: Relationship = relationship.filter({ $0.id == subClubId }).first else {
+                            fatalError("The SubClub Relationship ID doesn't match")
+                        }
+
+                        isSubscribed = subClubRel.following
+                    }
                 }
             } else {
                 canFollow = false
             }
         }
     }
-    
+
+    private func getSubclubAccount() async -> Account? {
+        if let field = hasSubClub, let acct = field.extractSubclub(), let client = accountManager.getClient() {
+            if let res: SearchResults = try? await client.post(
+                endpoint: Search.accountsSearch(query: acct, type: nil, offset: 0, following: nil)
+            ), !res.isEmpty, !res.accounts.isEmpty {
+                let subclub = res.accounts.first!
+                return subclub
+            }
+        }
+        return nil
+    }
+
     var loading: some View {
         ScrollView {
             VStack {
@@ -428,41 +493,7 @@ struct ProfileView: View {
                     let server = account.acct.split(separator: "@").last
                     let client = accountManager.getClient()
                     
-                    HStack(alignment: .center) {
-                        if server != nil {
-                            if server! != account.username {
-                                Text("\(account.username)")
-                                    .font(.body)
-                                    .multilineTextAlignment(.leading)
-                                
-                                Text("\(server!.description)")
-                                    .font(.caption)
-                                    .foregroundStyle(Color.gray)
-                                    .multilineTextAlignment(.leading)
-                                    .pill()
-                            } else {
-                                Text("\(account.username)")
-                                    .font(.body)
-                                    .multilineTextAlignment(.leading)
-                                
-                                Text("\(client?.server ?? "???")")
-                                    .font(.caption)
-                                    .foregroundStyle(Color.gray)
-                                    .multilineTextAlignment(.leading)
-                                    .pill()
-                            }
-                        } else {
-                            Text("\(account.username)")
-                                .font(.body)
-                                .multilineTextAlignment(.leading)
-                            
-                            Text("\(client?.server ?? "???")")
-                                .font(.caption)
-                                .foregroundStyle(Color.gray)
-                                .multilineTextAlignment(.leading)
-                                .pill()
-                        }
-                    }
+                    usernameView(client, server)
                 }
             } else {
                 Text(account.acct)
@@ -475,7 +506,46 @@ struct ProfileView: View {
                 .frame(width: 75, height: 75)
         }
     }
-    
+
+    @ViewBuilder
+    func usernameView(_ client: Client?, _ server: Substring?) -> some View {
+        HStack(alignment: .center) {
+            if let server {
+                if server != account.username {
+                    Text("\(account.username)")
+                        .font(.body)
+                        .multilineTextAlignment(.leading)
+
+                    Text("\(server.description)")
+                        .font(.caption)
+                        .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
+                        .multilineTextAlignment(.leading)
+                        .pill(tint: !isSubClub ? Color(uiColor: UIColor.label) : Color.subClub)
+                } else {
+                    Text("\(account.username)")
+                        .font(.body)
+                        .multilineTextAlignment(.leading)
+
+                    Text("\(client?.server ?? "???")")
+                        .font(.caption)
+                        .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
+                        .multilineTextAlignment(.leading)
+                        .pill(tint: !isSubClub ? Color(uiColor: UIColor.label) : Color.subClub)
+                }
+            } else {
+                Text("\(account.username)")
+                    .font(.body)
+                    .multilineTextAlignment(.leading)
+
+                Text("\(client?.server ?? "???")")
+                    .font(.caption)
+                    .foregroundStyle(Color.gray)
+                    .multilineTextAlignment(.leading)
+                    .pill()
+            }
+        }
+    }
+
     var big: some View {
         ZStack (alignment: .center) {
             Rectangle()
@@ -504,12 +574,26 @@ struct ProfileView: View {
     }
 }
 
+extension Color {
+    static let subClub: Color = Color(red: 0.91, green: 0.43, blue: 0.23)
+}
+
 private extension View {
-    func pill() -> some View {
+    func pill(tint: Color = Color(uiColor: UIColor.label)) -> some View {
         self
             .padding([.horizontal], 10)
             .padding([.vertical], 5)
-            .background(Color(uiColor: UIColor.label).opacity(0.1))
+            .background(tint.opacity(0.1))
             .clipShape(.capsule)
+    }
+}
+
+private extension Account.Field {
+    /// Extracts the full acct of the Sub Club username in the field
+    func extractSubclub() -> String? {
+        if let match = self.value.asRawText.firstMatch(of: /(@)?[A-Za-z0-9_]+@sub\.club/) {
+            return "\(match.output.0)"
+        }
+        return nil
     }
 }
