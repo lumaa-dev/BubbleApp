@@ -226,7 +226,6 @@ struct ProfileView: View {
                                 let subclubUrl: URL = URL(
                                     string: "https://sub.club/@\(usrnme)/subscribe?callback=threadedapp://subclub&id=@\(userAcc.username)@\(cliAcc.server)&theme=dark"
                                 )!
-                                print(subclubUrl.absoluteString)
                                 uniNav.presentedSheet = .safari(url: subclubUrl)
                             } label: {
                                 HStack {
@@ -240,7 +239,29 @@ struct ProfileView: View {
                             .disabled(isSubscribed)
                         }
 
-                        if canFollow != nil && (canFollow ?? true) == true {
+                        if isSubClub && (canFollow ?? true) == true {
+                            Button {
+                                guard !isSubscribed, let userAcc = accountManager.getAccount(), let cliAcc = accountManager.getClient() else {
+                                    return
+                                }
+
+                                let subclubUrl: URL = URL(
+                                    string: "https://sub.club/@\(account.username)/subscribe?callback=threadedapp://subclub&id=@\(userAcc.username)@\(cliAcc.server)&theme=dark"
+                                )!
+                                uniNav.presentedSheet = .safari(url: subclubUrl)
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text(isSubscribed ? "account.subsclub.subscribed" : "account.subclub.subscribe")
+                                        .font(.callout)
+                                    Spacer()
+                                }
+                            }
+                            .buttonStyle(LargeButton(filled: true, filledColor: Color.subClub, height: 10))
+                            .disabled(isSubscribed)
+                        }
+
+                        if (canFollow ?? true) == true {
                             HStack (spacing: 5) {
                                 Button {
                                     Task {
@@ -453,6 +474,13 @@ struct ProfileView: View {
         if let field = hasSubClub, let acct = field.extractSubclub(), let client = accountManager.getClient() {
             if let res: SearchResults = try? await client.post(
                 endpoint: Search.accountsSearch(query: acct, type: nil, offset: 0, following: nil)
+            ), !res.isEmpty, !res.accounts.isEmpty {
+                let subclub = res.accounts.first!
+                return subclub
+            }
+        } else if isSubClub, let client = accountManager.getClient(), let server = account.acct.split(separator: "@").last {
+            if let res: SearchResults = try? await client.post(
+                endpoint: Search.accountsSearch(query: "\(account.username)@\(server)", type: nil, offset: 0, following: nil)
             ), !res.isEmpty, !res.accounts.isEmpty {
                 let subclub = res.accounts.first!
                 return subclub
