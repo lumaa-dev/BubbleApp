@@ -20,7 +20,11 @@ struct PrivacyView: View {
             .listRowThreaded()
             
             Button {
-                navigator.navigate(to: .filter)
+                if AppDelegate.premium {
+                    navigator.navigate(to: .filter)
+                } else {
+                    UniversalNavigator.static.presentedSheet = .lockedFeature(.contentFilter)
+                }
             } label: {
                 Label("settings.privacy.filter", systemImage: "line.3.horizontal.decrease.circle")
             }

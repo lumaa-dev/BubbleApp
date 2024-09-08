@@ -588,15 +588,19 @@ struct PostingView: View {
                 }
 
                 Button {
-                    let newDraft: StatusDraft = .init(
-                        content: viewModel.postText.string,
-                        visibility: visibility
-                    )
+                    if AppDelegate.premium || drafts.count < 3 {
+                        let newDraft: StatusDraft = .init(
+                            content: viewModel.postText.string,
+                            visibility: visibility
+                        )
 
-                    modelContext.insert(newDraft) // save draft
-                    self.fromDraft(.empty) // empty the current view
+                        modelContext.insert(newDraft) // save draft
+                        self.fromDraft(.empty) // empty the current view
 
-                    HapticManager.playHaptics(haptics: Haptic.success)
+                        HapticManager.playHaptics(haptics: Haptic.success)
+                    } else {
+                        UniversalNavigator.static.presentedSheet = .lockedFeature(.drafts)
+                    }
                 } label: {
                     Label("status.drafts.add", systemImage: "plus.circle.dashed")
                 }

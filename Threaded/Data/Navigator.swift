@@ -104,6 +104,7 @@ public enum TabDestination: Identifiable {
 public enum SheetDestination: Identifiable {
     case welcome
     case shop
+    case lockedFeature(_ feature: ShopView.Feature? = nil)
     case media(attachments: [MediaAttachment], selected: MediaAttachment)
     
     case mastodonLogin(logged: Binding<Bool>)
@@ -123,6 +124,8 @@ public enum SheetDestination: Identifiable {
                 return "welcome"
             case .shop:
                 return "shop"
+            case .lockedFeature:
+                return "lockedFeature"
             case .media:
                 return "media"
                 
@@ -152,6 +155,8 @@ public enum SheetDestination: Identifiable {
                 return true
             case .shop:
                 return true
+            case .lockedFeature:
+                return false
             case .media:
                 return true
                 
@@ -263,6 +268,8 @@ extension View {
                         PostingView(initialString: content, replyId: replyId, editId: editId)
                             .tint(Color(uiColor: UIColor.label))
                     }
+                case .lockedFeature(let feature):
+                    PlusNecessaryView(feature)
                 case .profEdit:
                     EditProfileView()
                 case let .mastodonLogin(logged):

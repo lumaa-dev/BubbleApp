@@ -26,6 +26,8 @@
 		B93B67762B42E8AB000892E9 /* EmojiText in Frameworks */ = {isa = PBXBuildFile; productRef = B93B67752B42E8AB000892E9 /* EmojiText */; };
 		B93B67782B42E8F0000892E9 /* TextEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B67772B42E8F0000892E9 /* TextEmoji.swift */; };
 		B93B677C2B433A6E000892E9 /* PostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93B677B2B433A6E000892E9 /* PostingView.swift */; };
+		B94CF7642C8DE9AB00DFFF8F /* PlusNecessaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CF7632C8DE9AB00DFFF8F /* PlusNecessaryView.swift */; };
+		B94CF7652C8DE9AB00DFFF8F /* PlusNecessaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CF7632C8DE9AB00DFFF8F /* PlusNecessaryView.swift */; };
 		B95ED2332B8707D60055F5BD /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = B95ED2322B8707D60055F5BD /* RevenueCat */; };
 		B95ED2352B8707D60055F5BD /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = B95ED2342B8707D60055F5BD /* RevenueCatUI */; };
 		B95ED2372B87C9550055F5BD /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = B95ED2362B87C9550055F5BD /* StoreKitTestCertificate.cer */; };
@@ -275,6 +277,7 @@
 		B93ADFCA2B7625CD00FF9172 /* DiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
 		B93B67772B42E8F0000892E9 /* TextEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEmoji.swift; sourceTree = "<group>"; };
 		B93B677B2B433A6E000892E9 /* PostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
+		B94CF7632C8DE9AB00DFFF8F /* PlusNecessaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusNecessaryView.swift; sourceTree = "<group>"; };
 		B95ED2362B87C9550055F5BD /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = StoreKitTestCertificate.cer; path = ../../../../../Downloads/StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		B964F8052B9B78F4005C193D /* PostPoll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPoll.swift; sourceTree = "<group>"; };
 		B97491E22B6E96700098BC48 /* SymbolWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolWidth.swift; sourceTree = "<group>"; };
@@ -611,6 +614,7 @@
 				B9B469DA2B9B2EDB00AD5585 /* ComingSoonView.swift */,
 				B9D365602B79A1BE004C1255 /* MailView.swift */,
 				B9C7F46B2C387D3B009C36DC /* WarningView.swift */,
+				B94CF7632C8DE9AB00DFFF8F /* PlusNecessaryView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -908,6 +912,7 @@
 				B9A80E122C67C4A600DE3D88 /* NotificationRow.swift in Sources */,
 				B9A80E132C67C4A600DE3D88 /* TextEmoji.swift in Sources */,
 				B9A80E142C67C4A600DE3D88 /* SearchResultView.swift in Sources */,
+				B94CF7642C8DE9AB00DFFF8F /* PlusNecessaryView.swift in Sources */,
 				B9A80E152C67C4A600DE3D88 /* SymbolWidth.swift in Sources */,
 				B9A80E162C67C4A600DE3D88 /* TabsView.swift in Sources */,
 				B9A80E172C67C4A600DE3D88 /* ShareSheetController.swift in Sources */,
@@ -967,6 +972,7 @@
 				B98DD8D82C6821F7009F40DD /* CreatePostControl.swift in Sources */,
 				B9D9C6C32B6A576C00C26A41 /* NotificationsView.swift in Sources */,
 				B9FA6E772B82788A00D63E30 /* AccountRow.swift in Sources */,
+				B94CF7652C8DE9AB00DFFF8F /* PlusNecessaryView.swift in Sources */,
 				B934EA242BAB5E7F001F4345 /* RestrictedView.swift in Sources */,
 				B9FB94722B2DF49700D81C07 /* ConnectView.swift in Sources */,
 				B9FB945B2B2DEECE00D81C07 /* ThreadedApp.swift in Sources */,

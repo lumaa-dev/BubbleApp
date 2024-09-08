@@ -233,17 +233,19 @@ struct AttachmentView: View {
                         .frame(height: 10)
                     
                     Button {
-                        guard AppDelegate.premium else { return }
-                        Task {
-                            let imgData = try await URLSession.shared.data(from: selectedAttachment?.url ?? URL.placeholder)
-                            if let img = UIImage(data: imgData.0) {
-                                UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+                        if AppDelegate.premium {
+                            Task {
+                                let imgData = try await URLSession.shared.data(from: selectedAttachment?.url ?? URL.placeholder)
+                                if let img = UIImage(data: imgData.0) {
+                                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+                                }
                             }
+                        } else {
+                            UniversalNavigator.static.presentedSheet = .lockedFeature(.downloadAttachment)
                         }
                     } label: {
                         Image(systemName: "square.and.arrow.down")
                     }
-                    .realDisabled(!AppDelegate.premium)
                     
                     Divider()
                         .frame(height: 10)

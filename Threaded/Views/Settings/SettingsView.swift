@@ -23,15 +23,18 @@ struct SettingsView: View {
                                 .listRowThreaded()
                         }
                     }
-                    if AppDelegate.premium || loggedAccounts.count < 3 {
-                        Button {
+
+                    Button {
+                        if AppDelegate.premium || loggedAccounts.count < 3 {
                             uniNav.presentedSheet = .mastodonLogin(logged: $switched)
-                        } label: {
-                            Label("settings.account-switcher.add", systemImage: "person.crop.circle.badge.plus")
-                                .foregroundStyle(Color.blue)
+                        } else {
+                            uniNav.presentedSheet = .lockedFeature(.moreAccounts)
                         }
-                        .listRowThreaded()
+                    } label: {
+                        Label("settings.account-switcher.add", systemImage: "person.crop.circle.badge.plus")
+                            .foregroundStyle(Color.blue)
                     }
+                    .listRowThreaded()
                 }
                 .onChange(of: switched) { _, new in
                     if new == true {

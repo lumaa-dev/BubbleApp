@@ -3194,6 +3194,22 @@
         }
       }
     },
+    "shop.threaded-plus.learn" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn more"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En savoir plus"
+          }
+        }
+      }
+    },
     "shop.threaded-plus.lifetime" : {
       "localizations" : {
         "en" : {
@@ -3242,6 +3258,38 @@
         }
       }
     },
+    "shop.threaded-plus.required" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requires Plus"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nécessite Plus"
+          }
+        }
+      }
+    },
+    "shop.threaded-plus.required.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded+ is required to use a few additional features, like VIP, download attachments, and other."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Threaded+ est nécessaire pour utiliser certaines fonctionnalités additionnelles, comme être VIP, télécharger des pièce-jointes, et autres."
+          }
+        }
+      }
+    },
     "shop.threaded-plus.subscribe" : {
       "localizations" : {
         "en" : {
@@ -3286,6 +3334,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "L'abonnement Threaded+ ajoute des nouvelles et uniques fonctionnalités à Threaded ! Cela permet aussi de contribuer à son développement ❤️"
+          }
+        }
+      }
+    },
+    "shop.threaded-plus.with" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only with"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avec"
           }
         }
       }

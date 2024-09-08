@@ -65,7 +65,7 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
     
     /// This function returns a fake "true" value every time whatever the customer info is
     static func hasPlus() -> Bool {
-        self.premium = true
+        self.premium = false
         return true
     }
     

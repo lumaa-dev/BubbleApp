@@ -4,7 +4,7 @@ import SwiftUI
 import StoreKit
 import RevenueCat
 
-struct ShopView: View {
+public struct ShopView: View {
     @Environment(AppDelegate.self) private var delegate: AppDelegate
     @Environment(\.dismiss) private var dismiss
     
@@ -19,7 +19,7 @@ struct ShopView: View {
         #endif
     }
     
-    var body: some View {
+    public var body: some View {
         VStack {
             Image("HeroPlus")
                 .resizable()
@@ -97,19 +97,19 @@ struct ShopView: View {
                             .offset(y: phase.isIdentity ? 0 : -15)
                     }
                 
-                feature("shop.features.drafts", description: "shop.features.drafts.description", systemImage: "pencil.and.outline")
-                
-                feature("shop.features.analytics", description: "shop.features.analytics.description", systemImage: "chart.line.uptrend.xyaxis.circle")
-                
-                feature("shop.features.content-filter", description: "shop.features.content-filter.description", systemImage: "wand.and.stars")
-                
-                feature("shop.features.download-atchmnt", description: "shop.features.download-atchmnt.description", systemImage: "photo.badge.arrow.down")
-                
-                feature("shop.features.more-accounts", description: "shop.features.more-accounts.description", systemImage: "person.fill.badge.plus")
-                
-                feature("shop.features.experimental", description: "shop.features.experimental.description", systemImage: "gearshape.fill")
-                
-                feature("shop.features.vip", description: "shop.features.vip.description", systemImage: "crown")
+                feature(.drafts)
+
+                feature(.analytics)
+
+                feature(.contentFilter)
+
+                feature(.downloadAttachment)
+
+                feature(.moreAccounts)
+
+                feature(.experimentalSettings)
+
+                feature(.vip)
             }
             .frame(width: delegate.windowWidth)
         }
@@ -151,8 +151,44 @@ struct ShopView: View {
                 .offset(y: phase.isIdentity ? 0 : 10)
         }
     }
+
+    @ViewBuilder
+    private func feature(_ feature: ShopView.Feature) -> some View {
+        HStack(alignment: .center) {
+            Image(systemName: feature.details.systemImage)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 40, height: 40)
+
+            VStack(alignment: .leading) {
+                Text(feature.details.title)
+                    .bold()
+                    .lineLimit(1)
+                    .multilineTextAlignment(.leading)
+                Text(feature.details.description)
+                    .font(.callout)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+            }
+
+            Spacer()
+        }
+        .padding(.leading, 20)
+        .frame(width: delegate.windowWidth - 30)
+        .padding(.vertical)
+        .background(Color.gray.opacity(0.2))
+        .clipShape(.capsule)
+        .scrollTransition { content, phase in
+            content
+                .opacity(phase.isIdentity ? 1 : 0)
+                .scaleEffect(x: phase.isIdentity ? 1 : 0.5, y: phase.isIdentity ? 1 : 0.75, anchor: .center)
+                .blur(radius: phase.isIdentity ? 0 : 10)
+                .offset(y: phase.isIdentity ? 0 : 10)
+        }
+    }
 }
 
+// MARK: - Subscription View
 extension ShopView {
     struct SubView: View {
         @State private var selectedPlan: PlusPlan = .monthly
@@ -302,6 +338,50 @@ extension ShopView {
                         return .yearly
                 }
             }
+        }
+    }
+}
+
+// MARK: - Feature list
+extension ShopView {
+    public enum Feature {
+        case drafts
+        case analytics
+        case contentFilter
+        case downloadAttachment
+        case moreAccounts
+        case experimentalSettings
+        case vip
+
+        public var details: ShopView.PremiumFeature {
+            switch self {
+                case .drafts:
+                    return .init("shop.features.drafts", description: "shop.features.drafts.description", systemImage: "pencil.and.outline")
+                case .analytics:
+                    return .init("shop.features.analytics", description: "shop.features.analytics.description", systemImage: "chart.line.uptrend.xyaxis.circle")
+                case .contentFilter:
+                    return .init("shop.features.content-filter", description: "shop.features.content-filter.description", systemImage: "wand.and.stars")
+                case .downloadAttachment:
+                    return .init("shop.features.download-atchmnt", description: "shop.features.download-atchmnt.description", systemImage: "photo.badge.arrow.down")
+                case .moreAccounts:
+                    return .init("shop.features.more-accounts", description: "shop.features.more-accounts.description", systemImage: "person.fill.badge.plus")
+                case .experimentalSettings:
+                    return .init("shop.features.experimental", description: "shop.features.experimental.description", systemImage: "gearshape.fill")
+                case .vip:
+                    return .init("shop.features.vip", description: "shop.features.vip.description", systemImage: "crown")
+            }
+        }
+    }
+
+    public struct PremiumFeature {
+        let title: LocalizedStringKey
+        let description: LocalizedStringKey
+        let systemImage: String
+
+        init(_ title: LocalizedStringKey, description: LocalizedStringKey, systemImage: String) {
+            self.title = title
+            self.description = description
+            self.systemImage = systemImage
         }
     }
 }
