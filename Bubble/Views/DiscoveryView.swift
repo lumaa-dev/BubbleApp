@@ -196,7 +196,7 @@ struct DiscoveryView: View {
                 Text("accounts.official")
                     .accountRowLabel(.green)
             }
-            AccountRow(acct: "lumaa@mastodon.online") {
+            AccountRow(acct: "lumaa@techhub.social") {
                 Text("accounts.developer")
                     .accountRowLabel(.blue)
             }
