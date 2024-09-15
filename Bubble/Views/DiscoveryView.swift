@@ -192,7 +192,7 @@ struct DiscoveryView: View {
     
     var appView: some View {
         VStack(spacing: 7.5) {
-            AccountRow(acct: "Threaded@mastodon.online") {
+            AccountRow(acct: "Bubble@mastodon.online") {
                 Text("accounts.official")
                     .accountRowLabel(.green)
             }
