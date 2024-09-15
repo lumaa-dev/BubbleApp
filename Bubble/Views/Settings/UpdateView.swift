@@ -39,9 +39,9 @@ struct UpdateView: View {
     
     var features: some View {
         VStack(spacing: 60) {
-            newFeature(systemImage: "plus.square.dashed", title: "Drafts", text: "Keep a list of your thought-of future posts")
+            newFeature(imageName: "HeroIcon", title: "Bubble!", text: "All previous \"Threaded\" are cleared off the app!")
 
-            newFeature(systemImage: "sparkles.rectangle.stack", title: "Siri Shortcuts", text: "Actions make posts now")
+            newFeature(systemImage: "plus.square.dashed", title: "Drafts", text: "Keep a list of your thought-of future posts")
 
             newFeature(systemImage: widgetIcon, title: "New widgets", text: "Check them in the Control Center! And other places...")
         }
