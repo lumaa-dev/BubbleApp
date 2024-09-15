@@ -5,6 +5,7 @@ import SwiftUI
 
 extension Navigator {
     public func handle(url: URL) -> OpenURLAction.Result {
+        return .systemAction
         guard let client = self.client else { return .systemAction }
         let path: String = url.absoluteString.replacingOccurrences(of: AppInfo.scheme, with: "") // remove all path
         let urlPath: URL = URL(string: path)!

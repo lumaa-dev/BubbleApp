@@ -78,11 +78,11 @@ struct ContentView: View {
                 }
             }
         }
-        .onOpenURL(perform: { url in
-            guard preferences.browserType == .inApp else { return }
-            uniNavigator.presentedSheet = .safari(url: url)
-            let handled = uniNavigator.handle(url: url)
-        })
+//        .onOpenURL(perform: { url in
+//            guard preferences.browserType == .inApp else { return }
+//            uniNavigator.presentedSheet = .safari(url: url)
+//            let handled = uniNavigator.handle(url: url)
+//        })
     }
     
     func recognizeAccount() async {
