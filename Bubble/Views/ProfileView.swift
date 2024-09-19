@@ -230,7 +230,7 @@ struct ProfileView: View {
                             } label: {
                                 HStack {
                                     Spacer()
-                                    Text(isSubscribed ? "account.subsclub.subscribed" : "account.subclub.subscribe")
+                                    Text(isSubscribed ? "account.subclub.subscribed" : "account.subclub.subscribe")
                                         .font(.callout)
                                     Spacer()
                                 }
@@ -252,7 +252,7 @@ struct ProfileView: View {
                             } label: {
                                 HStack {
                                     Spacer()
-                                    Text(isSubscribed ? "account.subsclub.subscribed" : "account.subclub.subscribe")
+                                    Text(isSubscribed ? "account.subclub.subscribed" : "account.subclub.subscribe")
                                         .font(.callout)
                                     Spacer()
                                 }
