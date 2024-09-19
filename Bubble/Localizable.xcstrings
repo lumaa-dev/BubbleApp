@@ -637,7 +637,7 @@
         }
       }
     },
-    "account.subsclub.subscribed" : {
+    "account.subclub.subscribed" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1823,7 +1823,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Cette instance a été détectée comme étant dangereuse, Bubble ne prend pas la responsabilité pour tout contenu posté ou vu dans cette instance et ne fournira pas d'aide. Êtes-vous d'accord pour prendre la TOTALE responsabilité ?"
           }
         }
