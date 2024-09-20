@@ -37,6 +37,7 @@ struct CompactPostView: View {
         }
         .withCovers(sheetDestination: $navigator.presentedCover)
         .containerShape(Rectangle())
+        .background(postBackground())
         .contextMenu {
             PostMenu(status: status)
         }
@@ -283,6 +284,24 @@ struct CompactPostView: View {
         } catch {
             hasQuote = false
             quoteStatus = nil
+        }
+    }
+
+    // MARK: - Sub Club integration
+
+    @ViewBuilder
+    private func postBackground() -> some View {
+        ZStack {
+            if let match = status.account.acct.firstMatch(of: /(@)?[A-Za-z0-9_]+@sub\.club/) {
+                LinearGradient(
+                    stops: [.init(color: Color.subClub, location: 0.0), .init(color: Color.appBackground, location: 0.2)],
+                    startPoint: .topTrailing,
+                    endPoint: .bottomLeading
+                )
+                .opacity(0.2)
+            } else {
+                Color.appBackground
+            }
         }
     }
 }
