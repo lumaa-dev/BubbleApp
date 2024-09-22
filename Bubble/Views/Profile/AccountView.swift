@@ -13,7 +13,11 @@ struct AccountView: View {
             ProfileView(account: account, isCurrent: true)
                 .withAppRouter(navigator)
                 .onAppear {
-                    account = accountManager.forceAccount()
+                    if let acc = accountManager.getAccount() {
+                        account = acc
+                    } else {
+                        account = .placeholder()
+                    }
                 }
         }
         .environment(\.openURL, OpenURLAction { url in

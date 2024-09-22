@@ -4,7 +4,6 @@ import SwiftUI
 
 struct AccountRow<Content : View>: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    @EnvironmentObject private var navigator: Navigator
     
     var acct: String
     @ViewBuilder var text: Content
@@ -26,7 +25,8 @@ struct AccountRow<Content : View>: View {
                 Spacer()
                 
                 Button {
-                    navigator.navigate(to: .account(acc: acc))
+                    UniversalNavigator.static.presentedSheet = nil
+                    Navigator.shared.navigate(to: .account(acc: acc))
                 } label: {
                     Text("account.view")
                 }

@@ -511,9 +511,9 @@ struct ProfileView: View {
     
     var unbig: some View {
         HStack {
-            if account.displayName != nil {
+            if let display = account.displayName, !display.isEmpty {
                 VStack(alignment: .leading) {
-                    Text(account.displayName!)
+                    Text(display)
                         .font(.title2.bold())
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
@@ -544,32 +544,47 @@ struct ProfileView: View {
                         .font(.body)
                         .multilineTextAlignment(.leading)
 
-                    Text("\(server.description)")
-                        .font(.caption)
-                        .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
-                        .multilineTextAlignment(.leading)
-                        .pill(tint: !isSubClub ? Color(uiColor: UIColor.label) : Color.subClub)
+                    Button {
+                        uniNav.presentedSheet = .aboutSubclub
+                    } label: {
+                        Text("\(server.description)")
+                            .font(.caption)
+                            .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
+                            .multilineTextAlignment(.leading)
+                            .pill(tint: !isSubClub ? Color(uiColor: UIColor.label) : Color.subClub)
+                    }
+                    .disabled(!isSubClub)
                 } else {
                     Text("\(account.username)")
                         .font(.body)
                         .multilineTextAlignment(.leading)
 
-                    Text("\(client?.server ?? "???")")
-                        .font(.caption)
-                        .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
-                        .multilineTextAlignment(.leading)
-                        .pill(tint: !isSubClub ? Color(uiColor: UIColor.label) : Color.subClub)
+                    Button {
+                        uniNav.presentedSheet = .aboutSubclub
+                    } label: {
+                        Text("\(client?.server ?? "???")")
+                            .font(.caption)
+                            .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
+                            .multilineTextAlignment(.leading)
+                            .pill(tint: !isSubClub ? Color(uiColor: UIColor.label) : Color.subClub)
+                    }
+                    .disabled(!isSubClub)
                 }
             } else {
                 Text("\(account.username)")
                     .font(.body)
                     .multilineTextAlignment(.leading)
 
-                Text("\(client?.server ?? "???")")
-                    .font(.caption)
-                    .foregroundStyle(Color.gray)
-                    .multilineTextAlignment(.leading)
-                    .pill()
+                Button {
+                    uniNav.presentedSheet = .aboutSubclub
+                } label: {
+                    Text("\(client?.server ?? "???")")
+                        .font(.caption)
+                        .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
+                        .multilineTextAlignment(.leading)
+                        .pill()
+                }
+                .disabled(!isSubClub)
             }
         }
     }

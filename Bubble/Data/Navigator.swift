@@ -106,7 +106,8 @@ public enum SheetDestination: Identifiable {
     case shop
     case lockedFeature(_ feature: ShopView.Feature? = nil)
     case media(attachments: [MediaAttachment], selected: MediaAttachment)
-    
+    case aboutSubclub
+
     case mastodonLogin(logged: Binding<Bool>)
     case post(content: String = "", replyId: String? = nil, editId: String? = nil)
     case profEdit
@@ -128,7 +129,9 @@ public enum SheetDestination: Identifiable {
                 return "lockedFeature"
             case .media:
                 return "media"
-                
+            case .aboutSubclub:
+                return "aboutSubclub"
+
             case .mastodonLogin:
                 return "login"
             case .post:
@@ -159,7 +162,9 @@ public enum SheetDestination: Identifiable {
                 return false
             case .media:
                 return true
-                
+            case .aboutSubclub:
+                return false
+
             case .mastodonLogin:
                 return false
             case .post:
@@ -272,6 +277,8 @@ extension View {
                     PlusNecessaryView(feature)
                 case .profEdit:
                     EditProfileView()
+                case .aboutSubclub:
+                    AboutSubclubView()
                 case let .mastodonLogin(logged):
                     AddInstanceView(logged: logged)
                         .tint(Color.accentColor)
