@@ -79,6 +79,7 @@ extension View {
     func accountRowLabel(_ foreground: Color) -> some View {
         self
             .multilineTextAlignment(.leading)
+            .lineLimit(1)
             .font(.headline.bold().width(.condensed))
             .foregroundStyle(foreground)
     }
