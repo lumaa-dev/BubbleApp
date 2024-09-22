@@ -39,21 +39,13 @@ struct UpdateView: View {
     
     var features: some View {
         VStack(spacing: 60) {
-            newFeature(imageName: "HeroIcon", title: "Bubble!", text: "All previous \"Threaded\" are cleared off the app!")
+            newFeature(imageName: "SubClubMark", title: "sub.club", text: "A full sub.club integration was made!")
 
-            newFeature(systemImage: "plus.square.dashed", title: "Drafts", text: "Keep a list of your thought-of future posts")
+            newFeature(systemImage: "questionmark.square.dashed", title: "Drafts will be back", text: "The \"Drafts\" button has been removed, all previous Drafts are saved anyway")
 
-            newFeature(systemImage: widgetIcon, title: "New widgets", text: "Check them in the Control Center! And other places...")
+            newFeature(systemImage: "person.2.badge.gearshape.fill", title: "Improved profiles", text: "Display names have been slightly improved")
         }
         .frame(height: 500)
-    }
-
-    private var widgetIcon: String {
-        if #available(iOS 18.0, *) {
-            return "widget.small.badge.plus"
-        } else {
-            return "paintbrush"
-        }
     }
 
     @ViewBuilder

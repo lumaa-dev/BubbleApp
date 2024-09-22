@@ -749,6 +749,16 @@
         }
       }
     },
+    "accounts.subclub" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sub.club Account"
+          }
+        }
+      }
+    },
     "activity" : {
       "localizations" : {
         "en" : {
@@ -1621,6 +1631,26 @@
         }
       }
     },
+    "info.subclub.collaboration" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This feature is from a collaboration between sub.club and Bubble"
+          }
+        }
+      }
+    },
+    "info.subclub.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sub.club is a third-party service that allows Mastodon accounts to be premium accounts"
+          }
+        }
+      }
+    },
     "instance.rules" : {
       "localizations" : {
         "en" : {
@@ -1777,6 +1807,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Publier « ${content} »"
+          }
+        }
+      }
+    },
+    "learn.subclub" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About sub.club"
           }
         }
       }

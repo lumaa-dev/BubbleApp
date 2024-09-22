@@ -46,5 +46,7 @@ struct PostDraftView: View {
                 ContentUnavailableView("status.drafts.empty", systemImage: "plus.circle.dashed")
             }
         }
+        .presentationDragIndicator(.visible)
+        .presentationDetents(drafts.count > 0 ? [.large] : [.medium, .large])
     }
 }
