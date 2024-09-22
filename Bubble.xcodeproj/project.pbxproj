@@ -478,6 +478,39 @@
 			path = BubbleWidgets;
 			sourceTree = "<group>";
 		};
+		B9CDE7A52C9FF2FE004B1BDD /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				B9842C112B2F2A5800D9F3C1 /* TimelineView.swift */,
+				B93B677B2B433A6E000892E9 /* PostingView.swift */,
+				B98BC7462B46CE6300595441 /* PostDetailsView.swift */,
+				B90DEB212C822ED400D06121 /* PostDraftView.swift */,
+				B9A8DAB92BB7364300A890CC /* PostsView.swift */,
+				B9A80DD92C66DE1000DE3D88 /* ReportStatusView.swift */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		B9CDE7A62C9FF347004B1BDD /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B97BCE252B3DE5A10044756D /* AccountView.swift */,
+				B915C4412B6F908C00042DDB /* ProfileView.swift */,
+				B9FD18972C55108F00A74A71 /* EditProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		B9CDE7A72C9FF36D004B1BDD /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				B93ADFCA2B7625CD00FF9172 /* DiscoveryView.swift */,
+				B9D9C6C22B6A576C00C26A41 /* NotificationsView.swift */,
+				B999DE5B2B76F8CB00509868 /* ContactsView.swift */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
 		B9D9C6BF2B6A56D500C26A41 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -573,23 +606,14 @@
 			isa = PBXGroup;
 			children = (
 				B9FB94952B2EDAB600D81C07 /* Settings */,
+				B9CDE7A62C9FF347004B1BDD /* Profile */,
+				B9CDE7A52C9FF2FE004B1BDD /* Post */,
+				B9CDE7A72C9FF36D004B1BDD /* Tabs */,
 				B9FB94712B2DF49700D81C07 /* ConnectView.swift */,
 				B9FB94982B2EEB9400D81C07 /* AddInstanceView.swift */,
 				B9FA6E742B82367B00D63E30 /* AttachmentView.swift */,
 				B9FB945C2B2DEECE00D81C07 /* ContentView.swift */,
-				B9842C112B2F2A5800D9F3C1 /* TimelineView.swift */,
-				B93ADFCA2B7625CD00FF9172 /* DiscoveryView.swift */,
-				B9D9C6C22B6A576C00C26A41 /* NotificationsView.swift */,
-				B999DE5B2B76F8CB00509868 /* ContactsView.swift */,
-				B915C4412B6F908C00042DDB /* ProfileView.swift */,
-				B9FD18972C55108F00A74A71 /* EditProfileView.swift */,
-				B97BCE252B3DE5A10044756D /* AccountView.swift */,
-				B98BC7462B46CE6300595441 /* PostDetailsView.swift */,
-				B93B677B2B433A6E000892E9 /* PostingView.swift */,
-				B90DEB212C822ED400D06121 /* PostDraftView.swift */,
 				B9F8FA152B5D3AC30044DAB4 /* SafariView.swift */,
-				B9A8DAB92BB7364300A890CC /* PostsView.swift */,
-				B9A80DD92C66DE1000DE3D88 /* ReportStatusView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
