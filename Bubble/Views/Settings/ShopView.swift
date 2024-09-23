@@ -6,19 +6,21 @@ import RevenueCat
 
 public struct ShopView: View {
     @Environment(AppDelegate.self) private var delegate: AppDelegate
-    @Environment(\.dismiss) private var dismiss
-    
+    @Environment(\.openURL) private var openURL: OpenURLAction
+    @Environment(\.dismiss) private var dismiss: DismissAction
+
     @State private var showSub: Bool = false
     @State private var purchaseError: Bool = false
-    
+    @State private var hasSub: Bool = false
+
     private var canPay: Bool {
-        #if targetEnvironment(simulator)
+        #if targetEnvironment(simulator) || !DEBUG
         return true
         #else
         return false
         #endif
     }
-    
+
     public var body: some View {
         VStack {
             Image("HeroPlus")
@@ -26,56 +28,100 @@ public struct ShopView: View {
                 .scaledToFit()
                 .frame(width: 100, height: 100)
                 .padding(.vertical)
-            
+
             if canPay {
                 features
                     .padding(.bottom)
             } else {
                 Spacer()
-                
+
                 ComingSoonView()
             }
-            
+
             Spacer()
-            
-            VStack(spacing: 20) {
-                Button {
-                    showSub.toggle()
-                } label: {
-                    Text("shop.bubble-plus.subscription")
+
+            if !self.hasSub {
+                VStack(spacing: 20) {
+                    Button {
+                        showSub.toggle()
+                    } label: {
+                        Text("shop.bubble-plus.subscription")
+                    }
+                    .buttonStyle(LargeButton(filled: true, disabled: !canPay))
+                    .overlay(alignment: .topTrailing) {
+                        Text("shop.best")
+                            .foregroundStyle(Color.white)
+                            .font(.title2.bold())
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.1)
+                            .padding(4.5)
+                            .background(Capsule().fill(Color.red))
+                            .offset(x: 20.0, y: -25.0)
+                            .rotationEffect(.degrees(25.0))
+                    }
+                    .disabled(!canPay)
+
+                    Button {
+//                      showLifetime.toggle()
+                        purchase(entitlement: .lifetime)
+                    } label: {
+                        Text("shop.bubble-plus.lifetime")
+                    }
+                    .buttonStyle(LargeButton(filled: false, disabled: !canPay))
+                    .disabled(!canPay)
+
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("shop.bubble-plus.dismiss")
+                    }
+                    .buttonStyle(.borderless)
+                    .padding(.top, 50)
                 }
-                .buttonStyle(LargeButton(filled: true, disabled: !canPay))
-                .overlay(alignment: .topTrailing) {
-                    Text("shop.best")
-                        .foregroundStyle(Color.white)
-                        .font(.title2.bold())
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.1)
-                        .padding(4.5)
-                        .background(Capsule().fill(Color.red))
-                        .offset(x: 20.0, y: -25.0)
-                        .rotationEffect(.degrees(25.0))
+                .padding(.vertical)
+            } else {
+                VStack {
+                    Button {
+                        Task {
+#if !targetEnvironment(simulator)
+                            if let windowScene = self.delegate.window?.windowScene {
+                                print("accessing subs natively")
+                                try? await AppStore.showManageSubscriptions(in: windowScene)
+                            } else {
+                                print("accessing subs via deeplink")
+                                openURL(URL(string: "itms-apps://apps.apple.com/account/subscriptions")!)
+                            }
+#else
+                            print("ACCESS SUBS but Simulator can't")
+#endif
+                        }
+                    } label: {
+                        VStack {
+                            Text("shop.bubble-plus.owning")
+                                .font(.title2.bold())
+                                .foregroundStyle(Color(uiColor: UIColor.label))
+
+                            Text("shop.bubble-plus.manage")
+                                .font(.callout)
+                                .foregroundStyle(Color.blue)
+                        }
+                        .padding(.vertical)
+                    }
+
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("shop.bubble-plus.dismiss")
+                    }
+                    .buttonStyle(.borderless)
+                    .padding(.top, 50)
                 }
-                .disabled(!canPay)
-                
-                Button {
-//                    showLifetime.toggle()
-                    purchase(entitlement: .lifetime)
-                } label: {
-                    Text("shop.bubble-plus.lifetime")
-                }
-                .buttonStyle(LargeButton(filled: false, disabled: !canPay))
-                .disabled(!canPay)
-                
-                Button {
-                    dismiss()
-                } label: {
-                    Text("shop.bubble-plus.dismiss")
-                }
-                .buttonStyle(.borderless)
-                .padding(.top, 50)
             }
-            .padding(.vertical)
+        }
+        .task {
+            AppDelegate.hasPlus { subscribed in
+                self.hasSub = subscribed
+            }
         }
         .frame(width: delegate.windowWidth)
         .background(Color.appBackground)
@@ -99,7 +145,7 @@ public struct ShopView: View {
                 
                 feature(.drafts)
 
-                feature(.analytics)
+//                feature(.analytics)
 
                 feature(.contentFilter)
 
@@ -392,6 +438,7 @@ extension ShopView {
 //        .environment(\.locale, Locale(identifier: "en-us"))
 }
 
+// MARK: - Entitlements
 enum PlusEntitlements: String {
     case monthly
     case yearly
