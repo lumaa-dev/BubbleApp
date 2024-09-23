@@ -575,7 +575,7 @@ struct PostingView: View {
         //MARK: Post buttons
         HStack(spacing: 18) {
             actionMenu("plus.square.dashed") {
-                let addDisabled: Bool = self.drafts.count >= 3 && !AppDelegate.hasPlus()
+                let addDisabled: Bool = self.drafts.count >= 3 && !AppDelegate.premium
 
                 Button {
                     selectingDrafts.toggle()
@@ -599,6 +599,7 @@ struct PostingView: View {
 
                         HapticManager.playHaptics(haptics: Haptic.success)
                     } else {
+                        HapticManager.playHaptics(haptics: Haptic.lock)
                         UniversalNavigator.static.presentedSheet = .lockedFeature(.drafts)
                     }
                 } label: {

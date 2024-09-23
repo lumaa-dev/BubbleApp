@@ -29,9 +29,11 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
             }
         }
         
-        let foundPremium = AppDelegate.hasPlus()
-        print("User has \(!foundPremium ? "no-" : "")access to Plus")
-        
+        AppDelegate.hasPlus { subscribed in
+            print("User has \(!subscribed ? "no-" : "")access to Plus")
+            Self.premium = subscribed
+        }
+
         windowWidth = window?.bounds.size.width ?? UIScreen.main.bounds.size.width
         windowHeight = window?.bounds.size.height ?? UIScreen.main.bounds.size.height
         Self.observedSceneDelegate.insert(self)
@@ -51,23 +53,26 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
     }
     
     /// This function uses the REAL customer info to access the premium state
-//    static func hasPlus() -> Bool {
-//        #if DEBUG
-//        self.premium = true
-//        return true
-//        #else
-//        Purchases.shared.getCustomerInfo { (customerInfo, error) in
-//            self.premium = hasActuallyPlus(customerInfo: customerInfo)
-//        }
-//        return self.premium
-//        #endif
-//    }
+    static func hasPlus(completionHandler: @escaping (Bool) -> Void) {
+        #if targetEnvironment(simulator)
+        completionHandler(true)
+        #else
+        Purchases.shared.getCustomerInfo { (customerInfo, error) in
+            guard let error else {
+                let hasPrem: Bool = hasActuallyPlus(customerInfo: customerInfo)
+                completionHandler(hasPrem)
+                return
+            }
+            fatalError(error.localizedDescription)
+        }
+        #endif
+    }
     
     /// This function returns a fake "true" value every time whatever the customer info is
-    static func hasPlus() -> Bool {
-        self.premium = true
-        return true
-    }
+//    static func hasPlus() -> Bool {
+//        self.premium = true
+//        return true
+//    }
     
     private static func hasActuallyPlus(customerInfo: CustomerInfo?) -> Bool {
         return customerInfo?.entitlements[PlusEntitlements.lifetime.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.monthly.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.yearly.getEntitlementId()]?.isActive == true

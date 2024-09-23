@@ -28,6 +28,7 @@ struct SettingsView: View {
                         if AppDelegate.premium || loggedAccounts.count < 3 {
                             uniNav.presentedSheet = .mastodonLogin(logged: $switched)
                         } else {
+                            HapticManager.playHaptics(haptics: Haptic.lock)
                             uniNav.presentedSheet = .lockedFeature(.moreAccounts)
                         }
                     } label: {
@@ -103,12 +104,14 @@ struct SettingsView: View {
                 }
                 .listRowThreaded()
 
+                #if !targetEnvironment(simulator)
                 Button {
                     openURL(URL(string: "https://apps.apple.com/app/id6477757490?action=write-review")!)
                 } label: {
                     Label("setting.review", systemImage: "star.fill")
                 }
                 .listRowThreaded()
+                #endif
 
                 Button {
                     navigator.navigate(to: .support)

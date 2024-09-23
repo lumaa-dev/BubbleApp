@@ -560,6 +560,9 @@ struct ProfileView: View {
                         .multilineTextAlignment(.leading)
 
                     Button {
+                        let about: [Haptic] = Haptic.lock.reversed()
+                        HapticManager.playHaptics(haptics: about)
+                        
                         uniNav.presentedSheet = .aboutSubclub
                     } label: {
                         Text("\(client?.server ?? "???")")

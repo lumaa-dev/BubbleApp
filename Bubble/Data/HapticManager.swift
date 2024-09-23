@@ -17,6 +17,11 @@ struct Haptic: Hashable {
         Haptic(intensity: 1.0, sharpness: 0.7, interval: 0.0),
         Haptic(intensity: 1.0, sharpness: 0.3, interval: 0.2)
     ]
+    static let lock: [Haptic] = [
+        Haptic(intensity: 1.0, sharpness: 0.7, interval: 0.0),
+        Haptic(intensity: 0.55, sharpness: 0.55, interval: 0.1),
+        Haptic(intensity: 0.35, sharpness: 0.35, interval: 0.1)
+    ]
 }
 
 class HapticManager {

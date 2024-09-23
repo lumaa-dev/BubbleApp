@@ -13,9 +13,7 @@ struct BubbleApp: App {
             #if DEBUG
             Purchases.logLevel = .debug
             #endif
-            if #available(iOS 18.0, *) {
-                Purchases.configure(withAPIKey: apiKey, appUserID: deviceId)
-            }
+            Purchases.configure(withAPIKey: apiKey, appUserID: deviceId)
         }
 
         BubbleShortcuts.updateAppShortcutParameters() //might not work?
