@@ -756,6 +756,12 @@
             "state" : "translated",
             "value" : "sub.club Account"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compte sub.club"
+          }
         }
       }
     },
@@ -1632,21 +1638,35 @@
       }
     },
     "info.subclub.collaboration" : {
+      "comment" : "sub.club is a COLLAB, precisely",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "This feature is from a collaboration between sub.club and Bubble"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette fonctionnalité provient d’une collaboration entre sub.club et Bubble"
+          }
         }
       }
     },
     "info.subclub.description" : {
+      "comment" : "Explain that sub.club is NOT attached to Bubble or Lumaa, and explain sub.club's concept",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "sub.club is a third-party service that allows Mastodon accounts to be premium accounts"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sub.club est un service tiers qui permet à des comptes Mastodon d’être des comptes payants"
           }
         }
       }
@@ -1812,11 +1832,18 @@
       }
     },
     "learn.subclub" : {
+      "comment" : "This is a button that brings to the sub.club website",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "About sub.club"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À propos de sub.club"
           }
         }
       }
@@ -2577,6 +2604,7 @@
       }
     },
     "setting.review" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3026,6 +3054,22 @@
         }
       }
     },
+    "shop.bubble-plus.manage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage your subscriptions"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gérez vos abonnements"
+          }
+        }
+      }
+    },
     "shop.bubble-plus.monthly" : {
       "localizations" : {
         "en" : {
@@ -3054,6 +3098,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pour 1.99€ par mois, renouvellement automatique"
+          }
+        }
+      }
+    },
+    "shop.bubble-plus.owning" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have Bubble+!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous avez Bubble+ !"
           }
         }
       }
