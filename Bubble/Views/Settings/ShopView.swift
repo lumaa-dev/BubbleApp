@@ -14,11 +14,7 @@ public struct ShopView: View {
     @State private var hasSub: Bool = false
 
     private var canPay: Bool {
-        #if targetEnvironment(simulator) || !DEBUG
         return true
-        #else
-        return false
-        #endif
     }
 
     public var body: some View {
