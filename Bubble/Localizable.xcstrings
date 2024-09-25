@@ -125,6 +125,38 @@
         }
       }
     },
+    "about.other" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Third-parties"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Services tiers"
+          }
+        }
+      }
+    },
+    "about.subclub" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About sub.club"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À propos de sub.club"
+          }
+        }
+      }
+    },
     "about.version-%@" : {
       "localizations" : {
         "en" : {

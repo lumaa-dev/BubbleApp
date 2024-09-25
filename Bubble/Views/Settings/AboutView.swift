@@ -28,20 +28,43 @@ struct AboutView: View {
                     }
                     .listRowThreaded()
                 }
-                
-                Toggle("setting.experimental.activate", isOn: $userPreferences.showExperimental)
-                    .listRowThreaded()
-                    .tint(Color(uiColor: UIColor.label))
-                    .disabled(!AppDelegate.premium)
-                    .onAppear {
-                        do {
-                            let oldPreferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
-                            
-                            userPreferences.showExperimental = oldPreferences.showExperimental && AppDelegate.premium
-                        } catch {
-                            print(error)
-                        }
+
+                Section {
+                    Text("about.other")
+                        .textCase(.lowercase)
+                        .font(.callout.lowercaseSmallCaps())
+                        .foregroundStyle(Color.gray)
+                        .listRowBackground(Color.appBackground)
+
+                    Button {
+                        UniversalNavigator.static.presentedSheet = .aboutSubclub
+                    } label: {
+                        Text("about.subclub")
                     }
+                    .listRowThreaded()
+                }
+
+                Section {
+                    Text(String("Bubble+"))
+                        .textCase(.lowercase)
+                        .font(.callout.lowercaseSmallCaps())
+                        .foregroundStyle(Color.gray)
+                        .listRowBackground(Color.appBackground)
+
+                    Toggle("setting.experimental.activate", isOn: $userPreferences.showExperimental)
+                        .listRowThreaded()
+                        .tint(Color(uiColor: UIColor.label))
+                        .disabled(!AppDelegate.premium)
+                        .onAppear {
+                            do {
+                                let oldPreferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
+
+                                userPreferences.showExperimental = oldPreferences.showExperimental && AppDelegate.premium
+                            } catch {
+                                print(error)
+                            }
+                        }
+                }
             }
         }
         .listThreaded()
