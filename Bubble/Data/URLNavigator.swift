@@ -97,6 +97,9 @@ extension Navigator {
                     }
 
                     self.presentedSheet = .post(content: newContent, replyId: nil, editId: nil)
+                } else if mainAction == "plus" {
+                    guard uni else { return OpenURLAction.Result.discarded }
+                    self.presentedCover = .shop
                 }
             }
         }
