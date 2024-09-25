@@ -137,12 +137,6 @@ struct TimelineView: View {
                 }
             }
         }
-        .environment(\.openURL, OpenURLAction { url in
-            // Open internal URL.
-//            guard preferences.browserType == .inApp else { return .systemAction }
-            let handled = navigator.handle(url: url)
-            return handled
-        })
         .environmentObject(navigator)
         .background(Color.appBackground)
         .toolbarBackground(Color.appBackground, for: .navigationBar)

@@ -20,11 +20,6 @@ struct AccountView: View {
                     }
                 }
         }
-        .environment(\.openURL, OpenURLAction { url in
-            // Open internal URL.
-            let handled = navigator.handle(url: url)
-            return handled
-        })
         .environmentObject(navigator)
     }
 }

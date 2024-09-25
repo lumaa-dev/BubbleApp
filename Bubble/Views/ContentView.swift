@@ -78,13 +78,20 @@ struct ContentView: View {
                 }
             }
         }
+        .environment(\.openURL, OpenURLAction { url in
+            return self.openURL(url)
+        })
         .onOpenURL(perform: { url in
-            guard preferences.browserType == .inApp else { return }
-            uniNavigator.presentedSheet = .safari(url: url)
-            let handled = uniNavigator.handle(url: url)
+            _ = openURL(url)
         })
     }
-    
+
+    private func openURL(_ url: URL) -> OpenURLAction.Result {
+        _ = uniNavigator.handle(url: url, uni: true)
+        _ = Navigator.shared.handle(url: url, uni: false)
+        return .handled
+    }
+
     func recognizeAccount() async {
         let appAccount: AppAccount? = AppAccount.loadAsCurrent()
         if appAccount == nil {
@@ -92,6 +99,7 @@ struct ContentView: View {
         } else {
             let cli = Client(server: appAccount!.server, oauthToken: appAccount!.oauthToken)
             accountManager.setClient(cli)
+            navigator.client = cli
             uniNavigator.client = cli
             
             // Check if token is still working
