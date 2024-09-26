@@ -54,9 +54,6 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
     
     /// This function uses the REAL customer info to access the premium state
     static func hasPlus(completionHandler: @escaping (Bool) -> Void) {
-        #if targetEnvironment(simulator)
-        completionHandler(true)
-        #else
         Purchases.shared.getCustomerInfo { (customerInfo, error) in
             guard let error else {
                 let hasPrem: Bool = hasActuallyPlus(customerInfo: customerInfo)
@@ -65,7 +62,6 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
             }
             fatalError(error.localizedDescription)
         }
-        #endif
     }
     
     /// This function returns a fake "true" value every time whatever the customer info is

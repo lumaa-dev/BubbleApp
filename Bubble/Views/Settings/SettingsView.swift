@@ -104,14 +104,17 @@ struct SettingsView: View {
                 }
                 .listRowThreaded()
 
-                #if !targetEnvironment(simulator)
+
                 Button {
+#if !targetEnvironment(simulator)
                     openURL(URL(string: "https://apps.apple.com/app/id6477757490?action=write-review")!)
+#else
+                    print("Review app")
+#endif
                 } label: {
                     Label("setting.review", systemImage: "star.fill")
                 }
                 .listRowThreaded()
-                #endif
 
                 Button {
                     navigator.navigate(to: .support)
