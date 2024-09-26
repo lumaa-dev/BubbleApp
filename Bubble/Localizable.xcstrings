@@ -2668,7 +2668,6 @@
       }
     },
     "setting.review" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3411,13 +3410,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You have the ability to download attachments"
+            "value" : "Save any attachment to your photo library!"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vous avez la possibilité de télécharger des pièces-jointes"
+            "value" : "Enregistrez des pièces-jointes dans votre librairie !"
           }
         }
       }
