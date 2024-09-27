@@ -13,9 +13,7 @@ public struct ShopView: View {
     @State private var purchaseError: Bool = false
     @State private var hasSub: Bool = false
 
-    private var canPay: Bool {
-        return true
-    }
+    @State private var canPay: Bool = true
 
     public var body: some View {
         VStack {
@@ -59,7 +57,7 @@ public struct ShopView: View {
 
                     Button {
 //                      showLifetime.toggle()
-                        purchase(entitlement: .lifetime)
+                        PremiumFeature.purchase(entitlement: .lifetime)
                     } label: {
                         Text("shop.bubble-plus.lifetime")
                     }
@@ -115,6 +113,13 @@ public struct ShopView: View {
             }
         }
         .task {
+            Purchases.shared.getOfferings { offerings, err in
+                if let err {
+                    self.canPay = false
+                    dismiss()
+                }
+            }
+
             AppDelegate.hasPlus { subscribed in
                 self.hasSub = subscribed
             }
@@ -271,7 +276,7 @@ extension ShopView {
                         Spacer()
                         
                         Button {
-                            purchase(entitlement: selectedPlan.getEntitlement())
+                            PremiumFeature.purchase(entitlement: selectedPlan.getEntitlement())
                         } label: {
                             Text("shop.bubble-plus.subscribe")
                         }
@@ -425,6 +430,26 @@ extension ShopView {
             self.description = description
             self.systemImage = systemImage
         }
+
+        static func hasActuallyPlus(customerInfo: CustomerInfo?) -> Bool {
+            return customerInfo?.entitlements[PlusEntitlements.lifetime.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.monthly.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.yearly.getEntitlementId()]?.isActive == true
+        }
+
+        static func purchase(entitlement: PlusEntitlements) {
+            Purchases.shared.getOfferings { (offerings, error) in
+                if let product = entitlement.toPackage(offerings: offerings) {
+                    Purchases.shared.purchase(package: product) { (transaction, customerInfo, error, userCancelled) in
+                        if hasActuallyPlus(customerInfo: customerInfo) {
+                            print("BOUGHT PLUS")
+                            AppDelegate.premium = true
+                        }
+                    }
+                }
+                if let e = error {
+                    print(e)
+                }
+            }
+        }
     }
 }
 
@@ -463,26 +488,6 @@ enum PlusEntitlements: String {
                 return "thrd_2$_1mth_1mth0"
             case .yearly:
                 return "thrd_20$_1y_1mth0"
-        }
-    }
-}
-
-private func hasActuallyPlus(customerInfo: CustomerInfo?) -> Bool {
-    return customerInfo?.entitlements[PlusEntitlements.lifetime.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.monthly.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.yearly.getEntitlementId()]?.isActive == true
-}
-
-private func purchase(entitlement: PlusEntitlements) {
-    Purchases.shared.getOfferings { (offerings, error) in
-        if let product = entitlement.toPackage(offerings: offerings) {
-            Purchases.shared.purchase(package: product) { (transaction, customerInfo, error, userCancelled) in
-                if hasActuallyPlus(customerInfo: customerInfo) {
-                    print("BOUGHT PLUS")
-                    AppDelegate.premium = true
-                }
-            }
-        }
-        if let e = error {
-            print(e)
         }
     }
 }
