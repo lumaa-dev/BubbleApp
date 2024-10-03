@@ -15,6 +15,9 @@ public struct ShopView: View {
 
     @State private var canPay: Bool = true
 
+    @State private var displayErr: Bool = false
+    @State private var strErr: String = "Bbl404"
+
     public var body: some View {
         VStack {
             Image("HeroPlus")
@@ -116,7 +119,9 @@ public struct ShopView: View {
             Purchases.shared.getOfferings { offerings, err in
                 if let err {
                     self.canPay = false
-                    dismiss()
+                    self.strErr = err.localizedDescription
+                    self.displayErr = true
+//                    dismiss()
                 }
             }
 
@@ -127,6 +132,15 @@ public struct ShopView: View {
         .frame(width: delegate.windowWidth)
         .background(Color.appBackground)
         .navigationTitle(Text(String("Bubble+")))
+        .alert(String("Error"), isPresented: $displayErr) {
+            Button(role: .cancel) {
+                dismiss()
+            } label: {
+                Text(String("OK"))
+            }
+        } message: {
+            Text(strErr)
+        }
         .sheet(isPresented: $showSub) {
             ShopView.SubView()
         }
@@ -200,7 +214,7 @@ public struct ShopView: View {
     }
 
     @ViewBuilder
-    private func feature(_ feature: ShopView.Feature) -> some View {
+    private func feature(_ feature: AppInfo.Feature) -> some View {
         HStack(alignment: .center) {
             Image(systemName: feature.details.systemImage)
                 .resizable()
@@ -391,35 +405,6 @@ extension ShopView {
 
 // MARK: - Feature list
 extension ShopView {
-    public enum Feature {
-        case drafts
-        case analytics
-        case contentFilter
-        case downloadAttachment
-        case moreAccounts
-        case experimentalSettings
-        case vip
-
-        public var details: ShopView.PremiumFeature {
-            switch self {
-                case .drafts:
-                    return .init("shop.features.drafts", description: "shop.features.drafts.description", systemImage: "pencil.and.outline")
-                case .analytics:
-                    return .init("shop.features.analytics", description: "shop.features.analytics.description", systemImage: "chart.line.uptrend.xyaxis.circle")
-                case .contentFilter:
-                    return .init("shop.features.content-filter", description: "shop.features.content-filter.description", systemImage: "wand.and.stars")
-                case .downloadAttachment:
-                    return .init("shop.features.download-atchmnt", description: "shop.features.download-atchmnt.description", systemImage: "photo.badge.arrow.down")
-                case .moreAccounts:
-                    return .init("shop.features.more-accounts", description: "shop.features.more-accounts.description", systemImage: "person.fill.badge.plus")
-                case .experimentalSettings:
-                    return .init("shop.features.experimental", description: "shop.features.experimental.description", systemImage: "gearshape.fill")
-                case .vip:
-                    return .init("shop.features.vip", description: "shop.features.vip.description", systemImage: "crown")
-            }
-        }
-    }
-
     public struct PremiumFeature {
         let title: LocalizedStringKey
         let description: LocalizedStringKey
