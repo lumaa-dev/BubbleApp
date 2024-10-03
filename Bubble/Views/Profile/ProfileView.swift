@@ -15,13 +15,17 @@ struct ProfileView: View {
     
     @State private var canFollow: Bool? = nil
     @State private var initialFollowing: Bool = false
+    @State private var hasRequested: Bool = false
     @State private var isFollowing: Bool = false
+
     @State private var accountFollows: Bool = false
-    
+    @State private var accountReblogging: Bool = false
+    @State private var accountNotify: Bool = false
     @State private var accountMuted: Bool = false
     @State private var accountBlocked: Bool = false
+
     @State private var instanceBlocked: Bool = false
-    
+
     @State private var loadingStatuses: Bool = false
     @State private var statuses: [Status]? = []
     @State private var statusesPinned: [Status]? = []
@@ -58,70 +62,7 @@ struct ProfileView: View {
                         .toolbar {
                             if !isCurrent {
                                 ToolbarItem(placement: .primaryAction) {
-                                    Menu {
-                                        if accountMuted {
-                                            Button {
-                                                guard let client = accountManager.getClient() else { return }
-                                                
-                                                Task {
-                                                    do {
-                                                        _ = try await client.post(endpoint: Accounts.unmute(id: account.id))
-                                                        accountMuted = false
-                                                        HapticManager.playHaptics(haptics: Haptic.success)
-                                                    } catch {
-                                                        HapticManager.playHaptics(haptics: Haptic.error)
-                                                        print(error)
-                                                    }
-                                                }
-                                            } label: {
-                                                Label("account.unmute", systemImage: "speaker.wave.2.fill")
-                                            }
-                                        } else {
-                                            Menu {
-                                                ForEach(MuteData.MuteDuration.allCases, id: \.self) { duration in
-                                                    Button {
-                                                        guard let client = accountManager.getClient() else { return }
-                                                        
-                                                        Task {
-                                                            do {
-                                                                _ = try await client.post(endpoint: Accounts.mute(id: account.id, json: .init(duration: duration.rawValue)))
-                                                                accountMuted = true
-                                                                HapticManager.playHaptics(haptics: Haptic.success)
-                                                            } catch {
-                                                                HapticManager.playHaptics(haptics: Haptic.error)
-                                                                print(error)
-                                                            }
-                                                        }
-                                                    } label: {
-                                                        Text(duration.description)
-                                                    }
-                                                }
-                                            } label: {
-                                                Label("account.mute", systemImage: "speaker.slash")
-                                            }
-                                        }
-                                        
-                                        Button(role: accountBlocked ? .cancel : .destructive) {
-                                            guard let client = accountManager.getClient() else { return }
-                                            
-                                            Task {
-                                                do {
-                                                    let endp: Endpoint = accountBlocked ? Accounts.unblock(id: account.id) : Accounts.block(id: account.id)
-                                                    _ = try await client.post(endpoint: endp)
-                                                    accountBlocked.toggle()
-                                                    HapticManager.playHaptics(haptics: Haptic.success)
-                                                } catch {
-                                                    HapticManager.playHaptics(haptics: Haptic.error)
-                                                    print(error)
-                                                }
-                                            }
-                                        } label: {
-                                            Label(accountBlocked ? "account.unblock" : "account.block", systemImage: accountBlocked ? "person.fill.badge.plus" : "person.slash.fill")
-                                        }
-                                    } label: {
-                                        Image(systemName: "shield.righthalf.filled")
-                                            .font(.title2)
-                                    }
+                                    accountMenu
                                 }
                             }
                         }
@@ -173,7 +114,7 @@ struct ProfileView: View {
         .toolbarBackground(Color.appBackground, for: .navigationBar)
         .toolbarBackground(.automatic, for: .navigationBar)
     }
-    
+
     // MARK: - Headers
     
     var wholeSmall: some View {
@@ -261,6 +202,7 @@ struct ProfileView: View {
                             .disabled(isSubscribed)
                         }
 
+                        // MARK: Follow button
                         if (canFollow ?? true) == true {
                             HStack (spacing: 5) {
                                 Button {
@@ -269,33 +211,39 @@ struct ProfileView: View {
                                     }
                                 } label: {
                                     HStack {
+                                        let localized: LocalizedStringKey = account.locked ? hasRequested || isFollowing ? "account.unfollow" : "account.request-follow" : (
+                                            isFollowing ? "account.unfollow" : accountFollows ? "account.follow-back" : "account.follow"
+                                        )
                                         Spacer()
-                                        Text(isFollowing ? "account.unfollow" : accountFollows ? "account.follow-back" : "account.follow")
+                                        Text(localized)
                                             .font(.callout)
                                         Spacer()
                                     }
                                 }
                                 .buttonStyle(LargeButton(filled: true, height: 10))
 
-                                Button {
-                                    if let server = account.acct.split(separator: "@").last {
-                                        uniNav.presentedSheet = .post(content: "@\(account.username)@\(server)")
-                                    } else {
-                                        let client = accountManager.getClient()
-                                        uniNav.presentedSheet = .post(content: "@\(account.username)@\(client?.server ?? "???")")
+                                if !account.locked || isFollowing {
+                                    Button {
+                                        if let server = account.acct.split(separator: "@").last {
+                                            uniNav.presentedSheet = .post(content: "@\(account.username)@\(server)")
+                                        } else {
+                                            let client = accountManager.getClient()
+                                            uniNav.presentedSheet = .post(content: "@\(account.username)@\(client?.server ?? "???")")
+                                        }
+                                    } label: {
+                                        HStack {
+                                            Spacer()
+                                            Text("account.mention")
+                                                .font(.callout)
+                                            Spacer()
+                                        }
                                     }
-                                } label: {
-                                    HStack {
-                                        Spacer()
-                                        Text("account.mention")
-                                            .font(.callout)
-                                        Spacer()
-                                    }
+                                    .buttonStyle(LargeButton(filled: false, height: 10))
                                 }
-                                .buttonStyle(LargeButton(filled: false, height: 10))
                             }
                         }
                     }
+                    .padding(.vertical, 3.5)
 
                     if isCurrent {
                         Button {
@@ -326,7 +274,8 @@ struct ProfileView: View {
             .padding(.horizontal)
         }
     }
-    
+
+    // MARK: Fields
     var fields: some View {
         VStack(alignment: .leading, spacing: 7.5) {
             ForEach(account.fields) { field in
@@ -344,7 +293,8 @@ struct ProfileView: View {
                     TextEmoji(field.value, emojis: account.emojis)
                 }
                 .onTapGesture {
-                    if let url = URL(string: field.value.asRawText) {
+                    if let url = URL(string: field.value.asRawText), url.absoluteString
+                        .matches(of: #"\b((http|https):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(\/[a-zA-Z0-9\-._~:\/?#[\]@!$&'()*+,;=%]*)?\b"#).count > 0 {
                         HapticManager.playHaptics(haptics: Haptic.success)
                         openURL(url)
                     } else {
@@ -404,14 +354,25 @@ struct ProfileView: View {
             }
         }
     }
-    
+
+    // MARK: - Functions & Other
+
     func followAccount() async {
         if let client = accountManager.getClient() {
             Task {
-                let endpoint: Endpoint = isFollowing ? Accounts.unfollow(id: account.id) : Accounts.follow(id: account.id, notify: false, reblogs: true)
+                let endpoint: Endpoint = isFollowing || hasRequested ? Accounts.unfollow(id: account.id) : Accounts.follow(
+                    id: account.id,
+                    notify: false,
+                    reblogs: true
+                )
                 HapticManager.playHaptics(haptics: Haptic.tap)
                 _ = try await client.post(endpoint: endpoint) // Notify off until APNs? | Reblogs on by default (later changeable)
-                isFollowing = !isFollowing
+
+                if !account.locked {
+                    isFollowing = !isFollowing
+                } else {
+                    hasRequested = !hasRequested
+                }
             }
         }
     }
@@ -431,7 +392,6 @@ struct ProfileView: View {
                     await updateRelationship()
                 }
 
-
                 loadingStatuses = true
                 statuses = try? await client.get(endpoint: Accounts.statuses(id: accId, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
                 statusesPinned = try? await client.get(endpoint: Accounts.statuses(id: accId, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: true))
@@ -439,7 +399,94 @@ struct ProfileView: View {
             }
         }
     }
-    
+
+    var accountMenu: some View {
+        Menu {
+            Button {
+                guard let client = accountManager.getClient() else { return }
+
+                Task {
+                    do {
+                        _ = try await client.post(endpoint: Accounts.follow(id: account.id, notify: accountNotify, reblogs: !accountReblogging))
+                        accountReblogging.toggle()
+
+                        HapticManager.playHaptics(haptics: Haptic.success)
+                    } catch {
+                        HapticManager.playHaptics(haptics: Haptic.error)
+                        print(error)
+                    }
+                }
+            } label: {
+                Label(accountReblogging ? "account.hide-reblog" : "account.show-reblog", systemImage: accountReblogging ? "bolt.horizontal.fill" : "bolt.horizontal")
+            }
+            .disabled(!isFollowing)
+
+            Divider()
+
+            if accountMuted {
+                Button {
+                    guard let client = accountManager.getClient() else { return }
+
+                    Task {
+                        do {
+                            _ = try await client.post(endpoint: Accounts.unmute(id: account.id))
+                            accountMuted = false
+                            HapticManager.playHaptics(haptics: Haptic.success)
+                        } catch {
+                            HapticManager.playHaptics(haptics: Haptic.error)
+                            print(error)
+                        }
+                    }
+                } label: {
+                    Label("account.unmute", systemImage: "speaker.wave.2.fill")
+                }
+            } else {
+                Menu {
+                    ForEach(MuteData.MuteDuration.allCases, id: \.self) { duration in
+                        Button {
+                            guard let client = accountManager.getClient() else { return }
+
+                            Task {
+                                do {
+                                    _ = try await client.post(endpoint: Accounts.mute(id: account.id, json: .init(duration: duration.rawValue)))
+                                    accountMuted = true
+                                    HapticManager.playHaptics(haptics: Haptic.success)
+                                } catch {
+                                    HapticManager.playHaptics(haptics: Haptic.error)
+                                    print(error)
+                                }
+                            }
+                        } label: {
+                            Text(duration.description)
+                        }
+                    }
+                } label: {
+                    Label("account.mute", systemImage: "speaker.slash")
+                }
+            }
+
+            Button(role: accountBlocked ? .cancel : .destructive) {
+                guard let client = accountManager.getClient() else { return }
+
+                Task {
+                    do {
+                        let endp: Endpoint = accountBlocked ? Accounts.unblock(id: account.id) : Accounts.block(id: account.id)
+                        _ = try await client.post(endpoint: endp)
+                        accountBlocked.toggle()
+                        HapticManager.playHaptics(haptics: Haptic.success)
+                    } catch {
+                        HapticManager.playHaptics(haptics: Haptic.error)
+                        print(error)
+                    }
+                }
+            } label: {
+                Label(accountBlocked ? "account.unblock" : "account.block", systemImage: accountBlocked ? "person.fill.badge.plus" : "person.slash.fill")
+            }
+        } label: {
+            Label("generic.more", systemImage: "ellipsis")
+        }
+    }
+
     func updateRelationship(with other: [String] = [], subClubId: String? = nil) async {
         if let client = accountManager.getClient() {
             if let currentAccount: Account = try? await client.get(endpoint: Accounts.verifyCredentials) {
@@ -452,7 +499,10 @@ struct ProfileView: View {
                 if let relationship: [Relationship] = try? await client.get(endpoint: Accounts.relationships(ids: relsId)) {
                     let rel: Relationship = relationship.first! // the searched up account
                     isFollowing = rel.following
+                    hasRequested = rel.requested
                     accountFollows = rel.followedBy
+                    accountReblogging = rel.showingReblogs
+                    accountNotify = rel.notifying
                     accountMuted = rel.muting
                     accountBlocked = rel.blocking
 
