@@ -3,9 +3,9 @@
 import SwiftUI
 
 struct PlusNecessaryView: View {
-    var lockedFeature: ShopView.Feature? = nil
+    var lockedFeature: AppInfo.Feature? = nil
 
-    init(_ lockedFeature: ShopView.Feature? = nil) {
+    init(_ lockedFeature: AppInfo.Feature? = nil) {
         self.lockedFeature = lockedFeature
     }
 

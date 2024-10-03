@@ -104,7 +104,7 @@ public enum TabDestination: Identifiable {
 public enum SheetDestination: Identifiable {
     case welcome
     case shop
-    case lockedFeature(_ feature: ShopView.Feature? = nil)
+    case lockedFeature(_ feature: AppInfo.Feature? = nil)
     case media(attachments: [MediaAttachment], selected: MediaAttachment)
     case aboutSubclub
 
