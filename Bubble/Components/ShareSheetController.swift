@@ -36,7 +36,6 @@ struct ShareSheet: UIViewControllerRepresentable {
     }
     
     func makeUIViewController(context: Context) -> UIActivityViewController {
-        
         UIActivityViewController(activityItems: [image, ActivityPreview(image: image, status: status)], applicationActivities: nil)
     }
     
