@@ -447,6 +447,18 @@ extension ShopView {
     }
 }
 
+extension LocalizedStringKey {
+    func toString() -> String {
+        let mirror = Mirror(reflecting: self)
+        for child in mirror.children {
+            if let value = child.value as? String {
+                return value
+            }
+        }
+        return ""
+    }
+}
+
 #Preview {
     ShopView()
         .environment(AppDelegate())

@@ -84,6 +84,7 @@ extension Navigator {
             }
         } else {
             print("deeplink detected")
+            // available: update, new?text, plus
             let actions: [String] = path.split(separator: /\/+/).map({ $0.lowercased().replacing(/\?(.)+$/, with: "") })
             if !actions.isEmpty, let mainAction: String = actions.first {
                 if mainAction == "update" {

@@ -40,30 +40,6 @@ struct PostMenu: View {
             }
 
             Divider()
-
-            Menu {
-                Button {
-                    openURL(URL(string: AltClients.IvoryApp.createPost(status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText))!)
-                } label: {
-                    Text(AltClients.IvoryApp.name)
-                }
-
-                Button {
-                    openURL(URL(string: AltClients.ThreadsApp.createPost(status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText))!)
-                } label: {
-                    Text(AltClients.ThreadsApp.name)
-                }
-
-                Button {
-                    openURL(URL(string: AltClients.XApp.createPost(status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText))!)
-                } label: {
-                    Text(AltClients.XApp.name)
-                }
-            } label: {
-                Label("status.cross-post.alts", systemImage: "shuffle")
-            }
-
-            Divider()
         }
 
         Menu {
@@ -86,6 +62,10 @@ struct PostMenu: View {
             } label: {
                 Label("status.menu.copy-text", systemImage: "list.clipboard")
             }
+
+            if isOwner {
+                altClients
+            }
         } label: {
             Label("status.menu.share", systemImage: "paperplane")
         }
@@ -98,7 +78,31 @@ struct PostMenu: View {
             Label("status.menu.report", systemImage: "exclamationmark.triangle.fill")
         }
     }
-    
+
+    private var altClients: some View {
+        Menu {
+            Button {
+                openURL(URL(string: AltClients.IvoryApp.createPost(status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText))!)
+            } label: {
+                Text(AltClients.IvoryApp.name)
+            }
+
+            Button {
+                openURL(URL(string: AltClients.ThreadsApp.createPost(status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText))!)
+            } label: {
+                Text(AltClients.ThreadsApp.name)
+            }
+
+            Button {
+                openURL(URL(string: AltClients.XApp.createPost(status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText))!)
+            } label: {
+                Text(AltClients.XApp.name)
+            }
+        } label: {
+            Label("status.cross-post.alts", systemImage: "shuffle")
+        }
+    }
+
     @MainActor
     private func createImage() {
         let view = HStack {
