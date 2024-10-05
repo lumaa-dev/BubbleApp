@@ -39,11 +39,11 @@ struct UpdateView: View {
     
     var features: some View {
         VStack(spacing: 60) {
-            newFeature(imageName: "HeroPlus", title: "Bubble+ is here!", text: "More accounts, more drafts, downloadable attachments... and VIP!")
+            newFeature(systemImage: "figure.child.and.lock.fill", title: "Follow request", text: "A proper follow request button is available on private accounts")
 
             newFeature(imageName: "SubClubMark", title: "sub.club", text: "A full sub.club integration was made in collaboration with them! Thank you!")
 
-            newFeature(systemImage: "link", title: "Deep links", text: "bubbleapp://plus as well as tapping on usernames in posts is possible now!")
+            newFeature(systemImage: "link", title: "Deep links", text: "bubbleapp://update as well as tapping on usernames in posts is possible now!")
         }
         .frame(height: 500)
     }
@@ -140,6 +140,15 @@ struct UpdateView: View {
             }
             .padding(.horizontal)
         }
+    }
+
+    @ViewBuilder
+    private func newFeature(_ feature: AppInfo.Feature) -> some View {
+        self.newFeature(
+            systemImage: feature.details.systemImage,
+            title: feature.details.title.toString(),
+            text: feature.details.description.toString()
+        )
     }
 }
 
