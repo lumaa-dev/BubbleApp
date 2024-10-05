@@ -53,22 +53,22 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
     }
     
     /// This function uses the REAL customer info to access the premium state
-    static func hasPlus(completionHandler: @escaping (Bool) -> Void) {
-        Purchases.shared.getCustomerInfo { (customerInfo, error) in
-            guard let error else {
-                let hasPrem: Bool = hasActuallyPlus(customerInfo: customerInfo)
-                completionHandler(hasPrem)
-                return
-            }
-            fatalError(error.localizedDescription)
-        }
-    }
+//    static func hasPlus(completionHandler: @escaping (Bool) -> Void) {
+//        Purchases.shared.getCustomerInfo { (customerInfo, error) in
+//            guard let error else {
+//                let hasPrem: Bool = hasActuallyPlus(customerInfo: customerInfo)
+//                completionHandler(hasPrem)
+//                return
+//            }
+//            fatalError(error.localizedDescription)
+//        }
+//    }
     
     /// This function returns a fake "true" value every time whatever the customer info is
-//    static func hasPlus() -> Bool {
-//        self.premium = true
-//        return true
-//    }
+    static func hasPlus(completionHandler: @escaping (Bool) -> Void) {
+        self.premium = true
+        completionHandler(true)
+    }
     
     private static func hasActuallyPlus(customerInfo: CustomerInfo?) -> Bool {
         return customerInfo?.entitlements[PlusEntitlements.lifetime.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.monthly.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.yearly.getEntitlementId()]?.isActive == true

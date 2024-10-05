@@ -13,7 +13,7 @@ public struct ShopView: View {
     @State private var purchaseError: Bool = false
     @State private var hasSub: Bool = false
 
-    @State private var canPay: Bool = true
+    @State private var canPay: Bool = false
 
     @State private var displayErr: Bool = false
     @State private var strErr: String = "Bbl404"
@@ -116,6 +116,14 @@ public struct ShopView: View {
             }
         }
         .task {
+            #if DEBUG
+            self.canPay = true
+            #else
+            self.canPay = false
+            #endif
+
+            guard canPay else { return }
+
             Purchases.shared.getOfferings { offerings, err in
                 if let err {
                     self.canPay = false
@@ -140,6 +148,7 @@ public struct ShopView: View {
             }
         } message: {
             Text(strErr)
+            //TODO: http://rev.cat/why-are-offerings-empty issue
         }
         .sheet(isPresented: $showSub) {
             ShopView.SubView()
