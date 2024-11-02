@@ -37,113 +37,133 @@ struct TimelineView: View {
         NavigationStack(path: $navigator.path) {
             if statuses != nil {
                 if !statuses!.isEmpty {
-                    ScrollView(showsIndicators: false) {
-                        picker
-                        
-                        ForEach(statuses!, id: \.id) { status in
-                            LazyVStack(alignment: .leading, spacing: 2) {
-                                CompactPostView(status: status)
-                                    .onDisappear {
-                                        guard statuses != nil else { return }
-                                        lastSeen = statuses!.firstIndex(where: { $0.id == status.id })
-                                    }
-                            }
-                        }
-                    }
-                    .refreshable {
-                        if let client = accountManager.getClient() {
-                            statuses = nil
-                            
-                            Task {
-                                loadingStatuses = true
-                                statuses = await timelineModel.fetch(client: client)
-                                loadingStatuses = false
-                            }
-                        }
-                    }
-                    .onChange(of: lastSeen ?? 0) { _, new in
-                        guard !loadingStatuses else { return }
-                        Task {
-                            loadingStatuses = true
-                            statuses = await timelineModel.addStatuses(lastStatusIndex: new)
-                            loadingStatuses = false
-                        }
-                    }
-                    .toolbar {
-                        if UserDefaults.standard.bool(forKey: "allowFilter") {
-                            ToolbarItem(placement: .primaryAction) {
-                                Button {
-                                    statuses = nil
-                                    
-                                    Task {
-                                        loadingStatuses = true
-                                        statuses = await self.timelineModel.toggleContentFilter(filter: wordsFilter)
-                                        loadingStatuses = false
-                                    }
-                                } label: {
-                                    Image(systemName: self.timelineModel.filtering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
-                                        .symbolEffect(.pulse.wholeSymbol, isActive: self.timelineModel.filtering)
-                                }
-                                .tint(Color(uiColor: UIColor.label))
-                            }
-                        }
-                    }
-                    .padding(.top)
-                    .background(Color.appBackground)
-                    .withAppRouter(navigator)
+                    statusesView
                 } else {
-                    ZStack {
-                        Color.appBackground
-                            .ignoresSafeArea()
-                        
-                        VStack {
-                            picker
-                            
-                            ContentUnavailableView {
-                                Text("timeline.empty")
-                                    .bold()
-                            } description: {
-                                Text("timeline.empty.description")
-                            }
-                            .scrollDisabled(true)
-                        }
-                        .scrollDisabled(true)
-                        .background(Color.appBackground)
-                        .frame(height: 200)
-                    }
+                    emptyView
                 }
             } else {
-                ZStack {
-                    Color.appBackground
-                        .ignoresSafeArea()
-                        .onAppear {
-                            if UserDefaults.standard.bool(forKey: "allowFilter") {
-                                self.wordsFilter = filters.compactMap({ ContentFilter.WordFilter(model: $0) }).first ?? ContentFilter.defaultFilter
-                            }
-                            
-                            if let client = accountManager.getClient() {
-                                Task {
-                                    statuses = await timelineModel.fetch(client: client)
-                                    
-                                    if UserDefaults.standard.bool(forKey: "autoOnFilter") {
-                                        statuses = await self.timelineModel.useContentFilter(wordsFilter)
-                                    }
-                                }
-                            }
-                        }
-                    
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                }
+                loadingView
             }
         }
         .environmentObject(navigator)
         .background(Color.appBackground)
         .toolbarBackground(Color.appBackground, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .safeAreaPadding()
     }
-    
+
+    // MARK: Views
+    private var statusesView: some View {
+        ScrollView(showsIndicators: false) {
+            picker
+
+            ForEach(statuses!, id: \.id) { status in
+                let isLast: Bool = status.id == statuses!.last?.id ?? ""
+
+                LazyVStack(alignment: .leading, spacing: 0.0) {
+                    CompactPostView(status: status)
+                        .onDisappear {
+                            guard statuses != nil else { return }
+                            lastSeen = statuses!.firstIndex(where: { $0.id == status.id })
+                        }
+
+                    if !isLast {
+                        Divider()
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+            }
+        }
+        .refreshable {
+            if let client = accountManager.getClient() {
+                statuses = nil
+
+                Task {
+                    loadingStatuses = true
+                    statuses = await timelineModel.fetch(client: client)
+                    loadingStatuses = false
+                }
+            }
+        }
+        .onChange(of: lastSeen ?? 0) { _, new in
+            guard !loadingStatuses else { return }
+            Task {
+                loadingStatuses = true
+                statuses = await timelineModel.addStatuses(lastStatusIndex: new)
+                loadingStatuses = false
+            }
+        }
+        .toolbar {
+            if UserDefaults.standard.bool(forKey: "allowFilter") {
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        statuses = nil
+
+                        Task {
+                            loadingStatuses = true
+                            statuses = await self.timelineModel.toggleContentFilter(filter: wordsFilter)
+                            loadingStatuses = false
+                        }
+                    } label: {
+                        Image(systemName: self.timelineModel.filtering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+                            .symbolEffect(.pulse.wholeSymbol, isActive: self.timelineModel.filtering)
+                    }
+                    .tint(Color(uiColor: UIColor.label))
+                }
+            }
+        }
+//        .padding(.top)
+        .background(Color.appBackground)
+        .withAppRouter(navigator)
+    }
+
+    private var emptyView: some View {
+        ZStack {
+            Color.appBackground
+                .ignoresSafeArea()
+
+            VStack {
+                picker
+
+                ContentUnavailableView {
+                    Text("timeline.empty")
+                        .bold()
+                } description: {
+                    Text("timeline.empty.description")
+                }
+                .scrollDisabled(true)
+            }
+            .scrollDisabled(true)
+            .background(Color.appBackground)
+            .frame(height: 200)
+        }
+    }
+
+    private var loadingView: some View {
+        ZStack {
+            Color.appBackground
+                .ignoresSafeArea()
+                .onAppear {
+                    if UserDefaults.standard.bool(forKey: "allowFilter") {
+                        self.wordsFilter = filters.compactMap({ ContentFilter.WordFilter(model: $0) }).first ?? ContentFilter.defaultFilter
+                    }
+
+                    if let client = accountManager.getClient() {
+                        Task {
+                            statuses = await timelineModel.fetch(client: client)
+
+                            if UserDefaults.standard.bool(forKey: "autoOnFilter") {
+                                statuses = await self.timelineModel.useContentFilter(wordsFilter)
+                            }
+                        }
+                    }
+                }
+
+            ProgressView()
+                .progressViewStyle(.circular)
+        }
+    }
+
+    // MARK: - View Component
     private var picker: some View {
         VStack {
             if showHero {

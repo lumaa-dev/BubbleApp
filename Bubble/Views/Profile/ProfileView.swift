@@ -262,11 +262,6 @@ struct ProfileView: View {
                 .padding(.horizontal)
                 
                 VStack {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(width: .infinity, height: 1)
-                        .padding(.bottom, 3)
-                    
                     statusesList
                 }
             }
@@ -307,15 +302,21 @@ struct ProfileView: View {
     }
     
     var statusesList: some View {
-        LazyVStack {
+        LazyVStack(spacing: 0) {
             if loadingStatuses == false {
                 if !(statusesPinned?.isEmpty ?? true) {
                     ForEach(statusesPinned!, id: \.id) { status in
+                        Divider()
+                            .frame(maxWidth: .infinity)
+
                         CompactPostView(status: status, pinned: true)
                     }
                 }
                 if !(statuses?.isEmpty ?? true) {
                     ForEach(statuses!, id: \.id) { status in
+                        Divider()
+                            .frame(maxWidth: .infinity)
+
                         CompactPostView(status: status)
                             .onDisappear() {
                                 lastSeen = statuses!.firstIndex(where: { $0.id == status.id })

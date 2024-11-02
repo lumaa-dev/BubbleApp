@@ -7,7 +7,9 @@ import RevenueCat
 @main
 struct BubbleApp: App {
     init() {
-        guard let plist = AppDelegate.readSecret() else { fatalError("Missing Secret.plist file") }
+        BubbleShortcuts.updateAppShortcutParameters() //might not work?
+        
+        guard let plist = AppDelegate.readSecret() else { print("Missing Secret.plist file"); return }
 
         if let apiKey = plist["RevenueCat_public"], let deviceId = UIDevice.current.identifierForVendor?.uuidString {
             #if DEBUG
@@ -15,8 +17,6 @@ struct BubbleApp: App {
             #endif
             Purchases.configure(withAPIKey: apiKey, appUserID: deviceId)
         }
-
-        BubbleShortcuts.updateAppShortcutParameters() //might not work?
     }
     
     var body: some Scene {

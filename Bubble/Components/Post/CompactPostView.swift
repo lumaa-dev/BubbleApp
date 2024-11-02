@@ -23,20 +23,14 @@ struct CompactPostView: View {
     @State private var quoteStatus: Status? = nil
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 4.0) {
             notices
             
             statusPost(status.reblogAsAsStatus ?? status)
-            
-            if !quoted && !imaging {
-                Rectangle()
-                    .fill(Color.gray.opacity(0.2))
-                    .frame(width: .infinity, height: 1)
-                    .padding(.bottom, 3)
-            }
         }
         .withCovers(sheetDestination: $navigator.presentedCover)
         .containerShape(Rectangle())
+        .padding(.vertical, 6.0)
         .background(postBackground())
         .contextMenu {
             PostMenu(status: status)
@@ -300,7 +294,13 @@ struct CompactPostView: View {
                 )
                 .opacity(0.2)
             } else {
-                Color.appBackground
+//                Color.appBackground
+                LinearGradient(
+                    stops: [.init(color: Color.subClub, location: 0.0), .init(color: Color.appBackground, location: 0.2)],
+                    startPoint: .topTrailing,
+                    endPoint: .bottomLeading
+                )
+                .opacity(0.2)
             }
         }
     }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B9029FC22B81259400AA9B68 /* Secret.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9029FC12B81259400AA9B68 /* Secret.plist */; };
 		B9029FC42B8125CE00AA9B68 /* HuggingFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9029FC32B8125CE00AA9B68 /* HuggingFace.swift */; };
 		B90DEB1F2C822C2700D06121 /* StatusDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90DEB1E2C822C2700D06121 /* StatusDraft.swift */; };
 		B90DEB202C822C2700D06121 /* StatusDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90DEB1E2C822C2700D06121 /* StatusDraft.swift */; };
@@ -272,7 +271,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B9029FC12B81259400AA9B68 /* Secret.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
 		B9029FC32B8125CE00AA9B68 /* HuggingFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuggingFace.swift; sourceTree = "<group>"; };
 		B90DEB1E2C822C2700D06121 /* StatusDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusDraft.swift; sourceTree = "<group>"; };
 		B90DEB212C822ED400D06121 /* PostDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDraftView.swift; sourceTree = "<group>"; };
@@ -587,7 +585,6 @@
 			children = (
 				B9C20D592B923D53004DC9B3 /* Bubble.entitlements */,
 				B9FB94A02B2EF23100D81C07 /* Info.plist */,
-				B9029FC12B81259400AA9B68 /* Secret.plist */,
 				B9FB945A2B2DEECE00D81C07 /* BubbleApp.swift */,
 				B9EBE8572B474FD600FB594D /* AppDelegate.swift */,
 				B9FB946E2B2DF3BB00D81C07 /* Components */,
@@ -873,7 +870,6 @@
 				B9DC69302B79378400E625B9 /* BubblePlus.storekit in Resources */,
 				B9FB94642B2DEECF00D81C07 /* Preview Assets.xcassets in Resources */,
 				B9FB94612B2DEECF00D81C07 /* Assets.xcassets in Resources */,
-				B9029FC22B81259400AA9B68 /* Secret.plist in Resources */,
 				B95ED2372B87C9550055F5BD /* StoreKitTestCertificate.cer in Resources */,
 				B9FB94902B2E2B0E00D81C07 /* Localizable.xcstrings in Resources */,
 				B9CFC43B2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard in Resources */,

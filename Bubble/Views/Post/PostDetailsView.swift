@@ -27,20 +27,25 @@ struct PostDetailsView: View {
     var body: some View {
         ScrollView(.vertical) {
             ScrollViewReader { proxy in
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 1.5) {
                     if statuses.isEmpty {
-                        statusPost(detailedStatus)
+                        CompactPostView(status: detailedStatus)
                     } else {
                         ForEach(statuses) { status in
+                            let isLast: Bool = status.id == statuses.last?.id ?? ""
+
                             if status.id == detailedStatus.id {
-                                statusPost(detailedStatus)
-                                    .padding(.horizontal, 15)
-                                    .padding(statuses.first!.id == detailedStatus.id ? .bottom : .vertical)
+                                CompactPostView(status: detailedStatus)
                                     .onAppear {
                                         proxy.scrollTo("\(detailedStatus.id)@\(detailedStatus.account.id)", anchor: .bottom)
                                     }
                             } else {
-                                CompactPostView(status: status)
+                                repPost(status)
+                            }
+
+                            if !isLast {
+                                Divider()
+                                    .frame(maxWidth: .infinity)
                             }
                         }
                     }
@@ -55,82 +60,18 @@ struct PostDetailsView: View {
         .safeAreaPadding()
         .navigationBarTitleDisplayMode(.inline)
     }
-    
-    @ViewBuilder
-    func statusPost(_ status: Status) -> some View {
-        VStack(alignment: .leading) {
-            HStack {
-                profilePicture
-                    .onTapGesture {
-                        navigator.navigate(to: .account(acc: status.account))
-                    }
-                
-                Text(status.account.username)
-                    .multilineTextAlignment(.leading)
-                    .bold()
-                    .onTapGesture {
-                        navigator.navigate(to: .account(acc: status.account))
-                    }
-                
-                Spacer()
 
-                Menu {
-                    PostMenu(status: status)
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(Color.white.opacity(0.3))
-                        .font(.body)
-                        .contentShape(Rectangle())
-                        .padding(7.5)
-                }
-                    .padding([.trailing, .top])
-            }
-            
-            VStack(alignment: .leading) {
-                // MARK: Status main content
-                VStack(alignment: .leading, spacing: 10) {
-                    if !status.content.asRawText.isEmpty {
-                        TextEmoji(status.content, emojis: status.emojis, language: status.language)
-                            .multilineTextAlignment(.leading)
-                            .frame(width: 300, alignment: .topLeading)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .font(.callout)
-                            .id("\(detailedStatus.id)@\(detailedStatus.account.id)")
-                    }
-                    
-                    if status.poll != nil {
-                        PostPoll(poll: status.poll!)
-                    }
-                    
-                    if status.card != nil && status.mediaAttachments.isEmpty {
-                        PostCardView(card: status.card!)
-                    }
-                    
-                    if !status.mediaAttachments.isEmpty {
-                        ForEach(status.mediaAttachments) { attachment in
-                            PostAttachment(attachment: attachment)
-                        }
-                    }
-                    
-                    if hasQuote {
-                        if quoteStatus != nil {
-                            QuotePostView(status: quoteStatus!)
-                        } else {
-                            ProgressView()
-                                .progressViewStyle(.circular)
-                        }
-                    }
-                }
-                
-                //MARK: Action buttons
-                PostInteractor(status: status, isLiked: $isLiked, isReposted: $isReposted, isBookmarked: $isBookmarked)
-                
-                // MARK: Status stats
-                stats.padding(.top, 5)
-            }
+    @ViewBuilder
+    func repPost(_ status: Status) -> some View {
+        HStack(alignment: .center, spacing: 8.0) {
+            Rectangle()
+                .fill(Color.gray.opacity(0.4))
+                .frame(maxWidth: 2.0, maxHeight: .infinity, alignment: .leading)
+
+            CompactPostView(status: status)
         }
     }
-    
+
     private func fetchStatusDetail() async {
         guard let client = accountManager.getClient() else { return }
         do {
@@ -160,74 +101,7 @@ struct PostDetailsView: View {
         let status: Status
         let context: StatusContext
     }
-    
-    var profilePicture: some View {
-        if detailedStatus.reblog != nil {
-            OnlineImage(url: detailedStatus.reblog!.account.avatar, size: 50, useNuke: true)
-                .frame(width: 40, height: 40)
-                .clipShape(.circle)
-        } else {
-            OnlineImage(url: detailedStatus.account.avatar, size: 50, useNuke: true)
-                .frame(width: 40, height: 40)
-                .clipShape(.circle)
-        }
-    }
-    
-    var stats: some View {
-        //MARK: I acknowledge the existance of a count bug here
-        if detailedStatus.reblog == nil {
-            HStack {
-                if detailedStatus.repliesCount > 0 {
-                    Text("status.replies-\(detailedStatus.repliesCount)")
-                        .monospacedDigit()
-                        .foregroundStyle(.gray)
-                }
-                
-                if detailedStatus.repliesCount > 0 && (detailedStatus.favouritesCount > 0 || isLiked) {
-                    Text(verbatim: "•")
-                        .foregroundStyle(.gray)
-                }
-                
-                if detailedStatus.favouritesCount > 0 || isLiked {
-                    let likeCount: Int = detailedStatus.favouritesCount - (initialLike ? 1 : 0)
-                    let incrLike: Int = isLiked ? 1 : 0
-                    Text("status.favourites-\(likeCount + incrLike)")
-                        .monospacedDigit()
-                        .foregroundStyle(.gray)
-                        .contentTransition(.numericText(value: Double(likeCount + incrLike)))
-                        .transaction { t in
-                            t.animation = .default
-                        }
-                }
-            }
-        } else {
-            HStack {
-                if detailedStatus.reblog!.repliesCount > 0 {
-                    Text("status.replies-\(detailedStatus.reblog!.repliesCount)")
-                        .monospacedDigit()
-                        .foregroundStyle(.gray)
-                }
-                
-                if detailedStatus.reblog!.repliesCount > 0 && (detailedStatus.reblog!.favouritesCount > 0 || isLiked) {
-                    Text(verbatim: "•")
-                        .foregroundStyle(.gray)
-                }
-                
-                if detailedStatus.reblog!.favouritesCount > 0 || isLiked {
-                    let likeCount: Int = detailedStatus.reblog!.favouritesCount - (initialLike ? 1 : 0)
-                    let incrLike: Int = isLiked ? 1 : 0
-                    Text("status.favourites-\(likeCount + incrLike)")
-                        .monospacedDigit()
-                        .foregroundStyle(.gray)
-                        .contentTransition(.numericText(value: Double(likeCount + incrLike)))
-                        .transaction { t in
-                            t.animation = .default
-                        }
-                }
-            }
-        }
-    }
-    
+
     private func embededStatusURL() -> URL? {
         let content = detailedStatus.content
         if let client = accountManager.getClient() {
