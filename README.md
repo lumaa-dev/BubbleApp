@@ -1,7 +1,6 @@
 # [Bubble](https://apps.lumaa.fr/app/bubble)
 
 <a href="https://apps.apple.com/app/bubble/id6477757490"><img src="https://apps.lumaa.fr/assets/images/en_app_store_black_badge.svg" alt="Install Bubble now" width=200></a>
-<img src="./README_data/Display-banner.png" width=500 align="right">
 
 [Bubble](https://apps.lumaa.fr/app/bubble) is a very simple [#Mastodon](https://joinmastodon.org) client, that is meant to look clean and expurgated. It integrates perfectly with your Mastodon account, and matches your vibe, while having Mastodon-only features.
 
