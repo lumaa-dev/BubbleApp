@@ -11,6 +11,7 @@ final class MetricsManager {
 
     private(set) public var postCount: [IntData] = []
     private(set) public var postType: [StatusTypeData] = []
+    private(set) public var averageFavorites: Int = 0
 
     init(accountManager: AccountManager) {
         if let cli = accountManager.getClient() {
@@ -49,6 +50,17 @@ final class MetricsManager {
         } else {
             fatalError("Couldn't fetch account's statuses")
         }
+    }
+
+    private func averageFavorites(_ statuses: [Status]) -> Int {
+        let favsCount: [Int] = statuses.map { $0.favouritesCount }
+
+        var totalFavs: Int = 0
+        favsCount.forEach { int in
+            totalFavs += int
+        }
+
+        return totalFavs / favsCount.count
     }
 
     /// Data used for integer Metrics
