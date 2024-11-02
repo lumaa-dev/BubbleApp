@@ -294,13 +294,7 @@ struct CompactPostView: View {
                 )
                 .opacity(0.2)
             } else {
-//                Color.appBackground
-                LinearGradient(
-                    stops: [.init(color: Color.subClub, location: 0.0), .init(color: Color.appBackground, location: 0.2)],
-                    startPoint: .topTrailing,
-                    endPoint: .bottomLeading
-                )
-                .opacity(0.2)
+                Color.appBackground
             }
         }
     }
