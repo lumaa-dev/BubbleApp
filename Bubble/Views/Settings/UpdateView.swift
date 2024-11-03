@@ -43,7 +43,7 @@ struct UpdateView: View {
 
             newFeature(imageName: "SubClubMark", title: "sub.club", text: "A full sub.club integration was made in collaboration with them! Thank you!")
 
-            newFeature(systemImage: "link", title: "Deep links", text: "bubbleapp://update as well as tapping on usernames in posts is possible now!")
+            newFeature(systemImage: "decrease.quotelevel", title: "Post overhaul", text: "Posts and replies are looking fancier than ever before!")
         }
         .frame(height: 500)
     }
