@@ -35,3 +35,4 @@ Join the Matrix Space to get support, with full security: [Join #threadedapp:mat
 ## More
 [Privacy Policy](https://apps.lumaa.fr/legal/privacy?app=bubble&utm_source=BubbleGit)\
 [About Bubble](https://apps.lumaa.fr/app/bubble)
+[Threaded vs. Threads](https://apps.lumaa.fr/legal/threaded)
