@@ -109,7 +109,7 @@ struct SearchResultView: View {
                     Spacer()
                     
                     Button {
-                        // do stuff
+                        navigator.navigate(to: .timeline(timeline: .hashtag(tag: tag.name, accountId: nil)))
                     } label: {
                         Text("tag.read")
                     }
@@ -123,6 +123,9 @@ struct SearchResultView: View {
     var statusesView: some View {
         VStack(spacing: 7.5) {
             ForEach(searchResults.statuses) { status in
+                Divider()
+                    .frame(maxWidth: .infinity)
+
                 CompactPostView(status: status)
                     .padding(.vertical)
             }

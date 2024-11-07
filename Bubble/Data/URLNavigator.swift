@@ -13,8 +13,14 @@ extension Navigator {
         let urlPath: URL = URL(string: path) ?? URL(string: "https://example.com/")!
         if !url.absoluteString.starts(with: AppInfo.scheme) {
             if client.isAuth && client.hasConnection(with: url) {
-                guard let actionType = urlPath.getActionType() else { fatalError("Couldn't get URLNav actionType") }
+                guard let actionType = urlPath.getActionType() else {
+                    print("Couldn't get URLNav actionType")
+                    self.presentedSheet = .safari(url: url)
+                    return .handled
+                }
                 let server: String = urlPath.host() ?? client.server
+
+                // TODO: If "nil" do global search
 
                 print("actionType: \(actionType)")
 

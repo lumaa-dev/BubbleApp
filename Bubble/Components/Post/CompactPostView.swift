@@ -116,8 +116,9 @@ struct CompactPostView: View {
                     if !status.content.asRawText.isEmpty {
                         TextEmoji(status.content, emojis: status.emojis, language: status.language)
                             .multilineTextAlignment(.leading)
-                            .frame(width: quoted ? 250 : 300, alignment: .topLeading)
-                            .lineLimit(quoted ? 3 : nil)
+                            .frame(width: quoted ? 180 : 300, alignment: .topLeading)
+                            .frame(maxHeight: 140)
+//                            .lineLimit(quoted ? 3 : nil)
                             .fixedSize(horizontal: false, vertical: true)
                             .font(quoted ? .caption : .callout)
                             .contentShape(Rectangle())
@@ -126,21 +127,22 @@ struct CompactPostView: View {
                             }
                     }
                     
-//                    if !quoted {
+                    if !quoted {
                         if status.poll != nil {
                             PostPoll(poll: status.poll!)
                         }
-                        
+
                         if status.card != nil && status.mediaAttachments.isEmpty && !hasQuote {
                             PostCardView(card: status.card!)
                         }
-                        
-                    attachmnts
-//                    }
-                    
+
+                        attachmnts
+                    }
+
                     if hasQuote && !quoted {
                         if quoteStatus != nil {
                             QuotePostView(status: quoteStatus!)
+                                .frame(maxWidth: 250, maxHeight: 200, alignment: .leading)
                         } else {
                             ProgressView()
                                 .progressViewStyle(.circular)

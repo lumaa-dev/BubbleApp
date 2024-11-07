@@ -99,7 +99,7 @@ struct DiscoveryView: View {
     
     var accountsView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 10) {
+            LazyHStack(spacing: 7.5) {
                 ForEach(suggestedAccounts) { account in
                     VStack {
                         ProfilePicture(url: account.avatar, size: 64)
@@ -174,8 +174,11 @@ struct DiscoveryView: View {
     }
     
     var statusView: some View {
-        VStack(spacing: 7.5) {
+        VStack(spacing: 1.5) {
             ForEach(trendingStatuses) { status in
+                Divider()
+                    .frame(maxWidth: .infinity)
+
                 CompactPostView(status: status)
                     .padding(.vertical)
                     .environmentObject(navigator)

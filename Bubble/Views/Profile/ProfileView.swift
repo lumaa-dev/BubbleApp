@@ -602,6 +602,8 @@ struct ProfileView: View {
                             .font(.caption)
                             .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
                             .multilineTextAlignment(.leading)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
                             .pill(tint: !isSubClub ? Color(uiColor: UIColor.label) : Color.subClub)
                     }
                     .disabled(!isSubClub)
@@ -620,6 +622,8 @@ struct ProfileView: View {
                             .font(.caption)
                             .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
                             .multilineTextAlignment(.leading)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
                             .pill(tint: !isSubClub ? Color(uiColor: UIColor.label) : Color.subClub)
                     }
                     .disabled(!isSubClub)
@@ -636,6 +640,8 @@ struct ProfileView: View {
                         .font(.caption)
                         .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
                         .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
                         .pill()
                 }
                 .disabled(!isSubClub)
