@@ -22,6 +22,7 @@ struct BubbleWidgetsBundle: WidgetBundle {
         CreatePostWidget()
 
         // iOS 18
+        OpenAppControl()
         CreatePostControl()
     }
 

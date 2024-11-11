@@ -226,6 +226,8 @@
 		B9FB94BC2B2F035500D81C07 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB94BB2B2F035500D81C07 /* Tag.swift */; };
 		B9FD18982C55108F00A74A71 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FD18972C55108F00A74A71 /* EditProfileView.swift */; };
 		B9FD189A2C57DE9200A74A71 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FD18992C57DE9200A74A71 /* IconView.swift */; };
+		B9FE4B502CE241DE00CE1E53 /* OpenAppControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FE4B4F2CE241DE00CE1E53 /* OpenAppControl.swift */; };
+		B9FE4B512CE241DE00CE1E53 /* OpenAppControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FE4B4F2CE241DE00CE1E53 /* OpenAppControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -388,6 +390,7 @@
 		B9FB94BB2B2F035500D81C07 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		B9FD18972C55108F00A74A71 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		B9FD18992C57DE9200A74A71 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
+		B9FE4B4F2CE241DE00CE1E53 /* OpenAppControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAppControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -481,6 +484,7 @@
 				B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */,
 				B9A80DDD2C67BFF800DE3D88 /* CreatePostWidget.swift */,
 				B98DD8D72C6821F7009F40DD /* CreatePostControl.swift */,
+				B9FE4B4F2CE241DE00CE1E53 /* OpenAppControl.swift */,
 				B9C20D132B921C78004DC9B3 /* AppIntent.swift */,
 				B9C20D152B921C7B004DC9B3 /* Assets.xcassets */,
 				B9C20D172B921C7B004DC9B3 /* Info.plist */,
@@ -979,6 +983,7 @@
 				B9A80DE72C67C3FC00DE3D88 /* Account+Elms.swift in Sources */,
 				B9A80DE82C67C3FC00DE3D88 /* Account.swift in Sources */,
 				B9A80DE92C67C3FC00DE3D88 /* LoggedAccounts.swift in Sources */,
+				B9FE4B502CE241DE00CE1E53 /* OpenAppControl.swift in Sources */,
 				B9A80DEA2C67C3FC00DE3D88 /* AccountManager.swift in Sources */,
 				B9CDE7AF2C9FFCFA004B1BDD /* SheetBackground.swift in Sources */,
 				B9A80DEB2C67C3FC00DE3D88 /* AccountsList.swift in Sources */,
@@ -1022,6 +1027,7 @@
 				B9FB949B2B2EF09A00D81C07 /* Client.swift in Sources */,
 				B9FB949D2B2EF0D600D81C07 /* Instance.swift in Sources */,
 				B93ADFCB2B7625CD00FF9172 /* DiscoveryView.swift in Sources */,
+				B9FE4B512CE241DE00CE1E53 /* OpenAppControl.swift in Sources */,
 				B9D9C6C72B6A590F00C26A41 /* ProfilePicture.swift in Sources */,
 				B9842C102B2F228C00D9F3C1 /* Status.swift in Sources */,
 				B9CDE7B02C9FFCFA004B1BDD /* SheetBackground.swift in Sources */,

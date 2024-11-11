@@ -143,6 +143,22 @@ extension Visibility: AppEnum {
     }
 }
 
+struct OpenAppIntent: AppIntent {
+    static var title: LocalizedStringResource = "intent.open.app"
+    static var description: IntentDescription? = IntentDescription("intent.open.app.description")
+
+    static var isDiscoverable: Bool = true
+    static var openAppWhenRun: Bool = true
+
+    static var authenticationPolicy: IntentAuthenticationPolicy = .requiresLocalDeviceAuthentication
+
+    func perform() async throws -> some IntentResult {
+        UniversalNavigator.static.selectedTab = .timeline
+        UniversalNavigator.static.presentedSheet = nil
+        return .result()
+    }
+}
+
 struct OpenComposerIntent: AppIntent {
     static var title: LocalizedStringResource = "intent.open.composer"
     static var description: IntentDescription? = IntentDescription("intent.open.composer.description")

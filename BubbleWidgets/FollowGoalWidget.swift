@@ -16,7 +16,9 @@ struct FollowGoalWidgetView: View {
         if let account = entry.configuration.account {
             ZStack {
                 #if os(iOS)
-                if family == WidgetFamily.systemMedium {
+                if family == WidgetFamily.systemSmall {
+                    small
+                } else if family == WidgetFamily.systemMedium {
                     medium
                 }
                 #endif
@@ -33,7 +35,43 @@ struct FollowGoalWidgetView: View {
                 .font(.caption)
         }
     }
-    
+
+    var small: some View {
+        VStack {
+            HStack(alignment: .center, spacing: 7.5) {
+                Image(uiImage: entry.pfp)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30)
+                    .foregroundStyle(Color.white)
+                    .clipShape(Circle())
+
+                Text("@\(entry.configuration.account!.username)")
+                    .redacted(reason: .privacy)
+                    .font(.caption.bold())
+                    .lineLimit(1)
+            }
+            .padding(.vertical, 4.5)
+
+            Gauge(value: Double(entry.followers), in: 0...maxGauge) {
+                EmptyView()
+            } currentValueLabel: {
+                Text(entry.followers, format: .number.notation(.compactName))
+                    .multilineTextAlignment(.center)
+                    .redacted(reason: .privacy)
+            } minimumValueLabel: {
+                EmptyView()
+            } maximumValueLabel: {
+                EmptyView()
+            }
+            .gaugeStyle(.accessoryCircularCapacity)
+            .frame(width: 100, height: 100, alignment: .center)
+            .scaleEffect(1.5)
+            .padding(.bottom)
+            .tint(Double(entry.followers) >= maxGauge ? Color.green : Color.blue)
+        }
+    }
+
     var medium: some View {
         VStack(alignment: .center) {
             HStack(alignment: .center, spacing: 7.5) {
@@ -137,7 +175,7 @@ struct FollowGoalWidget: Widget {
         .configurationDisplayName("widget.follow-goal")
         .description("widget.follow-goal.description")
         #if os(iOS)
-        .supportedFamilies([.systemMedium, .accessoryRectangular, .accessoryCircular])
+        .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular, .accessoryCircular])
         #else
         .supportedFamilies([.accessoryRectangular, .accessoryCircular])
         #endif

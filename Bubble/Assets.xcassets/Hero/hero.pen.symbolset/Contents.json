@@ -1,0 +1,16 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "localizable" : true,
+    "symbol-rendering-intent" : "template"
+  },
+  "symbols" : [
+    {
+      "filename" : "Bbl_Pen-3.svg",
+      "idiom" : "universal"
+    }
+  ]
+}

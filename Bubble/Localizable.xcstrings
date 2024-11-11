@@ -1254,6 +1254,38 @@
         }
       }
     },
+    "control.open.app" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Bubble"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir Bubble"
+          }
+        }
+      }
+    },
+    "control.open.app.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens Bubble"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvre Bubble"
+          }
+        }
+      }
+    },
     "control.open.composer" : {
       "localizations" : {
         "en" : {
@@ -1784,6 +1816,12 @@
           }
         }
       }
+    },
+    "intent.open.app" : {
+
+    },
+    "intent.open.app.description" : {
+
     },
     "intent.open.composer" : {
       "localizations" : {
@@ -5152,6 +5190,7 @@
       }
     },
     "widget.composer" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

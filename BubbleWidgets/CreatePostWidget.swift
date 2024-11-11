@@ -29,18 +29,16 @@ struct CreatePostWidget: Widget {
         var body: some View {
             ZStack {
                 if family == .systemSmall {
-                    VStack {
-                        Button(intent: OpenComposerIntent()) {
-                            Image(systemName: "square.and.pencil")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 80, height: 80)
-                        }
-                        .buttonStyle(.plain)
-
-                        Text("widget.composer")
-                            .font(.caption)
+                    Button(intent: OpenComposerIntent()) {
+                        Text("status.posting.placeholder")
+                            .foregroundStyle(Color.gray)
+                            .font(.callout)
+                            .frame(width: 110, height: 110, alignment: .topLeading)
+                            .padding(9.0)
+                            .background(Color.gray.opacity(0.3))
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
+                    .buttonStyle(.plain)
                 }
             }
             .containerBackground(Color.appBackground, for: .widget)
