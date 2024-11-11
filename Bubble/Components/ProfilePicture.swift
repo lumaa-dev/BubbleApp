@@ -9,7 +9,7 @@ struct ProfilePicture: View {
     
     init(url: URL, size: CGFloat = 50.0) {
         self.url = url
-        self.size = size
+        self.size = max(10, size)
     }
     
     var cornerRadius: CGFloat {
