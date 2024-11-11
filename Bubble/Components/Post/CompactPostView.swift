@@ -133,7 +133,7 @@ struct CompactPostView: View {
                         }
 
                         if status.card != nil && status.mediaAttachments.isEmpty && !hasQuote {
-                            PostCardView(card: status.card!)
+                            PostCardView(card: status.card!, imaging: self.imaging)
                         }
 
                         attachmnts
@@ -172,7 +172,7 @@ struct CompactPostView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .firstTextBaseline, spacing: 5) {
                         ForEach(status.mediaAttachments) { attachment in
-                            PostAttachment(attachment: attachment, isFeatured: false, isImaging: imaging)
+                            PostAttachment(attachment: attachment, isFeatured: false, isImaging: self.imaging)
                                 .blur(radius: status.sensitive ? 15.0 : 0)
                                 .onTapGesture {
                                     navigator.presentedCover = .media(attachments: status.mediaAttachments, selected: attachment)
@@ -182,7 +182,7 @@ struct CompactPostView: View {
                 }
                 .scrollClipDisabled()
             } else {
-                PostAttachment(attachment: status.mediaAttachments.first!, isImaging: imaging)
+                PostAttachment(attachment: status.mediaAttachments.first!, isImaging: self.imaging)
                     .onTapGesture {
                         navigator.presentedCover = .media(attachments: status.mediaAttachments, selected: status.mediaAttachments[0])
                     }

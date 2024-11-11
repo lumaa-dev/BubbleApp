@@ -134,7 +134,7 @@ struct PostAttachment: View {
         GeometryReader { _ in
             // Audio later because it's a lil harder
             if let url = attachment.previewUrl {
-                OnlineImage(url: url, size: !isFeatured ? imageMaxHeight / 1.5 : newSize.width, priority: .veryHigh)
+                OnlineImage(url: url, size: !isFeatured ? imageMaxHeight / 1.5 : newSize.width, useNuke: self.isImaging)
             }
         }
         .frame(width: !isFeatured ? imageMaxHeight / 1.5 : newSize.width, height: !isFeatured ? imageMaxHeight: newSize.height)
