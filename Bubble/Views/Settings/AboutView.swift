@@ -102,7 +102,7 @@ struct AboutView: View {
                 
                 Text("about.app.details")
                     .multilineTextAlignment(.leading)
-                    .frame(width: appDelegate.windowWidth - 50)
+                    .frame(width: appDelegate.windowWidth - 50, alignment: .topLeading)
                     .padding()
                     .background(Material.bar)
                     .clipShape(.rect(cornerRadius: 7.5))
@@ -112,7 +112,7 @@ struct AboutView: View {
                 
                 Text("about.app.third-party")
                     .multilineTextAlignment(.leading)
-                    .frame(width: appDelegate.windowWidth - 50)
+                    .frame(width: appDelegate.windowWidth - 50, alignment: .topLeading)
                     .padding()
                     .background(Material.bar)
                     .clipShape(.rect(cornerRadius: 7.5))

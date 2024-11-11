@@ -10,7 +10,8 @@ struct DiscoveryView: View {
     @State private var searchQuery: String = ""
     @State private var results: [String : SearchResults] = [:]
     @State private var querying: Bool = false
-    
+    @State private var lookingTrends: Bool = false
+
     let allTokens = [Token(id: "accounts", name: String(localized: "discovery.search.users"), image: "person.3.fill"), Token(id: "statuses", name: String(localized: "discovery.search.posts"), image: "note.text"), Token(id: "hashtags", name: String(localized: "discovery.search.tags"), image: "tag.fill")]
     @State private var currentTokens = [Token]()
     
@@ -100,43 +101,80 @@ struct DiscoveryView: View {
     var accountsView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 7.5) {
-                ForEach(suggestedAccounts) { account in
-                    VStack {
-                        ProfilePicture(url: account.avatar, size: 64)
-                        
-                        Text(account.displayName?.replacing(/:.+:/, with: "") ?? account.username)
-                            .font(.subheadline.bold())
-                            .foregroundStyle(Color(uiColor: UIColor.label))
-                            .lineLimit(1)
-                        
-                        Text("@\(account.username)")
-                            .font(.caption)
-                            .foregroundStyle(Color.gray)
-                        
-                        Spacer()
-                        
-                        Button {
-                            guard let client = accountManager.getClient() else { return }
-                            
-                            Task {
-                                do {
-                                    let better: Account = try await client.get(endpoint: Accounts.accounts(id: account.id))
-                                    navigator.navigate(to: .account(acc: better))
-                                } catch {
-                                    print(error)
+                if !lookingTrends {
+                    ForEach(suggestedAccounts) { account in
+                        VStack {
+                            ProfilePicture(url: account.avatar, size: 64)
+
+                            Text(account.displayName?.replacing(/:.+:/, with: "") ?? account.username)
+                                .font(.subheadline.bold())
+                                .foregroundStyle(Color(uiColor: UIColor.label))
+                                .lineLimit(1)
+
+                            Text("@\(account.username)")
+                                .font(.caption)
+                                .foregroundStyle(Color.gray)
+
+                            Spacer()
+
+                            Button {
+                                guard let client = accountManager.getClient() else { return }
+
+                                Task {
+                                    do {
+                                        let better: Account = try await client.get(endpoint: Accounts.accounts(id: account.id))
+                                        navigator.navigate(to: .account(acc: better))
+                                    } catch {
+                                        print(error)
+                                    }
                                 }
+                            } label: {
+                                Text("account.view")
                             }
-                        } label: {
-                            Text("account.view")
+                            .buttonStyle(LargeButton(filled: true, height: 7.5))
                         }
-                        .buttonStyle(LargeButton(filled: true, height: 7.5))
+                        .padding(.vertical)
+                        .frame(width: 200)
+                        .background(Color.gray.opacity(0.2))
+                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
                     }
-                    .padding(.vertical)
-                    .frame(width: 200)
-                    .background(Color.gray.opacity(0.2))
-                    .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                    .scrollTargetLayout()
+                } else {
+                    ForEach(0...9, id: \.self) { _ in
+                        VStack {
+                            Image(systemName: "person.crop.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 54, height: 54)
+                                .bold()
+
+                            Text(String("Bubble"))
+                                .font(.subheadline.bold())
+                                .foregroundStyle(Color(uiColor: UIColor.label))
+                                .lineLimit(1)
+                                .redacted(reason: .placeholder)
+
+                            Text(String("@Bubble@mastodon.online"))
+                                .font(.caption)
+                                .foregroundStyle(Color.gray)
+                                .redacted(reason: .placeholder)
+
+                            Spacer()
+
+                            Button {
+                                print("loading")
+                            } label: {
+                                Text("account.view")
+                                    .redacted(reason: .placeholder)
+                            }
+                            .buttonStyle(LargeButton(filled: true, height: 7.5))
+                        }
+                        .padding(.vertical)
+                        .frame(width: 200)
+                        .background(Color.gray.opacity(0.2))
+                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                    }
                 }
-                .scrollTargetLayout()
             }
         }
         .padding(.horizontal)
@@ -146,29 +184,59 @@ struct DiscoveryView: View {
     
     var tagsView: some View {
         VStack(spacing: 7.5) {
-            ForEach(trendingTags) { tag in
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("#\(tag.name)")
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(1)
-                            .bold()
-                        Text("tag.posts-\(tag.totalUses)")
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(1)
-                            .foregroundStyle(Color.gray)
+            if !lookingTrends {
+                ForEach(trendingTags) { tag in
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("#\(tag.name)")
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(1)
+                                .bold()
+                            Text("tag.posts-\(tag.totalUses)")
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(1)
+                                .foregroundStyle(Color.gray)
+                        }
+
+                        Spacer()
+
+                        Button {
+                            navigator.navigate(to: .timeline(timeline: .hashtag(tag: tag.name, accountId: nil)))
+                        } label: {
+                            Text("tag.read")
+                        }
+                        .buttonStyle(LargeButton(filled: true, height: 7.5))
                     }
-                    
-                    Spacer()
-                    
-                    Button {
-                        navigator.navigate(to: .timeline(timeline: .hashtag(tag: tag.name, accountId: nil)))
-                    } label: {
-                        Text("tag.read")
-                    }
-                    .buttonStyle(LargeButton(filled: true, height: 7.5))
+                    .padding()
                 }
-                .padding()
+            } else {
+                ForEach(0...9, id: \.self) { _ in
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(String("#BubbleApp"))
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(1)
+                                .bold()
+                                .redacted(reason: .placeholder)
+                            Text("tag.posts-\(2_314)")
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(1)
+                                .foregroundStyle(Color.gray)
+                                .redacted(reason: .placeholder)
+                        }
+
+                        Spacer()
+
+                        Button {
+                            print("troll")
+                        } label: {
+                            Text("tag.read")
+                                .redacted(reason: .placeholder)
+                        }
+                        .buttonStyle(LargeButton(filled: true, height: 7.5))
+                    }
+                    .padding()
+                }
             }
         }
     }
@@ -215,6 +283,9 @@ struct DiscoveryView: View {
     }
     
     private func fetchTrending() async {
+        defer { self.lookingTrends = false }
+        self.lookingTrends = true
+
         guard let client = accountManager.getClient() else { return }
         do {
             let data = try await fetchTrendingsData(client: client)
