@@ -7,11 +7,12 @@ struct PostCardView: View {
     
     var card: Card
     var inQuote: Bool = false
-    
+    var imaging: Bool = false
+
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
             if card.image != nil {
-                OnlineImage(url: card.image, size: inQuote ? 260 : 300, useNuke: false)
+                OnlineImage(url: card.image, size: inQuote ? 260 : 300, useNuke: imaging)
                     .frame(width: inQuote ? 250 : 300)
             }
                      
@@ -37,7 +38,28 @@ struct PostCardView: View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(3)
             }
-            .padding([.horizontal, .bottom], 10)
+            .padding(card.authors.first?.account == nil ? [.horizontal, .bottom] : [.horizontal], 10)
+
+            if let acc = card.authors.first?.account {
+                Divider()
+                    .frame(maxWidth: .infinity)
+
+                HStack(alignment: .center) {
+                    Label {
+                        Text("status.card.author-\(acc.acct)")
+                            .font(.caption)
+                            .lineLimit(1)
+                    } icon: {
+                        ProfilePicture(url: acc.avatar, size: 30.0)
+                    }
+                    .minimumScaleFactor(0.7)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding([.horizontal, .bottom], 10)
+                .onTapGesture {
+                    Navigator.shared.navigate(to: .account(acc: acc))
+                }
+            }
         }
         .frame(width: inQuote ? 200 : 250)
         .padding(.horizontal, 10)

@@ -3679,6 +3679,22 @@
         }
       }
     },
+    "status.card.author-%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Article by @%@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Article par @%@"
+          }
+        }
+      }
+    },
     "status.content-filter.censor" : {
       "localizations" : {
         "en" : {

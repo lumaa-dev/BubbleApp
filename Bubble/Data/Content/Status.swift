@@ -328,8 +328,19 @@ public struct Card: Codable, Identifiable, Equatable, Hashable {
     public let url: String
     public let title: String?
     public let description: String?
+    public let authors: [Self.Author]
     public let type: String
     public let image: URL?
+
+    public struct Author: Codable, Identifiable, Equatable, Sendable, Hashable {
+        public var id: String {
+            url
+        }
+
+        let name: String
+        let url: String
+        let account: Account?
+    }
 }
 
 extension Card: Sendable {}
