@@ -39,11 +39,11 @@ struct UpdateView: View {
     
     var features: some View {
         VStack(spacing: 60) {
-            newFeature(systemImage: "person.text.rectangle.fill", title: "QRT but for Bubble", text: "Bubble finally displays quote posts properly!")
+            newFeature(systemImage: "quote.bubble", title: "QRT but for Bubble & more", text: "Bubble finally displays quote posts, replies, and post details better!")
 
-            newFeature(systemImage: "decrease.quotelevel", title: "Post overhaul", text: "Posts and replies are looking fancier than ever before!")
+            newFeature(systemImage: "play.square", title: "Video attachments", text: "Play a video while listening to CHROMAKOPIA, it won't stop it anymore. Play, pause, mute...")
 
-            newFeature(systemImage: "wrench.and.screwdriver", title: "A ton of fixes!", text: "A lot of organisation and debugging has been made to give you the best experience!")
+            newFeature(systemImage: "person.text.rectangle", title: "Article author", text: "Some news articles will show the account of the writer, like The Verge for example.")
         }
         .frame(height: 500)
     }

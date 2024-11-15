@@ -29,13 +29,13 @@ struct PostDetailsView: View {
             ScrollViewReader { proxy in
                 VStack(alignment: .leading, spacing: 1.5) {
                     if statuses.isEmpty {
-                        CompactPostView(status: detailedStatus)
+                        detailedPost
                     } else {
                         ForEach(statuses) { status in
                             let isLast: Bool = status.id == statuses.last?.id ?? ""
 
                             if status.id == detailedStatus.id {
-                                CompactPostView(status: detailedStatus)
+                                detailedPost
                                     .onAppear {
                                         proxy.scrollTo("\(detailedStatus.id)@\(detailedStatus.account.id)", anchor: .bottom)
                                     }
@@ -69,6 +69,56 @@ struct PostDetailsView: View {
                 .frame(maxWidth: 2.0, maxHeight: .infinity, alignment: .leading)
 
             CompactPostView(status: status)
+        }
+    }
+
+    @ViewBuilder
+    private var detailedPost: some View {
+        VStack(alignment: .leading, spacing: 7.5) {
+            CompactPostView(status: detailedStatus)
+
+            Divider()
+
+            HStack {
+                if detailedStatus.editedAt != nil {
+                    Image(.heroPen)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 10, height: 20, alignment: .center)
+                        .foregroundStyle(Color.gray)
+                }
+
+                Text(
+                    detailedStatus.editedAt?.asDate ?? detailedStatus.createdAt.asDate,
+                    format: .dateTime.day().month(.wide).year(.extended(minimumLength: 4)).hour().minute()
+                )
+                .lineLimit(1)
+                .foregroundStyle(Color.gray)
+                .font(.caption)
+
+                Spacer()
+
+                if let app = detailedStatus.application {
+                    Button {
+                        guard let url = app.website else { return }
+
+                        UniversalNavigator.static.presentedSheet = .safari(url: url)
+                    } label: {
+                        Text(app.name)
+                            .lineLimit(1)
+                            .foregroundStyle(Color.gray)
+                            .font(.caption)
+                    }
+
+                    Image(systemName: "app.dashed")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 10, height: 10, alignment: .center)
+                        .foregroundStyle(Color.gray)
+                }
+            }
+            .padding(.horizontal)
+            .padding(.bottom, 7.5)
         }
     }
 

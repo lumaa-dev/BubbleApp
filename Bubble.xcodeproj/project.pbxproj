@@ -173,6 +173,8 @@
 		B9C20D372B9229EC004DC9B3 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB94A12B2EF24A00D81C07 /* AppInfo.swift */; };
 		B9C20D3D2B9229EC004DC9B3 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB94872B2E223E00D81C07 /* Emoji.swift */; };
 		B9C7F46C2C387D3B009C36DC /* WarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7F46B2C387D3B009C36DC /* WarningView.swift */; };
+		B9CBDD282CE6D41B00BCC35B /* AVManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CBDD272CE6D41B00BCC35B /* AVManager.swift */; };
+		B9CBDD292CE6D41B00BCC35B /* AVManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CBDD272CE6D41B00BCC35B /* AVManager.swift */; };
 		B9CC45B82B40A2D6001E4FA5 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CC45B72B40A2D6001E4FA5 /* AboutView.swift */; };
 		B9CDE7A92C9FF401004B1BDD /* AboutSubclubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDE7A82C9FF401004B1BDD /* AboutSubclubView.swift */; };
 		B9CDE7AA2C9FF401004B1BDD /* AboutSubclubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CDE7A82C9FF401004B1BDD /* AboutSubclubView.swift */; };
@@ -337,6 +339,7 @@
 		B9C20D582B923CDD004DC9B3 /* BubbleWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BubbleWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		B9C20D592B923D53004DC9B3 /* Bubble.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bubble.entitlements; sourceTree = "<group>"; };
 		B9C7F46B2C387D3B009C36DC /* WarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
+		B9CBDD272CE6D41B00BCC35B /* AVManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVManager.swift; sourceTree = "<group>"; };
 		B9CC45B72B40A2D6001E4FA5 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		B9CC45B92B40AA1E001E4FA5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B9CDE7A82C9FF401004B1BDD /* AboutSubclubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSubclubView.swift; sourceTree = "<group>"; };
@@ -628,6 +631,7 @@
 				B9FB949C2B2EF0D600D81C07 /* Instance.swift */,
 				B9FB949E2B2EF0F200D81C07 /* MastodonRequest.swift */,
 				B97BCE232B3DD8400044756D /* HapticManager.swift */,
+				B9CBDD272CE6D41B00BCC35B /* AVManager.swift */,
 				B93757102B7FB8D400652F91 /* AltClients.swift */,
 			);
 			path = Data;
@@ -952,6 +956,7 @@
 				B9A80E0B2C67C4A600DE3D88 /* AccountRow.swift in Sources */,
 				B9A80E0C2C67C4A600DE3D88 /* ComingSoonView.swift in Sources */,
 				B9A80E0D2C67C4A600DE3D88 /* OnlineImage.swift in Sources */,
+				B9CBDD282CE6D41B00BCC35B /* AVManager.swift in Sources */,
 				B98DD8D92C6821F7009F40DD /* CreatePostControl.swift in Sources */,
 				B9D173E32CA0555800CB575F /* MetricsManager.swift in Sources */,
 				B9A80E0E2C67C4A600DE3D88 /* DynamicTextEditor.swift in Sources */,
@@ -1084,6 +1089,7 @@
 				B9FB948E2B2E28E800D81C07 /* MediaTransferables.swift in Sources */,
 				B98BC74D2B46CFCE00595441 /* UserPreferences.swift in Sources */,
 				B9FB94A22B2EF24A00D81C07 /* AppInfo.swift in Sources */,
+				B9CBDD292CE6D41B00BCC35B /* AVManager.swift in Sources */,
 				B9D365612B79A1BE004C1255 /* MailView.swift in Sources */,
 				B9D9C6C12B6A56E000C26A41 /* Notification.swift in Sources */,
 			);
@@ -1131,7 +1137,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = BubbleWidgets/BubbleWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = HB5P3BML86;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BubbleWidgets/Info.plist;
@@ -1143,7 +1149,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded.ThreadedWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1166,7 +1172,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = BubbleWidgets/BubbleWidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = HB5P3BML86;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BubbleWidgets/Info.plist;
@@ -1178,7 +1184,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded.ThreadedWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1329,7 +1335,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Bubble/Bubble.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = HB5P3BML86;
 				ENABLE_MODULE_VERIFIER = NO;
@@ -1349,7 +1355,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1372,7 +1378,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Bubble/Bubble.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = HB5P3BML86;
 				ENABLE_MODULE_VERIFIER = NO;
@@ -1392,7 +1398,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1409,7 +1415,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = HB5P3BML86;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AuthService/Info.plist;
@@ -1421,7 +1427,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded.AuthService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1439,7 +1445,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 288;
 				DEVELOPMENT_TEAM = HB5P3BML86;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AuthService/Info.plist;
@@ -1451,7 +1457,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.lumaa.Threaded.AuthService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

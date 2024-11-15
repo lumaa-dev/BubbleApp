@@ -9,8 +9,10 @@ extension Navigator {
     public func handle(url: URL, uni: Bool = false) -> OpenURLAction.Result {
         print("\(url.absoluteString) TAPPED")
         guard let client = self.client else { return .systemAction }
+
         let path: String = url.absoluteString.replacingOccurrences(of: AppInfo.scheme, with: "") // remove all path
         let urlPath: URL = URL(string: path) ?? URL(string: "https://example.com/")!
+
         if !url.absoluteString.starts(with: AppInfo.scheme) {
             if client.isAuth && client.hasConnection(with: url) {
                 guard let actionType = urlPath.getActionType() else {
@@ -67,6 +69,14 @@ extension Navigator {
                 }
             } else {
                 print("clicked isn't handled properly")
+
+                if url.absoluteString.starts(with: /[a-z]+:\/\//) {
+                    print("catched 3rd-party SCHEME")
+                    #if !WIDGET
+                    UIApplication.shared.open(url)
+                    #endif
+                    return .discarded
+                }
 
                 Task {
                     do {

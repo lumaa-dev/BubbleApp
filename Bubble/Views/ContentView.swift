@@ -87,8 +87,9 @@ struct ContentView: View {
     }
 
     private func openURL(_ url: URL) -> OpenURLAction.Result {
-        _ = uniNavigator.handle(url: url, uni: true)
-        _ = Navigator.shared.handle(url: url, uni: false)
+        let uni = uniNavigator.handle(url: url, uni: true)
+        let nav = Navigator.shared.handle(url: url, uni: false)
+
         return .handled
     }
 

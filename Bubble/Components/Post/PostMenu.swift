@@ -24,24 +24,6 @@ struct PostMenu: View {
     }
 
     var body: some View {
-        if isOwner {
-            Button(role: .destructive) {
-                Task {
-                    await deleteStatus()
-                }
-            } label: {
-                Label("status.menu.delete", systemImage: "trash")
-            }
-
-            Button {
-                navigator.presentedSheet = .post(content: status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText, replyId: nil, editId: status.reblogAsAsStatus?.id ?? status.id)
-            } label: {
-                Label("status.menu.edit", systemImage: "pencil.and.scribble")
-            }
-
-            Divider()
-        }
-
         Menu {
             ShareLink(item: URL(string: status.url ?? "https://joinmastodon.org/")!) {
                 Label("status.menu.share-link", systemImage: "square.and.arrow.up")
@@ -72,6 +54,8 @@ struct PostMenu: View {
 
         Divider()
 
+        ownerAct
+
         Button(role: .destructive) {
             navigator.presentedSheet = .reportStatus(status: status)
         } label: {
@@ -79,22 +63,46 @@ struct PostMenu: View {
         }
     }
 
+    @ViewBuilder
+    private var ownerAct: some View {
+        if isOwner {
+            Button(role: .destructive) {
+                Task {
+                    await deleteStatus()
+                }
+            } label: {
+                Label("status.menu.delete", systemImage: "trash")
+            }
+
+            Button {
+                navigator.presentedSheet = .post(content: status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText, replyId: nil, editId: status.reblogAsAsStatus?.id ?? status.id)
+            } label: {
+                Label("status.menu.edit", systemImage: "pencil.and.scribble")
+            }
+
+            Divider()
+        }
+    }
+
+    @ViewBuilder
     private var altClients: some View {
+        let content: String = status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText
+
         Menu {
             Button {
-                openURL(URL(string: AltClients.IvoryApp.createPost(status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText))!)
+                openURL(URL(string: AltClients.IvoryApp.createPost(content))!)
             } label: {
                 Text(AltClients.IvoryApp.name)
             }
 
             Button {
-                openURL(URL(string: AltClients.ThreadsApp.createPost(status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText))!)
+                openURL(URL(string: AltClients.ThreadsApp.createPost(content))!)
             } label: {
                 Text(AltClients.ThreadsApp.name)
             }
 
             Button {
-                openURL(URL(string: AltClients.XApp.createPost(status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText))!)
+                openURL(URL(string: AltClients.XApp.createPost(content))!)
             } label: {
                 Text(AltClients.XApp.name)
             }

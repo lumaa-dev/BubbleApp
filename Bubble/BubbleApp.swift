@@ -25,6 +25,8 @@ struct BubbleApp: App {
                 .background(Color.appBackground)
                 .onAppear {
                     HapticManager.prepareHaptics()
+                    AVManager.configureForVideoPlayback()
+                    AVManager.duckOther = false
                 }
                 .task {
                     #if targetEnvironment(simulator)

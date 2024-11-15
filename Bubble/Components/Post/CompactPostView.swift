@@ -175,6 +175,10 @@ struct CompactPostView: View {
                             PostAttachment(attachment: attachment, isFeatured: false, isImaging: self.imaging)
                                 .blur(radius: status.sensitive ? 15.0 : 0)
                                 .onTapGesture {
+                                    if attachment.supportedType != .image {
+                                        AVManager.configureForVideoPlayback()
+                                    }
+
                                     navigator.presentedCover = .media(attachments: status.mediaAttachments, selected: attachment)
                                 }
                         }
@@ -184,6 +188,10 @@ struct CompactPostView: View {
             } else {
                 PostAttachment(attachment: status.mediaAttachments.first!, isImaging: self.imaging)
                     .onTapGesture {
+                        if status.mediaAttachments[0].supportedType != .image {
+                            AVManager.configureForVideoPlayback()
+                        }
+
                         navigator.presentedCover = .media(attachments: status.mediaAttachments, selected: status.mediaAttachments[0])
                     }
             }

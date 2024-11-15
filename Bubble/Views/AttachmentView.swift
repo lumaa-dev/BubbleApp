@@ -15,9 +15,29 @@ struct AttachmentView: View {
         guard !selectedId.isEmpty else { return nil }
         return attachments.filter({ $0.id == selectedId })[0]
     }
-    
-    @State private var player: AVPlayer?
-    
+
+    private var canMute: Bool {
+        guard let selectedAttachment else { return false }
+        return selectedAttachment.supportedType != .gifv
+    }
+
+    @State private var player: AVPlayer? {
+        didSet {
+            timeObserver = player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.35, preferredTimescale: 600), queue: .main) { time in
+                self.videoCurrent = time.seconds
+                if let duration = self.player?.currentItem?.duration.seconds, duration > 0 {
+                    self.videoMax = duration
+                }
+            }
+        }
+    }
+    @State private var timeObserver: Any?
+
+    @State private var videoPlaying: Bool = false
+    @State private var videoMuted: Bool = false
+    @State private var videoCurrent: Double = 0.0
+    @State private var videoMax: Double = 0.0
+
     @State private var readAlt: Bool = false
     @State private var hasSwitch: Bool = false
     
@@ -26,7 +46,7 @@ struct AttachmentView: View {
     
     @State private var currentPos: CGSize = .zero
     @State private var totalPos: CGSize = .zero
-    
+
     var body: some View {
         GeometryReader { geo in
             let size = geo.size
@@ -76,15 +96,31 @@ struct AttachmentView: View {
                                     .onAppear {
                                         if let url = atchmnt.url {
                                             player = AVPlayer(url: url)
-                                            player?.preventsDisplaySleepDuringVideoPlayback = false
+                                            player?.preventsDisplaySleepDuringVideoPlayback = true
                                             player?.audiovisualBackgroundPlaybackPolicy = .pauses
-                                            player?.isMuted = true
+
+                                            AVManager.duckOther = true
+
+                                            withAnimation {
+                                                player?.isMuted = false
+                                                videoMuted = false
+                                            }
+
                                             player?.play()
+                                            videoPlaying = true
                                         }
                                     }
                                     .onDisappear() {
+                                        AVManager.duckOther = false
+
                                         guard player != nil else { return }
+
+                                        if let timeObserver = timeObserver, let player {
+                                            player.removeTimeObserver(timeObserver)
+                                        }
+
                                         player?.pause()
+                                        videoPlaying = false
                                     }
                                 } else if atchmnt.supportedType == .gifv {
                                     ZStack(alignment: .center) {
@@ -103,11 +139,19 @@ struct AttachmentView: View {
                                     .onAppear {
                                         if let url = atchmnt.url {
                                             player = AVPlayer(url: url)
-                                            player?.preventsDisplaySleepDuringVideoPlayback = false
+                                            player?.preventsDisplaySleepDuringVideoPlayback = true
                                             player?.audiovisualBackgroundPlaybackPolicy = .pauses
-                                            player?.isMuted = true
+
+                                            AVManager.duckOther = false
+
+                                            withAnimation {
+                                                player?.isMuted = true
+                                                videoMuted = true
+                                            }
+
                                             player?.play()
-                                            
+                                            videoPlaying = true
+
                                             guard let player else { return }
                                             NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { _ in
                                                 Task { @MainActor in
@@ -118,7 +162,14 @@ struct AttachmentView: View {
                                         }
                                     }
                                     .onDisappear() {
+                                        AVManager.duckOther = false
+
                                         guard player != nil else { return }
+
+                                        if let timeObserver = timeObserver, let player {
+                                            player.removeTimeObserver(timeObserver)
+                                        }
+
                                         player?.pause()
                                     }
                                 }
@@ -289,9 +340,99 @@ struct AttachmentView: View {
                 .pill()
                 .padding()
             }
+            .overlay(alignment: .bottom) {
+                if let media = selectedAttachment {
+                    if media.supportedType != .image, player != nil {
+                        HStack(spacing: 10) {
+                            Button {
+                                if videoCurrent >= videoMax {
+                                    player?.seek(to: CMTime(seconds: 0, preferredTimescale: 1)) { _ in
+                                        AVManager.duckOther = true
+                                        player?.play()
+
+                                        withAnimation {
+                                            videoPlaying = true
+                                        }
+                                    }
+                                } else {
+                                    if videoPlaying {
+                                        player?.pause()
+                                        AVManager.duckOther = false
+                                    } else {
+                                        player?.play()
+                                        AVManager.duckOther = true
+                                    }
+                                }
+
+                                withAnimation {
+                                    videoPlaying.toggle()
+                                }
+                            } label: {
+                                Image(systemName: videoPlaying || videoCurrent >= videoMax ? "pause.fill" : "play.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 12.5, height: 12.5, alignment: .center)
+                                    .contentTransition(.symbolEffect(.replace.offUp.wholeSymbol, options: .nonRepeating))
+                            }
+
+                            Divider()
+                                .frame(height: 10)
+
+                            progressBar
+                                .padding(3.5)
+
+                            Divider()
+                                .frame(height: 10)
+
+                            Button {
+                                if videoMuted {
+                                    player?.isMuted = false
+                                } else {
+                                    player?.isMuted = true
+                                }
+
+                                withAnimation {
+                                    videoMuted.toggle()
+                                }
+                            } label: {
+                                Image(systemName: videoMuted ? "speaker.slash.fill" : "speaker.wave.2.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 15, height: 15, alignment: .center)
+                                    .contentTransition(.symbolEffect(.replace.offUp.wholeSymbol, options: .nonRepeating))
+                            }
+                            .realDisabled(!canMute)
+                        }
+                        .pill()
+                        .padding()
+                    }
+                }
+            }
         }
     }
-    
+
+    @ViewBuilder
+    private var progressBar: some View {
+        if let curr = player?.currentTime(), let max = player?.currentItem?.duration {
+            GeometryReader { geo in
+                let size: CGSize = geo.size
+
+                Rectangle()
+                    .fill(Color.gray)
+                    .frame(maxWidth: size.width, maxHeight: 5)
+                    .zIndex(2)
+                    .overlay(alignment: .leading) {
+                        Rectangle()
+                            .fill(Color.white)
+                            .frame(width: videoMax <= 0 ? 0 : (videoCurrent / videoMax) * size.width, height: 5, alignment: .leading)
+                            .zIndex(3)
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 3.0))
+            }
+            .frame(maxWidth: .infinity, maxHeight: 5.0)
+        }
+    }
+
     private func loseIndex(_ index: Int, max: Int) -> Int {
         if index < 0 {
             return max
