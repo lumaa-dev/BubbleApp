@@ -65,12 +65,13 @@ extension Navigator {
                         return OpenURLAction.Result.handled
                     }
                 } else {
+                    guard uni else { return .discarded }
                     self.presentedSheet = .safari(url: url)
                 }
             } else {
                 print("clicked isn't handled properly")
 
-                if url.absoluteString.starts(with: /[a-z]+:\/\//) {
+                if url.absoluteString.starts(with: /[a-z]+:\/\//) && !url.absoluteString.starts(with: /http(s)?:\/\//) {
                     print("catched 3rd-party SCHEME")
                     #if !WIDGET
                     UIApplication.shared.open(url)
