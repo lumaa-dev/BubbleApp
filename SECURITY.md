@@ -1,7 +1,7 @@
 # Security Policy
 
 ## Supported Versions
-The supported version is always the currently available [App Store](https://apps.apple.com/us/app/bubble/id6477757490) version, currently being 1.3.0.
+The supported version is always the currently available [App Store](https://d.lumaa.fr/OTTpIw) version, currently being 1.4.0.
 
 ## Reporting a Vulnerability
 
