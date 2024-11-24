@@ -4,7 +4,7 @@
 
 [Bubble](https://apps.lumaa.fr/app/bubble) is a very simple [#Mastodon](https://joinmastodon.org) client, that is meant to look clean and expurgated. It integrates perfectly with your Mastodon account, and matches your vibe, while having Mastodon-only features.
 
-Bubble is free, made in SwiftUI, [#OpenSource](https://github.com/lumaa-dev/BubbleApp), and doesn't violate [#YourPrivacy](https://apps.lumaa.fr/legal/privacy?app=bubble). Follow the [#BubbleAccount](https://mastodon.online/@Bubble) on Mastodon, for progress, updates, polls, and more...
+Bubble is free, made in SwiftUI, [#OpenSource](https://github.com/lumaa-dev/BubbleApp), and doesn't violate [#YourPrivacy](https://apps.lumaa.fr/legal/privacy?app=bubble). Follow the [Bubble account](https://mastodon.online/@Bubble) on Mastodon, for progress, updates, polls, and more...
 
 Bubble **will** also includes its own premium service, available as a subscription and lifetime payment, called Bubble+ (or Plus for short). Plus only adds additional features to Bubble, you don't need a subscription to like, post, bookmark, or use any existing Mastodon feature. Currently, all available Bubble+ features are free, until further notice.
 
