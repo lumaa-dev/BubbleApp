@@ -5,6 +5,27 @@ import Foundation
 public struct Notification: Decodable, Identifiable, Equatable {
     public enum NotificationType: String, CaseIterable {
         case follow, follow_request, mention, reblog, status, favourite, poll, update
+
+        var localizedPush: String {
+            switch self {
+                case .follow:
+                    String(localized: "push.follow", comment: "PUSH NOTIFICATION \\w BODY")
+                case .follow_request:
+                    String(localized: "push.follow_request", comment: "PUSH NOTIFICATION \\w BODY")
+                case .mention:
+                    String(localized: "push.mention", comment: "PUSH NOTIFICATION \\w BODY")
+                case .reblog:
+                    String(localized: "push.reblog", comment: "PUSH NOTIFICATION \\w BODY")
+                case .status:
+                    String(localized: "push.status", comment: "PUSH NOTIFICATION \\w BODY")
+                case .favourite:
+                    String(localized: "push.favourite", comment: "PUSH NOTIFICATION \\w BODY")
+                case .poll:
+                    String(localized: "push.poll", comment: "PUSH NOTIFICATION \\w BODY")
+                case .update:
+                    String(localized: "push.update", comment: "PUSH NOTIFICATION")
+            }
+        }
     }
     
     public let id: String

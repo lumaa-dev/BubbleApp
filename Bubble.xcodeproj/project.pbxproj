@@ -150,6 +150,7 @@
 		B9A80E9B2C67D56900DE3D88 /* FollowGoalWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */; };
 		B9A80E9C2C67D56900DE3D88 /* CreatePostWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A80DDD2C67BFF800DE3D88 /* CreatePostWidget.swift */; };
 		B9A8DABA2BB7364300A890CC /* PostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A8DAB92BB7364300A890CC /* PostsView.swift */; };
+		B9AC6BD12CF341C2009C65C7 /* Secret.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9AC6BD02CF341C2009C65C7 /* Secret.plist */; };
 		B9B469B02B9A275F00AD5585 /* FollowGoalWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */; };
 		B9B469B22B9A6E8300AD5585 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469B12B9A6E8300AD5585 /* PrivacyView.swift */; };
 		B9B469DB2B9B2EDB00AD5585 /* ComingSoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469DA2B9B2EDB00AD5585 /* ComingSoonView.swift */; };
@@ -185,6 +186,8 @@
 		B9D173E22CA0555800CB575F /* MetricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D173E12CA0555800CB575F /* MetricsManager.swift */; };
 		B9D173E32CA0555800CB575F /* MetricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D173E12CA0555800CB575F /* MetricsManager.swift */; };
 		B9D365612B79A1BE004C1255 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D365602B79A1BE004C1255 /* MailView.swift */; };
+		B9D700722CF295AB00A6DB81 /* AppNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D700712CF295AB00A6DB81 /* AppNotification.swift */; };
+		B9D700732CF295AB00A6DB81 /* AppNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D700712CF295AB00A6DB81 /* AppNotification.swift */; };
 		B9D9C6C12B6A56E000C26A41 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9C6C02B6A56E000C26A41 /* Notification.swift */; };
 		B9D9C6C32B6A576C00C26A41 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9C6C22B6A576C00C26A41 /* NotificationsView.swift */; };
 		B9D9C6C52B6A587700C26A41 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9C6C42B6A587700C26A41 /* NotificationRow.swift */; };
@@ -317,6 +320,7 @@
 		B9A80DDD2C67BFF800DE3D88 /* CreatePostWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostWidget.swift; sourceTree = "<group>"; };
 		B9A80DE12C67C38E00DE3D88 /* URLNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLNavigator.swift; sourceTree = "<group>"; };
 		B9A8DAB92BB7364300A890CC /* PostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
+		B9AC6BD02CF341C2009C65C7 /* Secret.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
 		B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowGoalWidget.swift; sourceTree = "<group>"; };
 		B9B469B12B9A6E8300AD5585 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		B9B469DA2B9B2EDB00AD5585 /* ComingSoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComingSoonView.swift; sourceTree = "<group>"; };
@@ -348,6 +352,7 @@
 		B9CFC43A2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchStoryboard.storyboard; sourceTree = "<group>"; };
 		B9D173E12CA0555800CB575F /* MetricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsManager.swift; sourceTree = "<group>"; };
 		B9D365602B79A1BE004C1255 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
+		B9D700712CF295AB00A6DB81 /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
 		B9D9C6C02B6A56E000C26A41 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		B9D9C6C22B6A576C00C26A41 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		B9D9C6C42B6A587700C26A41 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
@@ -548,6 +553,7 @@
 		B9D9C6BF2B6A56D500C26A41 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				B9D700712CF295AB00A6DB81 /* AppNotification.swift */,
 				B9D9C6C02B6A56E000C26A41 /* Notification.swift */,
 				B999DE5D2B76F9D100509868 /* Message.swift */,
 			);
@@ -592,6 +598,7 @@
 			children = (
 				B9C20D592B923D53004DC9B3 /* Bubble.entitlements */,
 				B9FB94A02B2EF23100D81C07 /* Info.plist */,
+				B9AC6BD02CF341C2009C65C7 /* Secret.plist */,
 				B9FB945A2B2DEECE00D81C07 /* BubbleApp.swift */,
 				B9EBE8572B474FD600FB594D /* AppDelegate.swift */,
 				B9FB946E2B2DF3BB00D81C07 /* Components */,
@@ -875,6 +882,7 @@
 			files = (
 				B97BCE282B3ED2A80044756D /* .gitignore in Resources */,
 				B9CDE7AD2C9FF536004B1BDD /* PolySans-BulkyWide.ttf in Resources */,
+				B9AC6BD12CF341C2009C65C7 /* Secret.plist in Resources */,
 				B9DC69302B79378400E625B9 /* BubblePlus.storekit in Resources */,
 				B9FB94642B2DEECF00D81C07 /* Preview Assets.xcassets in Resources */,
 				B9FB94612B2DEECF00D81C07 /* Assets.xcassets in Resources */,
@@ -917,6 +925,7 @@
 				B9A80E272C67C4B700DE3D88 /* PostDetailsView.swift in Sources */,
 				B9A80E282C67C4B700DE3D88 /* IconView.swift in Sources */,
 				B9A80E292C67C4B700DE3D88 /* UpdateView.swift in Sources */,
+				B9D700722CF295AB00A6DB81 /* AppNotification.swift in Sources */,
 				B9A80E2A2C67C4B700DE3D88 /* ReportStatusView.swift in Sources */,
 				B9A80E2B2C67C4B700DE3D88 /* PrivacyView.swift in Sources */,
 				B9A80E2C2C67C4B700DE3D88 /* SafariView.swift in Sources */,
@@ -1067,6 +1076,7 @@
 				B9A80E9A2C67D56900DE3D88 /* FollowCountWidget.swift in Sources */,
 				B9A80E9B2C67D56900DE3D88 /* FollowGoalWidget.swift in Sources */,
 				B9A80E9C2C67D56900DE3D88 /* CreatePostWidget.swift in Sources */,
+				B9D700732CF295AB00A6DB81 /* AppNotification.swift in Sources */,
 				B9C7F46C2C387D3B009C36DC /* WarningView.swift in Sources */,
 				B9EBE8562B47256900FB594D /* PostAttachment.swift in Sources */,
 				B9EBE8582B474FD600FB594D /* AppDelegate.swift in Sources */,

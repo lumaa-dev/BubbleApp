@@ -6,6 +6,8 @@ import RevenueCat
 
 @main
 struct BubbleApp: App {
+    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+    
     init() {
         BubbleShortcuts.updateAppShortcutParameters() //might not work?
         

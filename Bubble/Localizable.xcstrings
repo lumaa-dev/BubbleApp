@@ -2320,6 +2320,142 @@
         }
       }
     },
+    "push.favourite" : {
+      "comment" : "PUSH NOTIFICATION \\w BODY",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "liked your post: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "a aimé votre publication : %@"
+          }
+        }
+      }
+    },
+    "push.follow" : {
+      "comment" : "PUSH NOTIFICATION \\w BODY",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "followed you: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vous a suivi : %@"
+          }
+        }
+      }
+    },
+    "push.follow_request" : {
+      "comment" : "PUSH NOTIFICATION \\w BODY",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "wants to follow you: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "veut vous suivre : %@"
+          }
+        }
+      }
+    },
+    "push.mention" : {
+      "comment" : "PUSH NOTIFICATION \\w BODY",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mentioned you: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vous a mentionné : %@"
+          }
+        }
+      }
+    },
+    "push.poll" : {
+      "comment" : "PUSH NOTIFICATION \\w BODY",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poll ended: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vote terminé : %@"
+          }
+        }
+      }
+    },
+    "push.reblog" : {
+      "comment" : "PUSH NOTIFICATION \\w BODY",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "reblogged your post: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "a reposté votre publication : %@"
+          }
+        }
+      }
+    },
+    "push.status" : {
+      "comment" : "PUSH NOTIFICATION \\w BODY",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "posted: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "a posté : %@"
+          }
+        }
+      }
+    },
+    "push.update" : {
+      "comment" : "PUSH NOTIFICATION",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update? Idk…"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mise à jour ? Jsp…"
+          }
+        }
+      }
+    },
     "restricted.blocked-domain" : {
       "extractionState" : "manual",
       "localizations" : {

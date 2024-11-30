@@ -1,18 +1,21 @@
 //Made by Lumaa
 
 import SwiftUI
+import SwiftData
 import UIKit
 import RevenueCat
+import UserNotifications
 
 @Observable
-public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicationDelegate {
+public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     public var window: UIWindow?
     public private(set) var windowWidth: CGFloat = UIScreen.main.bounds.size.width
     public private(set) var windowHeight: CGFloat = UIScreen.main.bounds.size.height
     public private(set) var secret: [String: String] = [:]
     
     public static var premium: Bool = false
-    
+    public static var tokenized: Bool = false
+
     public func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
         window = windowScene.keyWindow
@@ -20,7 +23,31 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
     
     override public init() {
         super.init()
-        
+
+        AppNotification.requestAuthorization { success in
+            guard !Self.tokenized else { return }
+            Self.tokenized = true
+            let ownedAccs: [LoggedAccount] = self.getAccounts()
+            ownedAccs.forEach { acc in
+                Task {
+                    let tempCli: Client = .init(server: acc.app?.server ?? "mastodon.social", oauthToken: acc.token)
+                    await AppNotification.sendToken(client: tempCli, oauth: acc.token)
+                }
+            }
+        }
+        #if !WIDGET
+        if !UIApplication.shared.isRegisteredForRemoteNotifications {
+            print("Registering REMOTE NOTIFICATION")
+            
+            Task {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        } else {
+            let token: String? = UserDefaults.standard.string(forKey: "deviceToken")
+            print("ALREADY registered REMOTE NOTIFICATION \(token ?? "???")")
+        }
+        #endif
+
         if let path = Bundle.main.path(forResource: "Secret", ofType: "plist") {
             let url = URL(fileURLWithPath: path)
             let data = try! Data(contentsOf: url)
@@ -39,7 +66,21 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
         Self.observedSceneDelegate.insert(self)
         _ = Self.observer // just for activating the lazy static property
     }
-    
+    public static var deviceToken: String = "[X]"
+
+    public func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        AppDelegate.deviceToken = token
+        UserDefaults.standard.setValue(token, forKey: "deviceToken")
+
+        print("[TOKEN] Got deviceToken: \(token)")
+        // send device token to server
+    }
+
+    public func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: any Error) {
+        print("[TOKEN]: \(error)")
+    }
+
     static func readSecret() -> [String: String]? {
         if let path = Bundle.main.path(forResource: "Secret", ofType: "plist") {
             let url = URL(fileURLWithPath: path)
@@ -51,7 +92,15 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
         
         return nil
     }
-    
+
+    private func getAccounts() -> [LoggedAccount] {
+        guard let modelContainer: ModelContainer = try? ModelContainer(for: LoggedAccount.self, configurations: ModelConfiguration(isStoredInMemoryOnly: false)) else { return [] }
+        let modelContext = ModelContext(modelContainer)
+        let loggedAccounts = try? modelContext.fetch(FetchDescriptor<LoggedAccount>())
+
+        return loggedAccounts ?? []
+    }
+
     /// This function uses the REAL customer info to access the premium state
 //    static func hasPlus(completionHandler: @escaping (Bool) -> Void) {
 //        Purchases.shared.getCustomerInfo { (customerInfo, error) in
