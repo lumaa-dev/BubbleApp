@@ -71,7 +71,7 @@ extension Navigator {
             } else {
                 print("clicked isn't handled properly")
 
-                if url.absoluteString.starts(with: /[a-z]+:\/\//) && !url.absoluteString.starts(with: /http(s)?:\/\//) {
+                if url.absoluteString.starts(with: /[a-z\-]+:\/\//) && !url.absoluteString.starts(with: /http(s)?:\/\//) {
                     print("catched 3rd-party SCHEME")
                     #if !WIDGET
                     UIApplication.shared.open(url)

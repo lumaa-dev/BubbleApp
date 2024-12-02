@@ -9,11 +9,12 @@ public struct ShopView: View {
     @Environment(\.openURL) private var openURL: OpenURLAction
     @Environment(\.dismiss) private var dismiss: DismissAction
 
+    @State private var manageSubs: Bool = false
     @State private var showSub: Bool = false
     @State private var purchaseError: Bool = false
     @State private var hasSub: Bool = false
 
-    @State private var canPay: Bool = false
+    @State private var canPay: Bool = true
 
     @State private var displayErr: Bool = false
     @State private var strErr: String = "Bbl404"
@@ -73,7 +74,15 @@ public struct ShopView: View {
                         Text("shop.bubble-plus.dismiss")
                     }
                     .buttonStyle(.borderless)
-                    .padding(.top, 50)
+                    .padding(.top, 25)
+
+                    Button {
+                        openURL(URL(string: "https://apps.lumaa.fr/legal/pdf/TOS_BubblePlus.pdf")!)
+                    } label: {
+                        Text("tos.description")
+                            .font(.caption)
+                            .foregroundStyle(Color.gray)
+                    }
                 }
                 .padding(.vertical)
             } else {
@@ -81,13 +90,10 @@ public struct ShopView: View {
                     Button {
                         Task {
 #if !targetEnvironment(simulator)
-                            if let windowScene = self.delegate.window?.windowScene {
-                                print("accessing subs natively")
-                                try? await AppStore.showManageSubscriptions(in: windowScene)
-                            } else {
-                                print("accessing subs via deeplink")
-                                openURL(URL(string: "itms-apps://apps.apple.com/account/subscriptions")!)
-                            }
+                            self.manageSubs.toggle()
+
+//                            print("accessing subs via deeplink")
+//                            openURL(URL(string: "itms-apps://apps.apple.com/account/subscriptions")!)
 #else
                             print("ACCESS SUBS but Simulator can't")
 #endif
@@ -104,6 +110,7 @@ public struct ShopView: View {
                         }
                         .padding(.vertical)
                     }
+                    .manageSubscriptionsSheet(isPresented: $manageSubs)
 
                     Button {
                         dismiss()
@@ -112,15 +119,24 @@ public struct ShopView: View {
                     }
                     .buttonStyle(.borderless)
                     .padding(.top, 50)
+
+                    Link(destination: URL(string: "https://apps.lumaa.fr/legal/pdf/TOS_BubblePlus.pdf")!) {
+                        Text("tos.description")
+                            .padding()
+                            .font(.caption)
+                            .background(Color.gray.opacity(0.5))
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                            .padding(.horizontal)
+                    }
                 }
             }
         }
         .task {
-            #if DEBUG
-            self.canPay = true
-            #else
-            self.canPay = false
-            #endif
+//            #if DEBUG
+//            self.canPay = true
+//            #else
+//            self.canPay = false
+//            #endif
 
             guard canPay else { return }
 
@@ -148,7 +164,6 @@ public struct ShopView: View {
             }
         } message: {
             Text(strErr)
-            //TODO: http://rev.cat/why-are-offerings-empty issue
         }
         .sheet(isPresented: $showSub) {
             ShopView.SubView()
@@ -285,7 +300,16 @@ extension ShopView {
                         }
                         .buttonStyle(.plain)
 
-                        
+                        Button {
+                            guard selectedPlan != ._3months else { return }
+                            withAnimation(.spring.speed(2.0)) {
+                                selectedPlan = ._3months
+                            }
+                        } label: {
+                            planSelector(._3months, isSelected: selectedPlan == PlusPlan._3months)
+                        }
+                        .buttonStyle(.plain)
+
                         Button {
                             guard selectedPlan != .yearly else { return }
                             withAnimation(.spring.speed(2.0)) {
@@ -312,15 +336,12 @@ extension ShopView {
         
         var header: some View {
             VStack {
-                Spacer()
-                
                 Image("HeroPlus")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100, height: 100)
-                
-                Spacer()
-                
+                    .padding(.vertical)
+
                 Text(String("Bubble+")) // Force the name as untranslatable
                     .font(.title.bold())
                     .foregroundStyle(.white)
@@ -331,30 +352,18 @@ extension ShopView {
             }
             .padding(.horizontal)
         }
-        
-        var tos: some View {
-            ZStack {
-                Color.appBackground
-                    .ignoresSafeArea()
-                
-                Text("tos.description")
-                    .padding()
-                    .background(Color.gray.opacity(0.2))
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .padding(.horizontal)
-            }
-            .environment(\.colorScheme, ColorScheme.dark)
-        }
-        
+
         @ViewBuilder
         private func planSelector(_ plan: PlusPlan, isSelected: Bool = false) -> some View {
             VStack(alignment: .leading) {
                 Text(plan.getTitle())
                     .font(.headline.bold())
                     .multilineTextAlignment(.leading)
-                
+                    .frame(width: 280, alignment: .leading)
+
                 Text(plan.getPrice())
                     .multilineTextAlignment(.leading)
+                    .frame(width: 280, alignment: .leading)
             }
             .padding(.vertical, 30)
             .frame(width: 350)
@@ -380,12 +389,15 @@ extension ShopView {
         
         private enum PlusPlan {
             case monthly
+            case _3months
             case yearly
-            
+
             func getTitle() -> String {
                 switch (self) {
                     case .monthly:
                         return String(localized: "shop.bubble-plus.monthly")
+                    case ._3months:
+                        return String(localized: "shop.bubble-plus.3-months")
                     case .yearly:
                         return String(localized: "shop.bubble-plus.yearly")
                 }
@@ -395,6 +407,8 @@ extension ShopView {
                 switch (self) {
                     case .monthly:
                         return String(localized: "shop.bubble-plus.monthly.price")
+                    case ._3months:
+                        return String(localized: "shop.bubble-plus.3-months.price")
                     case .yearly:
                         return String(localized: "shop.bubble-plus.yearly.price")
                 }
@@ -404,6 +418,8 @@ extension ShopView {
                 switch (self) {
                     case .monthly:
                         return .monthly
+                    case ._3months:
+                        return ._3months
                     case .yearly:
                         return .yearly
                 }
@@ -426,7 +442,11 @@ extension ShopView {
         }
 
         static func hasActuallyPlus(customerInfo: CustomerInfo?) -> Bool {
-            return customerInfo?.entitlements[PlusEntitlements.lifetime.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.monthly.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.yearly.getEntitlementId()]?.isActive == true
+            return customerInfo?
+                .entitlements[PlusEntitlements._3months.getEntitlementId()]?.isActive == true || customerInfo?
+                .entitlements[PlusEntitlements.monthly.getEntitlementId()]?.isActive == true || customerInfo?
+                .entitlements[PlusEntitlements.lifetime.getEntitlementId()]?.isActive == true || customerInfo?
+                .entitlements[PlusEntitlements.yearly.getEntitlementId()]?.isActive == true
         }
 
         static func purchase(entitlement: PlusEntitlements) {
@@ -468,6 +488,7 @@ extension LocalizedStringKey {
 // MARK: - Entitlements
 enum PlusEntitlements: String {
     case monthly
+    case _3months
     case yearly
     case lifetime
     
@@ -476,6 +497,8 @@ enum PlusEntitlements: String {
             switch (self) {
                 case .monthly:
                     return offs.current?.monthly
+                case ._3months:
+                    return offs.current?.threeMonth
                 case .yearly:
                     return offs.current?.annual
                 case .lifetime:
@@ -489,11 +512,13 @@ enum PlusEntitlements: String {
     func getEntitlementId() -> String {
         switch (self) {
             case .lifetime:
-                return "thrd_30$_life"
+                return "plus.lifetime"
             case .monthly:
-                return "thrd_2$_1mth_1mth0"
+                return "plus.monthly"
+            case ._3months:
+                return "plus.3months"
             case .yearly:
-                return "thrd_20$_1y_1mth0"
+                return "plus.yearly"
         }
     }
 }

@@ -1818,10 +1818,20 @@
       }
     },
     "intent.open.app" : {
-
-    },
-    "intent.open.app.description" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Bubble"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir Bubble"
+          }
+        }
+      }
     },
     "intent.open.composer" : {
       "localizations" : {
@@ -3309,6 +3319,38 @@
         }
       }
     },
+    "shop.bubble-plus.3-months" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bubble+ • 3 months"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bubble+ • 3 mois"
+          }
+        }
+      }
+    },
+    "shop.bubble-plus.3-months.price" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For $4.79 every 3 months, auto-renewed"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour 4.99€  tous les 3 mois, renouvellement automatique"
+          }
+        }
+      }
+    },
     "shop.bubble-plus.dismiss" : {
       "localizations" : {
         "en" : {
@@ -3378,13 +3420,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bubble+ - Monthly"
+            "value" : "Bubble+ • Monthly"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bubble+ - Mensuel"
+            "value" : "Bubble+ • Mensuel"
           }
         }
       }
@@ -3522,13 +3564,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bubble+ - Yearly"
+            "value" : "Bubble+ • Yearly"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bubble+ - Annuel"
+            "value" : "Bubble+ • Annuel"
           }
         }
       }
@@ -5266,13 +5308,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bubble is not affiliated to Mastodon. Bubble does not take responsabilities for posting misinforming or illegal content. Read your Mastodon instance's Terms of Service for more information."
+            "value" : "Terms of Service of Bubble+"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bubble n'est pas affilié à Mastodon. Bubble ne prend aucune responsabilité sur la publication de contenu ayant de la désinformation ou du contenu illégal. Lisez les Condition d'utilisation de votre instance Mastodon pour plus d'information."
+            "value" : "Condition d’Utilisation de Bubble+ (Anglais)"
           }
         }
       }
@@ -5326,7 +5368,7 @@
       }
     },
     "widget.composer" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {

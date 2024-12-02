@@ -24,6 +24,15 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
     override public init() {
         super.init()
 
+        if let plist = AppDelegate.readSecret(), let apiKey = plist["RevenueCat_public"], let deviceId = UIDevice.current.identifierForVendor?.uuidString {
+            #if DEBUG
+            Purchases.logLevel = .debug
+            #endif
+            Purchases.configure(withAPIKey: apiKey, appUserID: deviceId)
+        } else {
+            print("Missing Secret.plist file")
+        }
+
         AppNotification.requestAuthorization { success in
             guard !Self.tokenized else { return }
             Self.tokenized = true
@@ -102,33 +111,40 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
     }
 
     /// This function uses the REAL customer info to access the premium state
-//    static func hasPlus(completionHandler: @escaping (Bool) -> Void) {
-//        Purchases.shared.getCustomerInfo { (customerInfo, error) in
-//            guard let error else {
-//                let hasPrem: Bool = hasActuallyPlus(customerInfo: customerInfo)
-//                completionHandler(hasPrem)
-//                return
-//            }
-//            fatalError(error.localizedDescription)
-//        }
-//    }
-    
-    /// This function returns a fake "true" value every time whatever the customer info is
     static func hasPlus(completionHandler: @escaping (Bool) -> Void) {
-        self.premium = true
-        completionHandler(true)
+        Purchases.shared.getCustomerInfo { (customerInfo, error) in
+            guard let error else {
+                let hasPrem: Bool = hasActuallyPlus(customerInfo: customerInfo)
+                completionHandler(hasPrem)
+                return
+            }
+            fatalError(error.localizedDescription)
+        }
     }
     
+    /// This function returns a fake "true" value every time whatever the customer info is
+//    static func hasPlus(completionHandler: @escaping (Bool) -> Void) {
+//        self.premium = true
+//        completionHandler(true)
+//    }
+    
     private static func hasActuallyPlus(customerInfo: CustomerInfo?) -> Bool {
-        return customerInfo?.entitlements[PlusEntitlements.lifetime.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.monthly.getEntitlementId()]?.isActive == true || customerInfo?.entitlements[PlusEntitlements.yearly.getEntitlementId()]?.isActive == true
+        return customerInfo?
+            .entitlements[PlusEntitlements._3months.getEntitlementId()]?.isActive == true || customerInfo?
+            .entitlements[PlusEntitlements.monthly.getEntitlementId()]?.isActive == true || customerInfo?
+            .entitlements[PlusEntitlements.yearly.getEntitlementId()]?.isActive == true
     }
     
     deinit {
+        self.deinits()
+    }
+
+    private func deinits() {
         Task { @MainActor in
             Self.observedSceneDelegate.remove(self)
         }
     }
-    
+
     private static var observedSceneDelegate: Set<AppDelegate> = []
     private static let observer = Task {
         while true {

@@ -10,15 +10,6 @@ struct BubbleApp: App {
     
     init() {
         BubbleShortcuts.updateAppShortcutParameters() //might not work?
-        
-        guard let plist = AppDelegate.readSecret() else { print("Missing Secret.plist file"); return }
-
-        if let apiKey = plist["RevenueCat_public"], let deviceId = UIDevice.current.identifierForVendor?.uuidString {
-            #if DEBUG
-            Purchases.logLevel = .debug
-            #endif
-            Purchases.configure(withAPIKey: apiKey, appUserID: deviceId)
-        }
     }
     
     var body: some Scene {

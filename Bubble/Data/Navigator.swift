@@ -186,6 +186,12 @@ public enum SheetDestination: Identifiable {
     }
 }
 
+extension SheetDestination: Equatable {
+    public static func ==(lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
 public enum RouterDestination: Hashable {
     case settings
     case support
