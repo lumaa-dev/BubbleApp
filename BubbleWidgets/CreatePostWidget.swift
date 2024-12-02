@@ -13,8 +13,8 @@ struct CreatePostWidget: Widget {
         ) { entry in
             CreatePostWidget.WidgetView()
         }
-        .configurationDisplayName("widget.open.composer")
-        .description("widget.open.composer")
+        .configurationDisplayName(LocalizedStringKey("widget.open.composer"))
+        .description(LocalizedStringKey("widget.open.composer"))
         .supportedFamilies([.systemSmall])
         .disfavoredLocations(
             [.standBy, .iPhoneWidgetsOnMac],

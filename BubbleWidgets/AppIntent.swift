@@ -145,9 +145,8 @@ extension Visibility: AppEnum {
 
 struct OpenAppIntent: AppIntent {
     static var title: LocalizedStringResource = "intent.open.app"
-    static var description: IntentDescription? = IntentDescription("intent.open.app.description")
 
-    static var isDiscoverable: Bool = true
+    static var isDiscoverable: Bool = false
     static var openAppWhenRun: Bool = true
 
     static var authenticationPolicy: IntentAuthenticationPolicy = .requiresLocalDeviceAuthentication
@@ -155,6 +154,11 @@ struct OpenAppIntent: AppIntent {
     func perform() async throws -> some IntentResult {
         UniversalNavigator.static.selectedTab = .timeline
         UniversalNavigator.static.presentedSheet = nil
+
+        if UniversalNavigator.static.presentedCover != .welcome {
+            UniversalNavigator.static.presentedCover = nil
+        }
+
         return .result()
     }
 }
