@@ -2314,6 +2314,22 @@
         }
       }
     },
+    "pp.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Politique de Confidentialité"
+          }
+        }
+      }
+    },
     "privacy" : {
       "localizations" : {
         "en" : {
@@ -3384,6 +3400,7 @@
       }
     },
     "shop.bubble-plus.lifetime" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5314,7 +5331,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Condition d’Utilisation de Bubble+ (Anglais)"
+            "value" : "Condition d’Utilisation de Bubble+"
           }
         }
       }

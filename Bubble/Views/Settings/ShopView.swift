@@ -59,14 +59,14 @@ public struct ShopView: View {
                     }
                     .disabled(!canPay)
 
-                    Button {
-//                      showLifetime.toggle()
-                        PremiumFeature.purchase(entitlement: .lifetime)
-                    } label: {
-                        Text("shop.bubble-plus.lifetime")
-                    }
-                    .buttonStyle(LargeButton(filled: false, disabled: !canPay))
-                    .disabled(!canPay)
+//                    Button {
+////                      showLifetime.toggle()
+//                        PremiumFeature.purchase(entitlement: .lifetime)
+//                    } label: {
+//                        Text("shop.bubble-plus.lifetime")
+//                    }
+//                    .buttonStyle(LargeButton(filled: false, disabled: !canPay))
+//                    .disabled(!canPay)
 
                     Button {
                         dismiss()
@@ -76,12 +76,22 @@ public struct ShopView: View {
                     .buttonStyle(.borderless)
                     .padding(.top, 25)
 
-                    Button {
-                        openURL(URL(string: "https://apps.lumaa.fr/legal/pdf/TOS_BubblePlus.pdf")!)
-                    } label: {
-                        Text("tos.description")
-                            .font(.caption)
-                            .foregroundStyle(Color.gray)
+                    HStack(spacing: 15) {
+                        Button {
+                            openURL(URL(string: "https://apps.lumaa.fr/legal/pdf/TOS_BubblePlus.pdf")!)
+                        } label: {
+                            Text("tos.description")
+                                .font(.caption)
+                                .foregroundStyle(Color.gray)
+                        }
+
+                        Button {
+                            openURL(URL(string: "https://apps.lumaa.fr/legal/privacy?app=bubble")!)
+                        } label: {
+                            Text("pp.description")
+                                .font(.caption)
+                                .foregroundStyle(Color.gray)
+                        }
                     }
                 }
                 .padding(.vertical)
