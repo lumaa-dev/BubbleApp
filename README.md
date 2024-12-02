@@ -26,7 +26,7 @@ Join the Matrix Space to get support, with full security: [Join #threadedapp:mat
 - [Nuke](https://github.com/kean/Nuke)
 - [EmojiText](https://github.com/divadretlaw/EmojiText)
 - [KeychainSwift](https://github.com/evgenyneu/keychain-swift)
-- [RevenueCat](https://www.revenuecat.com/)
+- [RevenueCat](https://rev.cat/)
 
 ## Special thanks
 - Beezus
@@ -34,5 +34,6 @@ Join the Matrix Space to get support, with full security: [Join #threadedapp:mat
 
 ## More
 [Privacy Policy](https://apps.lumaa.fr/legal/privacy?app=bubble&utm_source=BubbleGit)\
+[Terms of Service - Bubble+](https://apps.lumaa.fr/legal/pdf/TOS_BubblePlus.pdf) ([alternative link](./BubblePlus_ToS.md))\
 [About Bubble](https://apps.lumaa.fr/app/bubble)\
 [Threaded vs. Threads](https://apps.lumaa.fr/legal/threaded)
