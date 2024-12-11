@@ -1,4 +1,4 @@
-# Terms of Service - Bubble+
+# [Terms of Service - Bubble+](https://apps.lumaa.fr/legal/bubble/tos)
 These Terms of Service (of the "Agreement") only apply for Bubble+ (the "Service") owners; If you do not understand the Agreement, then you may not use the Service.
 
 Please note that this document does not contain the data collected by Mastodon. You should refer their policies.
