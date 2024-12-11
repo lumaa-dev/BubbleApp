@@ -23,7 +23,7 @@ The App and the Service, are not responsible for the third-party content seen or
 If you own the Service you understand, acknowledge, and agree that you may not, except if expressly permitted:
 - Provide, or otherwise make available, the Service to any third party.
 
-If you do so, you may get revoked your access to the Service if possible, 
+If you do so, you may get revoked your access to the Service if possible, and you also may face an account deletion by instances' moderator(s) from the Creator's report.
 
 ## Contact
 Contact the developer of the Service and of the App via email: [lumaa@lumaa.fr](mailto:lumaa@lumaa.fr)
