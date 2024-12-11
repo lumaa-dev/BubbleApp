@@ -64,104 +64,7 @@ struct SettingsView: View {
                 .frame(height: 30)
                 .listRowThreaded()
             
-            Section {
-                Text("settings.restart-app")
-                    .font(.caption)
-                    .foregroundStyle(Color.gray)
-                    .listRowThreaded()
-                
-                Button {
-                    navigator.navigate(to: .about)
-                } label: {
-                    Label("about", systemImage: "info.circle")
-                }
-                .listRowThreaded()
-                
-//                Button {
-//                    navigator.navigate(to: .appicon)
-//                } label: {
-//                    Label("setting.app-icon", systemImage: "app.dashed")
-//                }
-//                .listRowThreaded()
-                
-                Button {
-                    navigator.navigate(to: .privacy)
-                } label: {
-                    Label("privacy", systemImage: "lock")
-                }
-                .listRowThreaded()
-                
-                Button {
-                    navigator.presentedCover = .shop
-                } label: {
-                    Label {
-                        Text(String("Bubble+"))
-                    } icon: {
-                        Image("HeroPlus")
-                            .resizable()
-                            .scaledToFit()
-                    }
-                }
-                .listRowThreaded()
-
-
-                Button {
-#if !targetEnvironment(simulator)
-                    openURL(URL(string: "https://apps.apple.com/app/id6477757490?action=write-review")!)
-#else
-                    print("Review app")
-#endif
-                } label: {
-                    Label("setting.review", systemImage: "star.fill")
-                }
-                .listRowThreaded()
-
-                Button {
-                    navigator.navigate(to: .support)
-                } label: {
-                    Label("setting.support", systemImage: "person.crop.circle.badge.questionmark")
-                }
-                .listRowThreaded()
-                
-//                Button {
-//                    navigator.navigate(to: .appearence)
-//                } label: {
-//                    Label("setting.appearence", systemImage: "rectangle.3.group")
-//                }
-//                .listRowThreaded()
-                
-                Button {
-                    if loggedAccounts.count <= 1 {
-                        AppAccount.clear()
-                        navigator.path = []
-                        uniNav.selectedTab = .timeline
-                        uniNav.presentedCover = .welcome
-                    } else {
-                        Task {
-                            if let app = loggedAccounts[0].app {
-                                let c: Client = Client(server: app.server, oauthToken: app.oauthToken)
-                                let am: AccountManager = .init(client: c)
-                                
-                                let fetched: Account? = await am.fetchAccount()
-                                if fetched == nil {
-                                    am.clear()
-                                } else {
-                                    AccountManager.shared.setAccount(fetched!)
-                                    AccountManager.shared.setClient(c)
-                                    
-                                    navigator.path = []
-                                    uniNav.selectedTab = .timeline
-                                }
-                            }
-                        }
-                    }
-                } label: {
-                    Text("logout")
-                        .foregroundStyle(.red)
-                }
-                .tint(Color.red)
-                .listRowThreaded()
-            }
+            otherTabs
         }
         .withAppRouter(navigator)
         .withCovers(sheetDestination: $navigator.presentedCover)
@@ -175,6 +78,117 @@ struct SettingsView: View {
             guard !newValue.isEmpty else { navigator.showTabbar = true; return }
             navigator.showTabbar = newValue
                 .filter({ $0 == RouterDestination.settings }).first == nil
+        }
+    }
+
+    private var otherTabs: some View {
+        Section {
+            Text("settings.restart-app")
+                .font(.caption)
+                .foregroundStyle(Color.gray)
+                .listRowThreaded()
+
+            Button {
+                navigator.navigate(to: .about)
+            } label: {
+                Label("about", systemImage: "info.circle")
+            }
+            .listRowThreaded()
+
+            //                Button {
+            //                    navigator.navigate(to: .appicon)
+            //                } label: {
+            //                    Label("setting.app-icon", systemImage: "app.dashed")
+            //                }
+            //                .listRowThreaded()
+
+            Button {
+                navigator.navigate(to: .privacy)
+            } label: {
+                Label("privacy", systemImage: "lock")
+            }
+            .listRowThreaded()
+
+            Button {
+                navigator.presentedCover = .shop
+            } label: {
+                Label {
+                    Text(String("Bubble+"))
+                } icon: {
+                    Image("HeroPlus")
+                        .resizable()
+                        .scaledToFit()
+                }
+            }
+            .listRowThreaded()
+
+
+            Button {
+#if !targetEnvironment(simulator)
+                openURL(URL(string: "https://apps.apple.com/app/id6477757490?action=write-review")!)
+#else
+                print("Review app")
+#endif
+            } label: {
+                Label("setting.review", systemImage: "star.fill")
+            }
+            .listRowThreaded()
+
+            Button {
+                navigator.navigate(to: .support)
+            } label: {
+                Label("setting.support", systemImage: "person.crop.circle.badge.questionmark")
+            }
+            .listRowThreaded()
+
+            Button {
+                guard let server = AccountManager.shared.getClient()?.server else { return }
+                UniversalNavigator.static.presentedSheet = .safari(url: URL(string: "https://\(server)/settings/delete")!)
+            } label: {
+                Label("account.delete", systemImage: "trash")
+                    .foregroundStyle(.red)
+            }
+            .tint(Color.red)
+            .listRowThreaded()
+
+//                Button {
+//                    navigator.navigate(to: .appearence)
+//                } label: {
+//                    Label("setting.appearence", systemImage: "rectangle.3.group")
+//                }
+//                .listRowThreaded()
+
+            Button {
+                if loggedAccounts.count <= 1 {
+                    AppAccount.clear()
+                    navigator.path = []
+                    uniNav.selectedTab = .timeline
+                    uniNav.presentedCover = .welcome
+                } else {
+                    Task {
+                        if let app = loggedAccounts[0].app {
+                            let c: Client = Client(server: app.server, oauthToken: app.oauthToken)
+                            let am: AccountManager = .init(client: c)
+
+                            let fetched: Account? = await am.fetchAccount()
+                            if fetched == nil {
+                                am.clear()
+                            } else {
+                                AccountManager.shared.setAccount(fetched!)
+                                AccountManager.shared.setClient(c)
+
+                                navigator.path = []
+                                uniNav.selectedTab = .timeline
+                            }
+                        }
+                    }
+                }
+            } label: {
+                Text("logout")
+                    .foregroundStyle(.red)
+            }
+            .tint(Color.red)
+            .listRowThreaded()
         }
     }
 }

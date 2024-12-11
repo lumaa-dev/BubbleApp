@@ -39,7 +39,7 @@ struct UpdateView: View {
     
     var features: some View {
         VStack(spacing: 60) {
-            newFeature(systemImage: "quote.bubble", title: "QRT but for Bubble & more", text: "Bubble finally displays quote posts, replies, and post details better!")
+            newFeature(image: "HeroIcon", title: "Bubble+ is (finally) here!", text: "The best client subscription has finally came to us! It currently features 3 subscriptions")
 
             newFeature(systemImage: "play.square", title: "Video attachments", text: "Play a video while listening to CHROMAKOPIA, it won't stop it anymore. Play, pause, mute...")
 
@@ -96,10 +96,10 @@ struct UpdateView: View {
     }
     
     @ViewBuilder
-    private func newFeature(imageName: String, title: String, text: String) -> some View {
+    private func newFeature(image: String, title: String, text: String) -> some View {
         ViewThatFits {
             HStack(alignment: .center) {
-                Image(imageName)
+                Image(image)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 60, height: 60)
