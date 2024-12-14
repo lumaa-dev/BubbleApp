@@ -110,7 +110,7 @@ struct SettingsView: View {
             .listRowThreaded()
 
             Button {
-                navigator.presentedCover = .shop
+                UniversalNavigator.static.presentedCover = .shop
             } label: {
                 Label {
                     Text(String("Bubble+"))
@@ -306,31 +306,33 @@ extension SettingsView {
 //                        }
                     }
                 } else {
-                    Circle()
-                        .fill(error ? Color.red.opacity(0.45) : Color.gray.opacity(0.45))
-                        .frame(width: 36, height: 36)
-                    
-                    VStack(alignment: .leading) {
-                        Text(Account.placeholder().displayName ?? "@\(Account.placeholder().acct)")
-                            .redacted(reason: .placeholder)
-                            .multilineTextAlignment(.leading)
-                        
-                        Text("@\(Account.placeholder().acct)")
-                            .redacted(reason: .placeholder)
-                            .multilineTextAlignment(.leading)
-                            .font(.caption)
-                            .foregroundStyle(Color.gray)
+                    HStack {
+                        Circle()
+                            .fill(error ? Color.red.opacity(0.45) : Color.gray.opacity(0.45))
+                            .frame(width: 36, height: 36)
+
+                        VStack(alignment: .leading) {
+                            Text(Account.placeholder().displayName ?? "@\(Account.placeholder().acct)")
+                                .redacted(reason: .placeholder)
+                                .multilineTextAlignment(.leading)
+
+                            Text("@\(Account.placeholder().acct)")
+                                .redacted(reason: .placeholder)
+                                .multilineTextAlignment(.leading)
+                                .font(.caption)
+                                .foregroundStyle(Color.gray)
+                        }
+
+                        Spacer()
+
+                        Button {
+                            print(acct)
+                        } label: {
+                            Text("settings.account-switcher.log")
+                                .redacted(reason: .placeholder)
+                        }
+                        .buttonStyle(LargeButton(filled: true, height: 7.5))
                     }
-                    
-                    Spacer()
-                    
-                    Button {
-                        print(acct)
-                    } label: {
-                        Text("settings.account-switcher.log")
-                            .redacted(reason: .placeholder)
-                    }
-                    .buttonStyle(LargeButton(filled: true, height: 7.5))
                 }
             }
             .task {
