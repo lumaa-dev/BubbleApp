@@ -43,7 +43,7 @@ struct UpdateView: View {
 
             newFeature(systemImage: "play.square", title: "Video attachments", text: "Play a video while listening to CHROMAKOPIA, it won't stop it anymore. Play, pause, mute...")
 
-            newFeature(systemImage: "person.text.rectangle", title: "Article author", text: "Some news articles will show the account of the writer, like The Verge for example.")
+            newFeature(image: "SubClubMark", title: "Adieu, sub.club", text: "The owners of sub.club are shutting it down this month. The Bubble integration has been removed.")
         }
         .frame(height: 500)
     }

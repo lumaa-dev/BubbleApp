@@ -36,19 +36,6 @@ struct ProfileView: View {
     @State public var account: Account
     var isCurrent: Bool = false
 
-    //MARK: Sub Club
-
-    /// Account ACCT ends with `sub.club`
-    private var isSubClub: Bool {
-        account.acct.split(separator: "@").last == "sub.club"
-    }
-    /// Account field that may contain `sub.club` user
-    private var hasSubClub: Account.Field? {
-        account.fields.filter({ $0.value.asRawText.contains(/(@)?[A-Za-z0-9_]+@sub\.club/) }).first
-    }
-    /// Subscribed to the Sub Club account
-    @State private var isSubscribed: Bool = false
-
     var body: some View {
         ZStack (alignment: .center) {
             if account != Account.placeholder() {
@@ -158,50 +145,6 @@ struct ProfileView: View {
                         .font(.callout)
 
                     VStack {
-                        if let field = hasSubClub, (canFollow ?? true) == true {
-                            Button {
-                                guard !isSubscribed, let extracted = field.extractSubclub(), let usrnme: Substring = extracted.split(separator: "@").first, let userAcc = accountManager.getAccount(), let cliAcc = accountManager.getClient() else {
-                                    return
-                                }
-
-                                let subclubUrl: URL = URL(
-                                    string: "https://sub.club/@\(usrnme)/subscribe?callback=threadedapp://subclub&id=@\(userAcc.username)@\(cliAcc.server)&theme=dark"
-                                )!
-                                uniNav.presentedSheet = .safari(url: subclubUrl)
-                            } label: {
-                                HStack {
-                                    Spacer()
-                                    Text(isSubscribed ? "account.subclub.subscribed" : "account.subclub.subscribe")
-                                        .font(.callout)
-                                    Spacer()
-                                }
-                            }
-                            .buttonStyle(LargeButton(filled: true, filledColor: Color.subClub, height: 10))
-                            .disabled(isSubscribed)
-                        }
-
-                        if isSubClub && (canFollow ?? true) == true {
-                            Button {
-                                guard !isSubscribed, let userAcc = accountManager.getAccount(), let cliAcc = accountManager.getClient() else {
-                                    return
-                                }
-
-                                let subclubUrl: URL = URL(
-                                    string: "https://sub.club/@\(account.username)/subscribe?callback=threadedapp://subclub&id=@\(userAcc.username)@\(cliAcc.server)&theme=dark"
-                                )!
-                                uniNav.presentedSheet = .safari(url: subclubUrl)
-                            } label: {
-                                HStack {
-                                    Spacer()
-                                    Text(isSubscribed ? "account.subclub.subscribed" : "account.subclub.subscribe")
-                                        .font(.callout)
-                                    Spacer()
-                                }
-                            }
-                            .buttonStyle(LargeButton(filled: true, filledColor: Color.subClub, height: 10))
-                            .disabled(isSubscribed)
-                        }
-
                         // MARK: Follow button
                         if (canFollow ?? true) == true {
                             HStack (spacing: 5) {
@@ -387,11 +330,7 @@ struct ProfileView: View {
             
             if let ref: Account = try? await client.get(endpoint: Accounts.accounts(id: accId)) {
                 account = ref
-                if let subClubAcc = await getSubclubAccount() {
-                    await updateRelationship(with: [subClubAcc.id], subClubId: subClubAcc.id)
-                } else {
-                    await updateRelationship()
-                }
+                await updateRelationship()
 
                 loadingStatuses = true
                 statuses = try? await client.get(endpoint: Accounts.statuses(id: accId, sinceId: nil, tag: nil, onlyMedia: nil, excludeReplies: nil, pinned: nil))
@@ -488,7 +427,7 @@ struct ProfileView: View {
         }
     }
 
-    func updateRelationship(with other: [String] = [], subClubId: String? = nil) async {
+    func updateRelationship(with other: [String] = []) async {
         if let client = accountManager.getClient() {
             if let currentAccount: Account = try? await client.get(endpoint: Accounts.verifyCredentials) {
                 canFollow = currentAccount.id != account.id
@@ -506,38 +445,11 @@ struct ProfileView: View {
                     accountNotify = rel.notifying
                     accountMuted = rel.muting
                     accountBlocked = rel.blocking
-
-                    if let subClubId {
-                        guard let subClubRel: Relationship = relationship.filter({ $0.id == subClubId }).first else {
-                            fatalError("The SubClub Relationship ID doesn't match")
-                        }
-
-                        isSubscribed = subClubRel.following
-                    }
                 }
             } else {
                 canFollow = false
             }
         }
-    }
-
-    private func getSubclubAccount() async -> Account? {
-        if let field = hasSubClub, let acct = field.extractSubclub(), let client = accountManager.getClient() {
-            if let res: SearchResults = try? await client.post(
-                endpoint: Search.accountsSearch(query: acct, type: nil, offset: 0, following: nil)
-            ), !res.isEmpty, !res.accounts.isEmpty {
-                let subclub = res.accounts.first!
-                return subclub
-            }
-        } else if isSubClub, let client = accountManager.getClient(), let server = account.acct.split(separator: "@").last {
-            if let res: SearchResults = try? await client.post(
-                endpoint: Search.accountsSearch(query: "\(account.username)@\(server)", type: nil, offset: 0, following: nil)
-            ), !res.isEmpty, !res.accounts.isEmpty {
-                let subclub = res.accounts.first!
-                return subclub
-            }
-        }
-        return nil
     }
 
     var loading: some View {
@@ -600,13 +512,12 @@ struct ProfileView: View {
                     } label: {
                         Text("\(server.description)")
                             .font(.caption)
-                            .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
+                            .foregroundStyle(Color.gray)
                             .multilineTextAlignment(.leading)
                             .lineLimit(1)
                             .minimumScaleFactor(0.7)
-                            .pill(tint: !isSubClub ? Color(uiColor: UIColor.label) : Color.subClub)
+                            .pill(tint: Color(uiColor: UIColor.label))
                     }
-                    .disabled(!isSubClub)
                 } else {
                     Text("\(account.username)")
                         .font(.body)
@@ -620,13 +531,12 @@ struct ProfileView: View {
                     } label: {
                         Text("\(client?.server ?? "???")")
                             .font(.caption)
-                            .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
+                            .foregroundStyle(Color.gray)
                             .multilineTextAlignment(.leading)
                             .lineLimit(1)
                             .minimumScaleFactor(0.7)
-                            .pill(tint: !isSubClub ? Color(uiColor: UIColor.label) : Color.subClub)
+                            .pill(tint: Color(uiColor: UIColor.label))
                     }
-                    .disabled(!isSubClub)
                 }
             } else {
                 Text("\(account.username)")
@@ -638,13 +548,12 @@ struct ProfileView: View {
                 } label: {
                     Text("\(client?.server ?? "???")")
                         .font(.caption)
-                        .foregroundStyle(!isSubClub ? Color.gray : Color.subClub)
+                        .foregroundStyle(Color.gray)
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
                         .minimumScaleFactor(0.7)
                         .pill()
                 }
-                .disabled(!isSubClub)
             }
         }
     }

@@ -291,7 +291,7 @@ struct CompactPostView: View {
         }
     }
 
-    // MARK: - Sub Club integration
+    // TODO: Different bgs for diff appearences
 
     @ViewBuilder
     private func postBackground() -> some View {
@@ -302,7 +302,7 @@ struct CompactPostView: View {
                     startPoint: .topTrailing,
                     endPoint: .bottomLeading
                 )
-                .opacity(0.2)
+                .opacity(0.2) // keeping this as reference
             } else {
                 Color.appBackground
             }

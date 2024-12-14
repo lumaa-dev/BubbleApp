@@ -146,13 +146,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "About sub.club"
+            "value" : "Tribute to sub.club"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "À propos de sub.club"
+            "value" : "Hommage à sub.club"
           }
         }
       }
@@ -714,38 +714,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Afficher les republications"
-          }
-        }
-      }
-    },
-    "account.subclub.subscribe" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Subscribe via Sub Club"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "S’abonner via Sub Club"
-          }
-        }
-      }
-    },
-    "account.subclub.subscribed" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Subscribed"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Abonné"
           }
         }
       }
@@ -1784,35 +1752,35 @@
       }
     },
     "info.subclub.collaboration" : {
-      "comment" : "sub.club is a COLLAB, precisely",
+      "comment" : "sub.club is a COLLAB, precisely. They don't work together",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This feature is from a collaboration between sub.club and Bubble"
+            "value" : "This feature was from a collaboration between sub.club and Bubble, sub.club and Bubble do not operate together."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cette fonctionnalité provient d’une collaboration entre sub.club et Bubble"
+            "value" : "Cette fonctionnalité provient d’une collaboration entre sub.club et Bubble, sub.club et Bubble n’opèrent pas ensemble."
           }
         }
       }
     },
     "info.subclub.description" : {
-      "comment" : "Explain that sub.club is NOT attached to Bubble or Lumaa, and explain sub.club's concept",
+      "comment" : "Explain that sub.club is NOT attached to Bubble or Lumaa, and explain sub.club's concept. // SUB.CLUB WAS SHUT DOWN \\\\",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "sub.club is a third-party service that allows Mastodon accounts to be premium accounts"
+            "value" : "sub.club was a third-party service that allows Mastodon accounts to be premium accounts. It was shut down in January 2025; this about page will remain as a tribute."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "sub.club est un service tiers qui permet à des comptes Mastodon d’être des comptes payants"
+            "value" : "sub.club est un service tiers qui permet à des comptes Mastodon d’être des comptes payants. sub.club à été arrêté en janvier 2025; cette page d’information restera en tant qu’hommage."
           }
         }
       }
@@ -1994,7 +1962,6 @@
       }
     },
     "learn.subclub" : {
-      "comment" : "This is a button that brings to the sub.club website",
       "localizations" : {
         "en" : {
           "stringUnit" : {
