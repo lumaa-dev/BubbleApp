@@ -50,7 +50,7 @@ struct AboutSubclubView: View {
 
             Button {
                 dismiss()
-                openURL(URL(string: "https://sub.club/?utm_source=BubbleApp")!)
+                openURL(URL(string: "https://mastodon.social/@subclub/113047126121560512")!)
             } label: {
                 HStack {
                     Text("learn.subclub")

@@ -41,9 +41,9 @@ struct UpdateView: View {
         VStack(spacing: 60) {
             newFeature(image: "HeroIcon", title: "Bubble+ is (finally) here!", text: "The best client subscription has finally came to us! It currently features 3 subscriptions")
 
-            newFeature(systemImage: "play.square", title: "Video attachments", text: "Play a video while listening to CHROMAKOPIA, it won't stop it anymore. Play, pause, mute...")
+            newFeature(systemImage: "app.badge", title: "Notifications..?", text: "I did a little oopsie and left code for notifications... They are not here yet, but they're coming.")
 
-            newFeature(image: "SubClubMark", title: "Adieu, sub.club", text: "The owners of sub.club are shutting it down this month. The Bubble integration has been removed.")
+            newFeature(systemImage: "fireworks", title: "Happy new year!", text: "Welcome to 2025! New year, new Bubble! (Okay maybe I'm a little too early... but shhh!)")
         }
         .frame(height: 500)
     }

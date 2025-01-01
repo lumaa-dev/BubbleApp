@@ -93,7 +93,7 @@ struct AboutView: View {
                 Text(String("Bubble"))
                     .font(.title.bold())
                 
-                Text(String("© Lumaa 2023-2024"))
+                Text(String("© Lumaa 2023-2025"))
                     .font(.caption)
                     .foregroundStyle(Color.gray)
                 
