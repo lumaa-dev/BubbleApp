@@ -1,7 +1,7 @@
 # Security Policy
 
 ## Supported Versions
-The supported version is always the currently available [App Store](https://d.lumaa.fr/OTTpIw) version, currently being 1.4.1.
+The supported version is always the currently available [App Store](https://d.lumaa.fr/OTTpIw) version, currently being 1.4.2.
 
 ## Bubble+ Terms of Service
 Make sure to read the Terms of Service of Bubble+ before buying the said product. Read it here:\
