@@ -14,6 +14,15 @@ Use the **#Bubble** and [**@Bubble@mastodon.online**](https://mastodon.online/@B
 Join the Bubble Discord server to receive help, talk about the Fediverse, and many other things: [Join Bubble](https://discord.gg/MaHcRbkX46)\
 Join the Matrix Space to get support, with full security: [Join #threadedapp:matrix.org](https://matrix.to/#/#threadedapp:matrix.org)
 
+## Star History
+<a href="https://www.star-history.com/#lumaa-dev/BubbleApp&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=lumaa-dev/BubbleApp&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=lumaa-dev/BubbleApp&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=lumaa-dev/BubbleApp&type=Date" />
+ </picture>
+</a>
+
 ## Credits
 - [Lumaa](https://lumaa.fr/) - Developer
 - [@Damon](https://social.wedistribute.org/@damon)
