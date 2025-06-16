@@ -39,7 +39,7 @@ struct UpdateView: View {
     
     var features: some View {
         VStack(spacing: 60) {
-            newFeature(image: "HeroIcon", title: "Bubble+ is.. buggy...", text: "Bubble+ is down at the moment, while this is done, Bubble+ is given for free.")
+            newFeature(image: "HeroIcon", title: "Bubble+ is fixed!", text: "Bubble+ is back for everyone who ever wants to buy it.")
 
             newFeature(systemImage: "capsule", title: "Bubble v2.0.0", text: "Bubble is having its biggest rework since its release in July 2024")
 
