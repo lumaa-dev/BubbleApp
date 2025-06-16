@@ -33,17 +33,18 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
             print("Missing Secret.plist file")
         }
 
-        AppNotification.requestAuthorization { success in
-            guard !Self.tokenized else { return }
-            Self.tokenized = true
-            let ownedAccs: [LoggedAccount] = self.getAccounts()
-            ownedAccs.forEach { acc in
-                Task {
-                    let tempCli: Client = .init(server: acc.app?.server ?? "mastodon.social", oauthToken: acc.token)
-                    await AppNotification.sendToken(client: tempCli, oauth: acc.token)
-                }
-            }
-        }
+//        AppNotification.requestAuthorization { success in
+//            guard !Self.tokenized else { return }
+//            Self.tokenized = true
+//            let ownedAccs: [LoggedAccount] = self.getAccounts()
+//            ownedAccs.forEach { acc in
+//                Task {
+//                    let tempCli: Client = .init(server: acc.app?.server ?? "mastodon.social", oauthToken: acc.token)
+//                    await AppNotification.sendToken(client: tempCli, oauth: acc.token)
+//                }
+//            }
+//        }
+
         #if !WIDGET
         if !UIApplication.shared.isRegisteredForRemoteNotifications {
             print("Registering REMOTE NOTIFICATION")
@@ -118,7 +119,8 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
                 completionHandler(hasPrem)
                 return
             }
-            fatalError(error.localizedDescription)
+            print("[RevenueCat] \(error.localizedDescription)")
+            completionHandler(true) // issues with RevCat
         }
     }
     

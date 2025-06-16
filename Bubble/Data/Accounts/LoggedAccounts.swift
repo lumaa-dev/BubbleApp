@@ -7,10 +7,10 @@ import KeychainSwift
 
 @Model
 class LoggedAccount {
-    let token: OauthToken = OauthToken(accessToken: "ABC", tokenType: "ABC", scope: "ABC", createdAt: 0.0)
-    let acct: String
-    let app: AppAccount?
-    
+    var token: OauthToken
+    var acct: String
+    var app: AppAccount?
+
     init(token: OauthToken = OauthToken(accessToken: "ABC", tokenType: "ABC", scope: "ABC", createdAt: 0.0), acct: String) {
         self.token = token
         self.acct = acct

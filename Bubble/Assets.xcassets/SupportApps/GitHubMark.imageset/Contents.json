@@ -1,0 +1,22 @@
+{
+  "images" : [
+    {
+      "filename" : "GitHub_Invertocat_Dark 1.png",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GitHub_Invertocat_Light.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

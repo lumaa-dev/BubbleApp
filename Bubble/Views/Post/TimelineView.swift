@@ -38,6 +38,44 @@ struct TimelineView: View {
             if statuses != nil {
                 if !statuses!.isEmpty {
                     statusesView
+                        .refreshable {
+                            if let client = accountManager.getClient() {
+                                statuses = nil
+
+                                Task {
+                                    loadingStatuses = true
+                                    statuses = await timelineModel.fetch(client: client)
+                                    loadingStatuses = false
+                                }
+                            }
+                        }
+                        .onChange(of: lastSeen ?? 0) { _, new in
+                            guard !loadingStatuses else { return }
+                            Task {
+                                loadingStatuses = true
+                                statuses = await timelineModel.addStatuses(lastStatusIndex: new)
+                                loadingStatuses = false
+                            }
+                        }
+                        .toolbar {
+                            if UserDefaults.standard.bool(forKey: "allowFilter") {
+                                ToolbarItem(placement: .secondaryAction) {
+                                    Button {
+                                        statuses = nil
+
+                                        Task {
+                                            loadingStatuses = true
+                                            statuses = await self.timelineModel.toggleContentFilter(filter: wordsFilter)
+                                            loadingStatuses = false
+                                        }
+                                    } label: {
+                                        Image(systemName: self.timelineModel.filtering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+                                            .symbolEffect(.pulse.wholeSymbol, isActive: self.timelineModel.filtering)
+                                    }
+                                    .tint(Color(uiColor: UIColor.label))
+                                }
+                            }
+                        }
                 } else {
                     emptyView
                 }
@@ -70,44 +108,6 @@ struct TimelineView: View {
                         Divider()
                             .frame(maxWidth: .infinity)
                     }
-                }
-            }
-        }
-        .refreshable {
-            if let client = accountManager.getClient() {
-                statuses = nil
-
-                Task {
-                    loadingStatuses = true
-                    statuses = await timelineModel.fetch(client: client)
-                    loadingStatuses = false
-                }
-            }
-        }
-        .onChange(of: lastSeen ?? 0) { _, new in
-            guard !loadingStatuses else { return }
-            Task {
-                loadingStatuses = true
-                statuses = await timelineModel.addStatuses(lastStatusIndex: new)
-                loadingStatuses = false
-            }
-        }
-        .toolbar {
-            if UserDefaults.standard.bool(forKey: "allowFilter") {
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        statuses = nil
-
-                        Task {
-                            loadingStatuses = true
-                            statuses = await self.timelineModel.toggleContentFilter(filter: wordsFilter)
-                            loadingStatuses = false
-                        }
-                    } label: {
-                        Image(systemName: self.timelineModel.filtering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
-                            .symbolEffect(.pulse.wholeSymbol, isActive: self.timelineModel.filtering)
-                    }
-                    .tint(Color(uiColor: UIColor.label))
                 }
             }
         }
@@ -167,16 +167,22 @@ struct TimelineView: View {
     private var picker: some View {
         VStack {
             if showHero {
-                Button {
-                    withAnimation(.easeInOut) {
-                        showPicker.toggle()
+                HStack {
+                    Spacer()
+
+                    Button {
+                        withAnimation(.easeInOut) {
+                            showPicker.toggle()
+                        }
+                    } label: {
+                        Image("HeroIcon")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30)
+                            .padding(.bottom)
                     }
-                } label: {
-                    Image("HeroIcon")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30)
-                        .padding(.bottom)
+
+                    Spacer()
                 }
             }
             
@@ -221,7 +227,7 @@ struct TimelineView: View {
             }
         }
     }
-    
+
     private func reloadTimeline(_ filter: TimelineFilter) async {
         guard let client = accountManager.getClient() else { return }
         statuses = nil

@@ -13,8 +13,7 @@ struct BubbleShortcuts: AppShortcutsProvider {
             intent: OpenComposerIntent(),
             phrases: [
                 "Start a \(.applicationName) post",
-                "Post on \(.applicationName)",
-                "Post on Mastodon"
+                "Post on \(.applicationName)"
             ],
             shortTitle: "status.posting",
             systemImageName: "square.and.pencil"

@@ -116,7 +116,7 @@ class FetchTimeline {
             return await self.useContentFilter(filter)
         }
     }
-    
+
     func getStatuses() -> [Status] {
         return datasource
     }

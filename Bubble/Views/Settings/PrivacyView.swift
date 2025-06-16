@@ -5,9 +5,12 @@ import Nuke
 
 struct PrivacyView: View {
     @ObservedObject private var userPreferences: UserPreferences = .defaultPreferences
+
     @EnvironmentObject private var navigator: Navigator
-    @Environment(\.dismiss) private var dismiss
-    
+
+    @Environment(\.openURL) private var openURL: OpenURLAction
+    @Environment(\.dismiss) private var dismiss: DismissAction
+
     @State private var clearedCache: Bool = false
     
     var body: some View {
@@ -56,6 +59,15 @@ struct PrivacyView: View {
                 .listRowThreaded()
             
             Section {
+                Button {
+                    if let url = URL(string: "https://apps.lumaa.fr/legal/privacy?app=bubble&utm_source=BubbleApp") {
+                        openURL(url)
+                    }
+                } label: {
+                    Text("settings.privacy.policy")
+                }
+                .listRowThreaded()
+
                 HStack {
                     Text("settings.privacy.clear-cache")
                     

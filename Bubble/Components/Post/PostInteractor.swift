@@ -7,7 +7,7 @@ struct PostInteractor: View {
     @Environment(UniversalNavigator.self) private var navigator
     
     var status: Status
-    
+
     @Binding var isLiked: Bool
     @Binding var isReposted: Bool
     @Binding var isBookmarked: Bool
@@ -95,13 +95,13 @@ struct PostInteractor: View {
         }
     }
     
-    func syncInteractors(status: Status) {
+    private func syncInteractors(status: Status) {
         isLiked = status.reblog != nil ? status.reblog!.favourited ?? false : status.favourited ?? false
         isReposted = status.reblog != nil ? status.reblog!.reblogged ?? false : status.reblogged ?? false
         isBookmarked = status.reblog != nil ? status.reblog!.bookmarked ?? false : status.bookmarked ?? false
     }
     
-    func likePost() async throws {
+    private func likePost() async throws {
         if let client = accountManager.getClient() {
             guard client.isAuth else { fatalError("Client is not authenticated") }
             let statusId: String = status.reblog != nil ? status.reblog!.id : status.id
@@ -113,7 +113,7 @@ struct PostInteractor: View {
         }
     }
     
-    func repostPost() async throws {
+    private func repostPost() async throws {
         if let client = accountManager.getClient() {
             guard client.isAuth else { fatalError("Client is not authenticated") }
             let statusId: String = status.reblog != nil ? status.reblog!.id : status.id
@@ -125,7 +125,7 @@ struct PostInteractor: View {
         }
     }
     
-    func bookmarkPost() async throws {
+    private func bookmarkPost() async throws {
         if let client = accountManager.getClient() {
             guard client.isAuth else { fatalError("Client is not authenticated") }
             let statusId: String = status.reblog != nil ? status.reblog!.id : status.id
@@ -136,7 +136,9 @@ struct PostInteractor: View {
             syncInteractors(status: newStatus)
         }
     }
-    
+
+    // MARK: - Views
+
     @ViewBuilder
     func actionButton(_ image: String, action: @escaping () -> Void) -> some View {
         Button {

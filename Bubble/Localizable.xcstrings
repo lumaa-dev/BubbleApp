@@ -2202,6 +2202,7 @@
       }
     },
     "metrics.any.date" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2218,6 +2219,7 @@
       }
     },
     "metrics.status.count" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3270,6 +3272,16 @@
         }
       }
     },
+    "settings.privacy.policy" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        }
+      }
+    },
     "settings.privacy.restricted" : {
       "localizations" : {
         "en" : {
@@ -3766,6 +3778,12 @@
           }
         }
       }
+    },
+    "shop.features.intelligent" : {
+
+    },
+    "shop.features.intelligent.description" : {
+
     },
     "shop.features.more-accounts" : {
       "localizations" : {
@@ -4732,6 +4750,7 @@
       }
     },
     "status.type.direct" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4748,6 +4767,7 @@
       }
     },
     "status.type.direct-reply" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4764,6 +4784,7 @@
       }
     },
     "status.type.post" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4780,6 +4801,7 @@
       }
     },
     "status.type.reply" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4796,6 +4818,7 @@
       }
     },
     "status.type.unknown" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4903,6 +4926,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Envoyez des emails directement et instantanément au développeur"
+          }
+        }
+      }
+    },
+    "support.github" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub"
+          }
+        }
+      }
+    },
+    "support.github.create" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create an Issue"
+          }
+        }
+      }
+    },
+    "support.github.description" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creating GitHub issues helps the developer and the users track bugs and feature requests easily"
           }
         }
       }

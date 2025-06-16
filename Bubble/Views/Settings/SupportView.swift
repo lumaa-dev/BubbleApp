@@ -24,14 +24,17 @@ struct SupportView: View {
                     HStack(spacing: 10) {
                         mentionAccount
                             .listRowThreaded()
-                        
+
+                        githubSupport
+                            .listRowThreaded()
+
                         discordSupport
                             .listRowThreaded()
                         
-                        matrixSupport
-                            .listRowThreaded()
-                        
                         mailApp
+                            .listRowThreaded()
+
+                        matrixSupport
                             .listRowThreaded()
                     }
                     .scrollTargetLayout()
@@ -49,7 +52,38 @@ struct SupportView: View {
             MailView(result: $mailResult)
         }
     }
-    
+
+    var githubSupport: some View {
+        ZStack {
+            VStack(alignment: .center) {
+                Image("GitHubMark")
+                    .mark()
+
+                Text("support.github")
+                    .font(.title.bold())
+
+                Text("support.github.description")
+                    .padding(.horizontal)
+                    .lineLimit(3, reservesSpace: true)
+
+                Button {
+                    let githubUrl = URL(string: "https://github.com/lumaa-dev/BubbleApp/issues/new/choose")
+                    openURL(githubUrl!)
+                } label: {
+                    Text("support.github.create")
+                        .foregroundStyle(Color(uiColor: UIColor.systemBackground))
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                }
+                .zIndex(10.0)
+                .buttonStyle(.borderedProminent)
+                .tint(Color(uiColor: UIColor.label))
+                .padding(.vertical)
+            }
+            .boxify(appDelegate.windowWidth - 50, bgColor: Color.blurple)
+        }
+    }
+
     var discordSupport: some View {
         ZStack {
             VStack(alignment: .center) {

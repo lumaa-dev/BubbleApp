@@ -24,6 +24,7 @@ extension AppInfo {
         case subClub
         case experimentalSettings
         case vip
+//        case intelligent
 
         //TODO: Upgrade this
         public var details: ShopView.PremiumFeature {
@@ -44,6 +45,8 @@ extension AppInfo {
                     return .init("shop.features.experimental", description: "shop.features.experimental.description", systemImage: "gearshape.fill")
                 case .vip:
                     return .init("shop.features.vip", description: "shop.features.vip.description", systemImage: "crown")
+//                case .intelligent:
+//                    return .init("shop.features.intelligent", description: "shop.features.intelligent.description", systemImage: "brain.fill")
             }
         }
     }

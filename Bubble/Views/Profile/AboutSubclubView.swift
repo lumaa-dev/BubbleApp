@@ -61,7 +61,7 @@ struct AboutSubclubView: View {
             .buttonStyle(LargeButton(filled: true, filledColor: Color.subClub))
         }
         .frame(width: appDelegate.windowWidth)
-        .presentationDetents([.medium])
+        .presentationDetents([.fraction(0.6)])
         .clearSheetBackground()
         .background(Material.ultraThin)
     }

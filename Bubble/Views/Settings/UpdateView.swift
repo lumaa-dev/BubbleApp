@@ -39,11 +39,11 @@ struct UpdateView: View {
     
     var features: some View {
         VStack(spacing: 60) {
-            newFeature(image: "HeroIcon", title: "Bubble+ is (finally) here!", text: "The best client subscription has finally came to us! It currently features 3 subscriptions")
+            newFeature(image: "HeroIcon", title: "Bubble+ is.. buggy...", text: "Bubble+ is down at the moment, while this is done, Bubble+ is given for free.")
 
-            newFeature(systemImage: "app.badge", title: "Notifications..?", text: "I did a little oopsie and left code for notifications... They are not here yet, but they're coming.")
+            newFeature(systemImage: "capsule", title: "Bubble v2.0.0", text: "Bubble is having its biggest rework since its release in July 2024")
 
-            newFeature(systemImage: "fireworks", title: "Happy new year!", text: "Welcome to 2025! New year, new Bubble! (Okay maybe I'm a little too early... but shhh!)")
+            newFeature(systemImage: "brain.filled.head.profile", title: "Active Brain", text: "Lumaa's been working on other fantastic projects like Cider Remote lately... Check them out!")
         }
         .frame(height: 500)
     }
