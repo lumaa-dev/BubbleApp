@@ -1402,7 +1402,7 @@
 		};
 		B9BF54052B6B6823004B24E7 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/evgenyneu/keychain-swift?tab=readme-ov-file#usage";
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
 			requirement = {
 				kind = upToNextMinorVersion;
 				minimumVersion = 21.0.0;
