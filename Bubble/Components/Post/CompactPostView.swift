@@ -4,7 +4,6 @@ import SwiftUI
 
 struct CompactPostView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    @EnvironmentObject private var navigator: Navigator
     @State var status: Status
     
     var pinned: Bool = false
@@ -21,23 +20,22 @@ struct CompactPostView: View {
     
     @State private var hasQuote: Bool = false
     @State private var quoteStatus: Status? = nil
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4.0) {
             notices
             
             statusPost(status.reblogAsAsStatus ?? status)
         }
-        .withCovers(sheetDestination: $navigator.presentedCover)
         .containerShape(Rectangle())
         .padding(.vertical, 6.0)
-        .background(postBackground())
+        .background(Color.appBackground)
         .contextMenu {
             PostMenu(status: status)
         }
         .onAppear {
             do {
-                preferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
+                preferences = try UserPreferences.loadAsCurrent()
             } catch {
                 print(error)
             }
@@ -63,7 +61,7 @@ struct CompactPostView: View {
                 VStack {
                     profilePicture
                         .onTapGesture {
-                            navigator.navigate(to: .account(acc: status.account))
+                            Navigator.shared.navigate(to: .account(acc: status.account))
                         }
                     
                     Spacer()
@@ -86,7 +84,7 @@ struct CompactPostView: View {
             } else {
                 profilePicture
                     .onTapGesture {
-                        navigator.navigate(to: .account(acc: status.account))
+                        Navigator.shared.navigate(to: .account(acc: status.account))
                     }
             }
             
@@ -99,7 +97,7 @@ struct CompactPostView: View {
                             .multilineTextAlignment(.leading)
                             .bold()
                             .onTapGesture {
-                                navigator.navigate(to: .account(acc: status.account))
+                                Navigator.shared.navigate(to: .account(acc: status.account))
                             }
                         
                         if status.inReplyToAccountId != nil {
@@ -123,7 +121,7 @@ struct CompactPostView: View {
                             .font(quoted ? .caption : .callout)
                             .contentShape(Rectangle())
                             .onTapGesture {
-                                navigator.navigate(to: .post(status: status))
+                                Navigator.shared.navigate(to: .post(status: status))
                             }
                     }
                     
@@ -179,7 +177,7 @@ struct CompactPostView: View {
                                         AVManager.configureForVideoPlayback()
                                     }
 
-                                    navigator.presentedCover = .media(attachments: status.mediaAttachments, selected: attachment)
+                                    Navigator.shared.presentedCover = .media(attachments: status.mediaAttachments, selected: attachment)
                                 }
                         }
                     }
@@ -192,7 +190,7 @@ struct CompactPostView: View {
                             AVManager.configureForVideoPlayback()
                         }
 
-                        navigator.presentedCover = .media(attachments: status.mediaAttachments, selected: status.mediaAttachments[0])
+                        Navigator.shared.presentedCover = .media(attachments: status.mediaAttachments, selected: status.mediaAttachments[0])
                     }
             }
         }
@@ -290,30 +288,10 @@ struct CompactPostView: View {
             quoteStatus = nil
         }
     }
-
-    // TODO: Different bgs for diff appearences
-
-    @ViewBuilder
-    private func postBackground() -> some View {
-        ZStack {
-            if let match = status.account.acct.firstMatch(of: /(@)?[A-Za-z0-9_]+@sub\.club/) {
-                LinearGradient(
-                    stops: [.init(color: Color.subClub, location: 0.0), .init(color: Color.appBackground, location: 0.2)],
-                    startPoint: .topTrailing,
-                    endPoint: .bottomLeading
-                )
-                .opacity(0.2) // keeping this as reference
-            } else {
-                Color.appBackground
-            }
-        }
-    }
 }
 
 #Preview {
     CompactPostView(status: Status.placeholder(forSettings: true, language: "fr"))
         .environment(AccountManager())
-        .environment(UniversalNavigator())
         .environmentObject(UserPreferences.defaultPreferences)
-        .environmentObject(Navigator())
 }

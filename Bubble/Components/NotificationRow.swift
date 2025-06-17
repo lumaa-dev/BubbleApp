@@ -2,9 +2,7 @@
 
 import SwiftUI
 
-struct NotificationRow: View {
-    @EnvironmentObject private var navigator: Navigator
-    
+struct NotificationRow: View {    
     @State private var multiPeopleSheet: Bool = false
     
     var notif: GroupedNotification
@@ -25,7 +23,7 @@ struct NotificationRow: View {
                             }
                             .padding(.horizontal, 10)
                             .onTapGesture {
-                                navigator.navigate(to: .account(acc: acc))
+                                Navigator.shared.navigate(to: .account(acc: acc))
                             }
                     } else {
                         accountCount()
@@ -86,7 +84,7 @@ struct NotificationRow: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    navigator.navigate(to: notif.status == nil ? .account(acc: notif.accounts.first!) : .post(status: notif.status!))
+                    Navigator.shared.navigate(to: notif.status == nil ? .account(acc: notif.accounts.first!) : .post(status: notif.status!))
                 }
             }
             .padding(.horizontal)
@@ -122,7 +120,7 @@ struct NotificationRow: View {
                     .padding(.vertical)
                     .onTapGesture {
                         multiPeopleSheet.toggle()
-                        navigator.navigate(to: .account(acc: acc))
+                        Navigator.shared.navigate(to: .account(acc: acc))
                     }
                 }
             }

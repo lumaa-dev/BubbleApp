@@ -17,24 +17,24 @@ struct TimelineView: View {
     @Query private var filters: [ModelFilter]
     @State private var wordsFilter: ContentFilter.WordFilter = ContentFilter.defaultFilter
     
-    @State var filter: TimelineFilter = .home
+    @State var timeline: TimelineFilter = .home
     @State var showHero: Bool = true
     @State var timelineModel: FetchTimeline // home timeline by default
     
-    init(timelineModel: FetchTimeline, filter: TimelineFilter = .home, showHero: Bool = true) {
+    init(timelineModel: FetchTimeline, timeline: TimelineFilter = .home, showHero: Bool = true) {
         self.timelineModel = timelineModel
-        self.filter = filter
+        self.timeline = timeline
         self.showHero = showHero
     }
     
-    init(filter: TimelineFilter = .home, showHero: Bool = true) {
+    init(timeline: TimelineFilter = .home, showHero: Bool = true) {
         self.timelineModel = .init(client: AccountManager.shared.forceClient())
-        self.filter = filter
+        self.timeline = timeline
         self.showHero = showHero
     }
     
     var body: some View {
-        NavigationStack(path: $navigator.path) {
+        ZStack {
             if statuses != nil {
                 if !statuses!.isEmpty {
                     statusesView
@@ -57,25 +57,6 @@ struct TimelineView: View {
                                 loadingStatuses = false
                             }
                         }
-                        .toolbar {
-                            if UserDefaults.standard.bool(forKey: "allowFilter") {
-                                ToolbarItem(placement: .secondaryAction) {
-                                    Button {
-                                        statuses = nil
-
-                                        Task {
-                                            loadingStatuses = true
-                                            statuses = await self.timelineModel.toggleContentFilter(filter: wordsFilter)
-                                            loadingStatuses = false
-                                        }
-                                    } label: {
-                                        Image(systemName: self.timelineModel.filtering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
-                                            .symbolEffect(.pulse.wholeSymbol, isActive: self.timelineModel.filtering)
-                                    }
-                                    .tint(Color(uiColor: UIColor.label))
-                                }
-                            }
-                        }
                 } else {
                     emptyView
                 }
@@ -83,17 +64,54 @@ struct TimelineView: View {
                 loadingView
             }
         }
-        .environmentObject(navigator)
+        .navigationTitle(Text(timeline.localizedTitle()))
         .background(Color.appBackground)
-        .toolbarBackground(Color.appBackground, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    Picker("timeline.pick", selection: $timeline) {
+                        ForEach(timelines, id: \.self) { t in
+                            Label {
+                                Text(t.localizedTitle())
+                            } icon: {
+                                t.image()
+                            }
+                            .id(t)
+                        }
+                    }
+                } label: {
+                    Label("timeline.pick", systemImage: "square.stack")
+                }
+            }
+
+            if UserDefaults.standard.bool(forKey: "allowFilter") {
+                ToolbarItem(placement: .secondaryAction) {
+                    Button {
+                        statuses = nil
+
+                        Task {
+                            loadingStatuses = true
+                            statuses = await self.timelineModel.toggleContentFilter(filter: wordsFilter)
+                            loadingStatuses = false
+                        }
+                    } label: {
+                        Image(systemName: self.timelineModel.filtering ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+                            .symbolEffect(.pulse.wholeSymbol, isActive: self.timelineModel.filtering)
+                    }
+                    .tint(Color(uiColor: UIColor.label))
+                }
+            }
+        }
+        .onChange(of: timeline) { _, newValue in
+            Task {
+                await self.reloadTimeline(newValue)
+            }
+        }
     }
 
     // MARK: Views
     private var statusesView: some View {
         ScrollView(showsIndicators: false) {
-            picker
-
             ForEach(statuses!, id: \.id) { status in
                 let isLast: Bool = status.id == statuses!.last?.id ?? ""
 
@@ -111,9 +129,7 @@ struct TimelineView: View {
                 }
             }
         }
-//        .padding(.top)
         .background(Color.appBackground)
-        .withAppRouter(navigator)
     }
 
     private var emptyView: some View {
@@ -121,20 +137,13 @@ struct TimelineView: View {
             Color.appBackground
                 .ignoresSafeArea()
 
-            VStack {
-                picker
-
-                ContentUnavailableView {
-                    Text("timeline.empty")
-                        .bold()
-                } description: {
-                    Text("timeline.empty.description")
-                }
-                .scrollDisabled(true)
+            ContentUnavailableView {
+                Text("timeline.empty")
+                    .bold()
+            } description: {
+                Text("timeline.empty.description")
             }
-            .scrollDisabled(true)
             .background(Color.appBackground)
-            .frame(height: 200)
         }
     }
 
@@ -163,75 +172,10 @@ struct TimelineView: View {
         }
     }
 
-    // MARK: - View Component
-    private var picker: some View {
-        VStack {
-            if showHero {
-                HStack {
-                    Spacer()
-
-                    Button {
-                        withAnimation(.easeInOut) {
-                            showPicker.toggle()
-                        }
-                    } label: {
-                        Image("HeroIcon")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 30)
-                            .padding(.bottom)
-                    }
-
-                    Spacer()
-                }
-            }
-            
-            if showPicker {
-                ViewThatFits {
-                    HStack {
-                        ForEach(timelines, id: \.self) { t in
-                            Button {
-                                Task {
-                                    await reloadTimeline(t)
-                                }
-                            } label: {
-                                Text(t.localizedTitle())
-                                    .padding(.horizontal)
-                            }
-                            .buttonStyle(LargeButton(filled: t == filter, height: 7.5))
-                            .disabled(t == filter)
-                        }
-                    }
-                    .padding(.horizontal, 7.5)
-                    
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(timelines, id: \.self) { t in
-                                Button {
-                                    Task {
-                                        await reloadTimeline(t)
-                                    }
-                                } label: {
-                                    Text(t.localizedTitle())
-                                        .padding(.horizontal)
-                                }
-                                .buttonStyle(LargeButton(filled: t == filter, height: 7.5))
-                                .disabled(t == filter)
-                            }
-                        }
-                        .padding(.horizontal, 7.5)
-                    }
-                    .padding(.vertical)
-                    .scrollIndicators(.hidden)
-                }
-            }
-        }
-    }
-
     private func reloadTimeline(_ filter: TimelineFilter) async {
         guard let client = accountManager.getClient() else { return }
         statuses = nil
-        self.filter = filter
+        self.timeline = filter
         timelineModel.setTimelineFilter(filter)
         
         Task {

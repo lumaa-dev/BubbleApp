@@ -62,8 +62,8 @@ struct PlusNecessaryView: View {
             }
 
             Button {
-                UniversalNavigator.static.presentedSheet = nil
-                UniversalNavigator.static.presentedCover = .shop
+                Navigator.shared.presentedSheet = nil
+                Navigator.shared.presentedCover = .shop
             } label: {
                 Label {
                     Text("shop.bubble-plus.learn")

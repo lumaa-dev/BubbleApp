@@ -4,7 +4,6 @@ import SwiftUI
 
 struct PostInteractor: View {
     @Environment(AccountManager.self) private var accountManager
-    @Environment(UniversalNavigator.self) private var navigator
     
     var status: Status
 
@@ -25,7 +24,7 @@ struct PostInteractor: View {
                     }
                 }
                 actionButton("bubble.right") {
-                    navigator.presentedSheet = .post(content: "@\(status.account.acct)", replyId: status.id)
+                    Navigator.shared.presentedSheet = .post(content: "@\(status.account.acct)", replyId: status.id)
                 }
                 asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
                     do {
@@ -67,7 +66,7 @@ struct PostInteractor: View {
                     }
                 }
                 actionButton("bubble.right") {
-                    navigator.presentedSheet = .post(content: "@\(status.account.acct)", replyId: status.id)
+                    Navigator.shared.presentedSheet = .post(content: "@\(status.account.acct)", replyId: status.id)
                 }
                 asyncActionButton(isReposted ? "bolt.horizontal.fill" : "bolt.horizontal") {
                     do {
@@ -176,6 +175,5 @@ struct PostInteractor: View {
     CompactPostView(status: .placeholder())
         .environment(Navigator())
         .environment(UserPreferences.defaultPreferences)
-        .environment(UniversalNavigator())
         .environment(AccountManager.shared)
 }

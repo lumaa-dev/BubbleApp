@@ -93,7 +93,24 @@ public enum TimelineFilter: Hashable, Equatable {
                 LocalizedStringKey(server)
         }
     }
-    
+
+    public func image() -> Image {
+        switch self {
+            case .home:
+                Image(systemName: "house")
+            case .local:
+                Image(systemName: "person.2.crop.square.stack")
+            case .federated:
+                Image(systemName: "globe")
+            case .trending:
+                Image(systemName: "chart.line.uptrend.xyaxis")
+            case .hashtag(_, _):
+                Image(systemName: "number")
+            default:
+                Image(systemName: "questionmark.square.dashed")
+        }
+    }
+
     public func endpoint(sinceId: String?, maxId: String?, minId: String?, offset: Int?) -> Endpoint {
         switch self {
             case .federated: return Timelines.pub(sinceId: sinceId, maxId: maxId, minId: minId, local: false)

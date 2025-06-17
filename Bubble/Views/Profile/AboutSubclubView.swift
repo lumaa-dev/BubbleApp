@@ -72,13 +72,11 @@ extension Font {
 }
 
 #Preview {
-    AccountView(account: .placeholder())
+    ProfileView(account: .placeholder())
         .sheet(isPresented: .constant(true)) {
             AboutSubclubView()
         }
         .environmentObject(UserPreferences())
         .environment(AppDelegate())
         .environment(AccountManager())
-        .environment(Navigator())
-        .environment(UniversalNavigator())
 }

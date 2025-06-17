@@ -43,7 +43,11 @@ struct PostingView: View {
 
     @State private var loadingContent: Bool = false
     @State private var postingStatus: Bool = false
-    
+
+    private var isInSheet: Bool {
+        Navigator.shared.presentedSheet?.id == SheetDestination.post().id
+    }
+
     init(initialString: String, replyId: String? = nil, editId: String? = nil) {
         self.initialString = initialString
         self.replyId = replyId
@@ -152,20 +156,26 @@ struct PostingView: View {
                 postButtons
                     .padding(.horizontal, 18)
 
+                let unpostable: Bool = postingStatus || viewModel.postText.length <= 0
                 Button {
                     postText()
                 } label: {
-                    if postingStatus {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .foregroundStyle(Color.appBackground)
-                            .tint(Color.appBackground)
-                    } else {
-                        Text("status.posting.post")
+                    ZStack {
+                        if postingStatus {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                                .foregroundStyle(Color(uiColor: UIColor.systemBackground))
+                                .tint(Color(uiColor: UIColor.systemBackground))
+                        } else {
+                            Text("status.posting.post")
+                                .foregroundStyle(Color(uiColor: UIColor.systemBackground))
+                        }
                     }
+                    .padding(.horizontal)
+                    .padding(.vertical, 6.0)
+                    .glassEffect(.regular.interactive().tint(Color(uiColor: UIColor.label)), isEnabled: !unpostable)
                 }
-                .disabled(postingStatus || viewModel.postText.length <= 0)
-                .buttonStyle(LargeButton(filled: true, height: 7.5, disabled: postingStatus || viewModel.postText.length <= 0))
+                .disabled(unpostable)
             }
             .padding()
         }
@@ -174,10 +184,12 @@ struct PostingView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button {
-                    dismiss()
-                } label: {
-                    Text("status.posting.cancel")
+                if isInSheet {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("status.posting.cancel")
+                    }
                 }
             }
             
@@ -600,7 +612,7 @@ struct PostingView: View {
                         HapticManager.playHaptics(haptics: Haptic.success)
                     } else {
                         HapticManager.playHaptics(haptics: Haptic.lock)
-                        UniversalNavigator.static.presentedSheet = .lockedFeature(.drafts)
+                        Navigator.shared.presentedSheet = .lockedFeature(.drafts)
                     }
                 } label: {
                     Label("status.drafts.add", systemImage: "plus.circle.dashed")

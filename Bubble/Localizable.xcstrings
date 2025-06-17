@@ -1222,6 +1222,22 @@
         }
       }
     },
+    "close" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer"
+          }
+        }
+      }
+    },
     "coming-soon" : {
       "localizations" : {
         "en" : {
@@ -2231,6 +2247,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nombre de publications"
+          }
+        }
+      }
+    },
+    "open.safari" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open in Safari"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir dans Safari"
           }
         }
       }
@@ -3274,9 +3306,15 @@
     },
     "settings.privacy.policy" : {
       "localizations" : {
-        "fr" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "Privacy Policy"
           }
         }
@@ -3778,12 +3816,6 @@
           }
         }
       }
-    },
-    "shop.features.intelligent" : {
-
-    },
-    "shop.features.intelligent.description" : {
-
     },
     "shop.features.more-accounts" : {
       "localizations" : {
@@ -4932,9 +4964,15 @@
     },
     "support.github" : {
       "localizations" : {
-        "fr" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "GitHub"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "GitHub"
           }
         }
@@ -4942,9 +4980,15 @@
     },
     "support.github.create" : {
       "localizations" : {
-        "fr" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Create an issue"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "Create an Issue"
           }
         }
@@ -4952,9 +4996,15 @@
     },
     "support.github.description" : {
       "localizations" : {
-        "fr" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Issues help the developer and the users track bugs, feature requests, and crashes in the public codebase"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "Creating GitHub issues helps the developer and the users track bugs and feature requests easily"
           }
         }
@@ -5120,6 +5170,86 @@
         }
       }
     },
+    "tab.activity" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications"
+          }
+        }
+      }
+    },
+    "tab.post" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Composer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compositeur"
+          }
+        }
+      }
+    },
+    "tab.profile" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil"
+          }
+        }
+      }
+    },
+    "tab.search" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discovery"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Découverte"
+          }
+        }
+      }
+    },
+    "tab.timeline" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accueil"
+          }
+        }
+      }
+    },
     "tag.posts-%lld" : {
       "localizations" : {
         "en" : {
@@ -5271,6 +5401,9 @@
           }
         }
       }
+    },
+    "timeline.pick" : {
+
     },
     "timeline.trending" : {
       "localizations" : {

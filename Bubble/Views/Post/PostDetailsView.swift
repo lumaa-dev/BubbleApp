@@ -3,7 +3,6 @@
 import SwiftUI
 
 struct PostDetailsView: View {
-    @EnvironmentObject private var navigator: Navigator
     @Environment(AccountManager.self) private var accountManager: AccountManager
     @Environment(AppDelegate.self) private var delegate: AppDelegate
     
@@ -102,7 +101,7 @@ struct PostDetailsView: View {
                     Button {
                         guard let url = app.website else { return }
 
-                        UniversalNavigator.static.presentedSheet = .safari(url: url)
+                        Navigator.shared.presentedSheet = .safari(url: url)
                     } label: {
                         Text(app.name)
                             .lineLimit(1)
@@ -136,7 +135,7 @@ struct PostDetailsView: View {
 //            await loadEmbeddedStatus()
         } catch {
             if let error = error as? ServerError, error.httpCode == 404 {
-                _ = navigator.path.popLast()
+                _ = Navigator.shared[].popLast()
             }
         }
     }

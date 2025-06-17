@@ -4,7 +4,6 @@ import SwiftUI
 
 struct ContactRow: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    @EnvironmentObject private var navigator: Navigator
     
     var cont: MessageContact = .placeholder()
     @State private var multiPeopleSheet: Bool = false
@@ -44,7 +43,7 @@ struct ContactRow: View {
                         }
                         .padding(.horizontal, 10)
                         .onTapGesture {
-                            navigator.navigate(to: .account(acc: cont.accounts[0]))
+                            Navigator.shared.navigate(to: .account(acc: cont.accounts[0]))
                         }
                 }
                 
@@ -84,7 +83,7 @@ struct ContactRow: View {
                         }
                     }
                     
-                    navigator.navigate(to: cont.lastStatus == nil ? .account(acc: cont.accounts[0]) : .post(status: cont.lastStatus!))
+                    Navigator.shared.navigate(to: cont.lastStatus == nil ? .account(acc: cont.accounts[0]) : .post(status: cont.lastStatus!))
                 }
                 
                 if cont.unread {
@@ -131,7 +130,7 @@ struct ContactRow: View {
                     .padding(.vertical)
                     .onTapGesture {
                         multiPeopleSheet.toggle()
-                        navigator.navigate(to: .account(acc: acc))
+                        Navigator.shared.navigate(to: .account(acc: acc))
                     }
                 }
             }

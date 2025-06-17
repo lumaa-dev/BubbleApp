@@ -292,7 +292,7 @@ struct AttachmentView: View {
                                 }
                             }
                         } else {
-                            UniversalNavigator.static.presentedSheet = .lockedFeature(.downloadAttachment)
+                            Navigator.shared.presentedSheet = .lockedFeature(.downloadAttachment)
                         }
                     } label: {
                         Image(systemName: "square.and.arrow.down")

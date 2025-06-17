@@ -25,7 +25,6 @@ struct AccountRow<Content : View>: View {
                 Spacer()
                 
                 Button {
-                    UniversalNavigator.static.presentedSheet = nil
                     Navigator.shared.navigate(to: .account(acc: acc))
                 } label: {
                     Text("account.view")
@@ -81,6 +80,5 @@ struct AccountRow<Content : View>: View {
             EmptyView()
         }
     }
-    .environmentObject(Navigator())
     .environment(AccountManager.shared)
 }

@@ -5,69 +5,24 @@ import SwiftUI
 ///
 struct ContentView: View {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
-    
-//    private var huggingFace: HuggingFace = HuggingFace()
+
     @State private var preferences: UserPreferences = .defaultPreferences
     @State private var navigator: Navigator = .shared
-    @StateObject private var uniNavigator = UniversalNavigator.static
     @StateObject private var accountManager: AccountManager = AccountManager.shared
-    
+
     var body: some View {
-        ZStack {
-            TabView(selection: $navigator.selectedTab, content: {
-                if accountManager.getAccount() != nil {
-                    TimelineView(timelineModel: FetchTimeline(client: accountManager.forceClient()))
-                        .background(Color.appBackground)
-                        .tag(TabDestination.timeline)
-                    
-                    DiscoveryView()
-                        .background(Color.appBackground)
-                        .tag(TabDestination.search)
-                    
-                    NotificationsView()
-                        .background(Color.appBackground)
-                        .tag(TabDestination.activity)
-                    
-                    AccountView(account: accountManager.forceAccount())
-                        .background(Color.appBackground)
-                        .tag(TabDestination.profile)
-                } else {
-                    ZStack {
-                        Color.appBackground
-                            .ignoresSafeArea()
-                    }
-                }
-            })
-        }
-        .frame(maxWidth: appDelegate.windowWidth)
-        .overlay(alignment: .bottom) {
-            TabsView(canTap: $navigator.showTabbar, postButton: {
-                    uniNavigator.presentedSheet = .post(content: "", replyId: nil, editId: nil)
-            }, retapAction: {
-                navigator.path = []
-//                Navigator.shared.showTabbar.toggle()
-            })
-            .safeAreaPadding(.vertical, 10)
-            .zIndex(10)
-            .offset(
-                y: navigator.showTabbar ? 0 : CGFloat
-                    .getFontSize(from: .extraLargeTitle) * 7.5
-            )
-            .allowsHitTesting(navigator.showTabbar)
-        }
-        .withSheets(sheetDestination: $uniNavigator.presentedSheet)
-        .withCovers(sheetDestination: $uniNavigator.presentedCover)
-        .environment(uniNavigator)
+        tabView
+        .withSheets(sheetDestination: $navigator.presentedSheet)
+        .withCovers(sheetDestination: $navigator.presentedCover)
         .environment(accountManager)
         .environment(appDelegate)
         .environmentObject(preferences)
-        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             showNew()
             
             do {
                 //TODO: Like AccMan > .static
-                preferences = try UserPreferences.loadAsCurrent() ?? .defaultPreferences
+                preferences = try UserPreferences.loadAsCurrent()
             } catch {
                 print(error)
             }
@@ -86,29 +41,63 @@ struct ContentView: View {
         })
     }
 
-    private func openURL(_ url: URL) -> OpenURLAction.Result {
-        let uni = uniNavigator.handle(url: url, uni: true)
-        let nav = Navigator.shared.handle(url: url, uni: false)
+    @ViewBuilder
+    private var tabView: some View {
+        TabView(selection: $navigator.selectedTab) {
+            ForEach(TabDestination.allCases, id: \.self) { tab in
+                Tab(value: tab, role: tab == TabDestination.search ? .search : .none) {
+                    NavigationStack(path: $navigator[tab]) {
+                        rootView(tab)
+                            .withAppRouter()
+                    }
+                } label: {
+                    tab.label
+                }
+            }
+        }
+        .task {
+            await self.recognizeAccount()
+        }
+    }
 
-        return .handled
+    @ViewBuilder
+    private func rootView(_ tab: TabDestination) -> some View {
+        if let client = accountManager.getClient(), let account = accountManager.getAccount() {
+            switch tab {
+                case .timeline:
+                    TimelineView(timelineModel: FetchTimeline(client: client))
+                case .search:
+                    DiscoveryView()
+                case .post:
+                    PostingView(initialString: "")
+                case .activity:
+                    NotificationsView()
+                case .profile:
+                    ProfileView(account: account)
+            }
+        } else {
+            ProgressView()
+        }
+    }
+
+    private func openURL(_ url: URL) -> OpenURLAction.Result {
+        return Navigator.shared.handle(url: url)
     }
 
     func recognizeAccount() async {
         let appAccount: AppAccount? = AppAccount.loadAsCurrent()
         if appAccount == nil {
-            uniNavigator.presentedCover = .welcome
+            navigator.presentedCover = .welcome
         } else {
             let cli = Client(server: appAccount!.server, oauthToken: appAccount!.oauthToken)
             accountManager.setClient(cli)
-            navigator.client = cli
-            uniNavigator.client = cli
-            
+
             // Check if token is still working
             let fetched: Account? = await accountManager.fetchAccount()
             if fetched == nil {
                 accountManager.clear()
                 appAccount!.clear()
-                uniNavigator.presentedCover = .welcome
+                navigator.presentedCover = .welcome
             }
         }
     }
@@ -117,24 +106,11 @@ struct ContentView: View {
         if let lastVersion = UserDefaults.standard.string(forKey: "lastVersion") {
             if lastVersion != AppInfo.appVersion {
                 UserDefaults.standard.setValue(AppInfo.appVersion, forKey: "lastVersion")
-                uniNavigator.presentedSheet = .update
+                navigator.presentedSheet = .update
             }
         } else {
             UserDefaults.standard.setValue(AppInfo.appVersion, forKey: "lastVersion")
         }
-    }
-    
-    init() {
-        let appearance = UITabBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.stackedLayoutAppearance.normal.iconColor = .white
-        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
-        appearance.stackedLayoutAppearance.selected.iconColor = UIColor(Color.accentColor)
-        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color.accentColor)]
-        
-        UITabBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().tintColor = UIColor.label
     }
 }
 

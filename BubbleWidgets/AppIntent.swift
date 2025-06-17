@@ -151,11 +151,11 @@ struct OpenAppIntent: AppIntent {
     static var authenticationPolicy: IntentAuthenticationPolicy = .requiresLocalDeviceAuthentication
 
     func perform() async throws -> some IntentResult {
-        UniversalNavigator.static.selectedTab = .timeline
-        UniversalNavigator.static.presentedSheet = nil
+        Navigator.shared.selectedTab = .timeline
+        Navigator.shared.presentedSheet = nil
 
-        if UniversalNavigator.static.presentedCover != .welcome {
-            UniversalNavigator.static.presentedCover = nil
+        if Navigator.shared.presentedCover != .welcome {
+            Navigator.shared.presentedCover = nil
         }
 
         return .result()
@@ -172,8 +172,7 @@ struct OpenComposerIntent: AppIntent {
     static var authenticationPolicy: IntentAuthenticationPolicy = .requiresLocalDeviceAuthentication
 
     func perform() async throws -> some IntentResult {
-        UniversalNavigator.static.presentedSheet =
-            .post(content: "", replyId: nil, editId: nil)
+        Navigator.shared.presentedSheet = .post(content: "", replyId: nil, editId: nil)
         return .result()
     }
 }

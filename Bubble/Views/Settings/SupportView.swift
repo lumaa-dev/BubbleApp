@@ -4,7 +4,6 @@ import SwiftUI
 import MessageUI
 
 struct SupportView: View {
-    @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
     @Environment(AppDelegate.self) private var appDelegate: AppDelegate
     @Environment(\.openURL) private var openURL
     
@@ -159,7 +158,7 @@ struct SupportView: View {
                     .lineLimit(3, reservesSpace: true)
                 
                 Button {
-                    uniNav.presentedSheet = .post(content: "@Bubble@mastodon.online", replyId: nil, editId: nil)
+                    Navigator.shared.presentedSheet = .post(content: "@Bubble@mastodon.online", replyId: nil, editId: nil)
                 } label: {
                     Text("support.mention.post")
                         .foregroundStyle(Color(uiColor: UIColor.systemBackground))

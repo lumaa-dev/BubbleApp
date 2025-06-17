@@ -27,7 +27,7 @@ struct LargeButton: ButtonStyle {
             }
             .foregroundStyle(filled ? Color(uiColor: UIColor.systemBackground) : Color(uiColor: UIColor.label))
             .bold(filled)
-            .clipShape(.rect(cornerRadius: 15))
+            .clipShape(.capsule)
             .opacity(configuration.isPressed ? 0.3 : 1)
             .opacity(!filled && disabled ? 0.5 : 1)
             .overlay {

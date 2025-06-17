@@ -2,88 +2,57 @@
 
 import Foundation
 import SwiftUI
+import WebKit
 
 @Observable
-public class Navigator: ObservableObject {
+public class Navigator {
     public static var shared: Navigator = Navigator()
 
-    public var path: [RouterDestination] = []
-    public var presentedSheet: SheetDestination?
-    public var presentedCover: SheetDestination?
-    public var selectedTab: TabDestination {
-        set {
-            change(to: newValue)
-        }
-        get {
-            return self.currentTab
-        }
-    }
-    private var currentTab: TabDestination = .timeline
+    public var presentedSheet: SheetDestination? = nil
+    public var presentedCover: SheetDestination? = nil
+    public var selectedTab: TabDestination
+    private(set) public var path: [TabDestination : [RouterDestination]] = [:]
 
-    public var inSettings: Bool {
-        self.path.contains(RouterDestination.allSettings)
+    public subscript(_ tab: TabDestination? = nil) -> [RouterDestination] {
+        get { self.path[tab ?? self.selectedTab] ?? [] }
+        set { self.path[tab ?? self.selectedTab] = newValue }
     }
 
-    public private(set) var memorizedNav: [TabDestination : [RouterDestination]] = [:]
-    public var showTabbar: Bool {
-        get {
-            self.visiTabbar
+    public func navigate(to destination: RouterDestination, for tab: TabDestination? = nil) {
+        let t: TabDestination = tab ?? self.selectedTab
+        if self.path[t] != nil {
+            self.path[t]!.append(destination)
+        } else {
+            self.path[t] = [destination]
         }
-        set {
-            withAnimation(.spring) {
-                self.visiTabbar = newValue
+    }
+
+    /// Remove in all the tabs' paths (``path``) a certain ``RouterDestination``
+    /// - Parameter destination: The ``RouterDestination`` to remove everywhere in ``path``
+    public func filter(_ destination: RouterDestination) {
+        self.path.forEach { (key, value) in
+            if value.contains(destination) {
+                self.path[key] = self.path[key]?.filter { $0 != destination } ?? []
             }
         }
     }
-    private var visiTabbar: Bool = true
 
-    public var client: Client?
-    
-    public func navigate(to: RouterDestination) {
-        path.append(to)
-    }
-
-    /// Changes the current tab from the current ``Navigator`` class
-    func change(to tab: TabDestination) {
-        savePath()
-
-        withAnimation(.spring) {
-            loadPath(from: tab)
+    /// Resets the whole ``path``
+    public func reset() {
+        for tab in TabDestination.allCases {
+            self.path[tab] = []
         }
     }
 
-    private func savePath() {
-        let lastTab: TabDestination = self.currentTab
-        let lastPath: [RouterDestination] = self.path
-
-        memorizedNav.updateValue(lastPath, forKey: lastTab)
-    }
-
-    private func loadPath(from tab: TabDestination) {
-        if let (newTab, newPath) = memorizedNav.first(where: { $0.key == tab }).map({ [$0.key : $0.value] })?.first {
-            self.currentTab = newTab
-            self.path = newPath
-        } else {
-            print("Couldn't find Navigator data from \(tab.id), created new ones")
-            self.currentTab = tab
-            self.path = []
-        }
-    }
-
-    /// This only applies on the current path, not the saved ones in ``memorizedNav``
-    public func removeSettingsOfPath() {
-        self.path = self.path.filter({ !RouterDestination.allSettings.contains($0) })
+    init(starterTab: TabDestination = .timeline) {
+        self.selectedTab = starterTab
     }
 }
 
-/// This can be used for universal ``SheetDestination``s
-public class UniversalNavigator: Navigator {
-    public static var `static`: UniversalNavigator = UniversalNavigator()
-}
-
-public enum TabDestination: Identifiable {
+public enum TabDestination: Identifiable, Hashable, CaseIterable {
     case timeline
     case search
+    case post
     case activity
     case profile
     
@@ -93,10 +62,29 @@ public enum TabDestination: Identifiable {
                 return "timeline"
             case .search:
                 return "search"
+            case .post:
+                return "post"
             case .activity:
                 return "activity"
             case .profile:
                 return "profile"
+        }
+    }
+
+    @ViewBuilder
+    public var label: some View {
+        switch self {
+            case .timeline:
+                Label("tab.timeline", systemImage: "house")
+            case .search:
+                Label("tab.search", systemImage: "magnifyingglass")
+            case .post:
+                Label("tab.post", systemImage: "square.and.pencil")
+            case .activity:
+                Label("tab.activity", systemImage: "heart")
+            case .profile:
+                Label("tab.profile", systemImage: "person")
+
         }
     }
 }
@@ -213,7 +201,7 @@ extension RouterDestination {
 }
 
 extension View {
-    func withAppRouter(_ navigator: Navigator) -> some View {
+    func withAppRouter() -> some View {
         navigationDestination(for: RouterDestination.self) { destination in
             switch destination {
                 case .settings:
@@ -289,8 +277,7 @@ extension View {
                     AddInstanceView(logged: logged)
                         .tint(Color.accentColor)
                 case let .safari(url):
-                    SfSafariView(url: url)
-                        .ignoresSafeArea()
+                    SafariView(url: url)
                 case let .shareImage(image, status):
                     ShareSheet(image: image, status: status)
                 case .update:
