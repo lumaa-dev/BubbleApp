@@ -335,6 +335,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		B97112EE2E016AE5004E4901 /* ci_scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ci_scripts; sourceTree = "<group>"; };
 		B9FA8F4D2D0D0E770079CCD0 /* Notifications */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Notifications; sourceTree = "<group>"; };
 		B9FA8F602D0D0E790079CCD0 /* Content */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Content; sourceTree = "<group>"; };
 		B9FA8F7E2D0D0E7B0079CCD0 /* Accounts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Accounts; sourceTree = "<group>"; };
@@ -474,6 +475,7 @@
 		B9FB944E2B2DEECE00D81C07 = {
 			isa = PBXGroup;
 			children = (
+				B97112EE2E016AE5004E4901 /* ci_scripts */,
 				B9CC45B92B40AA1E001E4FA5 /* README.md */,
 				B9FB94592B2DEECE00D81C07 /* Bubble */,
 				B9C20D0E2B921C78004DC9B3 /* BubbleWidgets */,
@@ -677,6 +679,7 @@
 				B9C20D192B921C7B004DC9B3 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				B97112EE2E016AE5004E4901 /* ci_scripts */,
 				B9FA8F4D2D0D0E770079CCD0 /* Notifications */,
 				B9FA8F602D0D0E790079CCD0 /* Content */,
 				B9FA8F7E2D0D0E7B0079CCD0 /* Accounts */,
@@ -750,7 +753,7 @@
 				B93B676B2B42C94F000892E9 /* XCRemoteSwiftPackageReference "Nuke" */,
 				B93B67742B42E8AB000892E9 /* XCRemoteSwiftPackageReference "EmojiText" */,
 				B9BF54052B6B6823004B24E7 /* XCRemoteSwiftPackageReference "keychain-swift" */,
-				B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios" */,
+				B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 			);
 			productRefGroup = B9FB94582B2DEECE00D81C07 /* Products */;
 			projectDirPath = "";
@@ -1392,9 +1395,9 @@
 				minimumVersion = 3.3.0;
 			};
 		};
-		B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+		B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm";
 			requirement = {
 				kind = upToNextMinorVersion;
 				minimumVersion = 5.28.1;
@@ -1446,12 +1449,12 @@
 		};
 		B95ED2322B8707D60055F5BD /* RevenueCat */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
 			productName = RevenueCat;
 		};
 		B95ED2342B8707D60055F5BD /* RevenueCatUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
 			productName = RevenueCatUI;
 		};
 		B9A80E842C67C7C300DE3D88 /* SwiftSoup */ = {
@@ -1491,17 +1494,17 @@
 		};
 		B9A80E922C67C7C300DE3D88 /* ReceiptParser */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
 			productName = ReceiptParser;
 		};
 		B9A80E942C67C7C300DE3D88 /* RevenueCat */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
 			productName = RevenueCat;
 		};
 		B9A80E962C67C7C300DE3D88 /* RevenueCatUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			package = B95ED2312B8707D60055F5BD /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
 			productName = RevenueCatUI;
 		};
 		B9BF54062B6B6823004B24E7 /* KeychainSwift */ = {
