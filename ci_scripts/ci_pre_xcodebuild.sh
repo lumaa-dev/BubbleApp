@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail
+#set -euo pipefail
 
 echo "🔧 Preparing confidential files for build..."
 
