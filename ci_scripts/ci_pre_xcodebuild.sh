@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -euo pipefail
 
 echo "🔧 Preparing confidential files for build..."
