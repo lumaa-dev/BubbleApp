@@ -1,7 +1,13 @@
 # Security Policy
 
 ## Supported Versions
-The supported version is always the currently available [App Store](https://d.lumaa.fr/OTTpIw) version, currently being 1.4.1.
+The supported version is always the currently available [App Store](https://d.lumaa.fr/OTTpIw) version, currently being 1.4.2.
+
+## Bubble+ Terms of Service
+Make sure to read the Terms of Service of Bubble+ before buying the said product. Read it here:\
+[apps.lumaa.fr/legal/bubble/tos](https://apps.lumaa.fr/legal/bubble/tos) ([PDF Version](https://d.lumaa.fr/tosplus))
+
+The ToS applies for all versions after 1.4.1, and only applies to Bubble+ and NOT the app in itself.
 
 ## Reporting a Vulnerability
 
