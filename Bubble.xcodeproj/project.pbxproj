@@ -25,8 +25,8 @@
 		B94CF7652C8DE9AB00DFFF8F /* PlusNecessaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CF7632C8DE9AB00DFFF8F /* PlusNecessaryView.swift */; };
 		B95ED2332B8707D60055F5BD /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = B95ED2322B8707D60055F5BD /* RevenueCat */; };
 		B95ED2352B8707D60055F5BD /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = B95ED2342B8707D60055F5BD /* RevenueCatUI */; };
-		B95ED2372B87C9550055F5BD /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = B95ED2362B87C9550055F5BD /* StoreKitTestCertificate.cer */; };
 		B964F8062B9B78F4005C193D /* PostPoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = B964F8052B9B78F4005C193D /* PostPoll.swift */; };
+		B97113312E01867D004E4901 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = B97113302E01867D004E4901 /* StoreKitTestCertificate.cer */; };
 		B97491E32B6E96700098BC48 /* SymbolWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97491E22B6E96700098BC48 /* SymbolWidth.swift */; };
 		B97798892B853E6600DC869F /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97798882B853E6600DC869F /* UpdateView.swift */; };
 		B97BCE242B3DD8400044756D /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BCE232B3DD8400044756D /* HapticManager.swift */; };
@@ -243,8 +243,8 @@
 		B93B67772B42E8F0000892E9 /* TextEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEmoji.swift; sourceTree = "<group>"; };
 		B93B677B2B433A6E000892E9 /* PostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
 		B94CF7632C8DE9AB00DFFF8F /* PlusNecessaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusNecessaryView.swift; sourceTree = "<group>"; };
-		B95ED2362B87C9550055F5BD /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = StoreKitTestCertificate.cer; path = ../../../../../Downloads/StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		B964F8052B9B78F4005C193D /* PostPoll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPoll.swift; sourceTree = "<group>"; };
+		B97113302E01867D004E4901 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		B97491E22B6E96700098BC48 /* SymbolWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolWidth.swift; sourceTree = "<group>"; };
 		B97798882B853E6600DC869F /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		B97BCE232B3DD8400044756D /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
@@ -467,7 +467,7 @@
 			isa = PBXGroup;
 			children = (
 				B9DC692F2B79378400E625B9 /* BubblePlus.storekit */,
-				B95ED2362B87C9550055F5BD /* StoreKitTestCertificate.cer */,
+				B97113302E01867D004E4901 /* StoreKitTestCertificate.cer */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -785,8 +785,8 @@
 				B9AC6BD12CF341C2009C65C7 /* Secret.plist in Resources */,
 				B9DC69302B79378400E625B9 /* BubblePlus.storekit in Resources */,
 				B9FB94642B2DEECF00D81C07 /* Preview Assets.xcassets in Resources */,
+				B97113312E01867D004E4901 /* StoreKitTestCertificate.cer in Resources */,
 				B9FB94612B2DEECF00D81C07 /* Assets.xcassets in Resources */,
-				B95ED2372B87C9550055F5BD /* StoreKitTestCertificate.cer in Resources */,
 				B9FB94902B2E2B0E00D81C07 /* Localizable.xcstrings in Resources */,
 				B9CFC43B2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard in Resources */,
 			);
