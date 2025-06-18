@@ -28,15 +28,7 @@ struct LargeButton: ButtonStyle {
             .foregroundStyle(filled ? Color(uiColor: UIColor.systemBackground) : Color(uiColor: UIColor.label))
             .bold(filled)
             .clipShape(.capsule)
-            .opacity(configuration.isPressed ? 0.3 : 1)
-            .opacity(!filled && disabled ? 0.5 : 1)
-            .overlay {
-                if !filled {
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(Color(uiColor: UIColor.tertiaryLabel))
-                        .opacity(configuration.isPressed ? 0.3 : 1)
-                }
-            }
+            .glassEffect(.regular.interactive().tint(filled ? filledColor : Color.clear), in: .capsule, isEnabled: !disabled)
     }
 }
 

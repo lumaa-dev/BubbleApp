@@ -104,7 +104,7 @@ struct AboutView: View {
                     .frame(width: appDelegate.windowWidth - 50, alignment: .topLeading)
                     .padding()
                     .background(Material.bar)
-                    .clipShape(.rect(cornerRadius: 7.5))
+                    .clipShape(.rect(cornerRadius: 10.0))
                 
                 Spacer()
                     .frame(height: 10)
@@ -114,7 +114,7 @@ struct AboutView: View {
                     .frame(width: appDelegate.windowWidth - 50, alignment: .topLeading)
                     .padding()
                     .background(Material.bar)
-                    .clipShape(.rect(cornerRadius: 7.5))
+                    .clipShape(.rect(cornerRadius: 10.0))
             }
             .padding()
         }

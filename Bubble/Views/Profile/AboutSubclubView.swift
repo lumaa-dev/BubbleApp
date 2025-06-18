@@ -56,7 +56,7 @@ struct AboutSubclubView: View {
                     Text("learn.subclub")
                     Image(systemName: "arrow.up.forward.square")
                 }
-                .frame(width: appDelegate.windowWidth - 50)
+                .frame(width: appDelegate.windowWidth - 150)
             }
             .buttonStyle(LargeButton(filled: true, filledColor: Color.subClub))
         }

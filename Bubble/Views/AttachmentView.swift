@@ -5,6 +5,8 @@ import UIKit
 import AVKit
 
 struct AttachmentView: View {
+    @Namespace private var glassUnion
+
     @Environment(\.dismiss) private var dismiss
     @Environment(AppDelegate.self) private var appDelegate
     
@@ -271,141 +273,146 @@ struct AttachmentView: View {
                 .padding()
             }
             .overlay(alignment: .topTrailing) {
-                HStack(spacing: 10) {
+                self.topBar
+            }
+            .overlay(alignment: .bottom) {
+                self.bottomBar
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var topBar: some View {
+        GlassEffectContainer(spacing: 10) {
+            HStack(spacing: 10) {
+                if !(selectedAttachment?.description?.isEmpty ?? true) {
                     Button {
                         readAlt.toggle()
                     } label: {
                         Text(String("ALT"))
                             .font(.body)
                     }
-                    .realDisabled(selectedAttachment?.description?.isEmpty ?? true)
-                    
-                    Divider()
-                        .frame(height: 10)
-                    
-                    Button {
-                        if AppDelegate.premium {
-                            Task {
-                                let imgData = try await URLSession.shared.data(from: selectedAttachment?.url ?? URL.placeholder)
-                                if let img = UIImage(data: imgData.0) {
-                                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
-                                }
-                            }
-                        } else {
-                            Navigator.shared.presentedSheet = .lockedFeature(.downloadAttachment)
-                        }
-                    } label: {
-                        Image(systemName: "square.and.arrow.down")
-                    }
-                    
-                    Divider()
-                        .frame(height: 10)
-                    
-                    Menu {
-                        Button {
-                            withAnimation(.spring.speed(2.0)) {
-                                currentPos = .zero
-                                totalPos = .zero
-                                currentZoom = 0.0
-                                totalZoom = 1.0
-                            }
-                        } label: {
-                            Label("attachment.reset-move", systemImage: "arrow.up.and.down.and.arrow.left.and.right")
-                        }
-                        
-                        Divider()
-                        
-                        Button {
-                            let currentIndex = attachments.firstIndex(where: { $0.id == selectedId }) ?? 0
-                            let newIndex = loseIndex(currentIndex - 1, max: attachments.count - 1)
-                            selectedId = attachments[newIndex].id
-                        } label: {
-                            Label("attachment.previous-image", systemImage: "arrowshape.left")
-                        }
-                        .disabled(attachments.count <= 1)
-                        
-                        Button {
-                            let currentIndex = attachments.firstIndex(where: { $0.id == selectedId }) ?? 0
-                            let newIndex = loseIndex(currentIndex + 1, max: attachments.count - 1)
-                            selectedId = attachments[newIndex].id
-                        } label: {
-                            Label("attachment.next-image", systemImage: "arrowshape.right")
-                        }
-                        .disabled(attachments.count <= 1)
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .frame(height: 20)
-                    }
+                    .pill(disabled: selectedAttachment?.description?.isEmpty ?? true)
                 }
-                .pill()
-                .padding()
-            }
-            .overlay(alignment: .bottom) {
-                if let media = selectedAttachment {
-                    if media.supportedType != .image, player != nil {
-                        HStack(spacing: 10) {
-                            Button {
-                                if videoCurrent >= videoMax {
-                                    player?.seek(to: CMTime(seconds: 0, preferredTimescale: 1)) { _ in
-                                        AVManager.duckOther = true
-                                        player?.play()
 
-                                        withAnimation {
-                                            videoPlaying = true
-                                        }
-                                    }
-                                } else {
-                                    if videoPlaying {
-                                        player?.pause()
-                                        AVManager.duckOther = false
-                                    } else {
-                                        player?.play()
-                                        AVManager.duckOther = true
-                                    }
-                                }
-
-                                withAnimation {
-                                    videoPlaying.toggle()
-                                }
-                            } label: {
-                                Image(systemName: videoPlaying || videoCurrent >= videoMax ? "pause.fill" : "play.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 12.5, height: 12.5, alignment: .center)
-                                    .contentTransition(.symbolEffect(.replace.offUp.wholeSymbol, options: .nonRepeating))
+                Button {
+                    if AppDelegate.premium {
+                        Task {
+                            let imgData = try await URLSession.shared.data(from: selectedAttachment?.url ?? URL.placeholder)
+                            if let img = UIImage(data: imgData.0) {
+                                UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
                             }
-
-                            Divider()
-                                .frame(height: 10)
-
-                            progressBar
-                                .padding(3.5)
-
-                            Divider()
-                                .frame(height: 10)
-
-                            Button {
-                                if videoMuted {
-                                    player?.isMuted = false
-                                } else {
-                                    player?.isMuted = true
-                                }
-
-                                withAnimation {
-                                    videoMuted.toggle()
-                                }
-                            } label: {
-                                Image(systemName: videoMuted ? "speaker.slash.fill" : "speaker.wave.2.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 15, height: 15, alignment: .center)
-                                    .contentTransition(.symbolEffect(.replace.offUp.wholeSymbol, options: .nonRepeating))
-                            }
-                            .realDisabled(!canMute)
                         }
-                        .pill()
-                        .padding()
+                    } else {
+                        Navigator.shared.presentedSheet = .lockedFeature(.downloadAttachment)
                     }
+                } label: {
+                    Image(systemName: "square.and.arrow.down")
+                }
+                .pill(union: "topbar", namespace: self.glassUnion)
+
+                Menu {
+                    Button {
+                        withAnimation(.spring.speed(2.0)) {
+                            currentPos = .zero
+                            totalPos = .zero
+                            currentZoom = 0.0
+                            totalZoom = 1.0
+                        }
+                    } label: {
+                        Label("attachment.reset-move", systemImage: "arrow.up.and.down.and.arrow.left.and.right")
+                    }
+
+                    Divider()
+
+                    Button {
+                        let currentIndex = attachments.firstIndex(where: { $0.id == selectedId }) ?? 0
+                        let newIndex = loseIndex(currentIndex - 1, max: attachments.count - 1)
+                        selectedId = attachments[newIndex].id
+                    } label: {
+                        Label("attachment.previous-image", systemImage: "arrowshape.left")
+                    }
+                    .disabled(attachments.count <= 1)
+
+                    Button {
+                        let currentIndex = attachments.firstIndex(where: { $0.id == selectedId }) ?? 0
+                        let newIndex = loseIndex(currentIndex + 1, max: attachments.count - 1)
+                        selectedId = attachments[newIndex].id
+                    } label: {
+                        Label("attachment.next-image", systemImage: "arrowshape.right")
+                    }
+                    .disabled(attachments.count <= 1)
+                } label: {
+                    Image(systemName: "ellipsis")
+                }
+                .pill(union: "topbar", namespace: self.glassUnion)
+            }
+            .padding()
+        }
+    }
+
+    @ViewBuilder
+    private var bottomBar: some View {
+        if let media = selectedAttachment {
+            if media.supportedType != .image, player != nil {
+                GlassEffectContainer(spacing: 10) {
+                    HStack(spacing: 10) {
+                        Button {
+                            if videoCurrent >= videoMax {
+                                player?.seek(to: CMTime(seconds: 0, preferredTimescale: 1)) { _ in
+                                    AVManager.duckOther = true
+                                    player?.play()
+
+                                    withAnimation {
+                                        videoPlaying = true
+                                    }
+                                }
+                            } else {
+                                if videoPlaying {
+                                    player?.pause()
+                                    AVManager.duckOther = false
+                                } else {
+                                    player?.play()
+                                    AVManager.duckOther = true
+                                }
+                            }
+
+                            withAnimation {
+                                videoPlaying.toggle()
+                            }
+                        } label: {
+                            Image(systemName: videoPlaying || videoCurrent >= videoMax ? "pause.fill" : "play.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 12.5, height: 12.5, alignment: .center)
+                                .contentTransition(.symbolEffect(.replace.offUp.wholeSymbol, options: .nonRepeating))
+                        }
+                        .pill(union: "botbar", namespace: self.glassUnion)
+
+                        progressBar
+                            .padding(3.5)
+                            .pill(interactable: false)
+
+                        Button {
+                            if videoMuted {
+                                player?.isMuted = false
+                            } else {
+                                player?.isMuted = true
+                            }
+
+                            withAnimation {
+                                videoMuted.toggle()
+                            }
+                        } label: {
+                            Image(systemName: videoMuted ? "speaker.slash.fill" : "speaker.wave.2.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 15, height: 15, alignment: .center)
+                                .contentTransition(.symbolEffect(.replace.offUp.wholeSymbol, options: .nonRepeating))
+                        }
+                        .pill(union: "botbar", namespace: self.glassUnion, disabled: !canMute)
+                    }
+                    .padding()
                 }
             }
         }
@@ -413,7 +420,7 @@ struct AttachmentView: View {
 
     @ViewBuilder
     private var progressBar: some View {
-        if let curr = player?.currentTime(), let max = player?.currentItem?.duration {
+        if let _ = player?.currentTime(), let _ = player?.currentItem?.duration {
             GeometryReader { geo in
                 let size: CGSize = geo.size
 
@@ -444,19 +451,20 @@ struct AttachmentView: View {
 }
 
 private extension View {
-    func pill() -> some View {
-        self
+    func pill(union: String? = nil, namespace: Namespace.ID? = nil, disabled: Bool = false, interactable: Bool = true) -> some View {
+        let base = self
             .foregroundStyle(Color(uiColor: UIColor.label))
             .padding(.vertical, 7)
             .padding(.horizontal, 10)
-            .background(Material.thin)
             .clipShape(Capsule())
-    }
-    
-    func realDisabled(_ bool: Bool) -> some View {
-        self
-            .disabled(bool)
-            .opacity(bool ? 0.3 : 1.0)
+            .glassEffect(.regular.interactive(interactable), in: .capsule, isEnabled: !disabled && interactable)
+            .disabled(disabled)
+
+        if let namespace, let union {
+            return AnyView(base.glassEffectUnion(id: union, namespace: namespace))
+        } else {
+            return AnyView(base)
+        }
     }
 }
 
