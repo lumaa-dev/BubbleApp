@@ -387,7 +387,7 @@ struct AttachmentView: View {
                                 .frame(width: 12.5, height: 12.5, alignment: .center)
                                 .contentTransition(.symbolEffect(.replace.offUp.wholeSymbol, options: .nonRepeating))
                         }
-                        .pill(union: "botbar", namespace: self.glassUnion)
+                        .pill()
 
                         progressBar
                             .padding(3.5)
@@ -410,7 +410,7 @@ struct AttachmentView: View {
                                 .frame(width: 15, height: 15, alignment: .center)
                                 .contentTransition(.symbolEffect(.replace.offUp.wholeSymbol, options: .nonRepeating))
                         }
-                        .pill(union: "botbar", namespace: self.glassUnion, disabled: !canMute)
+                        .pill(disabled: !canMute)
                     }
                     .padding()
                 }
