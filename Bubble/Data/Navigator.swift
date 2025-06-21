@@ -49,12 +49,12 @@ public class Navigator {
     }
 }
 
-public enum TabDestination: Identifiable, Hashable, CaseIterable {
-    case timeline
-    case search
-    case post
-    case activity
-    case profile
+public enum TabDestination: Int, Identifiable, Hashable, CaseIterable, Sendable {
+    case timeline = 0
+    case search = 1
+    case post = 2
+    case activity = 3
+    case profile = 4
     
     public var id: String {
         switch self {

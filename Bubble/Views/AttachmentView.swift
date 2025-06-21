@@ -345,6 +345,7 @@ struct AttachmentView: View {
                 } label: {
                     Image(systemName: "ellipsis")
                 }
+                .buttonStyle(.plain)
                 .pill(union: "topbar", namespace: self.glassUnion)
             }
             .padding()

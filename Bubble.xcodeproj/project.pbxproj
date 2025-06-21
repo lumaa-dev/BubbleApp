@@ -17,10 +17,6 @@
 		B97BCE282B3ED2A80044756D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B97BCE272B3ED2A80044756D /* .gitignore */; };
 		B981DABC2E02CF4E001A6728 /* BubbleGlass.icon in Resources */ = {isa = PBXBuildFile; fileRef = B981DABB2E02CF4E001A6728 /* BubbleGlass.icon */; };
 		B98DD8D62C681FDA009F40DD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B9FB948F2B2E2B0E00D81C07 /* Localizable.xcstrings */; };
-		B98DD8D82C6821F7009F40DD /* CreatePostControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98DD8D72C6821F7009F40DD /* CreatePostControl.swift */; };
-		B98DD8D92C6821F7009F40DD /* CreatePostControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98DD8D72C6821F7009F40DD /* CreatePostControl.swift */; };
-		B9A80DDE2C67BFF800DE3D88 /* CreatePostWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A80DDD2C67BFF800DE3D88 /* CreatePostWidget.swift */; };
-		B9A80DDF2C67C27B00DE3D88 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D132B921C78004DC9B3 /* AppIntent.swift */; };
 		B9A80E0A2C67C48D00DE3D88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EBE8572B474FD600FB594D /* AppDelegate.swift */; };
 		B9A80E852C67C7C300DE3D88 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = B9A80E842C67C7C300DE3D88 /* SwiftSoup */; };
 		B9A80E872C67C7C300DE3D88 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = B9A80E862C67C7C300DE3D88 /* Nuke */; };
@@ -32,18 +28,10 @@
 		B9A80E932C67C7C300DE3D88 /* ReceiptParser in Frameworks */ = {isa = PBXBuildFile; productRef = B9A80E922C67C7C300DE3D88 /* ReceiptParser */; };
 		B9A80E952C67C7C300DE3D88 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = B9A80E942C67C7C300DE3D88 /* RevenueCat */; };
 		B9A80E972C67C7C300DE3D88 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = B9A80E962C67C7C300DE3D88 /* RevenueCatUI */; };
-		B9A80E9A2C67D56900DE3D88 /* FollowCountWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D112B921C78004DC9B3 /* FollowCountWidget.swift */; };
-		B9A80E9B2C67D56900DE3D88 /* FollowGoalWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */; };
-		B9A80E9C2C67D56900DE3D88 /* CreatePostWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A80DDD2C67BFF800DE3D88 /* CreatePostWidget.swift */; };
 		B9AC6BD12CF341C2009C65C7 /* Secret.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9AC6BD02CF341C2009C65C7 /* Secret.plist */; };
-		B9B469B02B9A275F00AD5585 /* FollowGoalWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */; };
 		B9BF54072B6B6823004B24E7 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B9BF54062B6B6823004B24E7 /* KeychainSwift */; };
 		B9C20D0B2B921C78004DC9B3 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C20D0A2B921C78004DC9B3 /* WidgetKit.framework */; };
 		B9C20D0D2B921C78004DC9B3 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C20D0C2B921C78004DC9B3 /* SwiftUI.framework */; };
-		B9C20D102B921C78004DC9B3 /* BubbleWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D0F2B921C78004DC9B3 /* BubbleWidgetsBundle.swift */; };
-		B9C20D122B921C78004DC9B3 /* FollowCountWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D112B921C78004DC9B3 /* FollowCountWidget.swift */; };
-		B9C20D142B921C78004DC9B3 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C20D132B921C78004DC9B3 /* AppIntent.swift */; };
-		B9C20D162B921C7B004DC9B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9C20D152B921C7B004DC9B3 /* Assets.xcassets */; };
 		B9C20D1A2B921C7B004DC9B3 /* BubbleWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B9C20D092B921C78004DC9B3 /* BubbleWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B9CFC43B2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9CFC43A2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard */; };
 		B9DC692D2B79362700E625B9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9DC692C2B79362700E625B9 /* StoreKit.framework */; };
@@ -56,8 +44,6 @@
 		B9FB94AD2B2F009F00D81C07 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FB94AC2B2F009F00D81C07 /* AuthenticationViewController.swift */; };
 		B9FB94B02B2F009F00D81C07 /* AuthenticationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9FB94AE2B2F009F00D81C07 /* AuthenticationViewController.xib */; };
 		B9FB94B42B2F009F00D81C07 /* BubbleAuthService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B9FB94A72B2F009F00D81C07 /* BubbleAuthService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B9FE4B502CE241DE00CE1E53 /* OpenAppControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FE4B4F2CE241DE00CE1E53 /* OpenAppControl.swift */; };
-		B9FE4B512CE241DE00CE1E53 /* OpenAppControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FE4B4F2CE241DE00CE1E53 /* OpenAppControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,19 +91,10 @@
 /* Begin PBXFileReference section */
 		B97BCE272B3ED2A80044756D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B981DABB2E02CF4E001A6728 /* BubbleGlass.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = BubbleGlass.icon; sourceTree = "<group>"; };
-		B98DD8D72C6821F7009F40DD /* CreatePostControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostControl.swift; sourceTree = "<group>"; };
-		B9A80DDD2C67BFF800DE3D88 /* CreatePostWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostWidget.swift; sourceTree = "<group>"; };
 		B9AC6BD02CF341C2009C65C7 /* Secret.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
-		B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowGoalWidget.swift; sourceTree = "<group>"; };
 		B9C20D092B921C78004DC9B3 /* BubbleWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BubbleWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9C20D0A2B921C78004DC9B3 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		B9C20D0C2B921C78004DC9B3 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		B9C20D0F2B921C78004DC9B3 /* BubbleWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleWidgetsBundle.swift; sourceTree = "<group>"; };
-		B9C20D112B921C78004DC9B3 /* FollowCountWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCountWidget.swift; sourceTree = "<group>"; };
-		B9C20D132B921C78004DC9B3 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
-		B9C20D152B921C7B004DC9B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B9C20D172B921C7B004DC9B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B9C20D582B923CDD004DC9B3 /* BubbleWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BubbleWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		B9C20D592B923D53004DC9B3 /* Bubble.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bubble.entitlements; sourceTree = "<group>"; };
 		B9CC45B92B40AA1E001E4FA5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B9CFC43A2B4F08C9004CFCB7 /* LaunchStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchStoryboard.storyboard; sourceTree = "<group>"; };
@@ -133,8 +110,26 @@
 		B9FB94AC2B2F009F00D81C07 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		B9FB94AF2B2F009F00D81C07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AuthenticationViewController.xib; sourceTree = "<group>"; };
 		B9FB94B12B2F009F00D81C07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B9FE4B4F2CE241DE00CE1E53 /* OpenAppControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAppControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B97989042E062DC800CF10A8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				BubbleWidgetsBundle.swift,
+				Info.plist,
+			);
+			target = B9FB94562B2DEECE00D81C07 /* Bubble */;
+		};
+		B97989052E062DC800CF10A8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = B9C20D082B921C78004DC9B3 /* BubbleWidgetsExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B91F4DBF2E01BF0C008810C4 /* Store */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Store; sourceTree = "<group>"; };
@@ -143,6 +138,7 @@
 		B97112EE2E016AE5004E4901 /* ci_scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ci_scripts; sourceTree = "<group>"; };
 		B97498392E01FEAB00F6D4DA /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		B97498A52E01FEB000F6D4DA /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
+		B97988F12E062DC800CF10A8 /* BubbleWidgets */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (B97989042E062DC800CF10A8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, B97989052E062DC800CF10A8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = BubbleWidgets; sourceTree = "<group>"; };
 		B981DABE2E02CF99001A6728 /* Preview Content */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Preview Content"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -194,23 +190,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B9C20D0E2B921C78004DC9B3 /* BubbleWidgets */ = {
-			isa = PBXGroup;
-			children = (
-				B9C20D582B923CDD004DC9B3 /* BubbleWidgetsExtension.entitlements */,
-				B9C20D0F2B921C78004DC9B3 /* BubbleWidgetsBundle.swift */,
-				B9C20D112B921C78004DC9B3 /* FollowCountWidget.swift */,
-				B9B469AF2B9A275F00AD5585 /* FollowGoalWidget.swift */,
-				B9A80DDD2C67BFF800DE3D88 /* CreatePostWidget.swift */,
-				B98DD8D72C6821F7009F40DD /* CreatePostControl.swift */,
-				B9FE4B4F2CE241DE00CE1E53 /* OpenAppControl.swift */,
-				B9C20D132B921C78004DC9B3 /* AppIntent.swift */,
-				B9C20D152B921C7B004DC9B3 /* Assets.xcassets */,
-				B9C20D172B921C7B004DC9B3 /* Info.plist */,
-			);
-			path = BubbleWidgets;
-			sourceTree = "<group>";
-		};
 		B9FB944E2B2DEECE00D81C07 = {
 			isa = PBXGroup;
 			children = (
@@ -218,7 +197,7 @@
 				B9CC45B92B40AA1E001E4FA5 /* README.md */,
 				B981DABB2E02CF4E001A6728 /* BubbleGlass.icon */,
 				B9FB94592B2DEECE00D81C07 /* Bubble */,
-				B9C20D0E2B921C78004DC9B3 /* BubbleWidgets */,
+				B97988F12E062DC800CF10A8 /* BubbleWidgets */,
 				B9FB94AB2B2F009F00D81C07 /* AuthService */,
 				B9FB94A82B2F009F00D81C07 /* Frameworks */,
 				B97BCE272B3ED2A80044756D /* .gitignore */,
@@ -297,6 +276,7 @@
 				B91F4DE62E01BFBB008810C4 /* Data */,
 				B97498392E01FEAB00F6D4DA /* Views */,
 				B97498A52E01FEB000F6D4DA /* Components */,
+				B97988F12E062DC800CF10A8 /* BubbleWidgets */,
 			);
 			name = BubbleWidgetsExtension;
 			packageProductDependencies = (
@@ -338,6 +318,7 @@
 				B97112EE2E016AE5004E4901 /* ci_scripts */,
 				B97498392E01FEAB00F6D4DA /* Views */,
 				B97498A52E01FEB000F6D4DA /* Components */,
+				B97988F12E062DC800CF10A8 /* BubbleWidgets */,
 				B981DABE2E02CF99001A6728 /* Preview Content */,
 			);
 			name = Bubble;
@@ -428,7 +409,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B98DD8D62C681FDA009F40DD /* Localizable.xcstrings in Resources */,
-				B9C20D162B921C7B004DC9B3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,14 +440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9C20D122B921C78004DC9B3 /* FollowCountWidget.swift in Sources */,
-				B9A80DDE2C67BFF800DE3D88 /* CreatePostWidget.swift in Sources */,
-				B9C20D102B921C78004DC9B3 /* BubbleWidgetsBundle.swift in Sources */,
-				B9C20D142B921C78004DC9B3 /* AppIntent.swift in Sources */,
 				B9A80E0A2C67C48D00DE3D88 /* AppDelegate.swift in Sources */,
-				B9B469B02B9A275F00AD5585 /* FollowGoalWidget.swift in Sources */,
-				B98DD8D92C6821F7009F40DD /* CreatePostControl.swift in Sources */,
-				B9FE4B502CE241DE00CE1E53 /* OpenAppControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,13 +448,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9FE4B512CE241DE00CE1E53 /* OpenAppControl.swift in Sources */,
-				B98DD8D82C6821F7009F40DD /* CreatePostControl.swift in Sources */,
 				B9FB945B2B2DEECE00D81C07 /* BubbleApp.swift in Sources */,
-				B9A80DDF2C67C27B00DE3D88 /* AppIntent.swift in Sources */,
-				B9A80E9A2C67D56900DE3D88 /* FollowCountWidget.swift in Sources */,
-				B9A80E9B2C67D56900DE3D88 /* FollowGoalWidget.swift in Sources */,
-				B9A80E9C2C67D56900DE3D88 /* CreatePostWidget.swift in Sources */,
 				B9EBE8582B474FD600FB594D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

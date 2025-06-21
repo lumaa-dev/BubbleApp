@@ -92,7 +92,6 @@ struct NotificationRow: View {
                 users
                     .presentationDetents([.height(200), .medium])
                     .presentationDragIndicator(.visible)
-                    .presentationCornerRadius(25)
                     .scrollBounceBehavior(.basedOnSize)
             }
         }
@@ -225,12 +224,8 @@ struct NotificationRow: View {
         }
         .frame(minWidth: 30)
         .padding(7)
-        .background(notifColor())
         .clipShape(.circle)
-        .overlay {
-            Circle()
-                .stroke(Color.appBackground, lineWidth: 3)
-        }
+        .glassEffect(.regular.tint(notifColor()), in: .circle)
         .fixedSize()
     }
     

@@ -2,6 +2,7 @@
 
 import SwiftUI
 import SwiftData
+import FoundationModels
 import UIKit
 import PhotosUI
 
@@ -12,15 +13,22 @@ struct PostingView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
     @Environment(AppDelegate.self) private var appDelegate: AppDelegate
 
+    @Namespace private var stickyGlass
+
     @Query private var drafts: [StatusDraft]
+
+    private let session: LanguageModelSession = .init(instructions: """
+        You are a social media user, you are writing a social media post to publish online only through 500 characters.
+        You can use the provided context to write whatever social media post.
+        Don't return questions or context, only the ready-to-be-published social media post.
+        """)
 
     public var initialString: String = ""
     public var replyId: String? = nil
     public var editId: String? = nil
-    
-    @State private var viewModel: PostingView.ViewModel = PostingView.ViewModel()
-    
-    @State private var hasKeyboard: Bool = true
+
+    @State private var viewModel: ViewModel = .init()
+    @State private var hasKeyboard: Bool = false
     @State private var visibility: Visibility = .pub
     @State private var pref: UserPreferences = .defaultPreferences
     
@@ -41,6 +49,7 @@ struct PostingView: View {
     @State private var selectingDrafts: Bool = false
     @State private var selectedDraft: StatusDraft? = nil
 
+    @State private var generatingPost: Bool = false
     @State private var loadingContent: Bool = false
     @State private var postingStatus: Bool = false
 
@@ -121,6 +130,7 @@ struct PostingView: View {
                             .onFocus {
                                 selectingEmoji = false
                             }
+                            .frame(maxWidth: 250)
                             .multilineTextAlignment(.leading)
                             .font(.callout)
                             .foregroundStyle(Color(uiColor: UIColor.label))
@@ -138,14 +148,14 @@ struct PostingView: View {
                 }
                 .onChange(of: selectingEmoji) { _, new in
                     guard new == false else { return }
-                    viewModel.textView?.becomeFirstResponder()
+                    self.hasKeyboard = true
                 }
             }
         }
         .scrollDismissesKeyboard(.interactively)
         .scrollBounceBehavior(.basedOnSize)
         .scrollIndicators(.hidden)
-        .frame(maxHeight: appDelegate.windowHeight - 140)
+        .frame(maxWidth: .infinity, maxHeight: appDelegate.windowHeight - 140, alignment: .leading)
         .safeAreaInset(edge: .bottom, alignment: .leading) {
             //MARK: Buttons below
             HStack(alignment: .center) {
@@ -173,9 +183,10 @@ struct PostingView: View {
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 6.0)
-                    .glassEffect(.regular.interactive().tint(Color(uiColor: UIColor.label)), isEnabled: !unpostable)
+                    .glassEffect(.regular.interactive(!unpostable).tint(Color(uiColor: UIColor.label)))
+                    .disabled(unpostable)
+                    .opacity(unpostable ? 0.5 : 1.0)
                 }
-                .disabled(unpostable)
             }
             .padding()
         }
@@ -200,7 +211,8 @@ struct PostingView: View {
         .onAppear {
             self.pref = try! UserPreferences.loadAsCurrent()
             self.visibility = pref.defaultVisibility
-            
+            self.hasKeyboard = self.isInSheet
+
             if !initialString.isEmpty && editId == nil {
                 viewModel.append(text: initialString + " ") // add space for quick typing
             } else {
@@ -530,98 +542,119 @@ struct PostingView: View {
     
     var editorButtons: some View {
         //MARK: Action buttons
-        HStack(spacing: 18) {
-            if !self.hasPoll {
-                actionButton("photo.badge.plus") {
-                    selectingPhotos.toggle()
-                }
-                .transition(.opacity.combined(with: .move(edge: .leading)))
-                .photosPicker(isPresented: $selectingPhotos, selection: $selectedPhotos, maxSelectionCount: 4, matching: .any(of: [.images, .videos]), photoLibrary: .shared())
-                .onChange(of: selectedPhotos) { oldValue, _ in
-                    if selectedPhotos.count > 4 {
-                        selectedPhotos = selectedPhotos.prefix(4).map { $0 }
+        GlassEffectContainer(spacing: 6.0) {
+            HStack(spacing: 6.0) {
+                if !self.hasPoll {
+                    actionButton("photo.badge.plus") {
+                        selectingPhotos.toggle()
                     }
-                    
-                    let removedIDs = oldValue
-                        .filter { !selectedPhotos.contains($0) }
-                        .compactMap(\.itemIdentifier)
-                    mediaContainers.removeAll { removedIDs.contains($0.id) }
-                    
-                    let newPickerItems = selectedPhotos.filter { !oldValue.contains($0) }
-                    if !newPickerItems.isEmpty {
-                        loadingContent = true
-                        Task {
-                            for item in newPickerItems {
-                                initImage(for: item)
+                    .glassEffectUnion(id: "action", namespace: self.stickyGlass)
+                    .transition(.opacity.combined(with: .move(edge: .leading)))
+                    .photosPicker(isPresented: $selectingPhotos, selection: $selectedPhotos, maxSelectionCount: 4, matching: .any(of: [.images, .videos]), photoLibrary: .shared())
+                    .onChange(of: selectedPhotos) { oldValue, _ in
+                        if selectedPhotos.count > 4 {
+                            selectedPhotos = selectedPhotos.prefix(4).map { $0 }
+                        }
+
+                        let removedIDs = oldValue
+                            .filter { !selectedPhotos.contains($0) }
+                            .compactMap(\.itemIdentifier)
+                        mediaContainers.removeAll { removedIDs.contains($0.id) }
+
+                        let newPickerItems = selectedPhotos.filter { !oldValue.contains($0) }
+                        if !newPickerItems.isEmpty {
+                            loadingContent = true
+                            Task {
+                                for item in newPickerItems {
+                                    initImage(for: item)
+                                }
                             }
                         }
                     }
+                    .tint(Color.blue)
                 }
-                .tint(Color.blue)
-            }
-            
-            if mediaContainers.isEmpty || selectedPhotos.isEmpty {
-                actionButton("checklist") {
-                    withAnimation(.spring) {
-                        self.hasPoll.toggle()
+
+                if mediaContainers.isEmpty || selectedPhotos.isEmpty {
+                    actionButton("checklist") {
+                        withAnimation(.spring) {
+                            self.hasPoll.toggle()
+                        }
+                    }
+                    .glassEffectUnion(id: "action", namespace: self.stickyGlass)
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+                }
+
+                actionButton("face.smiling") {
+                    self.hasKeyboard.toggle()
+                    selectingEmoji.toggle()
+                }
+                .glassEffectUnion(id: "action", namespace: self.stickyGlass)
+
+                actionMenu("apple.intelligence") {
+                    ForEach(PostGeneration.allCases) { ai in
+                        if ai == .smartReply {
+                            Divider()
+                        }
+                        
+                        Button {
+                            Task {
+                                await self.generateText(type: ai)
+                            }
+                        } label: {
+                            ai.label
+                        }
+                        .disabled(ai == .smartReply && self.replyId == nil)
                     }
                 }
-                .transition(.opacity.combined(with: .move(edge: .bottom)))
+                .glassEffectUnion(id: "action", namespace: self.stickyGlass)
+                .disabled(SystemLanguageModel.default.isAvailable || self.generatingPost)
             }
-            
-//            actionButton("number") {
-//                DispatchQueue.main.async {
-//                    viewModel.append(text: "#")
-//                }
-//            }
-            
-            let smileSf = colorScheme == .light ? "face.smiling" : "face.smiling.inverse"
-            actionButton(smileSf) {
-                viewModel.textView?.resignFirstResponder()
-                selectingEmoji.toggle()
-            }
+            .padding(.leading, 8.0)
         }
     }
 
     var postButtons: some View {
         //MARK: Post buttons
-        HStack(spacing: 18) {
-            actionMenu("plus.square.dashed") {
-                let addDisabled: Bool = self.drafts.count >= 3 && !AppDelegate.premium
+        GlassEffectContainer(spacing: 6.0) {
+            HStack(spacing: 6.0) {
+                actionMenu("plus.square.dashed") {
+                    let addDisabled: Bool = self.drafts.count >= 3 && !AppDelegate.premium
 
-                Button {
-                    selectingDrafts.toggle()
-                } label: {
-                    Label("status.drafts.open", systemImage: "pencil.and.scribble")
-                }
-
-                if addDisabled {
-                    Divider()
-                }
-
-                Button {
-                    if AppDelegate.premium || drafts.count < 3 {
-                        let newDraft: StatusDraft = .init(
-                            content: viewModel.postText.string,
-                            visibility: visibility
-                        )
-
-                        modelContext.insert(newDraft) // save draft
-                        self.fromDraft(.empty) // empty the current view
-
-                        HapticManager.playHaptics(haptics: Haptic.success)
-                    } else {
-                        HapticManager.playHaptics(haptics: Haptic.lock)
-                        Navigator.shared.presentedSheet = .lockedFeature(.drafts)
+                    Button {
+                        selectingDrafts.toggle()
+                    } label: {
+                        Label("status.drafts.open", systemImage: "pencil.and.scribble")
                     }
-                } label: {
-                    Label("status.drafts.add", systemImage: "plus.circle.dashed")
-                }
-                .disabled(addDisabled || viewModel.postText.string.isEmpty)
 
-                if addDisabled {
-                    Text("status.drafts.plus")
+                    if addDisabled {
+                        Divider()
+                    }
+
+                    Button {
+                        if AppDelegate.premium || drafts.count < 3 {
+                            let newDraft: StatusDraft = .init(
+                                content: viewModel.postText.string,
+                                visibility: visibility
+                            )
+
+                            modelContext.insert(newDraft) // save draft
+                            self.fromDraft(.empty) // empty the current view
+
+                            HapticManager.playHaptics(haptics: Haptic.success)
+                        } else {
+                            HapticManager.playHaptics(haptics: Haptic.lock)
+                            Navigator.shared.presentedSheet = .lockedFeature(.drafts)
+                        }
+                    } label: {
+                        Label("status.drafts.add", systemImage: "plus.circle.dashed")
+                    }
+                    .disabled(addDisabled || viewModel.postText.string.isEmpty)
+
+                    if addDisabled {
+                        Text("status.drafts.plus")
+                    }
                 }
+                .glassEffectUnion(id: "post", namespace: self.stickyGlass)
             }
         }
     }
@@ -633,8 +666,11 @@ struct PostingView: View {
         } label: {
             Image(systemName: image)
                 .font(.callout)
+                .foregroundStyle(Color(uiColor: UIColor.label))
+                .padding(8.0)
+                .glassEffect(.regular.interactive())
         }
-        .tint(Color.gray)
+        .buttonStyle(.plain)
     }
 
     @ViewBuilder
@@ -644,8 +680,10 @@ struct PostingView: View {
         } label: {
             Image(systemName: image)
                 .font(.callout)
+                .foregroundStyle(Color(uiColor: UIColor.label))
+                .padding(8.0)
+                .glassEffect(.regular.interactive())
         }
-        .tint(Color.gray)
     }
     
     @ViewBuilder
@@ -657,8 +695,10 @@ struct PostingView: View {
         } label: {
             Image(systemName: image)
                 .font(.callout)
+                .foregroundStyle(Color(uiColor: UIColor.label))
+                .padding(8.0)
+                .glassEffect(.regular.interactive())
         }
-        .tint(Color.gray)
     }
     
     var profilePicture: some View {
@@ -667,7 +707,35 @@ struct PostingView: View {
             .padding(.horizontal)
             .clipShape(.circle)
     }
-    
+
+    // MARK: - Foundation Models
+    private func generateText(type: PostGeneration) async {
+        guard SystemLanguageModel.default.isAvailable, !viewModel.postText.string.isEmpty else { return }
+
+        defer { withAnimation { self.generatingPost = false } }
+        withAnimation { self.generatingPost = true }
+
+        var context: String = viewModel.postText.string
+        if type == .smartReply, let replyStatus: Status = try? await self.accountManager.forceClient().get(endpoint: Statuses.status(id: self.replyId ?? "-1")) {
+            context = replyStatus.content.asRawText
+        }
+
+        let stream = session.streamResponse(to: type.prompt(context: context), options: .init(temperature: type.temperature))
+
+        do {
+            viewModel.postText = .init()
+
+            for try await partial in stream {
+                viewModel.postText = .init(string: partial)
+            }
+
+            let complete: String = try await stream.collect().content
+            viewModel.postText = .init(string: complete)
+        } catch {
+            print("[FoundationModel] \(error)")
+        }
+    }
+
     //MARK: - Image manipulations
     
     private func indexOf(container: MediaContainer) -> Int? {
@@ -871,7 +939,6 @@ extension PostingView {
     
     struct AltTextView: View {
         @Environment(AccountManager.self) private var accountManager: AccountManager
-//        @Environment(HuggingFace.self) private var huggingFace: HuggingFace
         @Environment(\.dismiss) private var dismiss
         
         var container: MediaContainer
@@ -926,7 +993,7 @@ extension PostingView {
                                 ProgressView()
                                     .progressViewStyle(.circular)
                             } else {
-                                Text("posting.alt.apply")
+                                Image(systemName: "checkmark")
                             }
                         }
                     }
@@ -935,7 +1002,7 @@ extension PostingView {
                         Button {
                             dismiss()
                         } label: {
-                            Text("posting.alt.cancel")
+                            Image(systemName: "xmark")
                         }
                     }
                 }
@@ -985,5 +1052,11 @@ extension PostingView {
         private func indexOf(container: MediaContainer) -> Int? {
             mediaContainers.firstIndex(where: { $0.id == container.id })
         }
+    }
+}
+
+extension AttributedString {
+    var string: String {
+        String(self.characters[...])
     }
 }

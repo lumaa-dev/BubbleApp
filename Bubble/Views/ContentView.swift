@@ -32,6 +32,8 @@ struct ContentView: View {
                     await recognizeAccount()
                 }
             }
+
+            BubbleShortcuts.updateAppShortcutParameters()
         }
         .environment(\.openURL, OpenURLAction { url in
             return self.openURL(url)

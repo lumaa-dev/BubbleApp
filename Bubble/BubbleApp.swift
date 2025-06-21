@@ -8,10 +8,6 @@ import RevenueCat
 struct BubbleApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
-    init() {
-        BubbleShortcuts.updateAppShortcutParameters() //might not work?
-    }
-    
     var body: some Scene {
         WindowGroup {
             ContentView()

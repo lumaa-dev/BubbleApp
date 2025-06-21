@@ -1110,6 +1110,18 @@
         }
       }
     },
+    "ai.enthusiasm" : {
+
+    },
+    "ai.promotional" : {
+
+    },
+    "ai.serious" : {
+
+    },
+    "ai.smart-reply" : {
+
+    },
     "attachment.alt.action" : {
       "localizations" : {
         "en" : {
@@ -1833,6 +1845,9 @@
         }
       }
     },
+    "intent.open.app.summary-${tab}" : {
+
+    },
     "intent.open.composer" : {
       "localizations" : {
         "en" : {
@@ -1864,6 +1879,12 @@
           }
         }
       }
+    },
+    "intent.open.tab" : {
+
+    },
+    "intent.open.tab.description" : {
+
     },
     "intent.publish.any.issue" : {
       "localizations" : {
@@ -2268,6 +2289,7 @@
       }
     },
     "posting.alt.apply" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2284,6 +2306,7 @@
       }
     },
     "posting.alt.cancel" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -5169,6 +5192,9 @@
           }
         }
       }
+    },
+    "tab" : {
+
     },
     "tab.activity" : {
       "localizations" : {

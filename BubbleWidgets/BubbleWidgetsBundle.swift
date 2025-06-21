@@ -7,11 +7,7 @@ import UIKit
 @main
 struct BubbleWidgetsBundle: WidgetBundle {
     var body: some Widget {
-        if #available(iOSApplicationExtension 18.0, *) {
-            return NewBundle
-        } else {
-            return PrevBundle
-        }
+        return NewBundle
     }
 
     @available(iOS 18.0, *)
@@ -24,13 +20,6 @@ struct BubbleWidgetsBundle: WidgetBundle {
         // iOS 18
         OpenAppControl()
         CreatePostControl()
-    }
-
-    @WidgetBundleBuilder
-    private var PrevBundle: some Widget {
-        FollowCountWidget()
-        FollowGoalWidget()
-        CreatePostWidget()
     }
 }
 
