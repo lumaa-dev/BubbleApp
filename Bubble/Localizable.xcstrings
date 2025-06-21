@@ -1111,16 +1111,68 @@
       }
     },
     "ai.enthusiasm" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enthusiastic"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enthousiaste"
+          }
+        }
+      }
     },
     "ai.promotional" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Promotional"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publicité"
+          }
+        }
+      }
     },
     "ai.serious" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serious"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sérieux"
+          }
+        }
+      }
     },
     "ai.smart-reply" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smart Reply"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réponse intelligente"
+          }
+        }
+      }
     },
     "attachment.alt.action" : {
       "localizations" : {
@@ -1846,7 +1898,20 @@
       }
     },
     "intent.open.app.summary-${tab}" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Bubble in ${tab}"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir Bubble dans ${tab}"
+          }
+        }
+      }
     },
     "intent.open.composer" : {
       "localizations" : {
@@ -1881,10 +1946,36 @@
       }
     },
     "intent.open.tab" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tab"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onglet"
+          }
+        }
+      }
     },
     "intent.open.tab.description" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The tab to open Bubble in"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’onglet dans lequel ouvrir Bubble"
+          }
+        }
+      }
     },
     "intent.publish.any.issue" : {
       "localizations" : {
@@ -5194,7 +5285,20 @@
       }
     },
     "tab" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tab"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onglet"
+          }
+        }
+      }
     },
     "tab.activity" : {
       "localizations" : {
@@ -5429,7 +5533,20 @@
       }
     },
     "timeline.pick" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose a timeline"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisir un chronologie"
+          }
+        }
+      }
     },
     "timeline.trending" : {
       "localizations" : {
