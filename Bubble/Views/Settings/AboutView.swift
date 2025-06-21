@@ -5,7 +5,6 @@ import SwiftUI
 struct AboutView: View {
     @Environment(AppDelegate.self) private var appDelegate: AppDelegate
     @Environment(\.openURL) private var openURL: OpenURLAction
-    @EnvironmentObject private var navigator: Navigator
     @ObservedObject private var userPreferences: UserPreferences = .defaultPreferences
     
     var body: some View {
@@ -37,7 +36,7 @@ struct AboutView: View {
                         .listRowBackground(Color.appBackground)
 
                     Button {
-                        UniversalNavigator.static.presentedSheet = .aboutSubclub
+                        Navigator.shared.presentedSheet = .aboutSubclub
                     } label: {
                         Text("about.subclub")
                     }
@@ -57,7 +56,7 @@ struct AboutView: View {
                         .disabled(!AppDelegate.premium)
                         .onAppear {
                             do {
-                                let oldPreferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
+                                let oldPreferences = try UserPreferences.loadAsCurrent()
 
                                 userPreferences.showExperimental = oldPreferences.showExperimental && AppDelegate.premium
                             } catch {
@@ -105,7 +104,7 @@ struct AboutView: View {
                     .frame(width: appDelegate.windowWidth - 50, alignment: .topLeading)
                     .padding()
                     .background(Material.bar)
-                    .clipShape(.rect(cornerRadius: 7.5))
+                    .clipShape(.rect(cornerRadius: 10.0))
                 
                 Spacer()
                     .frame(height: 10)
@@ -115,7 +114,7 @@ struct AboutView: View {
                     .frame(width: appDelegate.windowWidth - 50, alignment: .topLeading)
                     .padding()
                     .background(Material.bar)
-                    .clipShape(.rect(cornerRadius: 7.5))
+                    .clipShape(.rect(cornerRadius: 10.0))
             }
             .padding()
         }

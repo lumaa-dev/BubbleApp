@@ -52,13 +52,11 @@ struct EmojiSelector: View {
     }
     
     private func fetchCustomEmojis() async {
-        typealias EmojiContainer = CategorizedEmojiContainer
-        
         guard let client = accountManager.getClient() else { return }
         do {
             let customEmojis: [Emoji] = try await client.get(endpoint: CustomEmojis.customEmojis) ?? []
-            var emojiContainers: [EmojiContainer] = []
-            
+            var emojiContainers: [CategorizedEmojiContainer] = []
+
             customEmojis.reduce([String: [Emoji]]()) { currentDict, emoji in
                 var dict = currentDict
                 let category = emoji.category ?? "Custom"

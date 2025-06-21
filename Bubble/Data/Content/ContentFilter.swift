@@ -220,10 +220,10 @@ class ContentFilter {
 
 @Model
 class ModelFilter {
-    let name: String
-    let sensitive: [String]
-    let type: ContentFilter.FilterContentType
-    
+    var name: String
+    var sensitive: [String]
+    var type: ContentFilter.FilterContentType
+
     init(name: String, sensitive: [String], type: ContentFilter.FilterContentType = .words) {
         self.name = name
         self.sensitive = sensitive

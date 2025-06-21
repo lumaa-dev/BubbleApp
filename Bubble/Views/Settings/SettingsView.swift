@@ -6,11 +6,8 @@ import WatchConnectivity
 
 struct SettingsView: View {
     @Environment(\.openURL) private var openURL: OpenURLAction
-    @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
     
     @Query private var loggedAccounts: [LoggedAccount]
-    
-    @EnvironmentObject private var navigator: Navigator
     @State private var switched: Bool = false
     
     var body: some View {
@@ -26,10 +23,10 @@ struct SettingsView: View {
 
                     Button {
                         if AppDelegate.premium || loggedAccounts.count < 3 {
-                            uniNav.presentedSheet = .mastodonLogin(logged: $switched)
+                            Navigator.shared.presentedSheet = .mastodonLogin(logged: $switched)
                         } else {
                             HapticManager.playHaptics(haptics: Haptic.lock)
-                            uniNav.presentedSheet = .lockedFeature(.moreAccounts)
+                            Navigator.shared.presentedSheet = .lockedFeature(.moreAccounts)
                         }
                     } label: {
                         Label("settings.account-switcher.add", systemImage: "person.crop.circle.badge.plus")
@@ -41,8 +38,9 @@ struct SettingsView: View {
                     if new == true {
                         // switched correctly
                         HapticManager.playHaptics(haptics: Haptic.success)
-                        uniNav.selectedTab = .timeline
-                        navigator.path = []
+
+                        Navigator.shared.selectedTab = .timeline
+                        Navigator.shared.reset()
                     }
                 }
             } else {
@@ -66,19 +64,9 @@ struct SettingsView: View {
             
             otherTabs
         }
-        .withAppRouter(navigator)
-        .withCovers(sheetDestination: $navigator.presentedCover)
         .listThreaded()
         .navigationTitle("settings")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            navigator.showTabbar = false
-        }
-        .onChange(of: navigator.path) { _, newValue in
-            guard !newValue.isEmpty else { navigator.showTabbar = true; return }
-            navigator.showTabbar = newValue
-                .filter({ $0 == RouterDestination.settings }).first == nil
-        }
     }
 
     private var otherTabs: some View {
@@ -89,7 +77,7 @@ struct SettingsView: View {
                 .listRowThreaded()
 
             Button {
-                navigator.navigate(to: .about)
+                Navigator.shared.navigate(to: .about)
             } label: {
                 Label("about", systemImage: "info.circle")
             }
@@ -103,14 +91,14 @@ struct SettingsView: View {
             //                .listRowThreaded()
 
             Button {
-                navigator.navigate(to: .privacy)
+                Navigator.shared.navigate(to: .privacy)
             } label: {
                 Label("privacy", systemImage: "lock")
             }
             .listRowThreaded()
 
             Button {
-                UniversalNavigator.static.presentedCover = .shop
+                Navigator.shared.presentedCover = .shop
             } label: {
                 Label {
                     Text(String("Bubble+"))
@@ -135,7 +123,7 @@ struct SettingsView: View {
             .listRowThreaded()
 
             Button {
-                navigator.navigate(to: .support)
+                Navigator.shared.navigate(to: .support)
             } label: {
                 Label("setting.support", systemImage: "person.crop.circle.badge.questionmark")
             }
@@ -143,7 +131,7 @@ struct SettingsView: View {
 
             Button {
                 guard let server = AccountManager.shared.getClient()?.server else { return }
-                UniversalNavigator.static.presentedSheet = .safari(url: URL(string: "https://\(server)/settings/delete")!)
+                Navigator.shared.presentedSheet = .safari(url: URL(string: "https://\(server)/settings/delete")!)
             } label: {
                 Label("account.delete", systemImage: "trash")
                     .foregroundStyle(.red)
@@ -161,9 +149,10 @@ struct SettingsView: View {
             Button {
                 if loggedAccounts.count <= 1 {
                     AppAccount.clear()
-                    navigator.path = []
-                    uniNav.selectedTab = .timeline
-                    uniNav.presentedCover = .welcome
+
+                    Navigator.shared.reset()
+                    Navigator.shared.selectedTab = .timeline
+                    Navigator.shared.presentedCover = .welcome
                 } else {
                     Task {
                         if let app = loggedAccounts[0].app {
@@ -177,8 +166,8 @@ struct SettingsView: View {
                                 AccountManager.shared.setAccount(fetched!)
                                 AccountManager.shared.setClient(c)
 
-                                navigator.path = []
-                                uniNav.selectedTab = .timeline
+                                Navigator.shared.reset()
+                                Navigator.shared.selectedTab = .timeline
                             }
                         }
                     }
@@ -197,8 +186,6 @@ extension SettingsView {
     struct SwitcherRow: View {
         @Environment(\.modelContext) private var modelContext
         @Environment(AccountManager.self) private var accountManager: AccountManager
-        @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
-        @EnvironmentObject private var navigator: Navigator
         
         var logged: LoggedAccount
         var app: AppAccount
@@ -253,8 +240,8 @@ extension SettingsView {
                                         AccountManager.shared.setAccount(fetched!)
                                         AccountManager.shared.setClient(c)
                                         
-                                        navigator.path = []
-                                        uniNav.selectedTab = .timeline
+                                        Navigator.shared.reset()
+                                        Navigator.shared.selectedTab = .timeline
                                     }
                                 }
                             } label: {

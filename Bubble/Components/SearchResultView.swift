@@ -3,7 +3,6 @@
 import SwiftUI
 
 struct SearchResultView: View {
-    @EnvironmentObject private var navigator: Navigator
     @Environment(AccountManager.self) private var accountManager: AccountManager
     
     var searchResults: SearchResults
@@ -68,7 +67,7 @@ struct SearchResultView: View {
                             Task {
                                 do {
                                     let better: Account = try await client.get(endpoint: Accounts.accounts(id: account.id))
-                                    navigator.navigate(to: .account(acc: better))
+                                    Navigator.shared.navigate(to: .account(acc: better))
                                 } catch {
                                     print(error)
                                 }
@@ -109,7 +108,7 @@ struct SearchResultView: View {
                     Spacer()
                     
                     Button {
-                        navigator.navigate(to: .timeline(timeline: .hashtag(tag: tag.name, accountId: nil)))
+                        Navigator.shared.navigate(to: .timeline(timeline: .hashtag(tag: tag.name, accountId: nil)))
                     } label: {
                         Text("tag.read")
                     }

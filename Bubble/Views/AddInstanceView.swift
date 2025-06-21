@@ -50,10 +50,10 @@ struct AddInstanceView: View {
                             verify()
                         } label: {
                             Text("login.mastodon.verify")
-                                .disabled(instanceUrl.isEmpty)
                         }
                         .buttonStyle(.bordered)
-                        
+                        .disabled(instanceUrl.isEmpty)
+
                         if verifyError == true {
                             Text("login.mastodon.verify-error")
                                 .foregroundStyle(.red)
@@ -128,8 +128,6 @@ struct AddInstanceView: View {
         }, message: {
             Text("login.instance.unsafe.description")
         })
-        .scrollContentBackground(.hidden)
-        .background(Color.appBackground)
         .onChange(of: instanceUrl) { _, newValue in
             guard !self.verifying else { return }
             verified = false
@@ -266,6 +264,7 @@ struct AddInstanceView: View {
     /// Is the user input instance URL a safe instance
     /// - returns: True, if the instance isn't consider as dangerous
     private func isInstanceSafe() -> Bool {
+        guard !instanceUrl.isEmpty else { return true }
         let unsafe = blockList.contains(instanceUrl.trimmingCharacters(in: .whitespacesAndNewlines))
         return !unsafe
     }

@@ -29,6 +29,7 @@ struct ConnectView: View {
                     sheet = .mastodonLogin(logged: $logged)
                 } label: {
                     mastodon
+                        .padding(.horizontal)
                 }
                 .buttonStyle(LargeButton())
                 
@@ -43,6 +44,7 @@ struct ConnectView: View {
             .padding(.vertical, 100)
         }
         .withSheets(sheetDestination: $sheet)
+        .background(Color.appBackground)
         .safeAreaPadding()
         .onChange(of: logged) { _, newValue in
             if newValue == true {

@@ -4,10 +4,8 @@ import SwiftUI
 
 struct EditProfileView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
     @Environment(AppDelegate.self) private var appDelegate: AppDelegate
     @Environment(\.dismiss) private var dismiss: DismissAction
-    @EnvironmentObject private var navigator: Navigator
     
     @State private var display: String = ""
     @State private var bio: String = ""

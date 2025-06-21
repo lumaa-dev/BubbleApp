@@ -99,7 +99,7 @@ struct AppearenceView: View {
     
     private func loadOld() {
         do {
-            let oldPreferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
+            let oldPreferences = try UserPreferences.loadAsCurrent()
             
             userPreferences.displayedName = oldPreferences.displayedName
             userPreferences.profilePictureShape = oldPreferences.profilePictureShape

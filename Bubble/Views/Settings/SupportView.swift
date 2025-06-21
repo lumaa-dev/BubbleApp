@@ -4,7 +4,6 @@ import SwiftUI
 import MessageUI
 
 struct SupportView: View {
-    @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
     @Environment(AppDelegate.self) private var appDelegate: AppDelegate
     @Environment(\.openURL) private var openURL
     
@@ -71,13 +70,12 @@ struct SupportView: View {
                     openURL(githubUrl!)
                 } label: {
                     Text("support.github.create")
-                        .foregroundStyle(Color(uiColor: UIColor.systemBackground))
+                        .foregroundStyle(Color(uiColor: UIColor.label))
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
                 }
                 .zIndex(10.0)
-                .buttonStyle(.borderedProminent)
-                .tint(Color(uiColor: UIColor.label))
+                .supportButton(tint: Color(uiColor: UIColor.label))
                 .padding(.vertical)
             }
             .boxify(appDelegate.windowWidth - 50, bgColor: Color.blurple)
@@ -102,12 +100,12 @@ struct SupportView: View {
                     openURL(discordUrl!)
                 } label: {
                     Text("support.discord.join")
+                        .foregroundStyle(Color(uiColor: UIColor.label))
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
                 }
                 .zIndex(10.0)
-                .buttonStyle(.borderedProminent)
-                .tint(Color.blurple)
+                .supportButton(tint: Color.blurple)
                 .padding(.vertical)
             }
             .boxify(appDelegate.windowWidth - 50, bgColor: Color.blurple)
@@ -132,12 +130,12 @@ struct SupportView: View {
                     openURL(matrixUrl!)
                 } label: {
                     Text("support.matrix.join")
+                        .foregroundStyle(Color(uiColor: UIColor.label))
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
                 }
                 .zIndex(10.0)
-                .buttonStyle(.borderedProminent)
-                .tint(Color.mountainMeadow)
+                .supportButton(tint: Color.mountainMeadow)
                 .padding(.vertical)
             }
             .boxify(appDelegate.windowWidth - 50,bgColor: Color.mountainMeadow)
@@ -159,16 +157,15 @@ struct SupportView: View {
                     .lineLimit(3, reservesSpace: true)
                 
                 Button {
-                    uniNav.presentedSheet = .post(content: "@Bubble@mastodon.online", replyId: nil, editId: nil)
+                    Navigator.shared.presentedSheet = .post(content: "@Bubble@mastodon.online", replyId: nil, editId: nil)
                 } label: {
                     Text("support.mention.post")
-                        .foregroundStyle(Color(uiColor: UIColor.systemBackground))
+                        .foregroundStyle(Color(uiColor: UIColor.label))
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
                 }
                 .zIndex(10.0)
-                .buttonStyle(.borderedProminent)
-                .tint(Color(uiColor: UIColor.label))
+                .supportButton(tint: Color(uiColor: UIColor.label))
                 .padding(.vertical)
             }
             .boxify(appDelegate.windowWidth - 50, bgColor: Color(uiColor: UIColor.label))
@@ -193,13 +190,12 @@ struct SupportView: View {
                     mailComposer.toggle()
                 } label: {
                     Text("support.mail.send")
+                        .foregroundStyle(Color(uiColor: UIColor.label))
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
                 }
                 .zIndex(10.0)
-                .disabled(!MFMailComposeViewController.canSendMail())
-                .buttonStyle(.borderedProminent)
-                .tint(Color.blue)
+                .supportButton(tint: Color.blue, disabled: !MFMailComposeViewController.canSendMail())
                 .padding(.vertical)
                 .overlay(alignment: .bottom) {
                     if !MFMailComposeViewController.canSendMail() {
@@ -252,6 +248,18 @@ private extension View {
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .zIndex(1.0)
             }
+    }
+
+    @ViewBuilder
+    func supportButton(tint: Color, disabled: Bool = false) -> some View {
+        if disabled {
+            self
+                .buttonStyle(.borderedProminent)
+                .tint(Color.blurple)
+                .disabled(disabled)
+        } else {
+            self.buttonStyle(.glass)
+        }
     }
 }
 
