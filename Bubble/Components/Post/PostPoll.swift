@@ -201,7 +201,5 @@ struct PostPoll: View {
 #Preview {
     CompactPostView(status: Status.placeholder(forSettings: true, language: "fr"))
         .environment(AccountManager())
-        .environment(UniversalNavigator())
         .environmentObject(UserPreferences.defaultPreferences)
-        .environmentObject(Navigator())
 }

@@ -4,7 +4,6 @@ import SwiftUI
 
 struct PostsView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    //    @EnvironmentObject private var navigator: Navigator
 
     @State private var showPicker: Bool = false
     @State private var timelines: [TimelineFilter] = [.home, .trending, .local, .federated]

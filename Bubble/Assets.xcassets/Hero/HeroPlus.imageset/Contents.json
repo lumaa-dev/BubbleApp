@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "HeroPlus_trans_wh.png",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "HeroPlus_trans_bl.png",
+      "filename" : "GlassPlus_transp_x1024.png",
       "idiom" : "universal"
     }
   ],

@@ -41,6 +41,7 @@ struct FollowGoalWidgetView: View {
             HStack(alignment: .center, spacing: 7.5) {
                 Image(uiImage: entry.pfp)
                     .resizable()
+                    .widgetAccentedRenderingMode(.fullColor)
                     .scaledToFit()
                     .frame(width: 30, height: 30)
                     .foregroundStyle(Color.white)
@@ -69,6 +70,7 @@ struct FollowGoalWidgetView: View {
             .scaleEffect(1.5)
             .padding(.bottom)
             .tint(Double(entry.followers) >= maxGauge ? Color.green : Color.blue)
+            .widgetAccentable()
         }
     }
 
@@ -77,6 +79,7 @@ struct FollowGoalWidgetView: View {
             HStack(alignment: .center, spacing: 7.5) {
                 Image(uiImage: entry.pfp)
                     .resizable()
+                    .widgetAccentedRenderingMode(.fullColor)
                     .scaledToFit()
                     .frame(width: 30, height: 30)
                     .foregroundStyle(Color.white)
@@ -115,6 +118,7 @@ struct FollowGoalWidgetView: View {
             }
             .gaugeStyle(.linearCapacity)
             .tint(Double(entry.followers) >= maxGauge ? Color.green : Color.blue)
+            .widgetAccentable()
             .labelsHidden()
         }
     }
@@ -140,6 +144,7 @@ struct FollowGoalWidgetView: View {
             Text(entry.configuration.goal, format: .number.notation(.compactName))
         }
         .gaugeStyle(.accessoryLinearCapacity)
+        .widgetAccentable()
     }
     
     var circular: some View {
@@ -155,6 +160,7 @@ struct FollowGoalWidgetView: View {
         }
         .gaugeStyle(.accessoryCircularCapacity)
         .tint(Double(entry.followers) >= maxGauge ? Color.green : Color.blue)
+        .widgetAccentable()
     }
 }
 

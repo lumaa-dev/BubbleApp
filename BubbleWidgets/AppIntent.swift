@@ -142,26 +142,6 @@ extension Visibility: AppEnum {
     }
 }
 
-struct OpenAppIntent: AppIntent {
-    static var title: LocalizedStringResource = "intent.open.app"
-
-    static var isDiscoverable: Bool = false
-    static var openAppWhenRun: Bool = true
-
-    static var authenticationPolicy: IntentAuthenticationPolicy = .requiresLocalDeviceAuthentication
-
-    func perform() async throws -> some IntentResult {
-        UniversalNavigator.static.selectedTab = .timeline
-        UniversalNavigator.static.presentedSheet = nil
-
-        if UniversalNavigator.static.presentedCover != .welcome {
-            UniversalNavigator.static.presentedCover = nil
-        }
-
-        return .result()
-    }
-}
-
 struct OpenComposerIntent: AppIntent {
     static var title: LocalizedStringResource = "intent.open.composer"
     static var description: IntentDescription? = IntentDescription("intent.open.composer.description")
@@ -172,8 +152,7 @@ struct OpenComposerIntent: AppIntent {
     static var authenticationPolicy: IntentAuthenticationPolicy = .requiresLocalDeviceAuthentication
 
     func perform() async throws -> some IntentResult {
-        UniversalNavigator.static.presentedSheet =
-            .post(content: "", replyId: nil, editId: nil)
+        Navigator.shared.presentedSheet = .post(content: "", replyId: nil, editId: nil)
         return .result()
     }
 }
@@ -258,5 +237,57 @@ struct PublishTextIntent: AppIntent {
             .clipShape(RoundedRectangle(cornerRadius: 19.0))
             .padding(.horizontal)
         }
+    }
+}
+
+// MARK: - Global Intents
+
+extension TabDestination: AppEnum {
+    public static var typeDisplayRepresentation: TypeDisplayRepresentation = .init(name: "tab")
+
+    public static var caseDisplayRepresentations: [TabDestination : DisplayRepresentation] {
+        [
+            .timeline: DisplayRepresentation(title: "tab.timeline"),
+            .post: DisplayRepresentation(title: "tab.post"),
+            .activity: DisplayRepresentation(title: "tab.activity"),
+            .profile: DisplayRepresentation(title: "tab.profile"),
+            .search: DisplayRepresentation(title: "tab.search")
+        ]
+    }
+}
+
+struct OpenAppIntent: AppIntent {
+    static var title: LocalizedStringResource = "intent.open.app"
+
+    static var isDiscoverable: Bool = true
+    static var openAppWhenRun: Bool = true
+
+    static var authenticationPolicy: IntentAuthenticationPolicy = .requiresLocalDeviceAuthentication
+
+    static var parameterSummary: any ParameterSummary {
+        Summary("intent.open.app.summary-\(\.$tab)")
+    }
+
+    @Parameter(title: "intent.open.tab", description: "intent.open.tab.description", default: TabDestination.timeline)
+    var tab: TabDestination
+
+    init(tab: TabDestination) {
+        self.tab = tab
+    }
+
+    init() {
+        self.tab = .timeline
+    }
+
+    func perform() async throws -> some IntentResult {
+        Navigator.shared.presentedSheet = nil
+        Navigator.shared.reset()
+        Navigator.shared.selectedTab = .timeline
+        
+        if Navigator.shared.presentedCover != .welcome {
+            Navigator.shared.presentedCover = nil
+        }
+
+        return .result()
     }
 }

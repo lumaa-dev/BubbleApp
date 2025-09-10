@@ -6,8 +6,6 @@ import Nuke
 struct PrivacyView: View {
     @ObservedObject private var userPreferences: UserPreferences = .defaultPreferences
 
-    @EnvironmentObject private var navigator: Navigator
-
     @Environment(\.openURL) private var openURL: OpenURLAction
     @Environment(\.dismiss) private var dismiss: DismissAction
 
@@ -16,7 +14,7 @@ struct PrivacyView: View {
     var body: some View {
         List {
             Button {
-                navigator.navigate(to: .restricted)
+                Navigator.shared.navigate(to: .restricted)
             } label: {
                 Label("settings.privacy.restricted", systemImage: "speaker.badge.exclamationmark")
             }
@@ -24,9 +22,9 @@ struct PrivacyView: View {
             
             Button {
                 if AppDelegate.premium {
-                    navigator.navigate(to: .filter)
+                    Navigator.shared.navigate(to: .filter)
                 } else {
-                    UniversalNavigator.static.presentedSheet = .lockedFeature(.contentFilter)
+                    Navigator.shared.presentedSheet = .lockedFeature(.contentFilter)
                 }
             } label: {
                 Label("settings.privacy.filter", systemImage: "line.3.horizontal.decrease.circle")
@@ -123,7 +121,7 @@ struct PrivacyView: View {
     
     private func loadOld() {
         do {
-            let oldPreferences = try UserPreferences.loadAsCurrent() ?? UserPreferences.defaultPreferences
+            let oldPreferences = try UserPreferences.loadAsCurrent()
             
             userPreferences.defaultVisibility = oldPreferences.defaultVisibility
         } catch {

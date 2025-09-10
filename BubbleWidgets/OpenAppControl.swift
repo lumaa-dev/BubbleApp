@@ -12,7 +12,7 @@ struct OpenAppControl: ControlWidget {
 
     var body: some ControlWidgetConfiguration {
         StaticControlConfiguration(kind: kind) {
-            ControlWidgetButton(action: OpenAppIntent()) {
+            ControlWidgetButton(action: OpenAppIntent(tab: TabDestination.timeline)) {
                 Label("control.open.app", image: "hero.pen")
             }
         }

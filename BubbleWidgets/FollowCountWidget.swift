@@ -9,7 +9,7 @@ struct FollowCountWidgetView: View {
     var entry: FollowCountWidget.Provider.Entry
     
     var body: some View {
-        if let account = entry.configuration.account {
+        if entry.configuration.account != nil {
             ZStack {
                 #if os(iOS)
                 if family == WidgetFamily.systemSmall {
@@ -34,11 +34,12 @@ struct FollowCountWidgetView: View {
         VStack(alignment: .center) {
             Image(uiImage: entry.pfp)
                 .resizable()
+                .widgetAccentedRenderingMode(.fullColor)
                 .scaledToFit()
                 .frame(width: 60, height: 60)
                 .foregroundStyle(Color.white)
                 .clipShape(Circle())
-            
+
             Spacer()
             
             Text(entry.followers, format: .number.notation(.compactName))
@@ -63,6 +64,7 @@ struct FollowCountWidgetView: View {
             VStack(alignment: .center, spacing: 10) {
                 Image(uiImage: entry.pfp)
                     .resizable()
+                    .widgetAccentedRenderingMode(.fullColor)
                     .scaledToFit()
                     .frame(width: 60, height: 60)
                     .foregroundStyle(Color.white)
@@ -127,6 +129,7 @@ struct FollowCountWidget: Widget {
         .description("widget.follow-count.description")
         #if os(iOS)
         .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular])
+        .disfavoredLocations([.carPlay], for: [.systemSmall, .systemMedium, .accessoryRectangular])
         #else
         .supportedFamilies([.accessoryRectangular])
         #endif

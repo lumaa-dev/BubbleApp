@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "HeroIcon_trans_wh.png",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "HeroIcon_trans_bl.png",
+      "filename" : "BubbleGlass_transp_x1024.png",
       "idiom" : "universal"
     }
   ],

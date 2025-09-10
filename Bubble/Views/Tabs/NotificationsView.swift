@@ -20,7 +20,7 @@ struct NotificationsView: View {
     private let msgTip: MsgTip = .init()
     
     var body: some View {
-        NavigationStack(path: $navigator.path) {
+        ZStack {
             if !notifications.isEmpty {
                 ScrollView(.vertical, showsIndicators: false) {
                     LazyVStack(alignment: .leading, spacing: 15) {
@@ -31,7 +31,7 @@ struct NotificationsView: View {
                                     lastId = notifications.firstIndex(where: { $0.id == notif.id })
                                 }
                         }
-                        
+
                         if loadingNotifs {
                             ProgressView()
                                 .progressViewStyle(.circular)
@@ -47,7 +47,6 @@ struct NotificationsView: View {
                         }
                     }
                 }
-                .withAppRouter(navigator)
                 .background(Color.appBackground)
                 .refreshable {
                     await fetchNotifications(lastId: nil)
@@ -57,7 +56,7 @@ struct NotificationsView: View {
                     ToolbarItem(placement: .primaryAction) {
                         Button {
                             msgTip.invalidate(reason: .actionPerformed)
-                            navigator.navigate(to: .contacts)
+                            Navigator.shared.navigate(to: .contacts)
                         } label: {
                             Image(systemName: "paperplane")
                                 .foregroundStyle(Color(uiColor: UIColor.label))
@@ -81,20 +80,19 @@ struct NotificationsView: View {
                 ZStack {
                     Color.appBackground
                         .ignoresSafeArea()
-                    
+
                     ContentUnavailableView("activity.no-notifications", systemImage: "bolt.heart")
                 }
             } else if loadingNotifs == true && notifications.isEmpty {
                 ZStack {
                     Color.appBackground
                         .ignoresSafeArea()
-                    
+
                     ProgressView()
                         .progressViewStyle(.circular)
                 }
             }
         }
-        .environmentObject(navigator)
         .task {
             loadingNotifs = true
             await fetchNotifications(lastId: nil)

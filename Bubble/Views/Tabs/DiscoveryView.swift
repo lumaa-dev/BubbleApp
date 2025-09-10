@@ -24,75 +24,71 @@ struct DiscoveryView: View {
     // TODO: "Read" button
     
     var body: some View {
-        NavigationStack(path: $navigator.path) {
-            ScrollView {
-                if results != [:] && !querying {
-                    SearchResultView(searchResults: results[searchQuery] ?? .init(accounts: [], statuses: [], hashtags: []), query: searchQuery)
-                    
-                    Spacer()
-                        .foregroundStyle(Color.white)
-                        .padding()
-                } else if querying {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                }
-                
-                VStack(alignment: .leading) {
-                    Text("discovery.suggested.users")
-                        .multilineTextAlignment(.leading)
-                        .font(.title.bold())
-                        .padding(.horizontal)
-                    
-                    accountsView
-                    
-                    Text("discovery.trending.tags")
-                        .multilineTextAlignment(.leading)
-                        .font(.title.bold())
-                        .padding(.horizontal)
-                    
-                    tagsView
-                    
-                    Text("discovery.app")
-                        .multilineTextAlignment(.leading)
-                        .font(.title.bold())
-                        .padding(.horizontal)
-                    
-                    appView
-                        .padding(.horizontal)
-                    
-                    Text("discovery.trending.posts")
-                        .multilineTextAlignment(.leading)
-                        .font(.title.bold())
-                        .padding(.horizontal)
-                    
-                    statusView
-                }
+        ScrollView {
+            if results != [:] && !querying {
+                SearchResultView(searchResults: results[searchQuery] ?? .init(accounts: [], statuses: [], hashtags: []), query: searchQuery)
+
+                Spacer()
+                    .foregroundStyle(Color.white)
+                    .padding()
+            } else if querying {
+                ProgressView()
+                    .progressViewStyle(.circular)
             }
-            .listThreaded()
-            .submitLabel(.search)
-            .task(id: searchQuery) {
-                if !searchQuery.isEmpty {
-                    querying = true
-                    await search()
-                    querying = false
-                } else {
-                    querying = false
-                    results = [:]
-                }
+
+            VStack(alignment: .leading) {
+                Text("discovery.suggested.users")
+                    .multilineTextAlignment(.leading)
+                    .font(.title.bold())
+                    .padding(.horizontal)
+
+                accountsView
+
+                Text("discovery.trending.tags")
+                    .multilineTextAlignment(.leading)
+                    .font(.title.bold())
+                    .padding(.horizontal)
+
+                tagsView
+
+                Text("discovery.app")
+                    .multilineTextAlignment(.leading)
+                    .font(.title.bold())
+                    .padding(.horizontal)
+
+                appView
+                    .padding(.horizontal)
+
+                Text("discovery.trending.posts")
+                    .multilineTextAlignment(.leading)
+                    .font(.title.bold())
+                    .padding(.horizontal)
+
+                statusView
             }
-            .onChange(of: currentTokens) { old, new in
-                guard new.count > 1 else { return }
-                let newToken = new.last ?? allTokens[1]
-                
-                currentTokens = [newToken]
-            }
-            .searchable(text: $searchQuery, tokens: $currentTokens, suggestedTokens: .constant(allTokens), prompt: Text("discovery.search.prompt")) { token in
-                Label(token.name, systemImage: token.image)
-            }
-            .withAppRouter(navigator)
-            .navigationTitle(Text("discovery"))
         }
-        .environmentObject(navigator)
+        .listThreaded()
+        .submitLabel(.search)
+        .task(id: searchQuery) {
+            if !searchQuery.isEmpty {
+                querying = true
+                await search()
+                querying = false
+            } else {
+                querying = false
+                results = [:]
+            }
+        }
+        .onChange(of: currentTokens) { old, new in
+            guard new.count > 1 else { return }
+            let newToken = new.last ?? allTokens[1]
+
+            currentTokens = [newToken]
+        }
+        .searchable(text: $searchQuery, tokens: $currentTokens, suggestedTokens: .constant(allTokens), prompt: Text("discovery.search.prompt")) { token in
+            Label(token.name, systemImage: token.image)
+        }
+        .navigationTitle(Text("discovery"))
         .task {
             await fetchTrending()
         }
@@ -123,7 +119,7 @@ struct DiscoveryView: View {
                                 Task {
                                     do {
                                         let better: Account = try await client.get(endpoint: Accounts.accounts(id: account.id))
-                                        navigator.navigate(to: .account(acc: better))
+                                        Navigator.shared.navigate(to: .account(acc: better))
                                     } catch {
                                         print(error)
                                     }
@@ -201,7 +197,7 @@ struct DiscoveryView: View {
                         Spacer()
 
                         Button {
-                            navigator.navigate(to: .timeline(timeline: .hashtag(tag: tag.name, accountId: nil)))
+                            Navigator.shared.navigate(to: .timeline(timeline: .hashtag(tag: tag.name, accountId: nil)))
                         } label: {
                             Text("tag.read")
                         }
@@ -249,7 +245,6 @@ struct DiscoveryView: View {
 
                 CompactPostView(status: status)
                     .padding(.vertical)
-                    .environmentObject(navigator)
             }
         }
     }

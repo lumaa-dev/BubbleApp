@@ -4,7 +4,6 @@ import SwiftUI
 
 struct ContactsView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    @EnvironmentObject private var navigator: Navigator
     
     @State private var contacts: [MessageContact] = []
     @State private var fetching: Bool = false

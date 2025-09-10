@@ -4,7 +4,6 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct PostMenu: View {
-    @Environment(UniversalNavigator.self) private var navigator
     @Environment(AccountManager.self) private var accountManager
     @Environment(\.openURL) private var openURL
     @Environment(\.dismiss) private var dismiss
@@ -13,7 +12,7 @@ struct PostMenu: View {
     
     var status: Status
     private var pref: UserPreferences {
-        try! UserPreferences.loadAsCurrent() ?? .defaultPreferences
+        try! UserPreferences.loadAsCurrent()
     }
     
     private var isOwner: Bool {
@@ -57,7 +56,7 @@ struct PostMenu: View {
         ownerAct
 
         Button(role: .destructive) {
-            navigator.presentedSheet = .reportStatus(status: status)
+            Navigator.shared.presentedSheet = .reportStatus(status: status)
         } label: {
             Label("status.menu.report", systemImage: "exclamationmark.triangle.fill")
         }
@@ -75,7 +74,7 @@ struct PostMenu: View {
             }
 
             Button {
-                navigator.presentedSheet = .post(content: status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText, replyId: nil, editId: status.reblogAsAsStatus?.id ?? status.id)
+                Navigator.shared.presentedSheet = .post(content: status.reblogAsAsStatus?.content.asRawText ?? status.content.asRawText, replyId: nil, editId: status.reblogAsAsStatus?.id ?? status.id)
             } label: {
                 Label("status.menu.edit", systemImage: "pencil.and.scribble")
             }
@@ -119,27 +118,23 @@ struct PostMenu: View {
                 .background(Color.appBackground)
         }
         .environment(\.colorScheme, colorScheme == .dark ? .dark : .light)
-        .environment(UniversalNavigator())
         .environment(AccountManager())
         .environment(AppDelegate())
         .environment(pref)
-        .environmentObject(Navigator())
         
         let render = ImageRenderer(content: view)
         render.scale = displayScale
         render.isOpaque = false
         
         if let image = render.uiImage {
-            navigator.presentedSheet = .shareImage(image: image, status: status)
+            Navigator.shared.presentedSheet = .shareImage(image: image, status: status)
         }
     }
     
     private func deleteStatus() async {
         if let client = accountManager.getClient() {
             _ = try? await client.delete(endpoint: Statuses.status(id: status.id))
-            if navigator.path.last == .post(status: status) {
-                dismiss()
-            }
+            Navigator.shared.filter(.post(status: status))
         }
     }
 }

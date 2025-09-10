@@ -5,10 +5,9 @@ import SwiftUI
 
 extension Navigator {
     /// Handles the tapping links in posts, bios, etc...
-    /// - Parameter uni: Defines if the function is triggered by the ``UniversalNavigator``.
-    public func handle(url: URL, uni: Bool = false) -> OpenURLAction.Result {
+    public func handle(url: URL) -> OpenURLAction.Result {
         print("\(url.absoluteString) TAPPED")
-        guard let client = self.client else { return .systemAction }
+        guard let client = AccountManager.shared.getClient() else { return .systemAction }
 
         let path: String = url.absoluteString.replacingOccurrences(of: AppInfo.scheme, with: "") // remove all path
         let urlPath: URL = URL(string: path) ?? URL(string: "https://example.com/")!
@@ -33,10 +32,8 @@ extension Navigator {
                             let search: SearchResults = try await client.get(endpoint: Search.search(query: "\(urlPath.lastPathComponent)@\(server.replacingOccurrences(of: "www.", with: ""))", type: "accounts", offset: nil, following: nil), forceVersion: .v2)
                             print(search)
                             if let acc: Account = search.accounts.first, !search.accounts.isEmpty {
-                                guard !uni else { return OpenURLAction.Result.discarded }
                                 self.navigate(to: .account(acc: acc))
                             } else {
-                                guard uni else { return OpenURLAction.Result.discarded }
                                 self.presentedSheet = .safari(url: url)
                             }
                         } catch {
@@ -52,10 +49,8 @@ extension Navigator {
                             let search: SearchResults = try await client.get(endpoint: Search.search(query: "#\(tag)", type: "hashtags", offset: nil, following: nil), forceVersion: .v2)
                             print(search)
                             if let tgg: Tag = search.hashtags.first, !search.hashtags.isEmpty {
-                                guard !uni else { return OpenURLAction.Result.discarded }
                                 self.navigate(to: .timeline(timeline: .hashtag(tag: tgg.name, accountId: nil)))
                             } else {
-                                guard uni else { return OpenURLAction.Result.discarded }
                                 self.presentedSheet = .safari(url: url)
                             }
                         } catch {
@@ -65,7 +60,6 @@ extension Navigator {
                         return OpenURLAction.Result.handled
                     }
                 } else {
-                    guard uni else { return .discarded }
                     self.presentedSheet = .safari(url: url)
                 }
             } else {
@@ -85,14 +79,12 @@ extension Navigator {
                         client.addConnections(connections)
 
                         if client.hasConnection(with: url) {
-                            _ = self.handle(url: url, uni: uni)
+                            _ = self.handle(url: url)
                         } else {
-                            guard uni else { return OpenURLAction.Result.discarded }
                             print("clicked isn't connection")
                             self.presentedSheet = .safari(url: url)
                         }
                     } catch {
-                        guard uni else { return OpenURLAction.Result.discarded }
                         self.presentedSheet = .safari(url: url)
                     }
 
@@ -105,10 +97,8 @@ extension Navigator {
             let actions: [String] = path.split(separator: /\/+/).map({ $0.lowercased().replacing(/\?(.)+$/, with: "") })
             if !actions.isEmpty, let mainAction: String = actions.first {
                 if mainAction == "update" {
-                    guard uni else { return OpenURLAction.Result.discarded }
                     self.presentedSheet = .update
                 } else if mainAction == "new" {
-                    guard uni else { return OpenURLAction.Result.discarded }
                     var newContent: String = ""
                     if let queries: [String : String] = urlPath.getQueryParameters() {
                         newContent = queries["text"] ?? ""
@@ -116,7 +106,6 @@ extension Navigator {
 
                     self.presentedSheet = .post(content: newContent, replyId: nil, editId: nil)
                 } else if mainAction == "plus" {
-                    guard uni else { return OpenURLAction.Result.discarded }
                     self.presentedCover = .shop
                 }
             }

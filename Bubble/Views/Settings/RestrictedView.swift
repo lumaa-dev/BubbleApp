@@ -4,7 +4,6 @@ import SwiftUI
 
 struct RestrictedView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    @EnvironmentObject private var navigator: Navigator
     
     @State private var foundAccounts: [Account] = []
     @State private var foundRelations: [Relationship] = []

@@ -27,6 +27,7 @@ public class AppDelegate: NSObject, UIWindowSceneDelegate, Sendable, UIApplicati
         if let plist = AppDelegate.readSecret(), let apiKey = plist["RevenueCat_public"], let deviceId = UIDevice.current.identifierForVendor?.uuidString {
             #if DEBUG
             Purchases.logLevel = .debug
+            Purchases.shared.isSandbox
             #endif
             Purchases.configure(withAPIKey: apiKey, appUserID: deviceId)
         } else {

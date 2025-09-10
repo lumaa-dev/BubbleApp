@@ -4,10 +4,8 @@ import SwiftUI
 
 struct ProfileView: View {
     @Environment(AccountManager.self) private var accountManager: AccountManager
-    @Environment(UniversalNavigator.self) private var uniNav: UniversalNavigator
     @Environment(AppDelegate.self) private var appDelegate: AppDelegate
     @Environment(\.openURL) private var openURL: OpenURLAction
-    @EnvironmentObject private var navigator: Navigator
     
     @Namespace var accountAnims
     @Namespace var animPicture
@@ -34,7 +32,13 @@ struct ProfileView: View {
     private let animPicCurve = Animation.smooth(duration: 0.25, extraBounce: 0.0)
     
     @State public var account: Account
-    var isCurrent: Bool = false
+    var isCurrent: Bool {
+        if let loggedAccount: Account = AccountManager.shared.getAccount() {
+            return loggedAccount.id == account.id
+        } else {
+            return false
+        }
+    }
 
     var body: some View {
         ZStack (alignment: .center) {
@@ -45,38 +49,6 @@ struct ProfileView: View {
                         .toolbar(.hidden, for: .navigationBar)
                 } else {
                     wholeSmall
-                        .offset(y: isCurrent ? 50 : 0)
-                        .toolbar {
-                            if !isCurrent {
-                                ToolbarItem(placement: .primaryAction) {
-                                    accountMenu
-                                }
-                            }
-                        }
-                        .overlay(alignment: .top) {
-                            if isCurrent {
-                                HStack {
-                                    Button {
-                                        navigator.navigate(to: .support)
-                                    } label: {
-                                        Image(systemName: "info.bubble")
-                                            .font(.title2)
-                                    }
-                                    
-                                    Spacer() // middle seperation
-                                    
-                                    Button {
-                                        navigator.navigate(to: .settings)
-                                    } label: {
-                                        Image(systemName: "text.alignright")
-                                            .font(.title2)
-                                    }
-                                }
-                                .tint(Color(uiColor: UIColor.label))
-                                .safeAreaPadding()
-                                .background(Color.appBackground)
-                            }
-                        }
                 }
             } else {
                 loading
@@ -98,8 +70,29 @@ struct ProfileView: View {
         }
         .background(Color.appBackground)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(Color.appBackground, for: .navigationBar)
-        .toolbarBackground(.automatic, for: .navigationBar)
+        .toolbar {
+            if !isCurrent {
+                ToolbarItem(placement: .topBarTrailing) {
+                    accountMenu
+                }
+            } else {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        Navigator.shared.navigate(to: .support)
+                    } label: {
+                        Image(systemName: "info.bubble")
+                    }
+                }
+
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        Navigator.shared.navigate(to: .settings)
+                    } label: {
+                        Image(systemName: "gear")
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - Headers
@@ -122,7 +115,7 @@ struct ProfileView: View {
                         }
                         .onTapGesture {
                             let attachment: MediaAttachment = .init(id: account.id, type: "image", url: account.header)
-                            navigator.presentedCover = .media(attachments: [attachment], selected: attachment)
+                            Navigator.shared.presentedCover = .media(attachments: [attachment], selected: attachment)
                         }
                     }
                     
@@ -168,10 +161,10 @@ struct ProfileView: View {
                                 if !account.locked || isFollowing {
                                     Button {
                                         if let server = account.acct.split(separator: "@").last {
-                                            uniNav.presentedSheet = .post(content: "@\(account.username)@\(server)")
+                                            Navigator.shared.presentedSheet = .post(content: "@\(account.username)@\(server)")
                                         } else {
                                             let client = accountManager.getClient()
-                                            uniNav.presentedSheet = .post(content: "@\(account.username)@\(client?.server ?? "???")")
+                                            Navigator.shared.presentedSheet = .post(content: "@\(account.username)@\(client?.server ?? "???")")
                                         }
                                     } label: {
                                         HStack {
@@ -190,7 +183,7 @@ struct ProfileView: View {
 
                     if isCurrent {
                         Button {
-                            uniNav.presentedSheet = .profEdit
+                            Navigator.shared.presentedSheet = .profEdit
                         } label: {
                             HStack {
                                 Spacer()
@@ -508,7 +501,7 @@ struct ProfileView: View {
                         .multilineTextAlignment(.leading)
 
                     Button {
-                        uniNav.presentedSheet = .aboutSubclub
+                        Navigator.shared.presentedSheet = .aboutSubclub
                     } label: {
                         Text("\(server.description)")
                             .font(.caption)
@@ -527,7 +520,7 @@ struct ProfileView: View {
                         let about: [Haptic] = Haptic.lock.reversed()
                         HapticManager.playHaptics(haptics: about)
                         
-                        uniNav.presentedSheet = .aboutSubclub
+                        Navigator.shared.presentedSheet = .aboutSubclub
                     } label: {
                         Text("\(client?.server ?? "???")")
                             .font(.caption)
@@ -544,7 +537,7 @@ struct ProfileView: View {
                     .multilineTextAlignment(.leading)
 
                 Button {
-                    uniNav.presentedSheet = .aboutSubclub
+                    Navigator.shared.presentedSheet = .aboutSubclub
                 } label: {
                     Text("\(client?.server ?? "???")")
                         .font(.caption)

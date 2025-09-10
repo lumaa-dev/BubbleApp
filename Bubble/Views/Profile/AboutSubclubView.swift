@@ -56,7 +56,7 @@ struct AboutSubclubView: View {
                     Text("learn.subclub")
                     Image(systemName: "arrow.up.forward.square")
                 }
-                .frame(width: appDelegate.windowWidth - 50)
+                .frame(width: appDelegate.windowWidth - 150)
             }
             .buttonStyle(LargeButton(filled: true, filledColor: Color.subClub))
         }
@@ -72,13 +72,11 @@ extension Font {
 }
 
 #Preview {
-    AccountView(account: .placeholder())
+    ProfileView(account: .placeholder())
         .sheet(isPresented: .constant(true)) {
             AboutSubclubView()
         }
         .environmentObject(UserPreferences())
         .environment(AppDelegate())
         .environment(AccountManager())
-        .environment(Navigator())
-        .environment(UniversalNavigator())
 }

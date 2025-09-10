@@ -62,17 +62,17 @@ struct PlusNecessaryView: View {
             }
 
             Button {
-                UniversalNavigator.static.presentedSheet = nil
-                UniversalNavigator.static.presentedCover = .shop
+                Navigator.shared.presentedSheet = nil
+                Navigator.shared.presentedCover = .shop
             } label: {
                 Label {
                     Text("shop.bubble-plus.learn")
+                        .font(.title2)
                 } icon: {
                     Image("HeroPlus")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 15, height: 15)
-                        .environment(\.colorScheme, ColorScheme.light)
+                        .frame(width: 25, height: 25)
                 }
             }
             .buttonStyle(LargeButton(filled: true, height: 7.5))
@@ -82,7 +82,6 @@ struct PlusNecessaryView: View {
         .padding()
         .presentationDetents([.height(400)])
         .presentationDragIndicator(.visible)
-        .presentationCornerRadius(35.0)
         .presentationBackground(Color.appBackground)
     }
 }

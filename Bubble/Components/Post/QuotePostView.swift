@@ -3,7 +3,6 @@
 import SwiftUI
 
 struct QuotePostView: View {
-    @EnvironmentObject private var navigator: Navigator
     var status: Status
     
     var body: some View {
