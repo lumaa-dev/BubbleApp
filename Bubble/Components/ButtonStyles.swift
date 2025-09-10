@@ -28,7 +28,7 @@ struct LargeButton: ButtonStyle {
             .foregroundStyle(filled ? Color(uiColor: UIColor.systemBackground) : Color(uiColor: UIColor.label))
             .bold(filled)
             .clipShape(.capsule)
-            .glassEffect(.regular.interactive().tint(filled ? filledColor : Color.clear), in: .capsule, isEnabled: !disabled)
+            .glassEffect(.regular.interactive().tint(filled ? filledColor : Color.clear), in: .capsule)
     }
 }
 

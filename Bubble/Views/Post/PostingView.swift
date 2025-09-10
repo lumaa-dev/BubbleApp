@@ -726,10 +726,10 @@ struct PostingView: View {
             viewModel.postText = .init()
 
             for try await partial in stream {
-                viewModel.postText = .init(string: partial)
+                viewModel.postText = .init(string: partial.content)
             }
 
-            let complete: String = try await stream.collect().content
+            let complete = try await stream.collect().content
             viewModel.postText = .init(string: complete)
         } catch {
             print("[FoundationModel] \(error)")
@@ -1060,3 +1060,4 @@ extension AttributedString {
         String(self.characters[...])
     }
 }
+

@@ -458,7 +458,7 @@ private extension View {
             .padding(.vertical, 7)
             .padding(.horizontal, 10)
             .clipShape(Capsule())
-            .glassEffect(.regular.interactive(interactable), in: .capsule, isEnabled: !disabled && interactable)
+            .glassEffect(.regular.interactive(interactable), in: .capsule)
             .disabled(disabled)
 
         if let namespace, let union {
